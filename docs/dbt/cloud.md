@@ -1,1 +1,497 @@
-# test
+# Day 1
+
+## What is dbt (data build tool)?
+
+dbt is a SQL-first transformation tool that lets teams quickly and collaboratively deploy analytics code while following software engineering best practices like modularity, version control, CI/CD, and documentation. This allows your data team to safely develop and contribute to production-grade data pipelines.
+
+## Data modeling in the context of dbt
+
+In the context of dbt, data modeling refers to the process of organizing data in a structured and efficient manner to facilitate data analysis and decision-making. Data models in dbt serve as blueprints for transforming and organizing your raw data into valuable insights. Data models in their final form are usually a representation of a business or program area and live as tables or views in your data warehouse.
+
+## Common table expressions (CTEs)
+
+CTEs are widely used as a way to create modular and readable SQL queries. You can think of CTEs as temporary, named data tables within your SQL queries. CTEs facilitate modularity and readability by encapsulating complex subqueries and making them reusable throughout your data models.
+
+Often CTEs are framed as an alternative to SQL subqueries. In dbt-style SQL, CTEs are usually preferable to subqueries for a few reasons:
+
+1. They allow you to read code from top to bottom rather than inside out
+2. They allow for better reuse of intermediate results
+3. They allow you to give descriptive names to intermediate results
+
+## Data layers (staging, intermediate, marts)
+
+Data layers represent a systematic approach to data modeling by organizing data into distinct phases. dbt does a particularly great job of explaining best practices to structuring your project and data with naming conventions, example code, and reasoning on such practices in [this guide](https://docs.getdbt.com/best-practices/how-we-structure/1-guide-overview). We’ve summarized it below, but still recommend a thorough read of dbt’s guide.
+
+1. **Staging**
+   1. The staging layer is the initial point of contact for your raw data
+   2. Models in the staging layer have a one-to-one relationship with source data ensuring data integrity and providing a reliable foundation for downstream models
+   3. There are very few transformations that happen in this layer. Appropriate ones are:
+      1. Column renaming (e.g. PLACEFP to place_fips)
+      2. Data type casting (e.g. string type to numeric)
+      3. Basic computations (e.g. cents to dollars)
+   4. Staging models are often materialized ephemerally or as views (more about materializations later!)
+   5. Files are prefixed with `stg_` and saved in a subdirectory usually named “staging” of the models folder
+2. **Intermediate**
+   1. Intermediate models are where you start applying more complex transformations to your data.
+   2. This layer is used for data cleansing, feature engineering, and combining data from different sources.
+   3. Intermediate models allow you to build modular and reusable transformations following the principles of [DRY (Don’t Repeat Yourself)](https://docs.getdbt.com/terms/dry#why-write-dry-code)
+   4. Common transformations that happen in this layer are:
+      1. Table joins or unions
+      2. Data aggregations (e.g. using a function like `SUM()`)
+      3. Data pivots
+   5. Materialized as views
+   6. Files are prefixed with `int_` and saved in a subdirectory usually named “intermediate” of the models folder
+3. **Marts (or Data Marts)**
+   1. Marts are the final layer in the data modeling process, representing consumable datasets tailored for specific business or programs needs
+   2. Sometimes called the entity layer or concept layer, to emphasize that our marts are meant to represent a specific entity or concept at its unique grain
+   3. Materialized as tables or incremental models
+
+   4. Use plain English to name the file based on the concept that forms the grain of the mart e.g. `incidents.sql`, `claimants.sql`, `orders.sql`
+
+   5. Wide and denormalized
+
+## Tour of dbt Cloud user interface
+
+1. We’ll give you a brief overview of the dbt Cloud user interface:__
+   1. _File browser_
+   2. _File editor_
+   3. _Preview pane_
+   4. _Linter/Fixer_
+   5. _Build/Run_
+2. Validate your development environment:
+   1. Open the _Develop_ tab in your own environment and open `transform/models/staging/stg_pems__station_meta.sql`
+   2. Click on the _Preview_ button. You should see data in the lower panel
+3. Demonstrate the _Run_/_Build_ functionality
+4. Demonstrate the _Fix_/_Lint_ functionality
+5. Verify that the models you ran are visible in your personal schema within `TRANSFORM_DEV`
+
+## Exercise: Create your first dbt staging model
+
+Let’s create a staging model for the PEMS database! The data in `raw_prd.clearinghouse.station_meta` has been loaded from the PeMS clearinghouse without modification. But there are a few simple transformations we can do to make working with this data more ergonomic. Models involving simple transformations involving things like type conversion or column renaming are called staging models. 
+
+1. Find and switch to your branch: `<your-first-name>-dbt-training`
+2. Open `transform/models/staging/stg_pems__station_meta.sql`. You should see a simple SQL statement that just selects all of the data from the raw table
+3. Update the select statement to do the following:
+   1. Explicitly select columns by name rather than with `*`
+   2. Exclude the following columns: FILENAME, USER_ID_1, USER_ID_2, USER_ID_3, USER_ID_4
+   3. Rename the following columns: FWY, DIR, STATE_PM, ABS_PM
+      1. You can maintain the `snake_case`
+      2. Use your best judgment if you feel you can write a better or less ambiguous name for columns
+   4. Pull the date from the “FILENAME” column, this will involve many steps that can be done in one line
+      1. Use Snowflake’s [`DATE_FROM_PARTS()`](https://docs.snowflake.com/en/sql-reference/functions/date_from_parts) function which takes three integer arguments – a year, a month, a day – to construct a date
+      2. Use Snowflakes [`SUBSTR()`](https://docs.snowflake.com/en/sql-reference/functions/substr) function, to pull the year, month, and day from the “FILENAME” column and simultaneously [`CAST()`](https://docs.snowflake.com/en/sql-reference/data-type-conversion) these as integers
+      3. The integer results from the `SUBSTR()` function will be the arguments for the `DATE_FROM_PARTS()` function. In other words, the `DATE_FROM_PARTS()` function will be the outer function that wraps the three uses of the `SUBSTR()` function inside of it
+      4. Name this new column “META_DATE”
+   5. Format your SQL query as a CTE
+4. _Lint_ and _Fix_ your file, save any changes made
+5. Commit and sync your code and leave a concise, yet descriptive commit message
+6. In GitHub (Azure DevOps), create a new pull request and add a teammate as a reviewer
+7. We’ll end the day by reviewing each other’s PRs
+
+## References
+
+### dbt Fundamentals
+
+[dbt Fundamentals](https://courses.getdbt.com/courses/fundamentals) is an online self-paced course on how to use dbt and dbt Cloud. It is broadly similar to the content in this training, and you may find some of the videos from the course helpful to review. We’ve linked to some of the videos here.
+
+### Models in dbt
+
+- [What are models?](https://platform.thinkific.com/videoproxy/v1/play/c71iuqg02svskgqkn6jg)
+- [Building your first model](https://platform.thinkific.com/videoproxy/v1/play/cecuppiekd0onghk4p20)
+- [What is modularity?](https://platform.thinkific.com/videoproxy/v1/play/c71iuqg02svskgqkn6lg)
+
+# Day 2
+
+## What are these YAML files?
+
+Broadly speaking, there are two kinds of relations (a relation is a table or view) in a dbt project: “models” and “sources”. “Sources” are your raw, untransformed data sets. “Models” are the tables and views that you create when transforming your data into something. Both of these are described using YAML files.
+
+The YAML files in a dbt project contain the metadata for your relations, both sources and models. They include:
+
+- Documentation
+- Configuration
+- Data tests
+
+## Wait, what is YAML?
+
+- “Yet Another Markup Language”
+- YAML is a superset of JSON (JavaScript Object Notation)
+  - Intended to be a more human readable version of JSON
+  - But JSON is still perfectly valid! {“my-key”: 4} is YAML.
+- Support for:
+  - Key-value pairs (i.e., dicts/maps)
+  - Lists
+  - Strings, numbers, booleans
+- Absolutely ubiquitous for tool configuration. Tools that are configured using YAML include:
+  - dbt
+  - GitHub Actions
+  - Azure Pipelines
+  - Kubernetes
+  - AWS CloudFormation
+  - Many more!
+
+### YAML dicts/maps:
+image tk
+
+### YAML lists:
+image tk
+
+### YAML strings:
+image tk
+
+### YAML multiline strings:
+image tk
+
+### Markdown in YAML
+image tk
+
+## Sources and refs
+
+Let’s get back into the source and ref dbt macros. Instead of directly referring to the database, schema, table, and view names, we use the `source` and `ref` dbt macros. The syntax for this is to replace the raw names with a template directive like this: `{{ source(‘clearinghouse’, ‘station_meta’) }}`.
+
+The curly braces are a syntax for _Jinja_ templating. The expression within the curly braces is a Python (ish) function which gets evaluated and inserted into the SQL file. There are lots of things we can do with Jinja to help generate our SQL queries, including basic math, custom Python functions, loops, and if-else statements. Most of the time, you will just need to be able to use the `source` and `ref` macros.
+
+### source()
+
+This function creates dependencies between source data and the current model (usually staging) referencing it. Your dbt project will depend on raw data stored in your database. Since this data is normally loaded by other tools than dbt, the structure of it can change over time – tables and columns may be added, removed, or renamed. When this happens, it is easier to update models if raw data is only referenced in one place.
+
+**Example:** replace `RAW_PRD.CLEARINGHOUSE.STATION_RAW` with `{{ source(‘clearinghouse’, ‘station_raw’) }}`.
+
+### ref()
+
+This function is how you reference a model from another: it allows you to build more complex models by referring to other ones and constructing a data lineage graph. Under the hood this function is actually doing two important things. First, it is interpolating the schema into your model file to allow you to change your deployment schema via configuration. Second, it is using these references between models to automatically build the dependency graph. This will enable dbt to deploy models in the correct order when using dbt run.
+
+**Example:** Replace `stg_pems__station_meta` with `{{ ref(‘stg_pems__station_meta’) }}`.
+
+### Why shouldn’t we directly refer to the table names?
+
+It can be initially confusing to people that we don’t directly refer to the names of the other data models, and instead do it indirectly via the `source` and `ref` macros. There are a few reasons for this:
+
+1. By explicitly linking your sources and models using the `source` and `ref` macros, you help dbt in constructing a data lineage graph (i.e., which tables depend on which others). This allows you to do things like “rebuild a model and all of its upstream dependencies”, or “test a model and all of its downstream dependents”.
+2. It becomes easier to rename a data source. This can be especially useful if the data source comes to you with unhelpful names.
+3. Source and refs become context aware. For example, in a development context, your personal development schema is templated into the SQL queries, but in a production context the final production schema is templated in. This allows for safer development of new models.
+
+## Exercise: Write YAML for your source data and staging models
+
+Here you’ll write YAML configuration for the PeMS metadata source table, and for the staging model you wrote. It will build on the branch you created in the previous exercise, so open dbt Cloud, navigate to the developer tab, and make sure that branch is checked out.
+
+1. Switch to your branch from yesterday: `<your-first-name>-dbt-training`
+2. Open `transform/models/_sources.yml`. You should see some mostly empty stubs for models and sources.
+3. First, specify where the PEMS station data exists in the Snowflake database. We’ll do that by adding some keys to the `PEMS` source:
+   1. Add a key for the database: (`database: RAW_PRD`).
+   2. Add a key for the schema: (`schema: CLEARINGHOUSE`).
+4. Describe the tables that exist in the CLEARINGHOUSE schema:
+
+<!---->
+
+    sources:
+
+    name: CLEARINGHOUSE
+
+    database: <database name here>
+    schema: <schema name here>
+    description: <data description here>
+    tables:
+
+    name: <table name here>
+    description: <table description here>
+
+    columns:
+
+    name: <column name here>
+
+    description: <column description here>
+
+    name: <column name here>
+
+    description: <column description here>
+    …  # etc
+
+5. _Lint_ and _Fix_ your file, save any changes made
+6. Open `transform/models/staging/stg_pems__station_meta.sql` and change the reference to our source data by using the `source()` macro we just learned about instead of directly referring to the table name
+7. _Lint_ and _Fix_ your file, save any changes made
+8. Commit and sync your code and leave a concise, yet descriptive commit message
+
+## Data testing
+
+1. We’ll talk through how to write generic tests for things like “not null” and “unique”.
+2. For people who are familiar with transactional databases, we can also talk about why tests like this are ever needed (i.e., why don’t we handle it using constraints?)
+   1. In a traditional transactional database like postgres or SQL Server, you can have a uniqueness constraint on a column. Snowflake does not respect uniqueness constraints and most OLAP databases do not. Primary keys and foreign keys are examples of unique columns that are respected in OLTP databases that are not in OLAP databases.
+   2. [More reading](https://cagov.github.io/data-infrastructure/learning/cloud-data-warehouses/#primary-keys-and-constraints) on this topic
+
+## Exercise: Write tests for your staging model
+
+Open your `transform/models/_models.yml` and write some data integrity tests. Possible examples include:
+
+1. Add a not null test for ID
+2. Add a unique test for ID. This one should fail!
+
+The grain at which this data is collected results in duplicate ids so this is not a good test for this column.
+
+## References
+
+### Sources
+
+- [Modularity and ref functions](https://platform.thinkific.com/videoproxy/v1/play/cefo4lqgv9ite187s6pg)
+- [What are sources?](https://platform.thinkific.com/videoproxy/v1/play/c6mfkh840bhpn3t0c730)
+- [Configure and select from sources](https://platform.thinkific.com/videoproxy/v1/play/ce4cj9s69iu53jbdif6g)
+- [Documenting sources](https://platform.thinkific.com/videoproxy/v1/play/ce2dbtnf17fhkgqdq580)
+
+### Testing
+
+- [What is testing?](https://platform.thinkific.com/videoproxy/v1/play/c71iuqg40bhpn3t11pcg)
+- [Generic tests](https://platform.thinkific.com/videoproxy/v1/play/ce9kjv0r715nknv53nhg)
+
+# Day 3
+
+## Remember: Common Table Expressions (CTEs)
+
+CTEs are widely used as a way to create modular and readable SQL queries. ****You can think of CTEs as creating temporary, named data tables within your SQL queries. CTEs facilitate modularity and readability by encapsulating complex subqueries and making them reusable throughout your data models.
+
+Often CTEs are framed as an alternative to SQL subqueries. In dbt-style SQL, CTEs are usually preferable to subqueries for a few reasons:
+
+1. They allow you to read code from top to bottom rather than inside out
+2. They allow for better reuse of intermediate results
+3. They allow you to give descriptive names to intermediate results
+
+image tk
+
+image tk
+
+Here’s [an example of a more complex, multi-stage CTE](https://github.com/cagov/data-infrastructure/blob/main/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql) query.
+
+## Remember: Data Layers
+
+**Intermediate Models**
+
+1. Intermediate models are where you start applying more complex transformations to your data.
+2. This layer is used for data cleansing, feature engineering, and combining data from different sources.
+3. Intermediate models allow you to build modular and reusable transformations following the principles of [DRY (Don’t Repeat Yourself)](https://docs.getdbt.com/terms/dry#why-write-dry-code)
+4. Common transformations that happen in this layer are:
+   1. Table joins or unions
+   2. Data aggregations (e.g. using a function like `SUM()`)
+   3. Data pivots
+5. Materialization depends, this decision should factor in how expensive the model is and how many downstream models/marts use it 
+6. Files are prefixed with `int_` and saved in a subdirectory usually named “intermediate” of the models folder
+
+## Materializations
+
+Materializations refer to the way dbt executes and persists the results of SQL queries. It is the Data Definition Language (DDL) and Data Manipulation Language (DML) used to create a model’s equivalent in a data warehouse.
+
+Understanding the options for materializations will allow you to choose the best strategy based on factors like query performance, data freshness, and data volume. There are four materializations used in dbt: 
+
+- View
+- Table
+- Incremental
+- Ephemeral
+
+### View
+
+🔍 Views return the freshest, real-time state of their input data when they’re queried, this makes them ideal as building blocks for larger models.
+🤏Views are also great for small datasets with minimally intensive logic that we want near real time access to.
+🙅‍♀️Staging models are rarely accessed directly by our end users.
+🧱Staging models need to be always up-to-date and in sync with our source data as building blocks for later models so we’ll want to materialize our staging models as views.
+👍Since views are the default materialization in dbt, we don’t have to do any specific configuration for this.
+💎Still, for clarity, it’s a good idea to go ahead and specify the configuration to be explicit. We’ll want to make sure our dbt_project.yml looks like this:
+
+image tk
+
+### Table
+
+🛠️Tables are the most performant materialization, they return transformed data when queried with no need for reprocessing.
+💪Tables are also ideal for frequently used, compute intensive transformations. Making a table allows us to _freeze_ transformations in place.
+📊 Marts, like one that services a popular dashboard, are frequently accessed directly by our end users, and need to be performant.
+⌛Can often function with intermittently refreshed data, end user decision making in many domains is fine with hourly or daily data.
+🛠️Given the above properties we’ve got a great use case for building the data itself into the warehouse, not the logic. In other words, a table.
+❓The only decision we need to make with our marts is whether we can process the whole table at once or do we need to do it in chunks, that is, are we going to use the table materialization or incremental.
+
+### Incremental
+
+🧱Incremental models build a table in pieces over time, only adding and updating new or changed rows.
+🏎️Builds more quickly than a regular table of the same logic.
+🐢Initial runs are slow. Typically we use incremental models on very large datasets, so building the initial table on the full dataset is time consuming and equivalent to the table materialization.
+
+### A comparison table
+
+image tk
+
+### Materializations golden rule
+
+🔍Start with a view. When the view gets too long to query for end users,
+⚒️Make it a table. When the table gets too long to build in your dbt Jobs,
+📚Build it incrementally. That is, layer the data in chunks as it comes in.
+
+### Ephemeral
+
+Ephemeral models are not directly built into the database. Instead, dbt will interpolate the code from this model into dependent models as a CTE. Use the ephemeral materialization for:
+
+- very light-weight transformations that are early on in your DAG
+- are only used in one or two downstream models, and
+- do not need to be queried directly
+
+✅ Can help keep your data warehouse clean by reducing clutter
+🚫 Overuse of ephemeral materialization can make queries harder to debug
+
+**Where to configure materializations**
+You can configure models in `dbt_project.yml`, within a specific model, or the YAML file within the model’s folder. Confusing thing about dbt configuration: the syntax and format change depend on where you use it!
+
+image tk
+image tk
+image tk
+
+## Exercise: Create your second dbt model
+
+Now that we’ve gotten some practice creating a staging model and editing our YAML file to reference our model, let's create an intermediate model and update the relevant YAML file. 
+
+**SQL:**
+
+1. Switch to your same branch: `<your-first-name>-dbt-training`
+2. Open `transform/models/intermediate/int_pems__stations_per_county_counted.sql`
+3. Change the reference to the staging model by using the `ref()` macro we learned about
+4. Write a SQL query to return the count of stations per county for the year 2023 sorted from greatest to least.
+5. _Hints_
+   1. This will be a SQL group by and aggregation.
+   2. Your output table should have two columns
+6. Format your SQL using CTEs
+7. _Lint_ and _Fix_ your file, save any changes made
+
+**YAML:**
+8. Document your new intermediate model in the `transform/models/_models.yml` file
+9. Materialize your model as a table
+10. _Format_ your file, save any changes made
+
+**Pull Request:**
+11. Commit and sync your code and leave a concise, yet descriptive commit message
+12. In GitHub (or Azure DevOps), check that you’ve added a teammate as a reviewer to your PR (you can do this by adding their name in the reviewer section of the right panel).
+13. Review someone else’s PR
+14. Optional: Check that their PR passes all CI (continuous integration) checks in GitHub (or Azure DevOps). if not click “details” and investigate the failure – We’ll spend more time on this in Day 4
+
+**Demo: Macros**
+[Macros](https://docs.getdbt.com/docs/build/jinja-macros#macros) in [Jinja](https://docs.getdbt.com/docs/build/jinja-macros) are pieces of code that can be reused multiple times – they are analogous to "functions" in other programming languages, and are extremely useful if you find yourself repeating code across multiple models. Remember (DRY). Macros are defined in .sql files, typically in your macros directory (e.g.`transform/macros`).
+
+1. Example on station_meta data
+   1. Switch to the `pems_training_materials` branch
+   2. Open and review `transform/macros/map_county_fips_to_county_name.sql`
+   3. Open `transform/models/staging/stg_pems__station_meta.sql` and review line 23
+2. Another [example](https://github.com/cagov/data-infrastructure/blob/main/transform/macros/map_class_fp.sql) that is called by [this code](https://github.com/cagov/data-infrastructure/blob/main/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql) on line 34
+
+**Demo: dbt_utils package**
+The [dbt_utils package](https://hub.getdbt.com/dbt-labs/dbt_utils/latest/) contains macros that can be (re)used across this project. Software engineers frequently modularize code into libraries. These libraries help programmers operate with leverage. In dbt, libraries like these are called packages. dbt's packages are powerful because they tackle many common analytic problems that are shared across teams.
+
+1. Example that uses the _dbt_utils_ test [_equal_rowcount_](https://github.com/dbt-labs/dbt-utils/tree/1.1.1/?tab=readme-ov-file#equal_rowcount-source)
+   1. Switch to the `pems_training_materials` branch
+   2. Open `transform/models/_models.yml` and review lines 6-10
+   3. Run` dbt test --select stg_pems__station_meta`
+      1. Note this test fails if trying to compare a table to a view
+
+image tk
+
+## Custom tests
+
+Dbt allows you to [create your own tests](https://docs.getdbt.com/docs/build/data-tests#overview) if you cannot find what you’re looking for in dbt_utils (see above) or in other packages. Data tests are assertions you make about your models and other resources in your dbt project (e.g. sources, seeds and snapshots). When you run `dbt test`, dbt will tell you if each test in your project passes or fails.
+
+There are two ways of defining data tests in dbt:
+
+- A singular data test is testing in its simplest form: If you can write a SQL query that returns failing rows, you can save that query in a .sql file within your [test directory](https://docs.getdbt.com/reference/project-configs/test-paths). It's now a data test, and it will be executed by the dbt test command.
+- A generic data test is a parameterized query that accepts arguments. The test query is defined in a special test block (like a [macro](https://docs.getdbt.com/docs/build/jinja-macros)). Once defined, you can reference the generic test by name throughout your .yml files—define it on models, columns, sources, snapshots, and seeds. dbt ships with [four generic data tests built in](https://docs.getdbt.com/reference/resource-properties/data-tests#out-of-the-box-data-tests) (`not_null`, `unique`, `accepted_values`, `relationships`), and we think you should use them!
+
+## References
+
+- [****dbt materialization and performance considerations****](https://cagov.github.io/data-infrastructure/dbt/dbt-performance/#2-model-level-materialization-matters)
+
+**Re-watch these videos from day 1**
+
+- [Building your first model](https://platform.thinkific.com/videoproxy/v1/play/cecuppiekd0onghk4p20)
+- [What is modularity?](https://platform.thinkific.com/videoproxy/v1/play/c71iuqg02svskgqkn6lg)
+
+**Jinja Tutorial**
+
+- [Use Jinja to improve your SQL code](https://docs.getdbt.com/guides/using-jinja?step=1)
+
+# Day 4
+
+## dbt Docs
+
+dbt generates HTML documentation from your SQL models and YAML configuration files. This documentation can then be hosted in a number of places, including dbt Cloud, GitHub Pages, or Azure Static Web Apps. We will show you:
+
+1. How to generate docs using dbt Cloud. This can be useful if you are writing docs in a branch and want to visualize how they are rendered.
+2. If we are using GitHub, we’ll demonstrate how the docs are built from the repository and hosted on GitHub Pages. If we are using Azure DevOps, we’ll demonstrate how the docs are built from the repository and hosted using Azure Static Web Apps.
+
+## dbt Cloud deployments and jobs
+
+We’ll talk through the concept of an “Environment”, which is a virtual machine in dbt Cloud that has all of the relevant software dependencies and environment variables set. You’ve already encountered one environment, which is your “Develop” IDE. But you can create other environments in dbt Cloud (and in other services) for various purposes. Examples of other environments:
+
+1. A “Production” environment which is used to run the dbt models that have been merged to `main`. This can be run on an ad-hoc basis, or can be run on a schedule to ensure that models are never more than some amount of time old.
+2. A “continuous integration” (CI) environment, which is used to run tests on branches and pull requests, and can help to catch bugs and regressions before they are deployed to production.
+3. A “docs” environment, used for building docs.
+
+We’ll also introduce the concept of a “Job”, which is a command that is run in an environment, and can either be run on a schedule or can be triggered by some event.
+
+## Continuous integration and continuous deployment (CI/CD)
+
+### What is CI/CD and why you shouldn’t ignore it
+
+CI/CD checks in GitHub (or Azure DevOps) are automated tests that are run against your code every time you push a change. These checks can help you identify errors and potential issues early in the development process, before they can cause problems in production.
+
+There are a number of different types of CI/CD checks, including:
+
+- **Code quality checks:** These look for issues with your code, such as syntax errors, potential security vulnerabilities, and performance issues.
+- **Build checks:** These ensure your code can be successfully built.
+- **Test checks:** These run your unit tests and integration tests to ensure that they pass.
+- **Deployment checks:** These ensure your code can be successfully deployed to production.
+
+CI/CD checks are an important part of the software development process. They can help you:
+
+- **Catch errors and issues early:** CI/CD checks can identify issues with your code before they can cause problems in production.
+- **Improve code quality:** CI/CD checks can help you to improve the quality of your code by identifying issues such as code smells (e.g. duplicate or dead code) and potential security vulnerabilities.
+
+To reiterate, CI/CD checks can help you to improve the quality of your code, reduce the risk of production issues, and save the whole team time in the long run. We have set up your project repository so that these checks cannot be ignored by preventing a merge of a PR with CI/CD failures. However, CI/CD checks shouldn’t be considered a pain or just a thing we have to do, they are rather intended to be a routine and helpful part of the development process.
+
+### Demo: CI/CD in a development workflow
+
+1. How to read the results of CI checks on a PR in GitHub (or Azure DevOps).
+2. How merging to `main` results in production dbt builds.
+
+### Custom schema names
+
+1. We’ll talk about how the database schemas in which dbt models are built are determined. In development, the models get built in a different place (e.g., your `DBT_<first-name-initial+last-name> `schema) than they do in production.
+2. We’ll discuss how this project is configured to use a custom schema name generated using `transform/macros/get_custom_schema.sql`.
+
+#### Exercise:
+
+Configure your intermediate model to build in a custom schema called `statistics`. You can do this by creating a new property in the model YAML config block: “`schema: statistics`”. Build your model and find it in Snowflake.
+
+### Exercise: Get your branch to pass CI checks
+
+You’ve been working in your own branches to create dbt models and configuration files for PeMS data. Ultimately, our goal is to develop production-grade models, which are documented, configured, and passing CI.
+
+**If using GitHub:**
+
+1. Inspect the `pre-commit` results of your pull request in GitHub.
+2. Address any issues flagged by the results. Remember, the “_Format_”, “_Lint_”, and “_Fix_” buttons in dbt Cloud can help with auto-resolving issues around formatting.
+3. Inspect the dbt Cloud test results in GitHub. Resolve any issues with your models not building or failing data integrity tests.
+4. Request a review of a teammate. Review another teammate’s PR.
+5. Address any comments or suggestions from your code review.
+6. Repeat the above steps until there are no remaining comments, and you get a green checkmark on the CI checks!
+
+**If using Azure DevOps:**
+
+1. On the page for your pull request you should see the results of the CI checks in the “Overview” tab. If it’s green, great, it passed!
+2. If the CI check is red, click on it to see the logs, which will give more information about the failure. You might see failures in:
+   1. The linter checks (which looks for code style and common gotchas)
+
+   2. Model builds, which indicate some logic issue in the code
+
+   3. Data tests, which ensure that the data has the shape you expect
+3. Address any issues flagged by the check. Remember, the “_Format_”, “_Lint_”, and “_Fix_” buttons in dbt Cloud can help with auto-resolving issues around formatting.
+4. Request a review of a teammate. Review another teammate’s PR.
+5. Address any comments or suggestions from your code review.
+6. Repeat the above steps until there are no remaining comments, and you get a green checkmark on the CI checks
+
+## References
+
+#### Documentation
+
+- [What is documentation?](https://platform.thinkific.com/videoproxy/v1/play/c71iuqg40bhpn3t11p80)
+- [Writing documentation and doc blocks](https://platform.thinkific.com/videoproxy/v1/play/ce2dchnf17fhkgqdq59g)
+- [Creating encrypted key-pairs for service accounts that run CI and Production jobs](https://docs.snowflake.com/en/user-guide/key-pair-auth#configuring-key-pair-authentication)
