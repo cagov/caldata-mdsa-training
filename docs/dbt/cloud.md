@@ -142,23 +142,23 @@ The YAML files in a dbt project contain the metadata for your relations, both so
 
 ### YAML dicts/maps
 
-![YAML dictionaries or maps](./images/yaml_dicts_maps.png)
+![YAML dictionaries or maps](../images/yaml_dicts_maps.png)
 
 ### YAML lists
 
-![YAML lists](./images/yaml_lists.png)
+![YAML lists](../images/yaml_lists.png)
 
 ### YAML strings
 
-![YAML strings](./images/yaml_strings.png)
+![YAML strings](../images/yaml_strings.png)
 
 ### YAML multiline strings
 
-![YAML multiline strings](./images/yaml_multi_strings.png)
+![YAML multiline strings](../images/yaml_multi_strings.png)
 
 ### Markdown in YAML
 
-![YAML markdown](./images/yaml_markdown.png)
+![YAML markdown](../images/yaml_markdown.png)
 
 ## Sources and refs
 
