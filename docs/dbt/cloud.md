@@ -73,21 +73,21 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
     1. Explicitly select all columns by name rather than with *
     2. Exclude the following column: STATION_NAME
     3. Change the STATION_ID column type to varchar
-        1. Use Snowflake’s TO_VARCHAR() function which needs one argument – the column to be converted
+        1. Use Snowflake’s [TO_VARCHAR()](https://docs.snowflake.com/en/sql-reference/functions/to_char) function which needs one argument – the column to be converted
     4. Change the SAMPLE_DATE_MIN and SAMPLE_DATE_MAX columns to timestamps
-        1. Use Snowflake’s TO_TIMESTAMP() function which needs two arguments – the column to be converted and the output format e.g. YYYY-MM-DD HH24:MI:SS
+        1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. YYYY-MM-DD HH24:MI:SS
     5. Format your SQL query as a CTE
 
 ### Second staging model instructions
 
-1. Remain on your current branch: <your-first-name>-dbt-training
+1. Remain on your current branch: `<your-first-name>-dbt-training`
 2. Open `transform/models/staging/stg_water_quality__lab_results.sql`. You should see a simple SQL statement that just selects all of the data from the raw table
 3. Update the select statement to do the following:
     1. Explicitly select the following columns by name rather than with *: station_id, status, sample_code, sample_date, sample_depth, sample_depth_units, parameter, result, reporting_limit, units, and method_name
     2. Change the station_id column type to varchar
-        1. Use Snowflake’s TO_VARCHAR() function which needs one argument – the column to be converted
+        1. Use Snowflake’s [TO_VARCHAR()](https://docs.snowflake.com/en/sql-reference/functions/to_char) function which needs one argument – the column to be converted
     3. Change the sample_date column type to timestamp
-        1. Use Snowflake’s TO_TIMESTAMP() function which needs two arguments – the column to be converted and the output format e.g. YYYY-MM-DD HH24:MI:SS
+        1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. YYYY-MM-DD HH24:MI:SS
     4. Alias and capitalize all of your columns e.g. select “column_name” as COLUMN_NAME
 4. Format your SQL query as a CTE
 
@@ -142,23 +142,23 @@ The YAML files in a dbt project contain the metadata for your relations, both so
 
 ### YAML dicts/maps
 
-![YAML dictionaries or maps](/images/yaml_dicts_maps.png)
+![YAML dictionaries or maps](./images/yaml_dicts_maps.png)
 
 ### YAML lists
 
-![YAML lists](/images/yaml_lists.png)
+![YAML lists](./images/yaml_lists.png)
 
 ### YAML strings
 
-![YAML strings](/images/yaml_strings.png)
+![YAML strings](./images/yaml_strings.png)
 
 ### YAML multiline strings
 
-![YAML multiline strings](/images/yaml_multi_strings.png)
+![YAML multiline strings](./images/yaml_multi_strings.png)
 
 ### Markdown in YAML
 
-![YAML markdown](/images/yaml_markdown.png)
+![YAML markdown](./images/yaml_markdown.png)
 
 ## Sources and refs
 
