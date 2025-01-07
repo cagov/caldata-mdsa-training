@@ -1,4 +1,4 @@
-# Day 1
+# **Day 1**
 
 ## What is dbt (data build tool)?
 
@@ -23,70 +23,80 @@ Often CTEs are framed as an alternative to SQL subqueries. In dbt-style SQL, CTE
 Data layers represent a systematic approach to data modeling by organizing data into distinct phases. dbt does a particularly great job of explaining best practices to structuring your project and data with naming conventions, example code, and reasoning on such practices in [this guide](https://docs.getdbt.com/best-practices/how-we-structure/1-guide-overview). We’ve summarized it below, but still recommend a thorough read of dbt’s guide.
 
 1. **Staging**
-   1. The staging layer is the initial point of contact for your raw data
-   2. Models in the staging layer have a one-to-one relationship with source data ensuring data integrity and providing a reliable foundation for downstream models
-   3. There are very few transformations that happen in this layer. Appropriate ones are:
-      1. Column renaming (e.g. PLACEFP to place_fips)
-      2. Data type casting (e.g. string type to numeric)
-      3. Basic computations (e.g. cents to dollars)
-   4. Staging models are often materialized ephemerally or as views (more about materializations later!)
-   5. Files are prefixed with `stg_` and saved in a subdirectory usually named “staging” of the models folder
+    1. The staging layer is the initial point of contact for your raw data
+    2. Models in the staging layer have a one-to-one relationship with source data ensuring data integrity and providing a reliable foundation for downstream models
+    3. There are very few transformations that happen in this layer. Appropriate ones are:
+        1. Column renaming (e.g. PLACEFP to place_fips)
+        2. Data type casting (e.g. string type to numeric)
+        3. Basic computations (e.g. cents to dollars)
+    4. Staging models are often materialized ephemerally or as views (more about materializations later!)
+    5. Files are prefixed with `stg_` and saved in a subdirectory usually named “staging” of the models folder
 2. **Intermediate**
-   1. Intermediate models are where you start applying more complex transformations to your data.
-   2. This layer is used for data cleansing, feature engineering, and combining data from different sources.
-   3. Intermediate models allow you to build modular and reusable transformations following the principles of [DRY (Don’t Repeat Yourself)](https://docs.getdbt.com/terms/dry#why-write-dry-code)
-   4. Common transformations that happen in this layer are:
-      1. Table joins or unions
-      2. Data aggregations (e.g. using a function like `SUM()`)
-      3. Data pivots
-   5. Materialized as views
-   6. Files are prefixed with `int_` and saved in a subdirectory usually named “intermediate” of the models folder
+    1. Intermediate models are where you start applying more complex transformations to your data.
+    2. This layer is used for data cleansing, feature engineering, and combining data from different sources.
+    3. Intermediate models allow you to build modular and reusable transformations following the principles of [DRY (Don’t Repeat Yourself)](https://docs.getdbt.com/terms/dry#why-write-dry-code)
+    4. Common transformations that happen in this layer are:
+        1. Table joins or unions
+        2. Data aggregations (e.g. using a function like `SUM()`)
+        3. Data pivots
+    5. Files are prefixed with `int_` and saved in a subdirectory usually named “intermediate” of the models folder
 3. **Marts (or Data Marts)**
-   1. Marts are the final layer in the data modeling process, representing consumable datasets tailored for specific business or programs needs
-   2. Sometimes called the entity layer or concept layer, to emphasize that our marts are meant to represent a specific entity or concept at its unique grain
-   3. Materialized as tables or incremental models
-
-   4. Use plain English to name the file based on the concept that forms the grain of the mart e.g. `incidents.sql`, `claimants.sql`, `orders.sql`
-
-   5. Wide and denormalized
+    1. Marts are the final layer in the data modeling process, representing consumable datasets tailored for specific business or programs needs
+    2. Sometimes called the entity layer or concept layer, to emphasize that our marts are meant to represent a specific entity or concept at its unique grain
+    3. Use plain English to name the file based on the concept that forms the grain of the mart e.g. `incidents.sql`, `claimants.sql`, `orders.sql`
+    4. Wide and denormalized
 
 ## Tour of dbt Cloud user interface
 
-1. We’ll give you a brief overview of the dbt Cloud user interface:__
-   1. _File browser_
-   2. _File editor_
-   3. _Preview pane_
-   4. _Linter/Fixer_
-   5. _Build/Run_
+1. We’ll give you a brief overview of the dbt Cloud user interface:
+    1. _File browser_
+    2. _File editor_
+    3. _Preview pane_
+    4. _Linter/Fixer_
+    5. _Build/Run_
 2. Validate your development environment:
-   1. Open the _Develop_ tab in your own environment and open `transform/models/staging/stg_pems__station_meta.sql`
-   2. Click on the _Preview_ button. You should see data in the lower panel
+    1. Open the Develop tab in your own environment and open transform/models/staging/stg_water_quality__stations.sql
+    2. Click on the _Preview_ button. You should see data in the lower panel
 3. Demonstrate the _Run_/_Build_ functionality
 4. Demonstrate the _Fix_/_Lint_ functionality
 5. Verify that the models you ran are visible in your personal schema within `TRANSFORM_DEV`
 
 ## Exercise: Create your first dbt staging model
 
-Let’s create a staging model for the PEMS database! The data in `raw_prd.clearinghouse.station_meta` has been loaded from the PeMS clearinghouse without modification. But there are a few simple transformations we can do to make working with this data more ergonomic. Models involving simple transformations involving things like type conversion or column renaming are called staging models. 
+Let’s create two staging models! The data in `raw_dev.water_quality.stations` and `raw_dev.water_quality.lab_results` have been loaded from [data.ca.gov/dataset/water-quality-data](https://data.ca.gov/dataset/water-quality-data) without modification except for the exclusion of the \_id column in each table. There are a few simple transformations we can do to make working with these data more ergonomic. Models that require simple transformations involving things like data type conversion or column renaming are called staging models.
+
+### First staging model instructions
 
 1. Find and switch to your branch: `<your-first-name>-dbt-training`
-2. Open `transform/models/staging/stg_pems__station_meta.sql`. You should see a simple SQL statement that just selects all of the data from the raw table
+2. Open `transform/models/staging/stg_water_quality__stations.sql`. You should see a simple SQL statement that just selects all of the data from the raw table
 3. Update the select statement to do the following:
-   1. Explicitly select columns by name rather than with `*`
-   2. Exclude the following columns: FILENAME, USER_ID_1, USER_ID_2, USER_ID_3, USER_ID_4
-   3. Rename the following columns: FWY, DIR, STATE_PM, ABS_PM
-      1. You can maintain the `snake_case`
-      2. Use your best judgment if you feel you can write a better or less ambiguous name for columns
-   4. Pull the date from the “FILENAME” column, this will involve many steps that can be done in one line
-      1. Use Snowflake’s [`DATE_FROM_PARTS()`](https://docs.snowflake.com/en/sql-reference/functions/date_from_parts) function which takes three integer arguments – a year, a month, a day – to construct a date
-      2. Use Snowflakes [`SUBSTR()`](https://docs.snowflake.com/en/sql-reference/functions/substr) function, to pull the year, month, and day from the “FILENAME” column and simultaneously [`CAST()`](https://docs.snowflake.com/en/sql-reference/data-type-conversion) these as integers
-      3. The integer results from the `SUBSTR()` function will be the arguments for the `DATE_FROM_PARTS()` function. In other words, the `DATE_FROM_PARTS()` function will be the outer function that wraps the three uses of the `SUBSTR()` function inside of it
-      4. Name this new column “META_DATE”
-   5. Format your SQL query as a CTE
-4. _Lint_ and _Fix_ your file, save any changes made
-5. Commit and sync your code and leave a concise, yet descriptive commit message
-6. In GitHub (Azure DevOps), create a new pull request and add a teammate as a reviewer
-7. We’ll end the day by reviewing each other’s PRs
+    1. Explicitly select all columns by name rather than with *
+    2. Exclude the following column: STATION_NAME
+    3. Change the STATION_ID column type to varchar
+        1. Use Snowflake’s TO_VARCHAR() function which needs one argument – the column to be converted
+    4. Change the SAMPLE_DATE_MIN and SAMPLE_DATE_MAX columns to timestamps
+        1. Use Snowflake’s TO_TIMESTAMP() function which needs two arguments – the column to be converted and the output format e.g. YYYY-MM-DD HH24:MI:SS
+    5. Format your SQL query as a CTE
+
+### Second staging model instructions
+
+1. Remain on your current branch: <your-first-name>-dbt-training
+2. Open `transform/models/staging/stg_water_quality__lab_results.sql`. You should see a simple SQL statement that just selects all of the data from the raw table
+3. Update the select statement to do the following:
+    1. Explicitly select the following columns by name rather than with *: station_id, status, sample_code, sample_date, sample_depth, sample_depth_units, parameter, result, reporting_limit, units, and method_name
+    2. Change the station_id column type to varchar
+        1. Use Snowflake’s TO_VARCHAR() function which needs one argument – the column to be converted
+    3. Change the sample_date column type to timestamp
+        1. Use Snowflake’s TO_TIMESTAMP() function which needs two arguments – the column to be converted and the output format e.g. YYYY-MM-DD HH24:MI:SS
+    4. Alias and capitalize all of your columns e.g. select “column_name” as COLUMN_NAME
+4. Format your SQL query as a CTE
+
+### Finally
+
+1. _Lint_ and _Fix_ your file, save any changes made
+1. Commit and sync your code and leave a concise, yet descriptive commit message
+1. In GitHub (or Azure DevOps), create a new pull request and add a teammate as a reviewer
+1. We’ll end the day by reviewing each other’s PRs
 
 ## References
 
@@ -100,7 +110,7 @@ Let’s create a staging model for the PEMS database! The data in `raw_prd.clear
 - [Building your first model](https://platform.thinkific.com/videoproxy/v1/play/cecuppiekd0onghk4p20)
 - [What is modularity?](https://platform.thinkific.com/videoproxy/v1/play/c71iuqg02svskgqkn6lg)
 
-# Day 2
+# **Day 2**
 
 ## What are these YAML files?
 
@@ -130,20 +140,25 @@ The YAML files in a dbt project contain the metadata for your relations, both so
   - AWS CloudFormation
   - Many more!
 
-### YAML dicts/maps:
-image tk
+### YAML dicts/maps
 
-### YAML lists:
-image tk
+![YAML dictionaries or maps](/images/yaml_dicts_maps.png)
 
-### YAML strings:
-image tk
+### YAML lists
 
-### YAML multiline strings:
-image tk
+![YAML lists](/images/yaml_lists.png)
+
+### YAML strings
+
+![YAML strings](/images/yaml_strings.png)
+
+### YAML multiline strings
+
+![YAML multiline strings](/images/yaml_multi_strings.png)
 
 ### Markdown in YAML
-image tk
+
+![YAML markdown](/images/yaml_markdown.png)
 
 ## Sources and refs
 
@@ -178,8 +193,8 @@ Here you’ll write YAML configuration for the PeMS metadata source table, and f
 1. Switch to your branch from yesterday: `<your-first-name>-dbt-training`
 2. Open `transform/models/_sources.yml`. You should see some mostly empty stubs for models and sources.
 3. First, specify where the PEMS station data exists in the Snowflake database. We’ll do that by adding some keys to the `PEMS` source:
-   1. Add a key for the database: (`database: RAW_PRD`).
-   2. Add a key for the schema: (`schema: CLEARINGHOUSE`).
+    1. Add a key for the database: (`database: RAW_PRD`).
+    2. Add a key for the schema: (`schema: CLEARINGHOUSE`).
 4. Describe the tables that exist in the CLEARINGHOUSE schema:
 
 <!---->
@@ -242,7 +257,7 @@ The grain at which this data is collected results in duplicate ids so this is no
 - [What is testing?](https://platform.thinkific.com/videoproxy/v1/play/c71iuqg40bhpn3t11pcg)
 - [Generic tests](https://platform.thinkific.com/videoproxy/v1/play/ce9kjv0r715nknv53nhg)
 
-# Day 3
+# **Day 3**
 
 ## Remember: Common Table Expressions (CTEs)
 
@@ -268,17 +283,17 @@ Here’s [an example of a more complex, multi-stage CTE](https://github.com/cago
 2. This layer is used for data cleansing, feature engineering, and combining data from different sources.
 3. Intermediate models allow you to build modular and reusable transformations following the principles of [DRY (Don’t Repeat Yourself)](https://docs.getdbt.com/terms/dry#why-write-dry-code)
 4. Common transformations that happen in this layer are:
-   1. Table joins or unions
-   2. Data aggregations (e.g. using a function like `SUM()`)
-   3. Data pivots
-5. Materialization depends, this decision should factor in how expensive the model is and how many downstream models/marts use it 
+    1. Table joins or unions
+    2. Data aggregations (e.g. using a function like `SUM()`)
+    3. Data pivots
+5. Materialization depends, this decision should factor in how expensive the model is and how many downstream models/marts use it
 6. Files are prefixed with `int_` and saved in a subdirectory usually named “intermediate” of the models folder
 
 ## Materializations
 
 Materializations refer to the way dbt executes and persists the results of SQL queries. It is the Data Definition Language (DDL) and Data Manipulation Language (DML) used to create a model’s equivalent in a data warehouse.
 
-Understanding the options for materializations will allow you to choose the best strategy based on factors like query performance, data freshness, and data volume. There are four materializations used in dbt: 
+Understanding the options for materializations will allow you to choose the best strategy based on factors like query performance, data freshness, and data volume. There are four materializations used in dbt:
 
 - View
 - Table
@@ -341,7 +356,7 @@ image tk
 
 ## Exercise: Create your second dbt model
 
-Now that we’ve gotten some practice creating a staging model and editing our YAML file to reference our model, let's create an intermediate model and update the relevant YAML file. 
+Now that we’ve gotten some practice creating a staging model and editing our YAML file to reference our model, let's create an intermediate model and update the relevant YAML file.
 
 **SQL:**
 
@@ -350,8 +365,8 @@ Now that we’ve gotten some practice creating a staging model and editing our Y
 3. Change the reference to the staging model by using the `ref()` macro we learned about
 4. Write a SQL query to return the count of stations per county for the year 2023 sorted from greatest to least.
 5. _Hints_
-   1. This will be a SQL group by and aggregation.
-   2. Your output table should have two columns
+    1. This will be a SQL group by and aggregation.
+    2. Your output table should have two columns
 6. Format your SQL using CTEs
 7. _Lint_ and _Fix_ your file, save any changes made
 
@@ -370,19 +385,19 @@ Now that we’ve gotten some practice creating a staging model and editing our Y
 [Macros](https://docs.getdbt.com/docs/build/jinja-macros#macros) in [Jinja](https://docs.getdbt.com/docs/build/jinja-macros) are pieces of code that can be reused multiple times – they are analogous to "functions" in other programming languages, and are extremely useful if you find yourself repeating code across multiple models. Remember (DRY). Macros are defined in .sql files, typically in your macros directory (e.g.`transform/macros`).
 
 1. Example on station_meta data
-   1. Switch to the `pems_training_materials` branch
-   2. Open and review `transform/macros/map_county_fips_to_county_name.sql`
-   3. Open `transform/models/staging/stg_pems__station_meta.sql` and review line 23
+    1. Switch to the `pems_training_materials` branch
+    2. Open and review `transform/macros/map_county_fips_to_county_name.sql`
+    3. Open `transform/models/staging/stg_pems__station_meta.sql` and review line 23
 2. Another [example](https://github.com/cagov/data-infrastructure/blob/main/transform/macros/map_class_fp.sql) that is called by [this code](https://github.com/cagov/data-infrastructure/blob/main/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql) on line 34
 
 **Demo: dbt_utils package**
 The [dbt_utils package](https://hub.getdbt.com/dbt-labs/dbt_utils/latest/) contains macros that can be (re)used across this project. Software engineers frequently modularize code into libraries. These libraries help programmers operate with leverage. In dbt, libraries like these are called packages. dbt's packages are powerful because they tackle many common analytic problems that are shared across teams.
 
 1. Example that uses the _dbt_utils_ test [_equal_rowcount_](https://github.com/dbt-labs/dbt-utils/tree/1.1.1/?tab=readme-ov-file#equal_rowcount-source)
-   1. Switch to the `pems_training_materials` branch
-   2. Open `transform/models/_models.yml` and review lines 6-10
-   3. Run` dbt test --select stg_pems__station_meta`
-      1. Note this test fails if trying to compare a table to a view
+    1. Switch to the `pems_training_materials` branch
+    2. Open `transform/models/_models.yml` and review lines 6-10
+    3. Run`dbt test --select stg_pems__station_meta`
+        1. Note this test fails if trying to compare a table to a view
 
 image tk
 
@@ -408,7 +423,7 @@ There are two ways of defining data tests in dbt:
 
 - [Use Jinja to improve your SQL code](https://docs.getdbt.com/guides/using-jinja?step=1)
 
-# Day 4
+# **Day 4**
 
 ## dbt Docs
 
@@ -454,10 +469,10 @@ To reiterate, CI/CD checks can help you to improve the quality of your code, red
 
 ### Custom schema names
 
-1. We’ll talk about how the database schemas in which dbt models are built are determined. In development, the models get built in a different place (e.g., your `DBT_<first-name-initial+last-name> `schema) than they do in production.
+1. We’ll talk about how the database schemas in which dbt models are built are determined. In development, the models get built in a different place (e.g., your `DBT_<first-name-initial+last-name>`schema) than they do in production.
 2. We’ll discuss how this project is configured to use a custom schema name generated using `transform/macros/get_custom_schema.sql`.
 
-#### Exercise:
+#### Exercise
 
 Configure your intermediate model to build in a custom schema called `statistics`. You can do this by creating a new property in the model YAML config block: “`schema: statistics`”. Build your model and find it in Snowflake.
 
@@ -478,11 +493,9 @@ You’ve been working in your own branches to create dbt models and configuratio
 
 1. On the page for your pull request you should see the results of the CI checks in the “Overview” tab. If it’s green, great, it passed!
 2. If the CI check is red, click on it to see the logs, which will give more information about the failure. You might see failures in:
-   1. The linter checks (which looks for code style and common gotchas)
-
-   2. Model builds, which indicate some logic issue in the code
-
-   3. Data tests, which ensure that the data has the shape you expect
+    1. The linter checks (which looks for code style and common gotchas)
+    2. Model builds, which indicate some logic issue in the code
+    3. Data tests, which ensure that the data has the shape you expect
 3. Address any issues flagged by the check. Remember, the “_Format_”, “_Lint_”, and “_Fix_” buttons in dbt Cloud can help with auto-resolving issues around formatting.
 4. Request a review of a teammate. Review another teammate’s PR.
 5. Address any comments or suggestions from your code review.
