@@ -61,7 +61,7 @@ Data layers represent a systematic approach to data modeling by organizing data 
 4. Demonstrate the _Fix_/_Lint_ functionality
 5. Verify that the models you ran are visible in your personal schema within `TRANSFORM_DEV`
 
-## Exercise: Create your first dbt staging model
+## **Exercise: Create your first dbt staging model**
 
 Let’s create two staging models! The data in `raw_dev.water_quality.stations` and `raw_dev.water_quality.lab_results` have been loaded from [data.ca.gov/dataset/water-quality-data](https://data.ca.gov/dataset/water-quality-data) without modification except for the exclusion of the \_id column in each table. There are a few simple transformations we can do to make working with these data more ergonomic. Models that require simple transformations involving things like data type conversion or column renaming are called staging models.
 
