@@ -34,8 +34,8 @@ Data layers represent a systematic approach to data modeling by organizing data 
     4. Staging models are often materialized ephemerally or as views (more about materializations later!)
     5. Files are prefixed with `stg_` and saved in a subdirectory usually named “staging” of the models folder
 2. **Intermediate**
-    1. Intermediate models are where you start applying more complex transformations to your data.
-    2. This layer is used for data cleansing, feature engineering, and combining data from different sources.
+    1. Intermediate models are where you start applying more complex transformations to your data
+    2. This layer is used for data cleansing, feature engineering, and combining data from different sources
     3. Intermediate models allow you to build modular and reusable transformations following the principles of [DRY (Don’t Repeat Yourself)](https://docs.getdbt.com/terms/dry#why-write-dry-code)
     4. Common transformations that happen in this layer are:
         1. Table joins or unions
@@ -47,6 +47,7 @@ Data layers represent a systematic approach to data modeling by organizing data 
     2. Sometimes called the entity layer or concept layer, to emphasize that our marts are meant to represent a specific entity or concept at its unique grain
     3. Use plain English to name the file based on the concept that forms the grain of the mart e.g. `incidents.sql`, `claimants.sql`, `orders.sql`
     4. Wide and denormalized
+    5. Files are saved in a subdirectory usually named "marts" of the models folder
 
 ### Tour of dbt Cloud user interface
 
@@ -54,14 +55,12 @@ Data layers represent a systematic approach to data modeling by organizing data 
     1. _File browser_
     2. _File editor_
     3. _Preview pane_
-    4. _Linter/Fixer_
-    5. _Build/Run_
 2. Validate your development environment:
-    1. Open the Develop tab in your own environment and open transform/models/staging/stg_water_quality__stations.sql
+    1. Open the Develop tab in your own environment and open `transform/models/staging/stg_water_quality__stations.sql`
     2. Click on the _Preview_ button. You should see data in the lower panel
-3. Demonstrate the _Run_/_Build_ functionality
-4. Demonstrate the _Fix_/_Lint_ functionality
-5. Verify that the models you ran are visible in your personal schema within `TRANSFORM_DEV`
+3. Demonstrate the _Lint_/_Fix_ functionality
+4. Demonstrate the _Build_/_Run_ functionality
+5. Verify that the models you built/ran are visible in your personal schema within `TRANSFORM_DEV`
 
 ### **Exercise: Create your first dbt staging model**
 
@@ -70,27 +69,28 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
 #### First staging model instructions
 
 1. Find and switch to your branch: `<your-first-name>-dbt-training`
-2. Open `transform/models/staging/stg_water_quality__stations.sql`. You should see a simple SQL statement that just selects all of the data from the raw table
+2. Open `transform/models/staging/stg_water_quality__stations.sql` – you should see a SQL statement that selects all of the data from the raw table
 3. Update the select statement to do the following:
-    1. Explicitly select all columns by name rather than with *
-    2. Exclude the following column: STATION_NAME
-    3. Change the STATION_ID column type to varchar
+    1. Explicitly select all columns by name rather than with `*`
+    2. Exclude the following column: `STATION_NAME`
+    3. Change the `STATION_ID` column type to varchar
         1. Use Snowflake’s [TO_VARCHAR()](https://docs.snowflake.com/en/sql-reference/functions/to_char) function which needs one argument – the column to be converted
-    4. Change the SAMPLE_DATE_MIN and SAMPLE_DATE_MAX columns to timestamps and rename them to SAMPLE_TIMESTAMP_MIN and SAMPLE_TIMESTAMP_MAX
-        1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. YYYY-MM-DD HH24:MI:SS
+    4. Change the `SAMPLE_DATE_MIN` and `SAMPLE_DATE_MAX` columns to timestamps and rename them to `SAMPLE_TIMESTAMP_MIN` and `SAMPLE_TIMESTAMP_MAX`
+        1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. `YYYY-MM-DD HH24:MI:SS`
     5. Format your SQL query as a CTE
 
 #### Second staging model instructions
 
 1. Remain on your current branch: `<your-first-name>-dbt-training`
-2. Open `transform/models/staging/stg_water_quality__lab_results.sql`. You should see a simple SQL statement that just selects all of the data from the raw table
+2. Open `transform/models/staging/stg_water_quality__lab_results.sql` – you should see a SQL statement that selects all of the data from the raw table
 3. Update the select statement to do the following:
-    1. Explicitly select the following columns by name rather than with *: station_id, status, sample_code, sample_date, sample_depth, sample_depth_units, parameter, result, reporting_limit, units, and method_name
-    2. Change the station_id column type to varchar
+    1. Explicitly select the following columns by name rather than with `*`: 
+        - `station_id`, `status`, `sample_code`, `sample_date`, `sample_depth`, `sample_depth_units`, `parameter`, `result`, `reporting_limit`, `units`, and `method_name`
+    2. Change the `station_id` column type to varchar
         1. Use Snowflake’s [TO_VARCHAR()](https://docs.snowflake.com/en/sql-reference/functions/to_char) function which needs one argument – the column to be converted
-    3. Change the sample_date column type to timestamp and rename it to SAMPLE_TIMESTAMP
-        1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. YYYY-MM-DD HH24:MI:SS
-    4. Alias and capitalize all of your columns (except for the timestamps columns since you did this already) e.g. select “column_name” as COLUMN_NAME
+    3. Change the `sample_date` column type to timestamp and rename it to SAMPLE_TIMESTAMP
+        1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. `YYYY-MM-DD HH24:MI:SS`
+    4. Alias and capitalize all of your columns (except for the two timestamp columns since you did this already) e.g. `select “column_name” as COLUMN_NAME`
 4. Format your SQL query as a CTE
 
 #### Finally
@@ -104,7 +104,7 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
 
 #### dbt Fundamentals
 
-[dbt Fundamentals](https://courses.getdbt.com/courses/fundamentals) is an online self-paced course on how to use dbt and dbt Cloud. It is broadly similar to the content in this training, and you may find some of the videos from the course helpful to review. We’ve linked to some of the videos here.
+[dbt Fundamentals](https://courses.getdbt.com/courses/fundamentals) is an online self-paced course on how to use dbt and dbt Cloud. It is broadly similar to the content in this training, and you may find some of the videos from the course helpful to review. We’ve linked to some of the videos below.
 
 #### Models in dbt
 
@@ -114,7 +114,7 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
 
 ## **Day 2**
 
-### What are these YAML files?
+### What are all these YAML files?!
 
 Broadly speaking, there are two kinds of relations (a relation is a table or view) in a dbt project: “models” and “sources”. “Sources” are your raw, untransformed data sets. “Models” are the tables and views that you create when transforming your data into something. Both of these are described using YAML files.
 
@@ -124,47 +124,116 @@ The YAML files in a dbt project contain the metadata for your relations, both so
 - Configuration
 - Data tests
 
-### Wait, what is YAML?
+### Wait, but what _is_ YAML?
 
-- “Yet Another Markup Language”
-- YAML is a superset of JSON (JavaScript Object Notation)
-    - Intended to be a more human readable version of JSON
-    - But JSON is still perfectly valid! `{“my-key”: 4}` is YAML.
-- YAML has support for:
-    - Key-value pairs (i.e., dicts/maps)
-    - Lists
-    - Strings, numbers, booleans
-- Absolutely ubiquitous for tool configuration. Tools that are configured using YAML include:
-    - dbt
-    - GitHub Actions
-    - Azure Pipelines
-    - Kubernetes
-    - AWS CloudFormation
-    - Many more!
+YAML stands for “Yet Another Markup Language”. It is a superset of JSON (JavaScript Object Notation) and intended to be a more human readable version, but JSON is still perfectly valid! For example, `{“my-key”: 4}` is YAML. YAML has support for:
 
-#### YAML dicts/maps
+- Key-value pairs (i.e., dicts/maps)
+- Lists
+- Strings, numbers, booleans
 
-![YAML dictionaries or maps](../images/yaml_dicts_maps.png)
+It is also absolutely ubiquitous for tool configuration. Tools that are configured using YAML include:
+
+- dbt
+- GitHub Actions
+- Azure Pipelines
+- Kubernetes
+- AWS CloudFormation
+- Many more!
+
+Indentation is meaningful in YAML. Make sure that you use **2 spaces**, rather than tab characters, to indent sections per level of nesting.
+
+#### YAML dictionaries (dicts)/maps
+
+```yaml
+# In YAML, comments are started with the hashtag # symbol
+
+# Dicts/maps are constructed using indentation and the colon ":" symbol
+my_dict:
+  a_number: 12
+  a_string: "hello, world!"
+  a_boolean: true
+  a_nested_dict:
+    key: "value"
+    another_key: "another value"
+
+# Because YAML is a superset of JSON, we can equivalently write:
+my_dict: {"a_number":12, "a_string": "hello, world!", "a_boolean": true}
+```
 
 #### YAML lists
 
-![YAML lists](../images/yaml_lists.png)
+```yaml
+# Lists are constructed using the dash - symbol
+my_list:
+  - 1
+  - 2
+  - 3
+  - 4
+
+# Because YAML is a superset of JSON, we can equivalently write:
+my_list: [1, 2, 3, 4]
+```
 
 #### YAML strings
 
-![YAML strings](../images/yaml_strings.png)
+```yaml
+# YAML strings may be written without quotes "" as long as there is no ambiguity
+my_dict:
+  a_string: "britt is cool!"
+  also_a_string: britt is cool
+
+# But ommitting the quotes for a string can get you in trouble when the string is ambiguous!
+my_dict:
+  # This is interpreted as a number (which is not what we want)
+  python_version: 3.9
+
+  # This would pull in python 3.1 instead of 3.10!
+  another_python_version: 3.10
+
+  # This gets interpreted as a boolean instead of a string!
+  should_i_eat_lunch: yes
+```
 
 #### YAML multiline strings
 
-![YAML multiline strings](../images/yaml_multi_strings.png)
+```yaml
+# Use the pipe | or right angle bracket > symbol to break up long strings for legibility
+long_snippet: |
+  Now is the winter of our discontent
+  Made glorious summer by this sun of York
+
+another_long_snippet: >
+  Call me Ishmael. Some years ago - never mind how long precisely -
+  having little or no money in my purse, and nothing particular to
+  interest me on shore, I thought I would sail about a little and see
+  the watery part of the world.
+```
 
 #### Markdown in YAML
 
-![YAML markdown](../images/yaml_markdown.png)
+```yaml
+# dbt renders description strings as Markdown
+a_markdown_string: |
+  This is rendered as Markdown! So I can use _emphasis_
+  or **bold text**. I can also include:
+  
+  - Lists
+  - of
+  - items
+
+  as well as [URLs](https://github.github.com/gfm/)
+```
+
+!!! note
+    You can't actually render markdown within a code block. Code blocks are designed to
+    display text literally, so Markdown formatting like bolding, italicizing, or headings
+    won't be applied, hence why you do not see the affect above. However, in dbt which allows
+    for richer text formatting, applying markdown to your YAML like we've done above will work.
 
 ### Sources and refs
 
-Let’s get back into the source and ref dbt macros. Instead of directly referring to the database, schema, table, and view names, we use the `source` and `ref` dbt macros. The syntax for this is to replace the raw names with a template directive like this: `{{ source(‘water_quality’, ‘stations’) }}`.
+Let’s get back into the source and ref dbt macros. Instead of directly referring to the database, schema, table, and view names, we use the `source` and `ref` dbt macros. The syntax for this is to replace the raw names with a template directive like this: `{{ source('water_quality', 'stations') }}`.
 
 The curly braces are a syntax for _Jinja_ templating. The expression within the curly braces is a Python (ish) function which gets evaluated and inserted into the SQL file. There are lots of things we can do with Jinja to help generate our SQL queries, including basic math, custom Python functions, loops, and if-else statements. Most of the time, you will just need to be able to use the `source` and `ref` macros.
 
@@ -172,7 +241,7 @@ The curly braces are a syntax for _Jinja_ templating. The expression within the 
 
 This function creates dependencies between source data and the current model (usually staging) referencing it. Your dbt project will depend on raw data stored in your database. Since this data is normally loaded by other tools than dbt, the structure of it can change over time – tables and columns may be added, removed, or renamed. When this happens, it is easier to update models if raw data is only referenced in one place.
 
-**Example:** replace `RAW_DEV.WATER_QUALITY.LAB_RESULTS` with `{{ source(‘water_quality’, ‘lab_results’) }}`.
+**Example:** replace `RAW_DEV.WATER_QUALITY.LAB_RESULTS` with `{{ source('water_quality', 'lab_results') }}`.
 
 #### ref()
 
@@ -200,20 +269,20 @@ Here you’ll write YAML configuration for the Water Quality metadata source tab
 4. Describe the tables that exist in the WATER_QUALITY schema:
 
     ```yaml
-        sources:
-        name: WATER_QUALITY
+    sources:
+      - name: WATER_QUALITY
         database: <database name here>
         schema: <schema name here>
         description: <data description here>
         tables:
-            name: <table name here>
+          - name: <table name here>
             description: <table description here>
             columns:
-            name: <column name here>
-            description: <column description here>
-            name: <column name here>
-            description: <column description here>
-            …  # etc
+              - name: <column name here>
+                description: <column description here>
+                name: <column name here>
+                description: <column description here>
+                …  # etc
     ```
 
 5. _Lint_ and _Fix_ your file, save any changes made
@@ -253,15 +322,9 @@ The grain at which this data is collected results in duplicate county names so t
 
 ## **Day 3**
 
-### Remember: Common Table Expressions (CTEs)
+Let refresh our memory on [data layers for intermediate models](https://cagov.github.io/caldata-mdsa-training/dbt/cloud/#data-layers-staging-intermediate-marts). Let's also revisit [common table expressions (CTEs)](https://cagov.github.io/caldata-mdsa-training/dbt/cloud/#common-table-expressions-ctes)
 
-CTEs are widely used as a way to create modular and readable SQL queries. You can think of CTEs as creating temporary, named data tables within your SQL queries. CTEs facilitate modularity and readability by encapsulating complex subqueries and making them reusable throughout your data models.
-
-Often CTEs are framed as an alternative to SQL subqueries. In dbt-style SQL, CTEs are usually preferable to subqueries for a few reasons:
-
-1. They allow you to read code from top to bottom rather than inside out
-2. They allow for better reuse of intermediate results
-3. They allow you to give descriptive names to intermediate results
+### CTE examples
 
 ``` sql
 -- Let's go from writing our code like this...
@@ -277,14 +340,14 @@ select
     "longitude",
     "county_name" as county
     
-from {{ source("WATER_QUALITY", "LAB_RESULTS") }}
+from {{ source('WATER_QUALITY', 'LAB_RESULTS') }}
 
 -- To writing our code like this
 
 with
 
 source as (
-    select * from {{ source("WATER_QUALITY", "LAB_RESULTS") }}
+    select * from {{ source('WATER_QUALITY', 'LAB_RESULTS') }}
 ),
 
 lab_results_with_date as (
@@ -305,88 +368,113 @@ from source
 select * from lab_results_with_date
 ```
 
-Here’s [an example of a more complex, multi-stage CTE](https://github.com/cagov/data-infrastructure/blob/main/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql) query.
-
-### Remember: Data Layers
-
-**Intermediate Models**
-
-1. Intermediate models are where you start applying more complex transformations to your data.
-2. This layer is used for data cleansing, feature engineering, and combining data from different sources.
-3. Intermediate models allow you to build modular and reusable transformations following the principles of [DRY (Don’t Repeat Yourself)](https://docs.getdbt.com/terms/dry#why-write-dry-code)
-4. Common transformations that happen in this layer are:
-    1. Table joins or unions
-    2. Data aggregations (e.g. using a function like `SUM()`)
-    3. Data pivots
-5. Materialization depends, this decision should factor in how expensive the model is and how many downstream models/marts use it
-6. Files are prefixed with `int_` and saved in a subdirectory usually named “intermediate” of the models folder
+Here’s [another example of a more complex, multi-stage CTE](https://github.com/cagov/data-infrastructure/blob/main/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql) query.
 
 ### Materializations
 
 Materializations refer to the way dbt executes and persists the results of SQL queries. It is the Data Definition Language (DDL) and Data Manipulation Language (DML) used to create a model’s equivalent in a data warehouse.
 
-Understanding the options for materializations will allow you to choose the best strategy based on factors like query performance, data freshness, and data volume. There are four materializations used in dbt:
-
-- View
-- Table
-- Incremental
-- Ephemeral
+Understanding the options for materializations will allow you to choose the best strategy based on factors like query performance, data freshness, and data volume. There are four materializations used in dbt: view, table, incremental, and ephemeral. We used [dbt as our main source](https://docs.getdbt.com/best-practices/materializations/5-best-practices) for most of the materialization descriptions below.
 
 #### View
 
-🔍 Views return the freshest, real-time state of their input data when they’re queried, this makes them ideal as building blocks for larger models.
-🤏Views are also great for small datasets with minimally intensive logic that we want near real time access to.
-🙅‍♀️Staging models are rarely accessed directly by our end users.
-🧱Staging models need to be always up-to-date and in sync with our source data as building blocks for later models so we’ll want to materialize our staging models as views.
-👍Since views are the default materialization in dbt, we don’t have to do any specific configuration for this.
-💎Still, for clarity, it’s a good idea to go ahead and specify the configuration to be explicit. We’ll want to make sure our dbt_project.yml looks like this:
+- 🔍 Views return the freshest, real-time state of their input data when they’re queried, this makes them ideal as building blocks for larger models.
+- 🤏 Views are also great for small datasets with minimally intensive logic that we want near real time access to.
+- 🙅‍♀️ Staging models are rarely accessed directly by our end users.
+- 🧱 Staging models need to be always up-to-date and in sync with our source data as building blocks for later models so we’ll want to materialize our staging models as views.
+- 👍 Since views are the default materialization in dbt, we don’t have to do any specific configuration for this.
+- 💎 Still, for clarity, it’s a good idea to go ahead and specify the configuration to be explicit. We’ll want to make sure our dbt_project.yml looks like this:
 
-image tk
+```yaml
+models:
+  jaffle_shop:
+    staging:
+      +materialized: view
+```
 
 #### Table
 
-🛠️Tables are the most performant materialization, they return transformed data when queried with no need for reprocessing.
-💪Tables are also ideal for frequently used, compute intensive transformations. Making a table allows us to _freeze_ transformations in place.
-📊 Marts, like one that services a popular dashboard, are frequently accessed directly by our end users, and need to be performant.
-⌛Can often function with intermittently refreshed data, end user decision making in many domains is fine with hourly or daily data.
-🛠️Given the above properties we’ve got a great use case for building the data itself into the warehouse, not the logic. In other words, a table.
-❓The only decision we need to make with our marts is whether we can process the whole table at once or do we need to do it in chunks, that is, are we going to use the table materialization or incremental.
+- 🛠️ Tables are the most performant materialization, they return transformed data when queried with no need for reprocessing.
+- 💪 Tables are also ideal for frequently used, compute intensive transformations. Making a table allows us to _freeze_ transformations in place.
+- 📊 Marts, like one that services a popular dashboard, are frequently accessed directly by our end users, and need to be performant.
+- ⌛ Can often function with intermittently refreshed data, end user decision making in many domains is fine with hourly or daily data.
+- 🛠️ Given the above properties we’ve got a great use case for building the data itself into the warehouse, not the logic. In other words, a table.
+- ❓ The only decision we need to make with our marts is whether we can process the whole table at once or do we need to do it in chunks, that is, are we going to use the table materialization or incremental.
 
 #### Incremental
 
-🧱Incremental models build a table in pieces over time, only adding and updating new or changed rows.
-🏎️Builds more quickly than a regular table of the same logic.
-🐢Initial runs are slow. Typically we use incremental models on very large datasets, so building the initial table on the full dataset is time consuming and equivalent to the table materialization.
+- 🧱 Incremental models build a table in pieces over time, only adding and updating new or changed rows.
+- 🏎️ Builds more quickly than a regular table of the same logic.
+- 🐢 Initial runs are slow. Typically we use incremental models on very large datasets, so building the initial table on the full dataset is time consuming and equivalent to the table materialization.
+
+Sources: [Incremental models in-depth](https://docs.getdbt.com/best-practices/materializations/4-incremental-models) and [Available materializations](https://docs.getdbt.com/best-practices/materializations/2-available-materializations)
 
 #### A comparison table
 
-image tk
+![dbt materializations comparison table](../images/dbt_materializations_comparison_table.png)
+
+Source: [Available materializations](https://docs.getdbt.com/best-practices/materializations/2-available-materializations)
 
 #### Materializations golden rule
 
-🔍Start with a view. When the view gets too long to query for end users,
-⚒️Make it a table. When the table gets too long to build in your dbt Jobs,
-📚Build it incrementally. That is, layer the data in chunks as it comes in.
+- 🔍 Start with a view. When the view gets too long to query for end users,
+- ⚒️ Make it a table. When the table gets too long to build in your dbt Jobs,
+- 📚 Build it incrementally. That is, layer the data in chunks as it comes in.
 
 #### Ephemeral
 
 Ephemeral models are not directly built into the database. Instead, dbt will interpolate the code from this model into dependent models as a CTE. Use the ephemeral materialization for:
 
-- very light-weight transformations that are early on in your DAG
-- are only used in one or two downstream models, and
-- do not need to be queried directly
+- Light-weight transformations that are early on in your DAG
+- When they are only used in one or two downstream models, and
+- Do not need to be queried directly
 
-✅ Can help keep your data warehouse clean by reducing clutter
+✅ Can help keep your data warehouse clean by reducing clutter<br/>
 🚫 Overuse of ephemeral materialization can make queries harder to debug
 
+Source: [Materializations](https://docs.getdbt.com/docs/build/materializations#ephemeral)
+
 **Where to configure materializations**
-You can configure models in `dbt_project.yml`, within a specific model, or the YAML file within the model’s folder. Confusing thing about dbt configuration: the syntax and format change depend on where you use it!
+You can configure models in `dbt_project.yml`, the YAML file within the corresponding model’s folder, or within a specific model itself. Confusing thing about dbt configuration: the syntax and format change depend on where you use it!
 
-image tk
-image tk
-image tk
+```yaml
+# in the dbt_project.yml file...
+models:
+  dse_analytics:
+    staging:
+      +materialized: view
+      +database: "{{ env_var('DBT_TRANSFORM_DB', 'TRANSFORM_DEV') }}"
+    intermediate:
+      +materialized: view
+      +database: "{{ env_var('DBT_TRANSFORM_DB', 'TRANSFORM_DEV') }}"
+    marts:
+      +materialized: table
+      +database: "{{ env_var('DBT_ANALYTICS_DB', 'ANALYTICS_DEV') }}"
 
-### Exercise: Create your second dbt model
+# the YAML file within the corresponding model’s folder
+version: 2
+
+models:
+  - name: int_state_entities__active
+    materialized: table
+    description: This is a sample description.
+    columns:
+      - name: name
+        description: Name of the entity
+```
+
+```sql
+-- within a specific model itself
+{{
+    config(
+        materialized='view'
+    )
+}}
+
+select ...
+```
+
+### **Exercise: Create your second dbt model**
 
 Now that we’ve gotten some practice creating a staging model and editing our YAML file to reference our model, let's create an intermediate model and update the relevant YAML file.
 
@@ -417,22 +505,33 @@ Now that we’ve gotten some practice creating a staging model and editing our Y
 **Demo: Macros**
 [Macros](https://docs.getdbt.com/docs/build/jinja-macros#macros) in [Jinja](https://docs.getdbt.com/docs/build/jinja-macros) are pieces of code that can be reused multiple times – they are analogous to "functions" in other programming languages, and are extremely useful if you find yourself repeating code across multiple models. Remember (DRY). Macros are defined in .sql files, typically in your macros directory (e.g.`transform/macros`).
 
-1. Example on station_meta data
+1. Macro example on `stations` data
     1. Switch to the `water_quality_training_materials` branch
-    2. Open and review `transform/macros/map_county_fips_to_county_name.sql`
+    2. Open and review `transform/macros/map_county_name_to_county_fips.sql`
     3. Open `transform/models/staging/stg_water_quality__stations.sql` and review line 23
-2. Another [example](https://github.com/cagov/data-infrastructure/blob/main/transform/macros/map_class_fp.sql) that is called by [this code](https://github.com/cagov/data-infrastructure/blob/main/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql) on line 34
+2. Another [macro example](https://github.com/cagov/data-infrastructure/blob/main/transform/macros/map_class_fp.sql) that is called by [this code](https://github.com/cagov/data-infrastructure/blob/main/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql) on line 34
 
 **Demo: dbt_utils package**
 The [dbt_utils package](https://hub.getdbt.com/dbt-labs/dbt_utils/latest/) contains macros that can be (re)used across this project. Software engineers frequently modularize code into libraries. These libraries help programmers operate with leverage. In dbt, libraries like these are called packages. dbt's packages are powerful because they tackle many common analytic problems that are shared across teams.
 
 1. Example that uses the _dbt_utils_ test [_equal_rowcount_](https://github.com/dbt-labs/dbt-utils/tree/1.1.1/?tab=readme-ov-file#equal_rowcount-source)
-    1. Switch to the `pems_training_materials` branch
+    1. Switch to the `water_quality_training_materials` branch
     2. Open `transform/models/_models.yml` and review lines 6-10
-    3. Run`dbt test --select stg_pems__station_meta`
+    3. Run`dbt test --select stg_water_quality__stations`
         1. Note this test fails if trying to compare a table to a view
 
-image tk
+```yaml
+version: 2
+
+models:
+  - name: stg_water_quality__stations
+    description: Staging model for the STATIONS source data.
+    config:
+      materialized: table
+    tests:
+      - dbt_utils.equal_rowcount:
+        compare_model: source('water_quality', 'stations')
+```
 
 ### Custom tests
 
@@ -445,16 +544,11 @@ There are two ways of defining data tests in dbt:
 
 ### Day 3: References
 
-- [****dbt materialization and performance considerations****](https://cagov.github.io/data-infrastructure/dbt/dbt-performance/#2-model-level-materialization-matters)
+#### Materializations, Jinja, and dbt Models
 
-**Re-watch these videos from day 1**
-
-- [Building your first model](https://platform.thinkific.com/videoproxy/v1/play/cecuppiekd0onghk4p20)
-- [What is modularity?](https://platform.thinkific.com/videoproxy/v1/play/c71iuqg02svskgqkn6lg)
-
-**Jinja Tutorial**
-
-- [Use Jinja to improve your SQL code](https://docs.getdbt.com/guides/using-jinja?step=1)
+- [dbt materialization and performance considerations](https://cagov.github.io/data-infrastructure/dbt/dbt-performance/#2-model-level-materialization-matters)
+- [Jinja tutorial: Use Jinja to improve your SQL code](https://docs.getdbt.com/guides/using-jinja?step=1)
+- [Re-watch the sceond and third video from Day 1: Models in dbt](https://cagov.github.io/caldata-mdsa-training/dbt/cloud/#models-in-dbt)
 
 ## **Day 4**
 
@@ -467,10 +561,10 @@ dbt generates HTML documentation from your SQL models and YAML configuration fil
 
 ### dbt Cloud deployments and jobs
 
-We’ll talk through the concept of an “Environment”, which is a virtual machine in dbt Cloud that has all of the relevant software dependencies and environment variables set. You’ve already encountered one environment, which is your “Develop” IDE. But you can create other environments in dbt Cloud (and in other services) for various purposes. Examples of other environments:
+We’ll talk through the concept of an “Environment”, which is a virtual machine in dbt Cloud that has all of the relevant software dependencies and environment variables set. You’ve already encountered one environment, which is your “Develop:  Cloud IDE”. But you can create other environments in dbt Cloud (and in other services) for various purposes. Examples of other environments:
 
-1. A “Production” environment which is used to run the dbt models that have been merged to `main`. This can be run on an ad-hoc basis, or can be run on a schedule to ensure that models are never more than some amount of time old.
-2. A “continuous integration” (CI) environment, which is used to run tests on branches and pull requests, and can help to catch bugs and regressions before they are deployed to production.
+1. A “production” environment which is used to run the dbt models that have been merged to `main`. This can be run on an ad-hoc basis, or can be run on a schedule to ensure that models are never more than some amount of time old.
+2. A “continuous integration (CI)" environment, which is used to run tests on branches and pull requests, and can help to catch bugs and regressions before they are deployed to production.
 3. A “docs” environment, used for building docs.
 
 We’ll also introduce the concept of a “Job”, which is a command that is run in an environment, and can either be run on a schedule or can be triggered by some event.
@@ -517,14 +611,14 @@ You’ve been working in your own branches to create dbt models and configuratio
 
 1. Inspect the `pre-commit` results of your pull request in GitHub.
 2. Address any issues flagged by the results. Remember, the “_Format_”, “_Lint_”, and “_Fix_” buttons in dbt Cloud can help with auto-resolving issues around formatting.
-3. Inspect the dbt Cloud test results in GitHub. Resolve any issues with your models not building or failing data integrity tests.
+3. Inspect the dbt Cloud test results in GitHub (or Azure DevOps). Resolve any issues with your models not building or failing data integrity tests.
 4. Request a review of a teammate. Review another teammate’s PR.
 5. Address any comments or suggestions from your code review.
 6. Repeat the above steps until there are no remaining comments, and you get a green checkmark on the CI checks!
 
 **If using Azure DevOps:**
 
-1. On the page for your pull request you should see the results of the CI checks in the “Overview” tab. If it’s green, great, it passed!
+1. On the page for your pull request you should see the results of the CI checks. If it’s green, great, it passed!
 2. If the CI check is red, click on it to see the logs, which will give more information about the failure. You might see failures in:
     1. The linter checks (which looks for code style and common gotchas)
     2. Model builds, which indicate some logic issue in the code
