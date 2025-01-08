@@ -1,14 +1,16 @@
-# **Day 1**
+# dbt Cloud training
 
-## What is dbt (data build tool)?
+## **Day 1**
+
+### What is dbt (data build tool)?
 
 dbt is a SQL-first transformation tool that lets teams quickly and collaboratively deploy analytics code while following software engineering best practices like modularity, version control, CI/CD, and documentation. This allows your data team to safely develop and contribute to production-grade data pipelines.
 
-## Data modeling in the context of dbt
+### Data modeling in the context of dbt
 
 In the context of dbt, data modeling refers to the process of organizing data in a structured and efficient manner to facilitate data analysis and decision-making. Data models in dbt serve as blueprints for transforming and organizing your raw data into valuable insights. Data models in their final form are usually a representation of a business or program area and live as tables or views in your data warehouse.
 
-## Common table expressions (CTEs)
+### Common table expressions (CTEs)
 
 CTEs are widely used as a way to create modular and readable SQL queries. You can think of CTEs as temporary, named data tables within your SQL queries. CTEs facilitate modularity and readability by encapsulating complex subqueries and making them reusable throughout your data models.
 
@@ -18,7 +20,7 @@ Often CTEs are framed as an alternative to SQL subqueries. In dbt-style SQL, CTE
 2. They allow for better reuse of intermediate results
 3. They allow you to give descriptive names to intermediate results
 
-## Data layers (staging, intermediate, marts)
+### Data layers (staging, intermediate, marts)
 
 Data layers represent a systematic approach to data modeling by organizing data into distinct phases. dbt does a particularly great job of explaining best practices to structuring your project and data with naming conventions, example code, and reasoning on such practices in [this guide](https://docs.getdbt.com/best-practices/how-we-structure/1-guide-overview). We’ve summarized it below, but still recommend a thorough read of dbt’s guide.
 
@@ -46,7 +48,7 @@ Data layers represent a systematic approach to data modeling by organizing data 
     3. Use plain English to name the file based on the concept that forms the grain of the mart e.g. `incidents.sql`, `claimants.sql`, `orders.sql`
     4. Wide and denormalized
 
-## Tour of dbt Cloud user interface
+### Tour of dbt Cloud user interface
 
 1. We’ll give you a brief overview of the dbt Cloud user interface:
     1. _File browser_
@@ -61,11 +63,11 @@ Data layers represent a systematic approach to data modeling by organizing data 
 4. Demonstrate the _Fix_/_Lint_ functionality
 5. Verify that the models you ran are visible in your personal schema within `TRANSFORM_DEV`
 
-## **Exercise: Create your first dbt staging model**
+### **Exercise: Create your first dbt staging model**
 
 Let’s create two staging models! The data in `raw_dev.water_quality.stations` and `raw_dev.water_quality.lab_results` have been loaded from [data.ca.gov/dataset/water-quality-data](https://data.ca.gov/dataset/water-quality-data) without modification except for the exclusion of the \_id column in each table. There are a few simple transformations we can do to make working with these data more ergonomic. Models that require simple transformations involving things like data type conversion or column renaming are called staging models.
 
-### First staging model instructions
+#### First staging model instructions
 
 1. Find and switch to your branch: `<your-first-name>-dbt-training`
 2. Open `transform/models/staging/stg_water_quality__stations.sql`. You should see a simple SQL statement that just selects all of the data from the raw table
@@ -74,11 +76,11 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
     2. Exclude the following column: STATION_NAME
     3. Change the STATION_ID column type to varchar
         1. Use Snowflake’s [TO_VARCHAR()](https://docs.snowflake.com/en/sql-reference/functions/to_char) function which needs one argument – the column to be converted
-    4. Change the SAMPLE_DATE_MIN and SAMPLE_DATE_MAX columns to timestamps
+    4. Change the SAMPLE_DATE_MIN and SAMPLE_DATE_MAX columns to timestamps and rename them to SAMPLE_TIMESTAMP_MIN and SAMPLE_TIMESTAMP_MAX
         1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. YYYY-MM-DD HH24:MI:SS
     5. Format your SQL query as a CTE
 
-### Second staging model instructions
+#### Second staging model instructions
 
 1. Remain on your current branch: `<your-first-name>-dbt-training`
 2. Open `transform/models/staging/stg_water_quality__lab_results.sql`. You should see a simple SQL statement that just selects all of the data from the raw table
@@ -86,33 +88,33 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
     1. Explicitly select the following columns by name rather than with *: station_id, status, sample_code, sample_date, sample_depth, sample_depth_units, parameter, result, reporting_limit, units, and method_name
     2. Change the station_id column type to varchar
         1. Use Snowflake’s [TO_VARCHAR()](https://docs.snowflake.com/en/sql-reference/functions/to_char) function which needs one argument – the column to be converted
-    3. Change the sample_date column type to timestamp
+    3. Change the sample_date column type to timestamp and rename it to SAMPLE_TIMESTAMP
         1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. YYYY-MM-DD HH24:MI:SS
-    4. Alias and capitalize all of your columns e.g. select “column_name” as COLUMN_NAME
+    4. Alias and capitalize all of your columns (except for the timestamps columns since you did this already) e.g. select “column_name” as COLUMN_NAME
 4. Format your SQL query as a CTE
 
-### Finally
+#### Finally
 
 1. _Lint_ and _Fix_ your file, save any changes made
 1. Commit and sync your code and leave a concise, yet descriptive commit message
 1. In GitHub (or Azure DevOps), create a new pull request and add a teammate as a reviewer
 1. We’ll end the day by reviewing each other’s PRs
 
-## References
+### Day 1: References
 
-### dbt Fundamentals
+#### dbt Fundamentals
 
 [dbt Fundamentals](https://courses.getdbt.com/courses/fundamentals) is an online self-paced course on how to use dbt and dbt Cloud. It is broadly similar to the content in this training, and you may find some of the videos from the course helpful to review. We’ve linked to some of the videos here.
 
-### Models in dbt
+#### Models in dbt
 
 - [What are models?](https://platform.thinkific.com/videoproxy/v1/play/c71iuqg02svskgqkn6jg)
 - [Building your first model](https://platform.thinkific.com/videoproxy/v1/play/cecuppiekd0onghk4p20)
 - [What is modularity?](https://platform.thinkific.com/videoproxy/v1/play/c71iuqg02svskgqkn6lg)
 
-# **Day 2**
+## **Day 2**
 
-## What are these YAML files?
+### What are these YAML files?
 
 Broadly speaking, there are two kinds of relations (a relation is a table or view) in a dbt project: “models” and “sources”. “Sources” are your raw, untransformed data sets. “Models” are the tables and views that you create when transforming your data into something. Both of these are described using YAML files.
 
@@ -122,63 +124,63 @@ The YAML files in a dbt project contain the metadata for your relations, both so
 - Configuration
 - Data tests
 
-## Wait, what is YAML?
+### Wait, what is YAML?
 
 - “Yet Another Markup Language”
 - YAML is a superset of JSON (JavaScript Object Notation)
-  - Intended to be a more human readable version of JSON
-  - But JSON is still perfectly valid! {“my-key”: 4} is YAML.
-- Support for:
-  - Key-value pairs (i.e., dicts/maps)
-  - Lists
-  - Strings, numbers, booleans
+    - Intended to be a more human readable version of JSON
+    - But JSON is still perfectly valid! `{“my-key”: 4}` is YAML.
+- YAML has support for:
+    - Key-value pairs (i.e., dicts/maps)
+    - Lists
+    - Strings, numbers, booleans
 - Absolutely ubiquitous for tool configuration. Tools that are configured using YAML include:
-  - dbt
-  - GitHub Actions
-  - Azure Pipelines
-  - Kubernetes
-  - AWS CloudFormation
-  - Many more!
+    - dbt
+    - GitHub Actions
+    - Azure Pipelines
+    - Kubernetes
+    - AWS CloudFormation
+    - Many more!
 
-### YAML dicts/maps
+#### YAML dicts/maps
 
 ![YAML dictionaries or maps](../images/yaml_dicts_maps.png)
 
-### YAML lists
+#### YAML lists
 
 ![YAML lists](../images/yaml_lists.png)
 
-### YAML strings
+#### YAML strings
 
 ![YAML strings](../images/yaml_strings.png)
 
-### YAML multiline strings
+#### YAML multiline strings
 
 ![YAML multiline strings](../images/yaml_multi_strings.png)
 
-### Markdown in YAML
+#### Markdown in YAML
 
 ![YAML markdown](../images/yaml_markdown.png)
 
-## Sources and refs
+### Sources and refs
 
-Let’s get back into the source and ref dbt macros. Instead of directly referring to the database, schema, table, and view names, we use the `source` and `ref` dbt macros. The syntax for this is to replace the raw names with a template directive like this: `{{ source(‘clearinghouse’, ‘station_meta’) }}`.
+Let’s get back into the source and ref dbt macros. Instead of directly referring to the database, schema, table, and view names, we use the `source` and `ref` dbt macros. The syntax for this is to replace the raw names with a template directive like this: `{{ source(‘water_quality’, ‘stations’) }}`.
 
 The curly braces are a syntax for _Jinja_ templating. The expression within the curly braces is a Python (ish) function which gets evaluated and inserted into the SQL file. There are lots of things we can do with Jinja to help generate our SQL queries, including basic math, custom Python functions, loops, and if-else statements. Most of the time, you will just need to be able to use the `source` and `ref` macros.
 
-### source()
+#### source()
 
 This function creates dependencies between source data and the current model (usually staging) referencing it. Your dbt project will depend on raw data stored in your database. Since this data is normally loaded by other tools than dbt, the structure of it can change over time – tables and columns may be added, removed, or renamed. When this happens, it is easier to update models if raw data is only referenced in one place.
 
-**Example:** replace `RAW_PRD.CLEARINGHOUSE.STATION_RAW` with `{{ source(‘clearinghouse’, ‘station_raw’) }}`.
+**Example:** replace `RAW_DEV.WATER_QUALITY.LAB_RESULTS` with `{{ source(‘water_quality’, ‘lab_results’) }}`.
 
-### ref()
+#### ref()
 
 This function is how you reference a model from another: it allows you to build more complex models by referring to other ones and constructing a data lineage graph. Under the hood this function is actually doing two important things. First, it is interpolating the schema into your model file to allow you to change your deployment schema via configuration. Second, it is using these references between models to automatically build the dependency graph. This will enable dbt to deploy models in the correct order when using dbt run.
 
-**Example:** Replace `stg_pems__station_meta` with `{{ ref(‘stg_pems__station_meta’) }}`.
+**Example:** Replace `stg_water_quality__stations` with `{{ ref(‘stg_water_quality__stations’) }}`.
 
-### Why shouldn’t we directly refer to the table names?
+#### Why shouldn’t we directly refer to the table names?
 
 It can be initially confusing to people that we don’t directly refer to the names of the other data models, and instead do it indirectly via the `source` and `ref` macros. There are a few reasons for this:
 
@@ -186,82 +188,74 @@ It can be initially confusing to people that we don’t directly refer to the na
 2. It becomes easier to rename a data source. This can be especially useful if the data source comes to you with unhelpful names.
 3. Source and refs become context aware. For example, in a development context, your personal development schema is templated into the SQL queries, but in a production context the final production schema is templated in. This allows for safer development of new models.
 
-## Exercise: Write YAML for your source data and staging models
+### **Exercise: Write YAML for your source data and staging models**
 
-Here you’ll write YAML configuration for the PeMS metadata source table, and for the staging model you wrote. It will build on the branch you created in the previous exercise, so open dbt Cloud, navigate to the developer tab, and make sure that branch is checked out.
+Here you’ll write YAML configuration for the Water Quality metadata source table, and for the staging model you wrote. It will build on the branch you created in the previous exercise, so open dbt Cloud, navigate to the developer tab, and make sure that branch is checked out.
 
 1. Switch to your branch from yesterday: `<your-first-name>-dbt-training`
-2. Open `transform/models/_sources.yml`. You should see some mostly empty stubs for models and sources.
-3. First, specify where the PEMS station data exists in the Snowflake database. We’ll do that by adding some keys to the `PEMS` source:
-    1. Add a key for the database: (`database: RAW_PRD`).
-    2. Add a key for the schema: (`schema: CLEARINGHOUSE`).
-4. Describe the tables that exist in the CLEARINGHOUSE schema:
+2. Open `transform/models/_sources.yml`. You should see mostly empty stubs for models and sources.
+3. First, specify where the Water Quality data exists in the Snowflake database. We’ll do that by adding some keys to the `Water Quality` source:
+    1. Add a key for the database: (`database: RAW_DEV`).
+    2. Add a key for the schema: (`schema: WATER_QUALITY`).
+4. Describe the tables that exist in the WATER_QUALITY schema:
 
-<!---->
-
-    sources:
-
-    name: CLEARINGHOUSE
-
-    database: <database name here>
-    schema: <schema name here>
-    description: <data description here>
-    tables:
-
-    name: <table name here>
-    description: <table description here>
-
-    columns:
-
-    name: <column name here>
-
-    description: <column description here>
-
-    name: <column name here>
-
-    description: <column description here>
-    …  # etc
+    ```yaml
+        sources:
+        name: WATER_QUALITY
+        database: <database name here>
+        schema: <schema name here>
+        description: <data description here>
+        tables:
+            name: <table name here>
+            description: <table description here>
+            columns:
+            name: <column name here>
+            description: <column description here>
+            name: <column name here>
+            description: <column description here>
+            …  # etc
+    ```
 
 5. _Lint_ and _Fix_ your file, save any changes made
-6. Open `transform/models/staging/stg_pems__station_meta.sql` and change the reference to our source data by using the `source()` macro we just learned about instead of directly referring to the table name
+6. Open `transform/models/staging/stg_water_quality__stations.sql` and change the reference to our source data by using the `source()` macro we just learned about instead of directly referring to the table name
 7. _Lint_ and _Fix_ your file, save any changes made
 8. Commit and sync your code and leave a concise, yet descriptive commit message
 
-## Data testing
+### Data testing
 
 1. We’ll talk through how to write generic tests for things like “not null” and “unique”.
 2. For people who are familiar with transactional databases, we can also talk about why tests like this are ever needed (i.e., why don’t we handle it using constraints?)
    1. In a traditional transactional database like postgres or SQL Server, you can have a uniqueness constraint on a column. Snowflake does not respect uniqueness constraints and most OLAP databases do not. Primary keys and foreign keys are examples of unique columns that are respected in OLTP databases that are not in OLAP databases.
    2. [More reading](https://cagov.github.io/data-infrastructure/learning/cloud-data-warehouses/#primary-keys-and-constraints) on this topic
 
-## Exercise: Write tests for your staging model
+### **Exercise: Write tests for your staging model**
 
 Open your `transform/models/_models.yml` and write some data integrity tests. Possible examples include:
 
-1. Add a not null test for ID
-2. Add a unique test for ID. This one should fail!
+1. Add a not null test for STATION_ID
+2. Add a unique test for COUNTY_NAME. This one should fail!
 
-The grain at which this data is collected results in duplicate ids so this is not a good test for this column.
+The grain at which this data is collected results in duplicate county names so this is not a good test for this column.
 
-## References
+### Day 2: References
 
-### Sources
+#### Sources
 
 - [Modularity and ref functions](https://platform.thinkific.com/videoproxy/v1/play/cefo4lqgv9ite187s6pg)
 - [What are sources?](https://platform.thinkific.com/videoproxy/v1/play/c6mfkh840bhpn3t0c730)
 - [Configure and select from sources](https://platform.thinkific.com/videoproxy/v1/play/ce4cj9s69iu53jbdif6g)
 - [Documenting sources](https://platform.thinkific.com/videoproxy/v1/play/ce2dbtnf17fhkgqdq580)
 
-### Testing
+#### Testing
 
 - [What is testing?](https://platform.thinkific.com/videoproxy/v1/play/c71iuqg40bhpn3t11pcg)
 - [Generic tests](https://platform.thinkific.com/videoproxy/v1/play/ce9kjv0r715nknv53nhg)
 
-# **Day 3**
+## **Day 3**
 
-## Remember: Common Table Expressions (CTEs)
+### Remember: Common Table Expressions (CTEs)
 
-CTEs are widely used as a way to create modular and readable SQL queries. ****You can think of CTEs as creating temporary, named data tables within your SQL queries. CTEs facilitate modularity and readability by encapsulating complex subqueries and making them reusable throughout your data models.
+CTEs are widely used as a way to create modular and readable SQL queries. You can think of CTEs as creating temporary, named data tables within your SQL queries. CTEs facilitate modularity and readability by encapsulating complex subqueries and making them reusable throughout your data models.
 
 Often CTEs are framed as an alternative to SQL subqueries. In dbt-style SQL, CTEs are usually preferable to subqueries for a few reasons:
 
@@ -269,13 +263,51 @@ Often CTEs are framed as an alternative to SQL subqueries. In dbt-style SQL, CTE
 2. They allow for better reuse of intermediate results
 3. They allow you to give descriptive names to intermediate results
 
-image tk
+``` sql
+-- Let's go from writing our code like this...
 
-image tk
+select
+    DATE_FROM_PARTS(
+    substr("sample_date",7,4)::INT,
+    left("sample_date",2)::INT,
+    substr("sample_date",4,2)::INT
+    ) as sample_date,
+    "station_id",
+    "latitude",
+    "longitude",
+    "county_name" as county
+    
+from {{ source("WATER_QUALITY", "LAB_RESULTS") }}
+
+-- To writing our code like this
+
+with
+
+source as (
+    select * from {{ source("WATER_QUALITY", "LAB_RESULTS") }}
+),
+
+lab_results_with_date as (
+    select
+    DATE_FROM_PARTS(
+    substr("sample_date",7,4)::INT,
+    left("sample_date",2)::INT,
+    substr("sample_date",4,2)::INT
+    ) as sample_date,
+    "station_id",
+    "latitude",
+    "longitude",
+    "county_name" as county
+    
+from source
+)
+
+select * from lab_results_with_date
+```
 
 Here’s [an example of a more complex, multi-stage CTE](https://github.com/cagov/data-infrastructure/blob/main/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql) query.
 
-## Remember: Data Layers
+### Remember: Data Layers
 
 **Intermediate Models**
 
@@ -289,7 +321,7 @@ Here’s [an example of a more complex, multi-stage CTE](https://github.com/cago
 5. Materialization depends, this decision should factor in how expensive the model is and how many downstream models/marts use it
 6. Files are prefixed with `int_` and saved in a subdirectory usually named “intermediate” of the models folder
 
-## Materializations
+### Materializations
 
 Materializations refer to the way dbt executes and persists the results of SQL queries. It is the Data Definition Language (DDL) and Data Manipulation Language (DML) used to create a model’s equivalent in a data warehouse.
 
@@ -300,7 +332,7 @@ Understanding the options for materializations will allow you to choose the best
 - Incremental
 - Ephemeral
 
-### View
+#### View
 
 🔍 Views return the freshest, real-time state of their input data when they’re queried, this makes them ideal as building blocks for larger models.
 🤏Views are also great for small datasets with minimally intensive logic that we want near real time access to.
@@ -311,7 +343,7 @@ Understanding the options for materializations will allow you to choose the best
 
 image tk
 
-### Table
+#### Table
 
 🛠️Tables are the most performant materialization, they return transformed data when queried with no need for reprocessing.
 💪Tables are also ideal for frequently used, compute intensive transformations. Making a table allows us to _freeze_ transformations in place.
@@ -320,23 +352,23 @@ image tk
 🛠️Given the above properties we’ve got a great use case for building the data itself into the warehouse, not the logic. In other words, a table.
 ❓The only decision we need to make with our marts is whether we can process the whole table at once or do we need to do it in chunks, that is, are we going to use the table materialization or incremental.
 
-### Incremental
+#### Incremental
 
 🧱Incremental models build a table in pieces over time, only adding and updating new or changed rows.
 🏎️Builds more quickly than a regular table of the same logic.
 🐢Initial runs are slow. Typically we use incremental models on very large datasets, so building the initial table on the full dataset is time consuming and equivalent to the table materialization.
 
-### A comparison table
+#### A comparison table
 
 image tk
 
-### Materializations golden rule
+#### Materializations golden rule
 
 🔍Start with a view. When the view gets too long to query for end users,
 ⚒️Make it a table. When the table gets too long to build in your dbt Jobs,
 📚Build it incrementally. That is, layer the data in chunks as it comes in.
 
-### Ephemeral
+#### Ephemeral
 
 Ephemeral models are not directly built into the database. Instead, dbt will interpolate the code from this model into dependent models as a CTE. Use the ephemeral materialization for:
 
@@ -354,19 +386,20 @@ image tk
 image tk
 image tk
 
-## Exercise: Create your second dbt model
+### Exercise: Create your second dbt model
 
 Now that we’ve gotten some practice creating a staging model and editing our YAML file to reference our model, let's create an intermediate model and update the relevant YAML file.
 
 **SQL:**
 
-1. Switch to your same branch: `<your-first-name>-dbt-training`
-2. Open `transform/models/intermediate/int_pems__stations_per_county_counted.sql`
+1. Switch to your branch from before: `<your-first-name>-dbt-training`
+2. Open `transform/models/intermediate/int_water_quality__stations_per_county_with_parameter_2023_counted.sql`
 3. Change the reference to the staging model by using the `ref()` macro we learned about
-4. Write a SQL query to return the count of stations per county for the year 2023 sorted from greatest to least.
+4. Write a SQL query to return a count of the stations per county that reported a parameter of Dissolved Chloride for the year 2023 sorted from greatest to least.
 5. _Hints_
-    1. This will be a SQL group by and aggregation.
+    1. This will make use of a SQL group by, aggregation, and join
     2. Your output table should have two columns
+    3. Use Snowflake’s [year()](https://docs.snowflake.com/en/sql-reference/functions/year) function
 6. Format your SQL using CTEs
 7. _Lint_ and _Fix_ your file, save any changes made
 
@@ -377,17 +410,17 @@ Now that we’ve gotten some practice creating a staging model and editing our Y
 
 **Pull Request:**
 11. Commit and sync your code and leave a concise, yet descriptive commit message
-12. In GitHub (or Azure DevOps), check that you’ve added a teammate as a reviewer to your PR (you can do this by adding their name in the reviewer section of the right panel).
+12. In GitHub (or Azure DevOps), check that you’ve added a teammate as a reviewer to your PR
 13. Review someone else’s PR
-14. Optional: Check that their PR passes all CI (continuous integration) checks in GitHub (or Azure DevOps). if not click “details” and investigate the failure – We’ll spend more time on this in Day 4
+14. Optional: Check that your PR passes all CI (continuous integration) checks. If not, click “details” and investigate the failure – We’ll spend more time on this in Day 4
 
 **Demo: Macros**
 [Macros](https://docs.getdbt.com/docs/build/jinja-macros#macros) in [Jinja](https://docs.getdbt.com/docs/build/jinja-macros) are pieces of code that can be reused multiple times – they are analogous to "functions" in other programming languages, and are extremely useful if you find yourself repeating code across multiple models. Remember (DRY). Macros are defined in .sql files, typically in your macros directory (e.g.`transform/macros`).
 
 1. Example on station_meta data
-    1. Switch to the `pems_training_materials` branch
+    1. Switch to the `water_quality_training_materials` branch
     2. Open and review `transform/macros/map_county_fips_to_county_name.sql`
-    3. Open `transform/models/staging/stg_pems__station_meta.sql` and review line 23
+    3. Open `transform/models/staging/stg_water_quality__stations.sql` and review line 23
 2. Another [example](https://github.com/cagov/data-infrastructure/blob/main/transform/macros/map_class_fp.sql) that is called by [this code](https://github.com/cagov/data-infrastructure/blob/main/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql) on line 34
 
 **Demo: dbt_utils package**
@@ -401,7 +434,7 @@ The [dbt_utils package](https://hub.getdbt.com/dbt-labs/dbt_utils/latest/) conta
 
 image tk
 
-## Custom tests
+### Custom tests
 
 Dbt allows you to [create your own tests](https://docs.getdbt.com/docs/build/data-tests#overview) if you cannot find what you’re looking for in dbt_utils (see above) or in other packages. Data tests are assertions you make about your models and other resources in your dbt project (e.g. sources, seeds and snapshots). When you run `dbt test`, dbt will tell you if each test in your project passes or fails.
 
@@ -410,7 +443,7 @@ There are two ways of defining data tests in dbt:
 - A singular data test is testing in its simplest form: If you can write a SQL query that returns failing rows, you can save that query in a .sql file within your [test directory](https://docs.getdbt.com/reference/project-configs/test-paths). It's now a data test, and it will be executed by the dbt test command.
 - A generic data test is a parameterized query that accepts arguments. The test query is defined in a special test block (like a [macro](https://docs.getdbt.com/docs/build/jinja-macros)). Once defined, you can reference the generic test by name throughout your .yml files—define it on models, columns, sources, snapshots, and seeds. dbt ships with [four generic data tests built in](https://docs.getdbt.com/reference/resource-properties/data-tests#out-of-the-box-data-tests) (`not_null`, `unique`, `accepted_values`, `relationships`), and we think you should use them!
 
-## References
+### Day 3: References
 
 - [****dbt materialization and performance considerations****](https://cagov.github.io/data-infrastructure/dbt/dbt-performance/#2-model-level-materialization-matters)
 
@@ -423,16 +456,16 @@ There are two ways of defining data tests in dbt:
 
 - [Use Jinja to improve your SQL code](https://docs.getdbt.com/guides/using-jinja?step=1)
 
-# **Day 4**
+## **Day 4**
 
-## dbt Docs
+### dbt Docs
 
 dbt generates HTML documentation from your SQL models and YAML configuration files. This documentation can then be hosted in a number of places, including dbt Cloud, GitHub Pages, or Azure Static Web Apps. We will show you:
 
 1. How to generate docs using dbt Cloud. This can be useful if you are writing docs in a branch and want to visualize how they are rendered.
 2. If we are using GitHub, we’ll demonstrate how the docs are built from the repository and hosted on GitHub Pages. If we are using Azure DevOps, we’ll demonstrate how the docs are built from the repository and hosted using Azure Static Web Apps.
 
-## dbt Cloud deployments and jobs
+### dbt Cloud deployments and jobs
 
 We’ll talk through the concept of an “Environment”, which is a virtual machine in dbt Cloud that has all of the relevant software dependencies and environment variables set. You’ve already encountered one environment, which is your “Develop” IDE. But you can create other environments in dbt Cloud (and in other services) for various purposes. Examples of other environments:
 
@@ -442,9 +475,9 @@ We’ll talk through the concept of an “Environment”, which is a virtual mac
 
 We’ll also introduce the concept of a “Job”, which is a command that is run in an environment, and can either be run on a schedule or can be triggered by some event.
 
-## Continuous integration and continuous deployment (CI/CD)
+### Continuous integration and continuous deployment (CI/CD)
 
-### What is CI/CD and why you shouldn’t ignore it
+#### What is CI/CD and why you shouldn’t ignore it
 
 CI/CD checks in GitHub (or Azure DevOps) are automated tests that are run against your code every time you push a change. These checks can help you identify errors and potential issues early in the development process, before they can cause problems in production.
 
@@ -462,21 +495,21 @@ CI/CD checks are an important part of the software development process. They can
 
 To reiterate, CI/CD checks can help you to improve the quality of your code, reduce the risk of production issues, and save the whole team time in the long run. We have set up your project repository so that these checks cannot be ignored by preventing a merge of a PR with CI/CD failures. However, CI/CD checks shouldn’t be considered a pain or just a thing we have to do, they are rather intended to be a routine and helpful part of the development process.
 
-### Demo: CI/CD in a development workflow
+#### Demo: CI/CD in a development workflow
 
 1. How to read the results of CI checks on a PR in GitHub (or Azure DevOps).
 2. How merging to `main` results in production dbt builds.
 
-### Custom schema names
+#### Custom schema names
 
 1. We’ll talk about how the database schemas in which dbt models are built are determined. In development, the models get built in a different place (e.g., your `DBT_<first-name-initial+last-name>`schema) than they do in production.
 2. We’ll discuss how this project is configured to use a custom schema name generated using `transform/macros/get_custom_schema.sql`.
 
-#### Exercise
+##### Exercise
 
 Configure your intermediate model to build in a custom schema called `statistics`. You can do this by creating a new property in the model YAML config block: “`schema: statistics`”. Build your model and find it in Snowflake.
 
-### Exercise: Get your branch to pass CI checks
+#### Exercise: Get your branch to pass CI checks
 
 You’ve been working in your own branches to create dbt models and configuration files for PeMS data. Ultimately, our goal is to develop production-grade models, which are documented, configured, and passing CI.
 
@@ -501,7 +534,7 @@ You’ve been working in your own branches to create dbt models and configuratio
 5. Address any comments or suggestions from your code review.
 6. Repeat the above steps until there are no remaining comments, and you get a green checkmark on the CI checks
 
-## References
+### Day 4: References
 
 #### Documentation
 
