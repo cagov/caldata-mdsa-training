@@ -10,16 +10,6 @@ dbt is a SQL-first transformation tool that lets teams quickly and collaborative
 
 In the context of dbt, data modeling refers to the process of organizing data in a structured and efficient manner to facilitate data analysis and decision-making. Data models in dbt serve as blueprints for transforming and organizing your raw data into valuable insights. Data models in their final form are usually a representation of a business or program area and live as tables or views in your data warehouse.
 
-### Common table expressions (CTEs)
-
-CTEs are widely used as a way to create modular and readable SQL queries. You can think of CTEs as temporary, named data tables within your SQL queries. CTEs facilitate modularity and readability by encapsulating complex subqueries and making them reusable throughout your data models.
-
-Often CTEs are framed as an alternative to SQL subqueries. In dbt-style SQL, CTEs are usually preferable to subqueries for a few reasons:
-
-1. They allow you to read code from top to bottom rather than inside out
-2. They allow for better reuse of intermediate results
-3. They allow you to give descriptive names to intermediate results
-
 ### Data layers (staging, intermediate, marts)
 
 Data layers represent a systematic approach to data modeling by organizing data into distinct phases. dbt does a particularly great job of explaining best practices to structuring your project and data with naming conventions, example code, and reasoning on such practices in [this guide](https://docs.getdbt.com/best-practices/how-we-structure/1-guide-overview). We’ve summarized it below, but still recommend a thorough read of dbt’s guide.
@@ -48,6 +38,18 @@ Data layers represent a systematic approach to data modeling by organizing data 
     3. Use plain English to name the file based on the concept that forms the grain of the mart e.g. `incidents.sql`, `claimants.sql`, `orders.sql`
     4. Wide and denormalized
     5. Files are saved in a subdirectory usually named "marts" of the models folder
+
+### Common table expressions (CTEs)
+
+CTEs are widely used as a way to create modular and readable SQL queries. You can think of CTEs as temporary, named data tables within your SQL queries. CTEs facilitate modularity and readability by encapsulating complex subqueries and making them reusable throughout your data models.
+
+Often CTEs are framed as an alternative to SQL subqueries. In dbt-style SQL, CTEs are usually preferable to subqueries for a few reasons:
+
+1. They allow you to read code from top to bottom rather than inside out
+2. They allow for better reuse of intermediate results
+3. They allow you to give descriptive names to intermediate results
+
+![A SQL subquery versus a CTE](../images/subquery_vs_CTE.png) [Image source](https://g-dhasade16.medium.com/sql-subquery-vs-ctes-b312a64614f)
 
 ### Tour of dbt Cloud user interface
 
@@ -200,8 +202,9 @@ my_dict:
 ```yaml
 # Use the pipe | or right angle bracket > symbol to break up long strings for legibility
 long_snippet: |
-  Now is the winter of our discontent
-  Made glorious summer by this sun of York
+  cotton candy blues
+  juxtaposed with blushing peaks
+  postcard-worthy views
 
 another_long_snippet: >
   Call me Ishmael. Some years ago - never mind how long precisely -
@@ -233,7 +236,7 @@ a_markdown_string: |
 
 ### Sources and refs
 
-Let’s get back into the source and ref dbt macros. Instead of directly referring to the database, schema, table, and view names, we use the `source` and `ref` dbt macros. The syntax for this is to replace the raw names with a template directive like this: `{{ source('water_quality', 'stations') }}`.
+Let’s take a look at the `source` and `ref` dbt macros. Instead of directly referring to the database, schema, table, and view names, we use the `source` and `ref` dbt macros. The syntax for this is to replace the raw names with a template directive like this: `{{ source('water_quality', 'stations') }}`.
 
 The curly braces are a syntax for _Jinja_ templating. The expression within the curly braces is a Python (ish) function which gets evaluated and inserted into the SQL file. There are lots of things we can do with Jinja to help generate our SQL queries, including basic math, custom Python functions, loops, and if-else statements. Most of the time, you will just need to be able to use the `source` and `ref` macros.
 
