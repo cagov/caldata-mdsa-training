@@ -86,7 +86,7 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
 1. Remain on your current branch: `<your-first-name>-dbt-training`
 1. Open `transform/models/staging/stg_water_quality__lab_results.sql` – you should see a SQL statement that selects all of the data from the raw table
 1. Update the select statement to do the following:
-    1. Explicitly select the following columns by name rather than with `*`: 
+    1. Explicitly select the following columns by name rather than with `*`:
         - `station_id`, `status`, `sample_code`, `sample_date`, `sample_depth`, `sample_depth_units`, `parameter`, `result`, `reporting_limit`, `units`, and `method_name`
     1. Change the `station_id` column type to varchar
         1. Use Snowflake’s [TO_VARCHAR()](https://docs.snowflake.com/en/sql-reference/functions/to_char) function which needs one argument – the column to be converted
@@ -185,7 +185,7 @@ my_dict:
   a_string: "britt is cool!"
   also_a_string: britt is cool
 
-# But ommitting the quotes for a string can get you in trouble when the string is ambiguous!
+# But omitting the quotes for a string can get you in trouble when the string is ambiguous!
 my_dict:
   # This is interpreted as a number (which is not what we want)
   python_version: 3.9
@@ -220,7 +220,7 @@ another_long_snippet: >
 a_markdown_string: |
   This is rendered as Markdown! So I can use _emphasis_
   or **bold text**. I can also include:
-  
+
   - Lists
   - of
   - items
@@ -342,7 +342,7 @@ select
     "latitude",
     "longitude",
     "county_name" as county
-    
+
 from {{ source('WATER_QUALITY', 'LAB_RESULTS') }}
 
 -- To writing our code like this
@@ -364,7 +364,7 @@ lab_results_with_date as (
     "latitude",
     "longitude",
     "county_name" as county
-    
+
 from source
 )
 
@@ -553,7 +553,7 @@ There are two ways of defining data tests in dbt:
 
 - [dbt materialization and performance considerations](https://cagov.github.io/data-infrastructure/dbt/dbt-performance/#2-model-level-materialization-matters)
 - [Jinja tutorial: Use Jinja to improve your SQL code](https://docs.getdbt.com/guides/using-jinja?step=1)
-- [Re-watch the sceond and third video from Day 1: Models in dbt](https://cagov.github.io/caldata-mdsa-training/dbt/cloud/#models-in-dbt)
+- [Re-watch the second and third video from Day 1: Models in dbt](https://cagov.github.io/caldata-mdsa-training/dbt/cloud/#models-in-dbt)
 
 ## **Day 4**
 
