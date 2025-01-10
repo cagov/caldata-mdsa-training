@@ -33,7 +33,7 @@ You may come in here to understand credits usage, give or revoke access to users
 
 Snowflake's architecture is unique in that it separates storage and compute resources. It consists of three layers:
 
-![Snowflake architecture diagram](../../images/snowflake_account_objects.png) [Image source](https://docs.snowflake.com/en/user-guide/intro-key-concepts)
+![Snowflake architecture diagram](../../images/snowflake_architecture_overview.png) [Image source](https://docs.snowflake.com/en/user-guide/intro-key-concepts)
 
 1. **Cloud services**
     - Infrastructure manager: manages the set up, monitoring, and maintenance of the Snowflake environment
