@@ -604,11 +604,11 @@ To reiterate, CI/CD checks can help you to improve the quality of your code, red
 1. We’ll talk about how the database schemas in which dbt models are built are determined. In development, the models get built in a different place (e.g., your `DBT_<first-name-initial+last-name>`schema) than they do in production.
 1. We’ll discuss how this project is configured to use a custom schema name generated using `transform/macros/get_custom_schema.sql`.
 
-### Exercise: Custom schemas
+### **Exercise: Custom schemas**
 
 Configure your intermediate model to build in a custom schema called `statistics`. You can do this by creating a new property in the model YAML config block: “`schema: statistics`”. Build your model and find it in Snowflake.
 
-### Exercise: Get your branch to pass CI checks
+### **Exercise: Get your branch to pass CI checks**
 
 You’ve been working in your own branches to create dbt models and configuration files for PeMS data. Ultimately, our goal is to develop production-grade models, which are documented, configured, and passing CI.
 
