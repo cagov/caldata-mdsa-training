@@ -19,5 +19,5 @@ jobs:
           virtualenvs-create: false
       - name: Install dependencies
         run: |
-          poetry install
+          poetry install --no-root
       - uses: pre-commit/action@v3.0.0
