@@ -49,7 +49,48 @@ Often CTEs are framed as an alternative to SQL subqueries. In dbt-style SQL, CTE
 1. They allow for better reuse of intermediate results
 1. They allow you to give descriptive names to intermediate results
 
-![A SQL subquery versus a CTE](../images/subquery_vs_CTE.png) [Image source](https://g-dhasade16.medium.com/sql-subquery-vs-ctes-b312a64614f)
+<table>
+  <thead>
+    <tr>
+      <th>Subquery</th>
+      <th>CTE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <pre>
+          <code>
+select *
+from (
+    select
+        COUNTY_NAME,
+        SUM(SAMPLE_COUNT) as total_samples
+    from raw_dev.water_quality.stations
+    group by "COUNTY_NAME"
+) as subquery
+where total_samples > 10
+          </code>
+        </pre>
+      </td>
+      <td>
+        <pre>
+          <code>
+with total_samples_by_county as (
+    select
+        "COUNTY_NAME",
+        SUM(SAMPLE_COUNT) as total_samples
+    from raw_dev.water_quality.stations
+    group by "COUNTY_NAME"
+)
+select * from total_samples_by_county
+where total_samples > 10
+          </code>
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### Tour of dbt Cloud user interface
 
@@ -66,7 +107,7 @@ Often CTEs are framed as an alternative to SQL subqueries. In dbt-style SQL, CTE
 
 ### **Exercise: Create your first dbt staging model**
 
-Let’s create two staging models! The data in `raw_dev.water_quality.stations` and `raw_dev.water_quality.lab_results` have been loaded from [data.ca.gov/dataset/water-quality-data](https://data.ca.gov/dataset/water-quality-data) without modification except for the exclusion of the \_id column in each table. There are a few simple transformations we can do to make working with these data more ergonomic. Models that require simple transformations involving things like data type conversion or column renaming are called staging models.
+Let’s create two staging models! The data in `raw_dev.water_quality.stations` and `raw_dev.water_quality.lab_results` have been loaded from [data.ca.gov/dataset/water-quality-data](https://data.ca.gov/dataset/water-quality-data) without modification except for the exclusion of the `_id` column in each table. There are a few simple transformations we can do to make working with these data more ergonomic. Models that require simple transformations involving things like data type conversion or column renaming are called staging models.
 
 #### First staging model instructions
 
@@ -79,7 +120,7 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
         1. Use Snowflake’s [TO_VARCHAR()](https://docs.snowflake.com/en/sql-reference/functions/to_char) function which needs one argument – the column to be converted
     1. Change the `SAMPLE_DATE_MIN` and `SAMPLE_DATE_MAX` columns to timestamps and rename them to `SAMPLE_TIMESTAMP_MIN` and `SAMPLE_TIMESTAMP_MAX`
         1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. `YYYY-MM-DD HH24:MI:SS`
-    1. Format your SQL query as a CTE
+    1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
 
 #### Second staging model instructions
 
@@ -93,7 +134,7 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
     1. Change the `sample_date` column type to timestamp and rename it to SAMPLE_TIMESTAMP
         1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. `YYYY-MM-DD HH24:MI:SS`
     1. Alias and capitalize all of your columns (except for the two timestamp columns since you did this already) e.g. `select “column_name” as COLUMN_NAME`
-1. Format your SQL query as a CTE
+1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
 
 #### Finally
 
@@ -334,9 +375,9 @@ Let refresh our memory on [data layers for intermediate models](https://cagov.gi
 
 select
     DATE_FROM_PARTS(
-    substr("sample_date",7,4)::INT,
-    left("sample_date",2)::INT,
-    substr("sample_date",4,2)::INT
+      substr("sample_date",7,4)::INT,
+      left("sample_date",2)::INT,
+      substr("sample_date",4,2)::INT
     ) as sample_date,
     "station_id",
     "latitude",
@@ -356,9 +397,9 @@ source as (
 lab_results_with_date as (
     select
     DATE_FROM_PARTS(
-    substr("sample_date",7,4)::INT,
-    left("sample_date",2)::INT,
-    substr("sample_date",4,2)::INT
+      substr("sample_date",7,4)::INT,
+      left("sample_date",2)::INT,
+      substr("sample_date",4,2)::INT
     ) as sample_date,
     "station_id",
     "latitude",
@@ -446,13 +487,10 @@ models:
   dse_analytics:
     staging:
       +materialized: view
-      +database: "{{ env_var('DBT_TRANSFORM_DB', 'TRANSFORM_DEV') }}"
     intermediate:
       +materialized: view
-      +database: "{{ env_var('DBT_TRANSFORM_DB', 'TRANSFORM_DEV') }}"
     marts:
       +materialized: table
-      +database: "{{ env_var('DBT_ANALYTICS_DB', 'ANALYTICS_DEV') }}"
 
 # the YAML file within the corresponding model’s folder
 version: 2
@@ -491,7 +529,7 @@ Now that we’ve gotten some practice creating a staging model and editing our Y
     1. This will make use of a SQL group by, aggregation, and join
     1. Your output table should have two columns
     1. Use Snowflake’s [year()](https://docs.snowflake.com/en/sql-reference/functions/year) function
-1. Format your SQL using CTEs
+1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
 1. _Lint_ and _Fix_ your file, save any changes made
 
 **YAML:**
@@ -514,7 +552,7 @@ Now that we’ve gotten some practice creating a staging model and editing our Y
     1. Switch to the `water_quality_training_materials` branch
     1. Open and review `transform/macros/map_county_name_to_county_fips.sql`
     1. Open `transform/models/staging/stg_water_quality__stations.sql` and review line 23
-1. Another [macro example](https://github.com/cagov/data-infrastructure/blob/main/transform/macros/map_class_fp.sql) that is called by [this code](https://github.com/cagov/data-infrastructure/blob/main/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql) on line 34
+1. Another [macro example](https://github.com/cagov/data-infrastructure/blob/main/transform/macros/map_class_fp.sql) that is called by [this code](https://github.com/cagov/data-infrastructure/blob/main/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql)
 
 **Demo: dbt_utils package**
 The [dbt_utils package](https://hub.getdbt.com/dbt-labs/dbt_utils/latest/) contains macros that can be (re)used across this project. Software engineers frequently modularize code into libraries. These libraries help programmers operate with leverage. In dbt, libraries like these are called packages. dbt's packages are powerful because they tackle many common analytic problems that are shared across teams.
