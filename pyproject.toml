@@ -1,4 +1,5 @@
 [tool.poetry]
+package-mode = false
 name = "caldata-mdsa-training"
 version = "0.1.0"
 description = ""
