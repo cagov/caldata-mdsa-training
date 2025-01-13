@@ -552,7 +552,7 @@ Now that we’ve gotten some practice creating a staging model and editing our Y
     1. Switch to the `water_quality_training_materials` branch
     1. Open and review `transform/macros/map_county_name_to_county_fips.sql`
     1. Open `transform/models/staging/stg_water_quality__stations.sql` and review line 23
-1. Another [macro example](https://github.com/cagov/data-infrastructure/blob/main/transform/macros/map_class_fp.sql) that is called by [this code](https://github.com/cagov/data-infrastructure/blob/main/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql)
+1. Another [macro example](https://github.com/cagov/data-infrastructure/blob/main/transform/macros/map_class_fp.sql) that is called by [this code](https://github.com/cagov/data-infrastructure/blob/65a4a5c47f0326d50161bc4a1a3e81c20cb19a3e/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql#L34)
 
 **Demo: dbt_utils package**
 The [dbt_utils package](https://hub.getdbt.com/dbt-labs/dbt_utils/latest/) contains macros that can be (re)used across this project. Software engineers frequently modularize code into libraries. These libraries help programmers operate with leverage. In dbt, libraries like these are called packages. dbt's packages are powerful because they tackle many common analytic problems that are shared across teams.
