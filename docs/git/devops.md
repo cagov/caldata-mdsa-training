@@ -2,11 +2,7 @@
 
 This document is a guide for using Azure DevOps Repos and Azure DevOps.
 
-**Housekeeping**
-
-* Bookmark our project’s Azure DevOps [repository](https://dev.azure.com/calhfa/_git/CalData-HFA)  
-* Update your [progress tracker](https://coda.io/d/Data-Services-Engineering_dY5Oul8-jdi/CalHFA_subk5Hoi#_luqWX3qE) (To be updated, once the link is available)
-
+**Tips**
 
 Even though the following two items reference Git/GitHub they work well with  AzureDevops as well. Additional details are provided in the following section.
 
@@ -26,8 +22,6 @@ This section explains the basics of Git and how it integrates with Azure DevOps 
 * **Create branches:** Work on new features or bug fixes without affecting the main codebase.  
 * **Merge changes:** Combine code changes from different branches.  
 * **Collaborate effectively:** Work with others on the same codebase without conflicts.
-
-For a more detailed information on Git/GitHub, please refer to this document \- [https://docs.google.com/document/d/1m2V4jKDS2LpqbeW-MEb\_GvYPal2VrljZYReZMT5VQrw/edit?tab=t.0\#heading=h.84bt8gzgfscj](https://docs.google.com/document/d/1m2V4jKDS2LpqbeW-MEb_GvYPal2VrljZYReZMT5VQrw/edit?tab=t.0#heading=h.84bt8gzgfscj)
 
 **What are Azure DevOps Repos?**
 
@@ -65,7 +59,7 @@ A pull request (PR) proposes changes to a code repository. It's a formal request
 **Benefits of Using PRs:**
 
 * Collaboration: PRs allow developers to collaborate on code and share ideas.  
-* Code review: PRs allow for feedback on your changes.  
+* Code review: PRs allow for feedback on your changes. More details are available [here](https://cagov.github.io/data-infrastructure/code/code-review/)   
 * Testing: PRs can test changes before merging.  
 * Documentation: PRs can document changes to the code.  
 * History: PRs provide a history of changes.
@@ -85,15 +79,22 @@ A pull request (PR) proposes changes to a code repository. It's a formal request
 2. Navigate to the file you want to modify and make the necessary changes.  
 3. Save the changes to your file.  
 4. Stage your changes using git add \<file\_name\> or git add . (to add all changes).  
-5. Commit your changes with git commit \-m "\<a short message about the changes you made\>".
+5. Commit your changes with git commit \-m "\<a short message about the changes you made\>".  
+6. In **dbt** Cloud the git add process is handled under the hood so be sure that every file you edit is actually a file you want to later commit, if not you must revert   
+   changes to any files you do not want to commit.  
+     
+7. In **dbt** Cloud this is is done by:  
+   1. Clicking the “commit and sync” button  
+   2. Then type a short, yet descriptive message about the changes you made in the text box that appears and click “Commit Changes”
 
 **Pushing Your Changes**
 
-* Use git push origin \<branch\_name\> to push your changes to the remote repository.
+* Use git push origin \<branch\_name\> to push your changes to the remote repository.  
+* In **dbt** Cloud this is also done under the hood when you click “Commit Changes”
 
 **Opening a PR** 
 
-The official Microsoft documentation related to Azure DevOps PRs is [here](https://learn.microsoft.com/en-us/azure/devops/repos/git/pull-requests?view=azure-devops&tabs=browser). Summarized steps are listed below.
+The official Microsoft documentation related to Azure DevOps PRs is [here](https://learn.microsoft.com/en-us/azure/devops/repos/git/pull-requests?view=azure-devops&tabs=browser) (ignore cherry-pick section). Summarized steps are listed below.
 
 1. Go to your Azure DevOps repository.  
 2. Click on the "Pull requests" tab.  
@@ -101,7 +102,12 @@ The official Microsoft documentation related to Azure DevOps PRs is [here](https
 4. Select the source branch (your feature branch) and the target branch (usually "main").  
 5. Add a descriptive title and detailed description.  
 6. Add yourself as a reviewer and select other reviewers as needed.  
-7. Click "Create"
+7. Click "Create"  
+8. You have the option to open a PR in **dbt** Cloud 
+
+After you commit your changes you’ll see a light green button on the upper left that says “Create a pull request on Azure DevOps”. This will only appear if you’ve yet to open a PR. If you have already opened a PR and are simply committing more changes to it you will not see this option. 
+
+TODO: Add a relevant image after completing the **dbt** Cloud \- Azure DevOps integration.
 
 **Reviewing a PR**
 
@@ -165,7 +171,11 @@ In Azure DevOps, **Work Items** are how we document and track our work. A well-w
 
 This guide provides a foundation for using Azure DevOps Repos and Azure DevOps for development projects. Refer to the following official Azure DevOps documentation for the additional information
 
-**Common Markdown features supported in both GitHub and Azure DevOps:**
+### **Writing Markdown**
+
+Writing markdown is important to learn when creating project documentation in markdown files (.md) and for writing Azure DevOps Work Items. This Microsoft [reference document](https://learn.microsoft.com/en-us/azure/devops/project/wiki/markdown-guidance?view=azure-devops) is a great starting point.
+
+**Common Markdown features supported in Azure DevOps:**
 
 * **Headers:** \# H1, \#\# H2, \#\#\# H3, etc.  
   * *Example:* \# This is a Heading 1  
@@ -202,7 +212,9 @@ function myFunction() {
 **Key Differences and Considerations:**
 
 * **Feature Support:** While the basic syntax is the same, there might be slight variations in the specific features supported. For example, Azure DevOps might have limitations on certain elements like nested lists or advanced formatting options.   
-* **Rendering:** The way Markdown is rendered might differ slightly between the two platforms. This is usually minor and doesn't affect the core functionality.  
+* **Rendering:** The way Markdown is rendered might differ slightly between the two platforms. This is usually minor and doesn't affect the core functionality.
+
+**Azure DevOps Documentation References**
+
 * [Azure Repos documentation \- Azure DevOps | Microsoft Learn](https://learn.microsoft.com/en-us/azure/devops/repos/?view=azure-devops)  
-* [Azure DevOps documentation | Microsoft Learn](https://learn.microsoft.com/en-us/azure/devops/?view=azure-devops)  
-* [Markdown syntax for files, widgets, wikis \- Azure DevOps | Microsoft Learn](https://learn.microsoft.com/en-us/azure/devops/project/wiki/markdown-guidance?view=azure-devops)
+* [Azure DevOps documentation | Microsoft Learn](https://learn.microsoft.com/en-us/azure/devops/?view=azure-devops)
