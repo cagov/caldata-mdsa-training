@@ -27,6 +27,8 @@ This section explains the basics of Git and how it integrates with Azure DevOps 
 * **Merge changes:** Combine code changes from different branches.  
 * **Collaborate effectively:** Work with others on the same codebase without conflicts.
 
+For a more detailed information on Git/GitHub, please refer to this document \- [https://docs.google.com/document/d/1m2V4jKDS2LpqbeW-MEb\_GvYPal2VrljZYReZMT5VQrw/edit?tab=t.0\#heading=h.84bt8gzgfscj](https://docs.google.com/document/d/1m2V4jKDS2LpqbeW-MEb_GvYPal2VrljZYReZMT5VQrw/edit?tab=t.0#heading=h.84bt8gzgfscj)
+
 **What are Azure DevOps Repos?**
 
 Azure DevOps Repos is Microsoft's cloud service built on top of Git. It provides a centralized place to store your Git repositories and collaborate with your team. Here's what it offers:
@@ -58,7 +60,7 @@ Here are instructions for installing GCM.
 
 **Pull Requests** 
 
-A pull request (PR) proposes changes to a code repository. It's a formal request to merge your changes into the main branch of the repository.
+A pull request (PR) proposes changes to a code repository. It's a formal request to merge your changes into the main branch of the repository. 
 
 **Benefits of Using PRs:**
 
@@ -89,7 +91,9 @@ A pull request (PR) proposes changes to a code repository. It's a formal request
 
 * Use git push origin \<branch\_name\> to push your changes to the remote repository.
 
-**Opening a PR**
+**Opening a PR** 
+
+The official Microsoft documentation related to Azure DevOps PRs is [here](https://learn.microsoft.com/en-us/azure/devops/repos/git/pull-requests?view=azure-devops&tabs=browser). Summarized steps are listed below.
 
 1. Go to your Azure DevOps repository.  
 2. Click on the "Pull requests" tab.  
@@ -97,7 +101,7 @@ A pull request (PR) proposes changes to a code repository. It's a formal request
 4. Select the source branch (your feature branch) and the target branch (usually "main").  
 5. Add a descriptive title and detailed description.  
 6. Add yourself as a reviewer and select other reviewers as needed.  
-7. Click "Create".
+7. Click "Create"
 
 **Reviewing a PR**
 
@@ -122,45 +126,6 @@ A pull request (PR) proposes changes to a code repository. It's a formal request
 * Click the "Complete" button on the PR page to merge the changes.
 
 The basic writing and formatting syntax used on GitHub largely works in Azure DevOps as well. Both platforms utilize Markdown for formatting text in work items, pull requests, wikis, and other areas.
-
-**Common Markdown features supported in both GitHub and Azure DevOps:**
-
-* **Headers:** \# H1, \#\# H2, \#\#\# H3, etc.  
-  * *Example:* \# This is a Heading 1  
-  * *Reference:* [Markdown guidance](https://learn.microsoft.com/en-us/azure/devops/project/wiki/markdown-guidance?view=azure-devops) (Azure DevOps)  
-* **Emphasis:** \*italics\* or \_italics\_, \*\*bold\*\* or \_\_bold\_\_  
-  * *Example:* This is \*\*bold\*\* text and this is \*italic\* text.  
-* **Lists:** Unordered lists using \*, \-, or \+, and ordered lists using numbers followed by a period.  
-  * *Example:*
-
-```
-* Item 1
-* Item 2
-
-1. First item
-2. Second item
-```
-
-* **Links:** \[Link text\](URL)  
-  * *Example:* \[Microsoft\](https://www.microsoft.com)  
-* **Images:** \!\[Image alt text\](image.jpg)  
-  * *Example:* \!\[A cat\](https://placekitten.com/200/300)  
-* **Code blocks:** Use backticks (\`) for inline code or triple backticks (\`\`\`) for code blocks.  
-  * *Example:* This isinline codeand this is a code block:
-
-```
-function myFunction() {
-  // code here
-}
-```
-
-* **Tables:** Use pipes (|) and hyphens (\-) to create tables.  
-  * *Example:* markdown | Header 1 | Header 2 | |---|---| | Row 1, Cell 1 | Row 1, Cell 2 | | Row 2, Cell 1 | Row 2, Cell 2 |
-
-**Key Differences and Considerations:**
-
-* **Feature Support:** While the basic syntax is the same, there might be slight variations in the specific features supported. For example, Azure DevOps might have limitations on certain elements like nested lists or advanced formatting options. Always refer to the official documentation for the most accurate information.  
-* **Rendering:** The way Markdown is rendered might differ slightly between the two platforms. This is usually minor and doesn't affect the core functionality.
 
 ## **Azure DevOps Work Items**
 
@@ -200,6 +165,44 @@ In Azure DevOps, **Work Items** are how we document and track our work. A well-w
 
 This guide provides a foundation for using Azure DevOps Repos and Azure DevOps for development projects. Refer to the following official Azure DevOps documentation for the additional information
 
+**Common Markdown features supported in both GitHub and Azure DevOps:**
+
+* **Headers:** \# H1, \#\# H2, \#\#\# H3, etc.  
+  * *Example:* \# This is a Heading 1  
+  * *Reference:* [Markdown guidance](https://learn.microsoft.com/en-us/azure/devops/project/wiki/markdown-guidance?view=azure-devops) (Azure DevOps)  
+* **Emphasis:** \*italics\* or \_italics\_, \*\*bold\*\* or \_\_bold\_\_  
+  * *Example:* This is \*\*bold\*\* text and this is \*italic\* text.  
+* **Lists:** Unordered lists using \*, \-, or \+, and ordered lists using numbers followed by a period.  
+  * *Example:*
+
+```
+* Item 1
+* Item 2
+
+1. First item
+2. Second item
+```
+
+* **Links:** \[Link text\](URL)  
+  * *Example:* \[Microsoft\](https://www.microsoft.com)  
+* **Images:** \!\[Image alt text\](image.jpg)  
+  * *Example:* \!\[A cat\](https://placekitten.com/200/300)  
+* **Code blocks:** Use backticks (\`) for inline code or triple backticks (\`\`\`) for code blocks.  
+  * *Example:* This isinline codeand this is a code block:
+
+```
+function myFunction() {
+  // code here
+}
+```
+
+* **Tables:** Use pipes (|) and hyphens (\-) to create tables.  
+  * *Example:* markdown | Header 1 | Header 2 | |---|---| | Row 1, Cell 1 | Row 1, Cell 2 | | Row 2, Cell 1 | Row 2, Cell 2 |
+
+**Key Differences and Considerations:**
+
+* **Feature Support:** While the basic syntax is the same, there might be slight variations in the specific features supported. For example, Azure DevOps might have limitations on certain elements like nested lists or advanced formatting options.   
+* **Rendering:** The way Markdown is rendered might differ slightly between the two platforms. This is usually minor and doesn't affect the core functionality.  
 * [Azure Repos documentation \- Azure DevOps | Microsoft Learn](https://learn.microsoft.com/en-us/azure/devops/repos/?view=azure-devops)  
 * [Azure DevOps documentation | Microsoft Learn](https://learn.microsoft.com/en-us/azure/devops/?view=azure-devops)  
 * [Markdown syntax for files, widgets, wikis \- Azure DevOps | Microsoft Learn](https://learn.microsoft.com/en-us/azure/devops/project/wiki/markdown-guidance?view=azure-devops)
