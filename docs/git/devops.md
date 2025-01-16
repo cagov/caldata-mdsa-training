@@ -4,7 +4,7 @@ This document is a guide for using Azure DevOps Repos and Azure DevOps.
 
 **Tips**
 
-Even though the following two items reference Git/GitHub they work well with  AzureDevops as well. Additional details are provided in the following section.
+Even though the following two items reference Git/GitHub they work well with  Azure Devops as well. Additional details are provided in the following section.
 
 * Install [Git for Windows](https://git-scm.com/downloads) or [GitHub for Desktop](https://desktop.github.com/)  
 * Bookmark GitHub’s [Git Cheat Sheet](https://education.github.com/git-cheat-sheet-education.pdf)
