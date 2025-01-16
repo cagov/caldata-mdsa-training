@@ -49,9 +49,8 @@ Here are instructions for installing GCM.
 **Steps to Clone a repo**
 
 1. Go to your command line  
-2. Type cd \~.  
-3. Type git clone \<Azure DevOps repo URL\>.
-
+2. Type `cd ~`.  
+3. Type git clone `<Azure DevOps repo URL>`.
 **Pull Requests** 
 
 A pull request (PR) proposes changes to a code repository. It's a formal request to merge your changes into the main branch of the repository. 
