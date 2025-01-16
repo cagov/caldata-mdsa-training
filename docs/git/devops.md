@@ -88,7 +88,7 @@ A pull request (PR) proposes changes to a code repository. It's a formal request
 
 **Pushing Your Changes**
 
-* Use git push origin \<branch\_name\> to push your changes to the remote repository.  
+* Use `git push origin <branch_name>` to push your changes to the remote repository.  
 * In **dbt** Cloud this is also done under the hood when you click “Commit Changes”
 
 **Opening a PR** 
