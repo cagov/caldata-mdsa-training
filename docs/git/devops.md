@@ -77,7 +77,7 @@ A pull request (PR) proposes changes to a code repository. It's a formal request
 1. Make sure you're on the correct branch.  
 2. Navigate to the file you want to modify and make the necessary changes.  
 3. Save the changes to your file.  
-4. Stage your changes using git add \<file\_name\> or git add . (to add all changes).  
+4. Stage your changes using `git add <file_name>` or `git add .` (to add all changes).  
 5. Commit your changes with git commit \-m "\<a short message about the changes you made\>".  
 6. In **dbt** Cloud the git add process is handled under the hood so be sure that every file you edit is actually a file you want to later commit, if not you must revert   
    changes to any files you do not want to commit.  
