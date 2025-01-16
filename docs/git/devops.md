@@ -102,7 +102,7 @@ The official Microsoft documentation related to Azure DevOps PRs is [here](https
 5. Add a descriptive title and detailed description.  
 6. Add yourself as a reviewer and select other reviewers as needed.  
 7. Click "Create"  
-8. You have the option to open a PR in **dbt** Cloud 
+8. You have the option to open a PR in **dbt** Cloud. This does exactly the same thing as the above steps.
 
 After you commit your changes you’ll see a light green button on the upper left that says “Create a pull request on Azure DevOps”. This will only appear if you’ve yet to open a PR. If you have already opened a PR and are simply committing more changes to it you will not see this option. 
 
