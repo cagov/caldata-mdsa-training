@@ -130,8 +130,6 @@ TODO: Add a relevant image after completing the **dbt** Cloud \- Azure DevOps in
 * As a reviewer, you can merge a PR after you approve it and all CI checks pass.  
 * Click the "Complete" button on the PR page to merge the changes.
 
-The basic writing and formatting syntax used on GitHub largely works in Azure DevOps as well. Both platforms utilize Markdown for formatting text in work items, pull requests, wikis, and other areas.
-
 ## **Azure DevOps Work Items**
 
 In Azure DevOps, **Work Items** are how we document and track our work. A well-written work item provides clear information on the what, why, and who, enabling efficient collaboration and quicker problem resolution. They serve as documentation, capturing decisions and discussions valuable for current and future team members. Clear work items also help with task prioritization and progress tracking.
@@ -174,41 +172,9 @@ This guide provides a foundation for using Azure DevOps Repos and Azure DevOps f
 
 Writing markdown is important to learn when creating project documentation in markdown files (.md) and for writing Azure DevOps Work Items. This Microsoft [reference document](https://learn.microsoft.com/en-us/azure/devops/project/wiki/markdown-guidance?view=azure-devops) is a great starting point.
 
-**Common Markdown features supported in Azure DevOps:**
+The basic writing and formatting syntax used on GitHub largely works in Azure DevOps as well. Both platforms utilize Markdown for formatting text in work items, pull requests, wikis, and other areas.
 
-* **Headers:** \# H1, \#\# H2, \#\#\# H3, etc.  
-  * *Example:* \# This is a Heading 1  
-  * *Reference:* [Markdown guidance](https://learn.microsoft.com/en-us/azure/devops/project/wiki/markdown-guidance?view=azure-devops) (Azure DevOps)  
-* **Emphasis:** \*italics\* or \_italics\_, \*\*bold\*\* or \_\_bold\_\_  
-  * *Example:* This is \*\*bold\*\* text and this is \*italic\* text.  
-* **Lists:** Unordered lists using \*, \-, or \+, and ordered lists using numbers followed by a period.  
-  * *Example:*
-
-```
-* Item 1
-* Item 2
-
-1. First item
-2. Second item
-```
-
-* **Links:** \[Link text\](URL)  
-  * *Example:* \[Microsoft\](https://www.microsoft.com)  
-* **Images:** \!\[Image alt text\](image.jpg)  
-  * *Example:* \!\[A cat\](https://placekitten.com/200/300)  
-* **Code blocks:** Use backticks (\`) for inline code or triple backticks (\`\`\`) for code blocks.  
-  * *Example:* This isinline codeand this is a code block:
-
-```
-function myFunction() {
-  // code here
-}
-```
-
-* **Tables:** Use pipes (|) and hyphens (\-) to create tables.  
-  * *Example:* markdown | Header 1 | Header 2 | |---|---| | Row 1, Cell 1 | Row 1, Cell 2 | | Row 2, Cell 1 | Row 2, Cell 2 |
-
-**Key Differences and Considerations:**
+**Key Differences compared to GitHub and Considerations:**
 
 * **Feature Support:** While the basic syntax is the same, there might be slight variations in the specific features supported. For example, Azure DevOps might have limitations on certain elements like nested lists or advanced formatting options.   
 * **Rendering:** The way Markdown is rendered might differ slightly between the two platforms. This is usually minor and doesn't affect the core functionality.
