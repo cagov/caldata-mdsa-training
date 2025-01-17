@@ -338,8 +338,8 @@ Here you’ll write YAML configuration for the Water Quality metadata source tab
 
 1. We’ll talk through how to write generic tests for things like “not null” and “unique”.
 1. For people who are familiar with transactional databases, we can also talk about why tests like this are ever needed (i.e., why don’t we handle it using constraints?)
-   1. In a traditional transactional database like postgres or SQL Server, you can have a uniqueness constraint on a column. Snowflake does not respect uniqueness constraints and most OLAP databases do not. Primary keys and foreign keys are examples of unique columns that are respected in OLTP databases that are not in OLAP databases.
-   1. [More reading](https://cagov.github.io/data-infrastructure/learning/cloud-data-warehouses/#primary-keys-and-constraints) on this topic
+    1. In a traditional transactional database like postgres or SQL Server, you can have a uniqueness constraint on a column. Snowflake does not respect uniqueness constraints and most OLAP databases do not. Primary keys and foreign keys are examples of unique columns that are respected in OLTP databases that are not in OLAP databases.
+    1. [More reading](https://cagov.github.io/data-infrastructure/learning/cloud-data-warehouses/#primary-keys-and-constraints) on this topic
 
 ### **Exercise: Write tests for your staging model**
 
@@ -366,7 +366,7 @@ The grain at which this data is collected results in duplicate county names so t
 
 ## **Day 3**
 
-Let refresh our memory on [data layers for intermediate models](https://cagov.github.io/caldata-mdsa-training/dbt/cloud/#data-layers-staging-intermediate-marts). Let's also revisit [common table expressions (CTEs)](https://cagov.github.io/caldata-mdsa-training/dbt/cloud/#common-table-expressions-ctes)
+Let refresh our memory on [data layers for intermediate models](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt-cloud/#data-layers-staging-intermediate-marts). Let's also revisit [common table expressions (CTEs)](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt-cloud/#common-table-expressions-ctes)
 
 ### CTE examples
 
@@ -591,7 +591,7 @@ There are two ways of defining data tests in dbt:
 
 - [dbt materialization and performance considerations](https://cagov.github.io/data-infrastructure/dbt/dbt-performance/#2-model-level-materialization-matters)
 - [Jinja tutorial: Use Jinja to improve your SQL code](https://docs.getdbt.com/guides/using-jinja?step=1)
-- [Re-watch the second and third video from Day 1: Models in dbt](https://cagov.github.io/caldata-mdsa-training/dbt/cloud/#models-in-dbt)
+- [Re-watch the second and third video from Day 1: Models in dbt](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt-cloud/#models-in-dbt)
 
 ## **Day 4**
 
