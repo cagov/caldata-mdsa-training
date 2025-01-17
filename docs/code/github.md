@@ -2,7 +2,7 @@
 
 ## What is Github?
 
-**GitHub** is a web-based hosting service for git repositories. It provides a graphical user interface (GUI) for managing and reviewing code, as well as social networking features for interacting with other developers. GitHub is an essential tools for software development. They allow developers to track changes to code, collaborate, and share open or closed-source code.
+**GitHub** is a web-based hosting service for [git](https://cagov.github.io/caldata-mdsa-training/code/git/) repositories. It provides a graphical user interface (GUI) for managing and reviewing code, as well as social networking features for interacting with other developers. GitHub is an essential tools for software development. They allow developers to track changes to code, collaborate, and share open or closed-source code.
 
 ## Clone a repo locally
 
@@ -28,7 +28,9 @@ Here are some of the benefits of using PRs:
 
 ### Creating or switching branches
 
-1. Go to your Repository > `<https://github.com/org/repo-name>`
+#### GitHub Branch management
+
+1. Go to your Repository ➡️ `<https://github.com/org/repo-name>`
 1. Click on the Branch Dropdown
     1. On the main page of your repository, you'll see a dropdown menu on the top left, displaying the current branch (usually “main”). Click on this dropdown.
 1. Type or click on an Branch Name
@@ -41,21 +43,23 @@ Here are some of the benefits of using PRs:
 
 Now, you have successfully created a new branch in your GitHub repository and will be automatically switched to this branch. You can make changes on this new branch without affecting the main branch.
 
+#### Local Branch management
+
 If you're working with git locally, you can create and switch branches as well as check your current git branch using the following git commands:
 
-- Create and switch to a branch: __`git switch -c <branch_name>`
+- Create and switch to a branch: `git switch -c <branch_name>`
     - This also works, but is the older way of doing it: `git checkout -b <branch_name>`
 - Switch to an existing branch: `git switch <branch_name>`
-    - If this doesn’t work it’s likely that you have to pull down the remote branch you want to work with first using `git fetch`
+    - If this doesn’t work it’s likely that you created a branch remotely. You have to pull down (or fetch) the remote branch you want to work with using `git fetch`
     - Then you can run `git switch <branch_name>` again
 - Check which branch you are on: `git branch --show-current`
-- Optional – persistently show your full path and branch name in command line:
 
 !!! note
-
     Replace “`<branch_name>`” with the actual name of your new branch e.g. `writing_water_quality_docs`.
 
-Mac OS
+This is optional, but it may be helpful to you to persistently show your full path and branch name in your command line. We've outlined how to do it below.
+
+For Mac OS
 
 - Type `open ~/.bash_profile`
 - In the file that opens, add the following at the bottom of the file:
@@ -69,12 +73,12 @@ Mac OS
     export PS1="\u@\h \[\033[32m\]\w -\$(parse_git_branch)\[\033[00m\] $ "
 ```
 
-Windows OS
+For Windows OS
 
-- If you do not have git bash installed please download it [here](https://git-scm.com/download/win) 
-- Showing branch names is a built-in feature of git bash. If branches do not show in your command prompt, follow the following steps.
-- Download [the official git-prompt script](https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh). Move it to somewhere accessible to git bash (e.g. `~/.git-prompt.sh`)
-- Add the following 2 lines to your \~/.bashrc file:
+- If you do not have git bash installed please download it [here](https://git-scm.com/download/win)
+- Showing branch names is a built-in feature of git bash. If branches do not show in your command prompt, follow these steps:
+    - Download [the official git-prompt script](https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh). Move it to somewhere accessible to git bash (e.g. `~/.git-prompt.sh`)
+    - Add the following 2 lines to your `~/.bashrc` file:
 
 ```bash
     source ~/.git-prompt.sh
@@ -82,12 +86,12 @@ Windows OS
     export PS1='\[\033[32m\]\u@\h \[\033[35m\]\w\[\033[36m\]$(__git_ps1 " (%s)")\[\033[0m\]\$ '
 ```
 
-Follow the remaining steps regardless of OS
+Follow these remaining steps regardless of OS
 
-- Save the file and close it
+- Save your file and close it
 - Open a new terminal window
-- Type `cd ~/caldata-mdsa-project-name/`
-- You’ll now see something like this: ![git command line example](../images/git-cli-example-1.png)
+- Type `cd ~/caldata-mdsa-<project-name>`
+- You’ll now see something like this: ![git command line example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/page4.png?raw=true)
 
 ### Staging and committing changes
 
@@ -95,7 +99,7 @@ Follow the remaining steps regardless of OS
     1. Make sure you’re on the branch you want to commit changes to (you almost never want to commit directly to “main”). If you just created a branch you are likely already on the branch you want to make changes to, if not switch to it.
     1. To create or switch branches, follow the steps above
 1. Navigate to the file you want to modify and make the necessary changes
-    1. Whether you’re editing a file in dbt Cloud, locally with a code editor like VS Code, or directly in GitHub (not recommended) you must click SAVE or use CTRL/COMMAND S. To save the changes to your file BEFORE you commit them
+    1. Whether you’re editing a file in dbt Cloud, locally with a code editor like VS Code, or directly in GitHub (not recommended) you must click SAVE or use CTRL/COMMAND S. To save the changes to your file BEFORE you commit them.
 1. Stage your changes
     1. We’ll skip how to do this in GitHub because we don’t recommend editing and committing changes directly in GitHub as this doesn’t allow you to run linting tools that can help you catch errors BEFORE you push and change. We will have CI checks set up on the project repo that will help catch database, formatting, SQL errors etc.
     1. Locally this is done by:
@@ -105,15 +109,14 @@ Follow the remaining steps regardless of OS
 1. Commit your changes
     1. Again we’ll skip how to do this in GitHub – we do not recommend it!
     1. Locally this is done with: `git commit -m “<a short message about the changes you made>”`
-    1. In dbt Cloud this is is done by:
+    1. In dbt Cloud this is done by:
         1. Clicking the “commit and sync” button
-        1. Then type a short, yet descriptive message about the changes you made in the text box that appears and click “Commit Changes”
-
-        ![dbt cloud git commit example](../images/dbt-cloud-git-commit-changes.png)
+        1. Then typing a short, yet descriptive message about the changes you made in the text box that appears
+        1. Then clicking “Commit Changes” ![dbt cloud git commit example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/commit-changes.png?raw=true)
 
 ### Pushing your changes
 
-1. Locally this is done with: `git push origin` `<branch_name>`
+1. Locally this is done with: `git push origin <branch_name>`
 1. In dbt Cloud this is also done under the hood when you click “Commit Changes”
 
 ### Opening a PR
@@ -121,12 +124,12 @@ Follow the remaining steps regardless of OS
 **Option 1**: This works whether you commit changes locally or via dbt Cloud
 
 1. Go to the GitHub repository where you just pushed your changes
-1. At the top of the home page you’ll see a message like the one below. It’ll say “<your_branch_name\> had recent pushes X minutes ago” with a green button that says “Compare & pull request”. Click that button
+1. At the top of the home page you’ll see a message like the one below. It’ll say “<your_branch_name\> had recent pushes X minutes ago” with a green button that says “Compare & pull request”. Click that button.
 
-    <!-- ![](image tk) -->
+    ![Compare and pull request GitHub example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/open-a-pr.png?raw=true)
 
 1. Next you’ll be taken to a new screen like the one shown below.
-<!-- ![](image tk) -->
+![pull request description example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/pr-description.png?raw=true)
 1. From here you’ll:
     1. Check that your branch is “Able to merge” (as seen in the upper center of the screen with a preceding green checkmark)
         1. If you see “Can’t automatically merge.” that means you have a merge conflict. We cover how to resolve merge conflicts [below](#resolving-a-merge-conflict).
@@ -136,23 +139,21 @@ Follow the remaining steps regardless of OS
     1. You’ll have options to fill in other details like projects, we’ll cover those later
 1. Click the green button on the lower right that says “Create pull request”
 
-🛎️Note: This option only works for an hour after you have pushed your changes. If you don’t open a pull request within that 60 minute window this button will disappear. Fear not! There is a second way to open a pull request outlined below.
+!!! note
+    This option only works for an hour after you have pushed your changes. If you don’t open a pull request within that 60 minute window this button will disappear. Fear not! There is a second way to open a pull request outlined below.
 
 **Option 2**: This is the option to use if you cannot follow step 2 in Option 1.
 
-1. Go to the Pull requests page on GitHub by going directly to [this link](https://github.com/cagov/data-infrastructure/pulls) or go to the repo homepage and click on the “Pull requests” tab near the top as pictured below
-![](image tk)
+1. Go to the Pull Requests page on GitHub directly [(example)](https://github.com/cagov/data-infrastructure/pulls) or go to your repo's homepage and click on the “Pull requests” tab near the top as pictured ![pull request view](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/issues-pr-actions.png?raw=true)
 1. Click the green “New pull request” button in the upper right corner
 1. You’ll be taken to a new window
 1. Click the button that says “compare: main”
 1. A dropdown will open, from there you can either type or click the name of the branch you want to compare to the “base: main” branch.
 1. After you select the branch follow steps 3 through 5 from Option 1 above
 
-**Option 3**: You have a third option to open a PR in dbt Cloud if you don’t choose to follow the steps of one of the two options above. 
+**Option 3**: You have a third option to open a PR in dbt Cloud if you don’t choose to follow either of the two options above.
 
-1. After you commit your changes you’ll see a light green button on the upper left that says “Create a pull request on GitHub”. This will only appear if you’ve yet to open a PR. If you have already opened a PR and are simply committing more changes to it you will not see this option.
-
-<!-- ![](image tk) -->
+1. After you commit your changes you’ll see a light green button on the upper left that says “Create a pull request on GitHub”. This will only appear if you’ve yet to open a PR. If you have already opened a PR and are simply committing more changes to it you will not see this option. ![dbt cloud create a pr example](../images/dbt-cloud-create-pr.png)
 
 ### Reviewing a PR
 
@@ -165,25 +166,21 @@ The ODI CalData team put together [documentation on reviewing a PR](https://cago
     1. GitHub will take you to the home screen of the PR which starts on the “Conversation” tab. This is where you can read any commits by the PR author, anyone involved in review, and any automated tools. 
     1. The “Commits” tab is where you can check each save to the PR to understand the sequence of changes
     1. The “Checks” tab is where you can see the jobs run by GitHub actions (CI automations). You can see whether or not they pass or fail and the details of each.
-    1. There will be a yellow pane across the top of this page like pictured below.
-
-<!-- ![](image tk) -->
-
-Clicking the green “Add your review” button will take you to the “Files changed” tab where you can begin your review.
-In the files changed tab you can leave a comment on any line of code by clicking the blue plus sign that appears when you hover. You can leave a single comment that is not part of a review or leave comments as part of your review. You can suggest changes here too which we’ll cover in the next section.
-After you’re done with your review, if you scroll back to the top there will be a green button on the upper right that says “Finish your review”. Click that and decide if you just want to do one of the following: 1) Comment, 2) Approve or 3) Request changes. Then click the green button on the lower right that says “Submit review”.
+    1. There will be a yellow pane across the top of this page like you see pictured ![GitHub review requested example](../images/github-review-requested.png)
+    1. Clicking the green “Add your review” button will take you to the “Files changed” tab where you can begin your review.
+        1. In the files changed tab you can leave a comment on any line of code by clicking the blue plus sign that appears when you hover. You can leave a single comment that is not part of a review or leave one or many comments as part of your review. You can suggest changes here too which we’ll cover in the next section.
+    1. After you’re done with your review, if you scroll back to the top there will be a green button on the upper right that says “Finish your review”. Click that and decide if you just want to do one of the following: 1) Comment, 2) Approve or 3) Request changes. Then click the green button on the lower right that says “Submit review”.
 
 ### Suggesting changes to a PR
 
 When you’re reviewing a PR instead of just commenting on a line of code you may want to suggest changes directly to the code. You can do this by clicking the blue plus sign button next to the line of code you want to suggest changes to.
 
 In the window that opens click the button that has a + and - sign as pictured below.
+![GitHub suggest a change example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/suggest-a-change.png?raw=true)
 
-<!-- ![](image tk) -->
+In this example, “test” is misspelled so the PR reviewer is adding a suggestion and fixing the code with the correct spelling. If the PR author agrees they can seamlessly accept this suggestion and integrate it into their code.
 
-In this example, “test” is misspelled so the PR review is adding a suggestion and fixing the code with the correct spelling. If the PR author agrees they can seamlessly accept this suggestion and integrate it into their code.
-
-After adding your suggestion and additional comments if applicable, click the green “Start a review” button.
+After adding your suggestion and additional comments, if applicable, click the green “Start a review” button.
 
 ### Resolving a merge conflict
 
@@ -200,17 +197,18 @@ Below we’ll step through a more detailed explanation of how a merge conflict h
 1. Conflict markers
     1. If attempting to merge from your command line you’ll see the following
 
-    <!-- ![](image tk) -->
+    ![command line merge conflict markers example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/conflict-markers.png?raw=true)
 
-1. Git will also mark the conflicting sections of the file with special markers. The conflicting changes from both branches are placed between these markers. Like you see below
+    1. Git will also mark the conflicting sections of the file with special markers. The conflicting changes from both branches are placed between these markers. Like you see below
 
-    <!-- ![](image tk) -->
+    ![command line merge conflict sections example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/conflict-sections.png?raw=true)
 
-1. If you navigate to GitHub to create a pull request you’ll see the following
+    1. If you navigate to GitHub to create a pull request you’ll see the following
 
-    <!-- ![](image tk) -->
+    ![GitHub merge conflict compare changes example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/comparing-changes.png?raw=true)
 
 1. Resolution
+
    Manually
 
    1. To resolve the conflict you need to manually edit the file to choose what changes to keep. Remove the conflict markers and any code that is not needed.
@@ -223,7 +221,7 @@ In VS Code
 
 1. You’ll see the following along with a UI to actually help you decide which changes to keep
 
-    <!-- ![](image tk) -->
+    ![VS Code merge conflict example ](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/merging-in-vs-code.png?raw=true)
 
 2. In the lower right corner of your screen you’ll see a blue button that says “Resolve in Merge Editor”. Click this button.
 
@@ -232,8 +230,7 @@ In VS Code
 4. Select the appropriate option, this may require discussion with your team.
 
 5. After you decide which changes to keep, click the blue “Complete Merge” button in the lower right corner of  your screen
-
-![](image tk)
+![VS Code complete merge conflict example](https://github.com/cagov/data-infrastructure/raw/main/docs/images/github/merging-in-vs-code2.png?raw=true)
 
 To avoid or reduce the occurrence of merge conflicts, it’s a good practice to regularly pull changes from the main branch into your feature branch. Open communication with your team about changes will also help prevent conflicts.
 
@@ -273,7 +270,7 @@ Issues on GitHub are how we document and track our work. Writing a good issue is
     1. Project (e.g. DIF - Caltrans)
 1. A relevant **milestone** that this issue fits into
 
-Here is [an example GitHub issue](link tk) that has all 10 elements and sub-elements listed above.
+Here is [an example GitHub issue](https://github.com/cagov/caldata-mdsa-caltrans-pems/issues/31) that has all 10 elements and sub-elements listed above.
 
 ### Writing Markdown
 

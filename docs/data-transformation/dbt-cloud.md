@@ -366,7 +366,7 @@ The grain at which this data is collected results in duplicate county names so t
 
 ## **Day 3**
 
-Let refresh our memory on [data layers for intermediate models](https://cagov.github.io/caldata-mdsa-training/dbt/cloud/#data-layers-staging-intermediate-marts). Let's also revisit [common table expressions (CTEs)](https://cagov.github.io/caldata-mdsa-training/dbt/cloud/#common-table-expressions-ctes)
+Let refresh our memory on [data layers for intermediate models](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt-cloud/#data-layers-staging-intermediate-marts). Let's also revisit [common table expressions (CTEs)](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt-cloud/#common-table-expressions-ctes)
 
 ### CTE examples
 
@@ -591,7 +591,7 @@ There are two ways of defining data tests in dbt:
 
 - [dbt materialization and performance considerations](https://cagov.github.io/data-infrastructure/dbt/dbt-performance/#2-model-level-materialization-matters)
 - [Jinja tutorial: Use Jinja to improve your SQL code](https://docs.getdbt.com/guides/using-jinja?step=1)
-- [Re-watch the second and third video from Day 1: Models in dbt](https://cagov.github.io/caldata-mdsa-training/dbt/cloud/#models-in-dbt)
+- [Re-watch the second and third video from Day 1: Models in dbt](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt-cloud/#models-in-dbt)
 
 ## **Day 4**
 
