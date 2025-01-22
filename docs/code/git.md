@@ -17,6 +17,8 @@ There are many high-quality resources for learning git online. Here are a few:
 - GitHub has a nice [cheat-sheet](https://education.github.com/git-cheat-sheet-education.pdf) for common git commands
 - The [official git documentation](https://git-scm.com/doc) is not always the most user-friendly, but it has a depth of information that isn't available elsewhere
 
+If you have a remote repository set up on something like GitHub or Azure DevOps and want to make a local copy of it you have to run the `git clone` command. Once you have a working copy of your remote repo, all version control operations are managed through this local copy. Follow the steps below to clone a repository.
+
 ## Clone a repo locally
 
 *for MacOS or Linux-based CLI*
