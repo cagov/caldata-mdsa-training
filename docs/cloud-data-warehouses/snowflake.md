@@ -188,7 +188,7 @@ We’ve talked about Snowflake architecture generally. Now we’re going to star
 
 There are two environments set up for this project, **development** and **production**. Resources in the development environment are suffixed with DEV, and resources in the production environment are suffixed with PRD.
 
-Most of the time, developers will be working in the **development** environment. Once your branches are merged to main, they will be used in the production environment.
+Most of the time, developers will be working in the **development** environment. Once your branches are merged to `main`, they will be used in the production environment.
 
 What follows is a brief description of the most important Snowflake resources in the dev and production environments and how developers are likely to interact with them.
 
