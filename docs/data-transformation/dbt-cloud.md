@@ -1,4 +1,4 @@
-# dbt Cloud training
+# dbt Cloud
 
 ## **Day 1**
 
