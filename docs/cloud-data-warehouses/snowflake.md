@@ -21,7 +21,8 @@ This is how Snowflake fits into the modern data stack we will be building togeth
 - Both the raw data and the transformed data (from dbt) will be stored here in Snowflake. 
 
 Some examples of how you might be using Snowflake:
-– If you are an owner of one of the data sources, you’ll need to know what the data coming into raw snowflake should look like, and whether it has landed here correctly. You might set up the data connectors that move data into Snowflake, and you might log into Snowflake to examine and explore the data to ensure the data looks accurate and complete
+
+– If you are an owner of one of the data sources, you’ll need to know what the raw data coming into Snowflake should look like, and whether it has landed here correctly. You might set up the data connectors that move data into Snowflake, and you might log into Snowflake to examine and explore the data to ensure the data looks accurate and complete
 
 - If you are a project owner or a systems administrator, you might log into Snowflake to understand storage and query costs, give or revoke access to users, or answer any data security questions about the project.
   
