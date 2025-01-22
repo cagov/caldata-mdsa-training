@@ -2,7 +2,7 @@
 
 ## What is Github?
 
-**GitHub** is a web-based hosting service for [git](https://cagov.github.io/caldata-mdsa-training/code/git/) repositories. It provides a graphical user interface (GUI) for managing and reviewing code, as well as social networking features for interacting with other developers. GitHub is an essential tools for software development. They allow developers to track changes to code, collaborate, and share open or closed-source code.
+**GitHub** is a web-based hosting service for [git](https://cagov.github.io/caldata-mdsa-training/code/git/) repositories. It provides a graphical user interface (GUI) for managing and reviewing code, as well as social networking features for interacting with other developers.
 
 ## Clone a repo locally
 
@@ -101,7 +101,7 @@ Follow these remaining steps regardless of OS
 1. Navigate to the file you want to modify and make the necessary changes
     1. Whether you’re editing a file in dbt Cloud, locally with a code editor like VS Code, or directly in GitHub (not recommended) you must click SAVE or use CTRL/COMMAND S. To save the changes to your file BEFORE you commit them.
 1. Stage your changes
-    1. We’ll skip how to do this in GitHub because we don’t recommend editing and committing changes directly in GitHub as this doesn’t allow you to run linting tools that can help you catch errors BEFORE you push and change. We will have CI checks set up on the project repo that will help catch database, formatting, SQL errors etc.
+    1. We’ll skip how to do this in GitHub because we don’t recommend editing and committing changes directly in GitHub as this doesn’t allow you to run linting tools that can help you catch errors BEFORE you push changes. We will have CI checks set up on the project repo that will help catch database, formatting, SQL errors, etc.
     1. Locally this is done by:
         1. Tying `git add <file_name.file_extension>`
         1. You can use `git add .` to add ALL files you’ve edited. This can be a dangerous operation because you may accidentally stage files you made changes to but did not want to be added to the project repo. For instance you could have made changes to a file that may contain sensitive information. Only use `git add .` if you are sure all files are safe to stage!
