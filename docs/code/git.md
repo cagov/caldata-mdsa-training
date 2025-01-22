@@ -2,7 +2,7 @@
 
 ## What is git?
 
-**Git**, a distributed [version control](https://en.wikipedia.org/wiki/Version_control) system, is software that you install locally on your machine that enables source code management (SCM). Code is organized into folder-like structures called git repositories, which enables you to track the history of code, safely develop features in side branches, and collaborate with others in a distributed fashion. Git is a distributed version control system, which means that each developer has a local copy of the entire code repository. This makes it easy to work on code offline and to share changes with other developers.
+**Git**, a distributed [version control](https://en.wikipedia.org/wiki/Version_control) system, is software that you install locally on your machine that enables source code management. Code is organized into folder-like structures called **git repositories**, which enables you to track the history of changes to the code, safely develop features in side branches, and collaborate with others. Git is a distributed version control system, which means that each developer has a local copy of the entire code repository. This makes it easy to work on code offline and to share changes with other developers.
 
 Git is an essential tool for software development as it allows developers to track changes to code, collaborate, and share open or closed-source code.
 
