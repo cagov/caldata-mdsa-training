@@ -33,7 +33,7 @@ Here are some of the benefits of using PRs:
 1. Go to your Repository ➡️ `<https://github.com/org/repo-name>`
 1. Click on the Branch Dropdown
     1. On the main page of your repository, you'll see a dropdown menu on the top left, displaying the current branch (usually “main”). Click on this dropdown.
-1. Type or click on an Branch Name
+1. Type or click on a Branch Name
     1. In the dropdown that appears, there’s a textbox at the top, type the name for the branch you want to switch to or create.
     1. When creating a new branch, choose a descriptive and relevant name. e.g. `water_quality_staging_model`
     1. If you’re just switching branches you are done after this step!
