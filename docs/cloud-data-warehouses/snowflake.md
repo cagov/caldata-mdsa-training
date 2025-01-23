@@ -113,6 +113,7 @@ A schema is a logical grouping of objects:
 A virtual warehouse, usually referred to as a "warehouse" in Snowflake is a powerful and scalable computing resource that allows you to execute SQL queries and perform analytical tasks on your data. Unlike traditional data warehouses, Snowflake’s virtual warehouses are “virtual” in the sense that they are not tied to a specific hardware. Instead, they operate in the cloud and can dynamically allocate or deallocate computing resources based on your workload.
 
 A warehouse provides the required resources, such as CPU, memory, and temporary storage, to perform the following operations in a Snowflake session:
+
 - Executing SQL SELECT statements that require compute resources (e.g. retrieving rows from tables and views).
 - Performing DML (Data Manipulation Language) operations, such as:
 - Updating rows in tables (DELETE , INSERT , UPDATE).
@@ -127,11 +128,12 @@ Small (denoted by S), Suitable for single-user workloads and development.
 Medium (denoted by M), Handles moderate concurrency and data volumes.
 Large denoted by (L), Manages larger queries and higher concurrency.
 X-Large (denoted by (XL)) Powerful for demanding workloads and data-intensive operations.
-2X-Large (denoted by 2XL), 
+2X-Large (denoted by 2XL)
 3X-Large (denoted by 3XL)
 4X-Large (denoted by 4XL)
 
-Note: Most jobs on small data should use the relevant X-small warehouse. Warehouse size affects the cost of your query, so err on the side of using the smallest warehouse to do your job. [Snowflake documentation on warehouses](https://docs.snowflake.com/en/user-guide/warehouses)
+!!! note
+    Note: Most jobs on small data should use the relevant X-small warehouse. Warehouse size affects the cost of your query, so err on the side of using the smallest warehouse to do your job. [Snowflake documentation on warehouses](https://docs.snowflake.com/en/user-guide/warehouses)
 
 ### Snowflake context
 Setting your context in Snowflake means establishing the specific environment or workspace within the platform where you will be working. It tells the platform where you want to perform your data operations. 
