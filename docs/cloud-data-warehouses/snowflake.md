@@ -94,7 +94,7 @@ Let's take a look at the hierarchy of all the different objects that make up you
 ![Snowflake account diagram](../../images/snowflake_account_objects.png) 
 
 ### Users and roles
-In Snowflake, every user is assigned to one or more roles. Privileges are granted to roles, and this determines:
+In Snowflake, every user is assigned one or more roles. Privileges are granted to roles, and this determines:
 - What databases the role can see
 - What virtual warehouses the role can use
 - What permissions the role has on database objects (e.g., read-only, read-write, etc)
