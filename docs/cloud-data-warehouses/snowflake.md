@@ -30,13 +30,13 @@ Some examples of how you might be using Snowflake:
 -If you are an analytics engineer, you will be doing most of your work to transform the data in dbt, but you should understand that whatever data you query and all the queries you build will actually be running in Snowflake.
     -You’ll also want to come into Snowflake to look at query history for query optimization
     -You can explore and take a look at data, column names and types, etc. to better understand how to build the final datasets
-    
+
 -If you are a data engineer, you might use Snowflake's query history to investigate errors in the data pipeline that dbt can not explain
 
 -If you are an analyst, you can use Snowflake to run adhoc queries of the data and get instant results. You can use SQL and/or Python to examine the data and look for patterns.
 
 -If you are building reports or dashboards, you will be pulling the data for those directly from Snowflake.
-  
+
 ### Snowflake architecture
 
 Snowflake's architecture differs from a traditional transactional database in that it separates storage and compute resources. It consists of three layers:
@@ -312,9 +312,9 @@ If you are a part of this initial set up phase, or need to load data in after th
 5. Press Query Data and explore the data. Use these queries as a starting point:
     ```SQL
     SELECT * FROM RAW_DEV.DATA_LOAD_TRAINING.[yourname]_stations LIMIT 10;
-    
+
     SELECT * FROM RAW_DEV.DATA_LOAD_TRAINING.[yourname]_stations WHERE county_name = 'Yolo';
-    
+
     SELECT station_type, COUNT(*) FROM RAW_DEV.DATA_LOAD_TRAINING.[yourname]_stations GROUP BY station_type;
     ```
 
