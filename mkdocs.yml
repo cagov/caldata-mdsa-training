@@ -1,8 +1,8 @@
 site_name: CalData's Modern Data Stack Training
 theme:
   name: material
-  logo: images/odi-square_logomark-blue.svg
-  favicon: images/odi-circle_logomark-blue.png
+  logo: /images/odi-square_logomark-blue.svg
+  favicon: /images/odi-circle_logomark-blue.png
   features:
     - content.code.copy
   palette:
@@ -37,13 +37,13 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 
 nav:
-  - Introduction: index.md
-  - git:
-      - Overview of git: git/git.md
-      - GitHub: git/github.md
-      - Azure DevOps: git/devops.md
+  - Overview: index.md
+  - Code development:
+      - git: code/git.md
+      - GitHub: code/github.md
+      - Azure DevOps: code/devops.md
   - Cloud data warehouses:
       - Snowflake: cloud-data-warehouses/snowflake.md
-  - dbt:
-      - dbt Cloud: dbt/cloud.md
-      - dbt Core: dbt/core.md
+  - Data transformation:
+      - dbt Cloud: data-transformation/dbt-cloud.md
+      - dbt Core: data-transformation/dbt-core.md
