@@ -99,7 +99,7 @@ where total_samples > 10
     1. _File editor_
     1. _Preview pane_
 1. Validate your development environment:
-    1. Open the Develop tab in your own environment and open `transform/models/staging/stg_water_quality__stations.sql`
+    1. Open the Develop tab in your own environment and open `transform/models/staging/training/stg_water_quality__stations.sql`
     1. Click on the _Preview_ button. You should see data in the lower panel
 1. Demonstrate the _Lint_/_Fix_ functionality
 1. Demonstrate the _Build_/_Run_ functionality
@@ -112,7 +112,7 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
 #### First staging model instructions
 
 1. Find and switch to your branch: `<your-first-name>-dbt-training`
-1. Open `transform/models/staging/stg_water_quality__stations.sql` – you should see a SQL statement that selects all of the data from the raw table
+1. Open `transform/models/staging/training/stg_water_quality__stations.sql` – you should see a SQL statement that selects all of the data from the raw table
 1. Update the select statement to do the following:
     1. Explicitly select all columns by name rather than with `*`
     1. Exclude the following column: `STATION_NAME`
@@ -125,7 +125,7 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
 #### Second staging model instructions
 
 1. Remain on your current branch: `<your-first-name>-dbt-training`
-1. Open `transform/models/staging/stg_water_quality__lab_results.sql` – you should see a SQL statement that selects all of the data from the raw table
+1. Open `transform/models/staging/training/stg_water_quality__lab_results.sql` – you should see a SQL statement that selects all of the data from the raw table
 1. Update the select statement to do the following:
     1. Explicitly select the following columns by name rather than with `*`:
         - `station_id`, `status`, `sample_code`, `sample_date`, `sample_depth`, `sample_depth_units`, `parameter`, `result`, `reporting_limit`, `units`, and `method_name`
@@ -330,7 +330,7 @@ Here you’ll write YAML configuration for the Water Quality metadata source tab
     ```
 
 1. _Lint_ and _Fix_ your file, save any changes made
-1. Open `transform/models/staging/stg_water_quality__stations.sql` and change the reference to our source data by using the `source()` macro we just learned about instead of directly referring to the table name
+1. Open `transform/models/staging/training/stg_water_quality__stations.sql` and change the reference to our source data by using the `source()` macro we just learned about instead of directly referring to the table name
 1. _Lint_ and _Fix_ your file, save any changes made
 1. Commit and sync your code and leave a concise, yet descriptive commit message
 
@@ -343,7 +343,7 @@ Here you’ll write YAML configuration for the Water Quality metadata source tab
 
 ### **Exercise: Write tests for your staging model**
 
-Open your `transform/models/_models.yml` and write some data integrity tests. Possible examples include:
+Open your `transform/models/staging/training/_water_quality.yml` and write some data integrity tests. Possible examples include:
 
 1. Add a not null test for STATION_ID
 1. Add a unique test for COUNTY_NAME. This one should fail!
@@ -522,7 +522,7 @@ Now that we’ve gotten some practice creating a staging model and editing our Y
 **SQL:**
 
 1. Switch to your branch from before: `<your-first-name>-dbt-training`
-1. Open `transform/models/intermediate/int_water_quality__stations_per_county_with_parameter_2023_counted.sql`
+1. Open `transform/models/intermediate/training/int_water_quality__stations_per_county_with_parameter_2023_counted.sql`
 1. Change the reference to the staging model by using the `ref()` macro we learned about
 1. Write a SQL query to return a count of the stations per county that reported a parameter of Dissolved Chloride for the year 2023 sorted from greatest to least.
 1. _Hints_
@@ -534,7 +534,7 @@ Now that we’ve gotten some practice creating a staging model and editing our Y
 
 **YAML:**
 
-1. Document your new intermediate model in the `transform/models/_models.yml` file
+1. Document your new intermediate model in the `transform/models/intermediate/training/_water_quality.yml` file
 1. Materialize your model as a table
 1. _Format_ your file, save any changes made
 
@@ -551,7 +551,7 @@ Now that we’ve gotten some practice creating a staging model and editing our Y
 1. Macro example on `stations` data
     1. Switch to the `water_quality_training_materials` branch
     1. Open and review `transform/macros/map_county_name_to_county_fips.sql`
-    1. Open `transform/models/staging/stg_water_quality__stations.sql` and review line 23
+    1. Open `transform/models/staging/training/stg_water_quality__stations.sql` and review line 23
 1. Another [macro example](https://github.com/cagov/data-infrastructure/blob/main/transform/macros/map_class_fp.sql) that is called by [this code](https://github.com/cagov/data-infrastructure/blob/65a4a5c47f0326d50161bc4a1a3e81c20cb19a3e/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql#L34)
 
 **Demo: dbt_utils package**
