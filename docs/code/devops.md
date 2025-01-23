@@ -23,7 +23,7 @@ Azure Repos is Microsoft's cloud service built on top of git. It provides a cent
 - **All the benefits of git:** Such as branching, merging, and history tracking.
 - **Seamless Integration:** Azure Repos integrates with other Azure DevOps services, making it easy to manage your entire code development lifecycle in one place.
 - **Enhanced Security:** Azure DevOps provides robust access control and security features to protect your code.
-- **Flexibility:** You can use your favorite Git client (like GitHub Desktop, the Git command line, or Visual Studio Code) to work with your code.
+- **Flexibility:** You can use your favorite git client (like GitHub Desktop, your command line, or VS Code) to work with your code.
 
 In essence, Azure Repos takes the power and flexibility of git and adds features and integrations within the Azure ecosystem, making it a comprehensive solution for managing your source code.
 
@@ -41,7 +41,7 @@ Option 1:
 
 Option 2:
 
-- Install GitHub Desktop which also provides support for working with Azure Repos
+- Install [Github Desktop](https://github.com/apps/desktop) which also provides support for working with Azure Repos
 - This option may need an installation of GCM though we haven't tested it. If so, follow the steps above depending on your machine.
 
 #### Steps to clone the repo
@@ -84,7 +84,7 @@ Once you are satisfied with the work you've done on your branch you will want to
     1. Make sure you’re on the branch you want to commit changes to (you almost never want to commit directly to “main”). If you just created a branch you are likely already on the branch you want to make changes to, if not switch to it.
     1. To create or switch branches, follow the steps above
 1. Navigate to the file you want to modify and make the necessary changes
-    1. Whether you’re editing a file in dbt Cloud, locally with a code editor like VS Code, or directly in GitHub (not recommended) you must click SAVE or use CTRL/COMMAND S. To save the changes to your file BEFORE you commit them.
+    1. Whether you’re editing a file in dbt Cloud, locally with a code editor like VS Code, or directly in Azure (not recommended) you must click SAVE or use CTRL/COMMAND S. To save the changes to your file BEFORE you commit them.
 1. Stage your changes
     1. We’ll skip how to do this in Azure Repos because we don’t recommend editing and committing changes directly in Azure Repos as this doesn’t allow you to run linting tools that can help you catch errors BEFORE you push changes. We will have CI checks set up on the project repo that will help catch database, formatting, SQL errors, etc.
     1. Locally this is done by:
@@ -92,7 +92,7 @@ Once you are satisfied with the work you've done on your branch you will want to
         1. You can use `git add .` to add ALL files you’ve edited. This can be a dangerous operation because you may accidentally stage files you made changes to but did not want to be added to the project repo. For instance you could have made changes to a file that may contain sensitive information. Only use `git add .` if you are sure all files are safe to stage!
     1. In dbt Cloud the git add process is handled under the hood so be sure that every file you edit is actually a file you want to later commit, if not you must revert changes to any files you do not want to commit.
 1. Commit your changes
-    1. Again we’ll skip how to do this in GitHub – we do not recommend it!
+    1. Again we’ll skip how to do this in Azure – we do not recommend it!
     1. Locally this is done with: `git commit -m “<a short message about the changes you made>”`
     1. In dbt Cloud this is done by:
         1. Clicking the “commit and sync” button
@@ -111,7 +111,7 @@ To submit the changes you've pushed to the codebase you'll open a pull request (
 Benefits of Using PRs:
 
 - Collaboration: PRs allow developers to collaborate on code and share ideas.
-- Code review: PRs allow for feedback on your changes. More details are available [here](https://cagov.github.io/data-infrastructure/code/code-review/)
+- Code review: PRs allow for feedback on your changes. You can read about how the ODI CalData team approaches code review [here](https://cagov.github.io/data-infrastructure/code/code-review/)
 - Testing: PRs can test changes before merging.
 - Documentation: PRs can document changes to the code.
 - History: PRs provide a history of changes.
@@ -132,7 +132,7 @@ The official Microsoft documentation related to Azure Repos PRs is [here](https:
 
 _in dbt Cloud:_
 
-1. After you commit your changes you’ll see a light green button on the upper left that says “Create a pull request on GitHub”. This will only appear if you’ve yet to open a PR. If you have already opened a PR and are simply committing more changes to it you will not see this option. ![dbt cloud create a pr example](../images/dbt-cloud-create-pr.png)
+1. After you commit your changes you’ll see a light green button on the upper left that says “Create a pull request...”. This will only appear if you’ve yet to open a PR. If you have already opened a PR and are simply committing more changes to it you will not see this option.
 
 **Reviewing a PR:**
 
