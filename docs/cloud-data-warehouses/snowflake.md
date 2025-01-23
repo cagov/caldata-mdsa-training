@@ -38,9 +38,9 @@ Some examples of how you might be using Snowflake:
   
 ### Snowflake architecture
 
-Snowflake's architecture is unique in that it separates storage and compute resources. It consists of three layers:
+Snowflake's architecture differs from a traditional transactional database in that it separates storage and compute resources. It consists of three layers:
 
-![Snowflake architecture diagram](../../images/snowflake_architecture_overview.png) 
+![Snowflake architecture diagram](../images/snowflake_architecture_overview.png) 
 [Image source](https://docs.snowflake.com/en/user-guide/intro-key-concepts)
 
 1. **Cloud services**
@@ -50,9 +50,8 @@ Snowflake's architecture is unique in that it separates storage and compute reso
     - Security: robust security features including role-based access control, user authentication, and encryption
 
 2. **Compute resources (for query processing)**
-    - Executes queries using Massive Parallel Processing (MPP)
-            a cluster = a group of computers or servers that work together as a unified system. they share the workload of a specific task. each cluster operates independently to allow parallel processing[for faster, more efficient processing]. workloads are divided across separate clusters
-    - Each query runs in independent virtual warehouses (compute clusters), ensuring high performance and isolation of workloads
+    - Executes queries using Massive Parallel Processing, a method that allows big jobs to be split up into smaller ones and processed at the same time, bringing down overall runtime
+    - Each query runs in independent virtual warehouses, ensuring high performance and isolation of workloads. Note: Snowflake uses the term *virtual warehouse* to refer to a cluser of compute resources, even though in many other contexts, virtual warehouse refers to the entire database!
     - Virtual warehouses can expand or contract based on the complexity and size of queries
 
 3. **Storage resources**
@@ -85,13 +84,10 @@ The [SQL Command Reference](https://docs.snowflake.com/en/sql-reference-commands
     4. _Projects_ Where you can query your data using SQL, Python, or Streamlit. Most of the code we will be writing to transform data will be done in dbt, but Snowflake is a great place to explore your data and build ad hoc analyses.
     4. _Monitoring_ Where you can view query history and other logs, explore various data governance stats, and review security recommendations.
     5. _Admin_ Where you can review resource usage, and where account admins can manage warehouses, users, roles, and security policies. 
-2. Open your user menu:
-    1. Open the Develop tab in your own environment and open `transform/models/staging/stg_water_quality__stations.sql`
-    2. Click on the _Preview_ button. You should see data in the lower panel
 
 ### Snowflake account structure
 Let's take a look at the hierarchy of all the different objects that make up your Snowflake project:
-![Snowflake account diagram](../../images/snowflake_account_objects.png) 
+![Snowflake account diagram](../images/snowflake_account_objects.png) 
 
 ### Users and roles
 In Snowflake, every user is assigned one or more roles. Privileges are granted to roles, and this determines:
@@ -113,24 +109,24 @@ A schema is a logical grouping of objects:
 A virtual warehouse, usually referred to as a "warehouse" in Snowflake is a powerful and scalable computing resource that allows you to execute SQL queries and perform analytical tasks on your data. Unlike traditional data warehouses, Snowflake’s virtual warehouses are “virtual” in the sense that they are not tied to a specific hardware. Instead, they operate in the cloud and can dynamically allocate or deallocate computing resources based on your workload.
 
 A warehouse provides the required resources, such as CPU, memory, and temporary storage, to perform the following operations in a Snowflake session:
-
-- Executing SQL SELECT statements that require compute resources (e.g. retrieving rows from tables and views).
-- Performing DML (Data Manipulation Language) operations, such as:
-- Updating rows in tables (DELETE , INSERT , UPDATE).
-- Loading data into tables (COPY INTO <table>).
-- Unloading data from tables (COPY INTO <location>).
+  - Executing SQL SELECT statements that require compute resources (e.g. retrieving rows from tables and views)
+  - Performing DML (Data Manipulation Language) operations, such as:
+    - Updating rows in tables (DELETE , INSERT , UPDATE)
+    - Loading data into tables (COPY INTO `table`)
+    - Unloading data from tables (COPY INTO `location`)
 
 ### Warehouse sizes
+
 Warehouses are available in a few different sizes, depending upon the needs of the data processing job:
 
-X-small (denoted by (XS)) Good for small tasks and experimenting.
-Small (denoted by S), Suitable for single-user workloads and development.
-Medium (denoted by M), Handles moderate concurrency and data volumes.
-Large denoted by (L), Manages larger queries and higher concurrency.
-X-Large (denoted by (XL)) Powerful for demanding workloads and data-intensive operations.
-2X-Large (denoted by 2XL)
-3X-Large (denoted by 3XL)
-4X-Large (denoted by 4XL)
+- X-small (denoted by (XS)) Good for small tasks and experimenting.
+- Small (denoted by S), Suitable for single-user workloads and development.
+- Medium (denoted by M), Handles moderate concurrency and data volumes.
+- Large denoted by (L), Manages larger queries and higher concurrency.
+- X-Large (denoted by (XL)) Powerful for demanding workloads and data-intensive operations.
+- 2X-Large (denoted by 2XL)
+- 3X-Large (denoted by 3XL)
+- 4X-Large (denoted by 4XL)
 
 !!! note
     Note: Most jobs on small data should use the relevant X-small warehouse. Warehouse size affects the cost of your query, so err on the side of using the smallest warehouse to do your job. [Snowflake documentation on warehouses](https://docs.snowflake.com/en/user-guide/warehouses)
@@ -142,23 +138,23 @@ Setting your context ensures that you are directing your actions to the appropri
 
 This includes setting the database, schema, and other parameters that define the scope. Setting your context ensures that you are directing your actions to the appropriate database and schema, preventing unintentional modifications or queries in the wrong location.
 
-![Snowflake context diagram](../../images/snowflake_context_diagram.png)
+![Snowflake context diagram](../images/snowflake_context_diagram.png)
 
 ### **Exercise: Set your context**
 
 #### Set your context using the user interface instructions
 
-1. Change your role to public
+1. Change your role to `public`
 2. Navigate to Data > Databases -- notice that nothing is here!
-3. Now change your role to TRANSFORMER_DEV
-4. Navigate to RAW_DEV > WATER_QUALITY
+3. Now change your role to `TRANSFORMER_DEV`
+4. Navigate to `RAW_DEV` -> `WATER_QUALITY`
 3. View the Schema Details and Tables on this database
-4. Now change your role to TRANSFORMER_PRD -- how did this change the databases you can see?
+4. Now change your role to `TRANSFORMER_PRD` -- how did this change the databases you can see?
 
 #### Set your context using SQL commands instructions
 1. Navigate to Projects
 2. Click on the + button in the top right corner -- this should open a new Snowflake Worksheet
-3. Select the RAW_DEV database -- oops! that database is no longer available because we are in the TRANSFORMER_PRD role
+3. Select the `RAW_DEV` database -- oops! that database is no longer available because we are in the `TRANSFORMER_PRD` role
 4. Copy the following code into the worksheet, click the arrow next to the blue run button at the top of the screen, and select "Run All"
     ```sql
     USE ROLE transformer_dev;
@@ -250,11 +246,11 @@ Functional Roles represent specific user personae like "developer" or "analyst" 
 #### Visualizing the ODI context
 To make the preceding more concrete, let's consider the six databases, RAW, TRANSFORM, and ANALYTICS, for both DEV and PRD:
 
-![six databases](../../images/snowflake_six_databases.png)
+![six databases](../images/snowflake_six_databases.png)
 
 If you are a developer, you are doing most of your work in TRANSFORM_DEV and ANALYTICS_DEV, assuming the role TRANSFORMER_DEV. However, you also have the ability to select the production data from RAW_PRD for your development. But you do not have access to the production level data of the Transform and Analytics steps. So your data access looks like the following:
 
-![developer](../../images/snowflake_developer.png)
+![developer](../images/snowflake_developer.png)
 
 Again, some of this will make a lot more sense when we get further into the training. The main takeaway here is that your ability to view, transform, load, and create data in Snowflake is dependent on the exact combination of:
 - your account -- determines which roles you have access to
@@ -351,7 +347,7 @@ Most cloud data warehouses use columnar storage for their data. This means that 
 
 On the left is data laid out in a record-oriented way, where each row's values are contiguous in memory. On the right is data laid out in a columnar way, where each column's values are contiguous in memory.
 
-![developer](../../images/snowflake_columnar_storage.png)
+![developer](../images/snowflake_columnar_storage.png)
 
 There are a number of advantages to using columnar storage for analytical workloads:
     - You can read in columns separately from each other. So if your query only needs to look at one column of a several-hundred column table, it can do that without incurring the cost of loading and processing all of the other columns.
