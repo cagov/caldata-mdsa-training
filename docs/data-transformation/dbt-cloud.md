@@ -105,11 +105,11 @@ where total_samples > 10
 1. Demonstrate the _Build_/_Run_ functionality
 1. Verify that the models you built/ran are visible in your personal schema within `TRANSFORM_DEV`
 
-### **Exercise: Create your first dbt staging model**
+### **Exercise: Create your first dbt staging models**
 
 Let’s create two staging models! The data in `raw_dev.water_quality.stations` and `raw_dev.water_quality.lab_results` have been loaded from [data.ca.gov/dataset/water-quality-data](https://data.ca.gov/dataset/water-quality-data) without modification except for the exclusion of the `_id` column in each table. There are a few simple transformations we can do to make working with these data more ergonomic. Models that require simple transformations involving things like data type conversion or column renaming are called staging models.
 
-#### First staging model instructions
+#### First staging model instructions for the `stations` data
 
 1. Find and switch to your branch: `<your-first-name>-dbt-training`
 1. Open `transform/models/staging/training/stg_water_quality__stations.sql` – you should see a SQL statement that selects all of the data from the raw table
@@ -122,7 +122,7 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
         1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. `YYYY-MM-DD HH24:MI:SS`
     1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
 
-#### Second staging model instructions
+#### Second staging model instructions for the `lab_results` data
 
 1. Remain on your current branch: `<your-first-name>-dbt-training`
 1. Open `transform/models/staging/training/stg_water_quality__lab_results.sql` – you should see a SQL statement that selects all of the data from the raw table
@@ -171,7 +171,7 @@ The YAML files in a dbt project contain the metadata for your relations, both so
 
 YAML stands for “Yet Another Markup Language”. It is a superset of JSON (JavaScript Object Notation) and intended to be a more human readable version, but JSON is still perfectly valid! For example, `{“my-key”: 4}` is YAML. YAML has support for:
 
-- Key-value pairs (i.e., dicts/maps)
+- Key-value pairs (i.e., dictionaries/maps)
 - Lists
 - Strings, numbers, booleans
 
@@ -186,22 +186,22 @@ It is also absolutely ubiquitous for tool configuration. Tools that are configur
 
 Indentation is meaningful in YAML. Make sure that you use **2 spaces**, rather than tab characters, to indent sections per level of nesting.
 
-#### YAML dictionaries (dicts)/maps
+#### YAML dictionaries/maps
 
 ```yaml
 # In YAML, comments are started with the hashtag # symbol
 
-# Dicts/maps are constructed using indentation and the colon ":" symbol
-my_dict:
+# Dictionaries/maps are constructed using indentation and the colon ":" symbol
+my_dictionary:
   a_number: 12
   a_string: "hello, world!"
   a_boolean: true
-  a_nested_dict:
+  a_nested_dictionary:
     key: "value"
     another_key: "another value"
 
 # Because YAML is a superset of JSON, we can equivalently write:
-my_dict: {"a_number":12, "a_string": "hello, world!", "a_boolean": true}
+my_dictionary: {"a_number":12, "a_string": "hello, world!", "a_boolean": true}
 ```
 
 #### YAML lists
@@ -222,12 +222,12 @@ my_list: [1, 2, 3, 4]
 
 ```yaml
 # YAML strings may be written without quotes "" as long as there is no ambiguity
-my_dict:
+my_ionary:
   a_string: "britt is cool!"
   also_a_string: britt is cool
 
 # But omitting the quotes for a string can get you in trouble when the string is ambiguous!
-my_dict:
+my_dictionary:
   # This is interpreted as a number (which is not what we want)
   python_version: 3.9
 
@@ -277,7 +277,7 @@ a_markdown_string: |
 
 ### Sources and refs
 
-Let’s take a look at the `source` and `ref` dbt macros. Instead of directly referring to the database, schema, table, and view names, we use the `source` and `ref` dbt macros. The syntax for this is to replace the raw names with a template directive like this: `{{ source('water_quality', 'stations') }}`.
+Let’s take a look at the `source` and `ref` dbt macros. Instead of directly referring to the database, schema, table, and view names, we use the `source` and `ref` dbt macros. The syntax for this is to replace the raw names with a template directive like this: `{{ source('WATER_QUALITY', 'stations') }}`.
 
 The curly braces are a syntax for _Jinja_ templating. The expression within the curly braces is a Python (ish) function which gets evaluated and inserted into the SQL file. There are lots of things we can do with Jinja to help generate our SQL queries, including basic math, custom Python functions, loops, and if-else statements. Most of the time, you will just need to be able to use the `source` and `ref` macros.
 
@@ -285,7 +285,7 @@ The curly braces are a syntax for _Jinja_ templating. The expression within the 
 
 This function creates dependencies between source data and the current model (usually staging) referencing it. Your dbt project will depend on raw data stored in your database. Since this data is normally loaded by other tools than dbt, the structure of it can change over time – tables and columns may be added, removed, or renamed. When this happens, it is easier to update models if raw data is only referenced in one place.
 
-**Example:** replace `RAW_DEV.WATER_QUALITY.LAB_RESULTS` with `{{ source('water_quality', 'lab_results') }}`.
+**Example:** replace `RAW_DEV.WATER_QUALITY.LAB_RESULTS` with `{{ source('WATER_QUALITY', 'lab_results') }}`.
 
 #### ref()
 
@@ -303,9 +303,9 @@ It can be initially confusing to people that we don’t directly refer to the na
 
 ### **Exercise: Write YAML for your source data and staging models**
 
-Here you’ll write YAML configuration for the Water Quality metadata source table, and for the staging model you wrote. It will build on the branch you created in the previous exercise, so open dbt Cloud, navigate to the developer tab, and make sure that branch is checked out.
+Here you’ll write YAML configuration for the Water Quality source tables, and for the two staging models you built. It will build on the branch you created in the previous exercise, so open dbt Cloud, navigate to the developer tab, and make sure that branch is checked out.
 
-1. Switch to your branch from yesterday: `<your-first-name>-dbt-training`
+1. Switch to your existing branch: `<your-first-name>-dbt-training`
 1. Open `transform/models/_sources.yml`. You should see mostly empty stubs for models and sources.
 1. First, specify where the Water Quality data exists in the Snowflake database. We’ll do that by adding some keys to the `Water Quality` source:
     1. Add a key for the database: (`database: RAW_DEV`).
@@ -329,7 +329,7 @@ Here you’ll write YAML configuration for the Water Quality metadata source tab
                 …  # etc
     ```
 
-1. _Lint_ and _Fix_ your file, save any changes made
+1. _Format_ your file, save any changes made
 1. Open `transform/models/staging/training/stg_water_quality__stations.sql` and change the reference to our source data by using the `source()` macro we just learned about instead of directly referring to the table name
 1. _Lint_ and _Fix_ your file, save any changes made
 1. Commit and sync your code and leave a concise, yet descriptive commit message
@@ -341,9 +341,9 @@ Here you’ll write YAML configuration for the Water Quality metadata source tab
     1. In a traditional transactional database like postgres or SQL Server, you can have a uniqueness constraint on a column. Snowflake does not respect uniqueness constraints and most OLAP databases do not. Primary keys and foreign keys are examples of unique columns that are respected in OLTP databases that are not in OLAP databases.
     1. [More reading](https://cagov.github.io/data-infrastructure/learning/cloud-data-warehouses/#primary-keys-and-constraints) on this topic
 
-### **Exercise: Write tests for your staging model**
+### **Exercise: Write tests for one staging model**
 
-Open your `transform/models/staging/training/_water_quality.yml` and write some data integrity tests. Possible examples include:
+Open your `transform/models/staging/training/_water_quality.yml` and write some data integrity tests for your `stg_water_quality__lab_results` model.
 
 1. Add a not null test for STATION_ID
 1. Add a unique test for COUNTY_NAME. This one should fail!
@@ -374,42 +374,30 @@ Let refresh our memory on [data layers for intermediate models](https://cagov.gi
 -- Let's go from writing our code like this...
 
 select
-    DATE_FROM_PARTS(
-      substr("sample_date",7,4)::INT,
-      left("sample_date",2)::INT,
-      substr("sample_date",4,2)::INT
-    ) as sample_date,
     "station_id",
     "latitude",
     "longitude",
-    "county_name" as county
+    "county_name"
 
-from {{ source('WATER_QUALITY', 'LAB_RESULTS') }}
+from {{ source('WATER_QUALITY', 'lab_results') }}
 
 -- To writing our code like this
 
-with
-
-source as (
-    select * from {{ source('WATER_QUALITY', 'LAB_RESULTS') }}
+with source as (
+    select * from {{ source('WATER_QUALITY', 'lab_results') }}
 ),
 
-lab_results_with_date as (
-    select
-    DATE_FROM_PARTS(
-      substr("sample_date",7,4)::INT,
-      left("sample_date",2)::INT,
-      substr("sample_date",4,2)::INT
-    ) as sample_date,
+lab_results as (
+  select
     "station_id",
     "latitude",
     "longitude",
-    "county_name" as county
+    "county_name"
 
-from source
+  from source
 )
 
-select * from lab_results_with_date
+select * from lab_results
 ```
 
 Here’s [another example of a more complex, multi-stage CTE](https://github.com/cagov/data-infrastructure/blob/main/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql) query.
@@ -517,11 +505,11 @@ select ...
 
 ### **Exercise: Create your second dbt model**
 
-Now that we’ve gotten some practice creating a staging model and editing our YAML file to reference our model, let's create an intermediate model and update the relevant YAML file.
+Now that we’ve gotten some practice creating two staging models and editing our YAML file to reference our source data and models, let's create an intermediate model and update the relevant YAML file.
 
 **SQL:**
 
-1. Switch to your branch from before: `<your-first-name>-dbt-training`
+1. Switch to your existing branch: `<your-first-name>-dbt-training`
 1. Open `transform/models/intermediate/training/int_water_quality__stations_per_county_with_parameter_2023_counted.sql`
 1. Change the reference to the staging model by using the `ref()` macro we learned about
 1. Write a SQL query to return a count of the stations per county that reported a parameter of Dissolved Chloride for the year 2023 sorted from greatest to least.
@@ -541,25 +529,30 @@ Now that we’ve gotten some practice creating a staging model and editing our Y
 **Pull Request:**
 
 1. Commit and sync your code and leave a concise, yet descriptive commit message
-1. In GitHub (or Azure DevOps), check that you’ve added a teammate as a reviewer to your PR
+1. In GitHub or Azure DevOps, check that you’ve added a teammate as a reviewer to your PR
 1. Review someone else’s PR
 1. Optional: Check that your PR passes all CI (continuous integration) checks. If not, click “details” and investigate the failure – We’ll spend more time on this in Day 4
 
-**Demo: Macros**
+### Additional learning
+
+#### Macros
+
 [Macros](https://docs.getdbt.com/docs/build/jinja-macros#macros) in [Jinja](https://docs.getdbt.com/docs/build/jinja-macros) are pieces of code that can be reused multiple times – they are analogous to "functions" in other programming languages, and are extremely useful if you find yourself repeating code across multiple models. Remember (DRY). Macros are defined in .sql files, typically in your macros directory (e.g.`transform/macros`).
 
-1. Macro example on `stations` data
-    1. Switch to the `water_quality_training_materials` branch
-    1. Open and review `transform/macros/map_county_name_to_county_fips.sql`
-    1. Open `transform/models/staging/training/stg_water_quality__stations.sql` and review line 23
+Take a look at our macro example on the `stations` data.
+
+1. Switch to the `britt-dbt-training` branch
+1. Open and review `transform/macros/map_county_name_to_county_fips.sql`
+    1. Then open `transform/models/intermediate/training/int_water_quality__counties.sql` and review line 9
 1. Another [macro example](https://github.com/cagov/data-infrastructure/blob/main/transform/macros/map_class_fp.sql) that is called by [this code](https://github.com/cagov/data-infrastructure/blob/65a4a5c47f0326d50161bc4a1a3e81c20cb19a3e/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql#L34)
 
-**Demo: dbt_utils package**
+#### dbt_utils package
+
 The [dbt_utils package](https://hub.getdbt.com/dbt-labs/dbt_utils/latest/) contains macros that can be (re)used across this project. Software engineers frequently modularize code into libraries. These libraries help programmers operate with leverage. In dbt, libraries like these are called packages. dbt's packages are powerful because they tackle many common analytic problems that are shared across teams.
 
 1. Example that uses the _dbt_utils_ test [_equal_rowcount_](https://github.com/dbt-labs/dbt-utils/tree/1.1.1/?tab=readme-ov-file#equal_rowcount-source)
-    1. Switch to the `water_quality_training_materials` branch
-    1. Open `transform/models/_models.yml` and review lines 6-10
+    1. Switch to the `britt-dbt-training` branch
+    1. Open `transform/models/staging/training/_water_quality.yml` and review lines 6-10
     1. Run`dbt test --select stg_water_quality__stations`
         1. Note this test fails if trying to compare a table to a view
 
@@ -568,17 +561,17 @@ version: 2
 
 models:
   - name: stg_water_quality__stations
-    description: Staging model for the STATIONS source data.
+    description: Staging model for stations.
     config:
       materialized: table
     tests:
       - dbt_utils.equal_rowcount:
-        compare_model: source('water_quality', 'stations')
+        compare_model: source('WATER_QUALITY', 'stations')
 ```
 
-### Custom tests
+#### Custom tests
 
-Dbt allows you to [create your own tests](https://docs.getdbt.com/docs/build/data-tests#overview) if you cannot find what you’re looking for in dbt_utils (see above) or in other packages. Data tests are assertions you make about your models and other resources in your dbt project (e.g. sources, seeds and snapshots). When you run `dbt test`, dbt will tell you if each test in your project passes or fails.
+dbt allows you to [create your own tests](https://docs.getdbt.com/docs/build/data-tests#overview) if you cannot find what you’re looking for in dbt_utils (see above) or in other packages. Data tests are assertions you make about your models and other resources in your dbt project (e.g. sources, seeds and snapshots). When you run `dbt test`, dbt will tell you if each test in your project passes or fails.
 
 There are two ways of defining data tests in dbt:
 
@@ -616,7 +609,7 @@ We’ll also introduce the concept of a “Job”, which is a command that is ru
 
 #### What is CI/CD and why you shouldn’t ignore it
 
-CI/CD checks in GitHub (or Azure DevOps) are automated tests that are run against your code every time you push a change. These checks can help you identify errors and potential issues early in the development process, before they can cause problems in production.
+CI/CD checks in GitHub or Azure DevOps are automated tests that are run against your code every time you push a change. These checks can help you identify errors and potential issues early in the development process, before they can cause problems in production.
 
 There are a number of different types of CI/CD checks, including:
 
@@ -634,7 +627,7 @@ To reiterate, CI/CD checks can help you to improve the quality of your code, red
 
 #### Demo: CI/CD in a development workflow
 
-1. How to read the results of CI checks on a PR in GitHub (or Azure DevOps).
+1. How to read the results of CI checks on a PR in GitHub or Azure DevOps.
 1. How merging to `main` results in production dbt builds.
 
 ### Custom schema names
@@ -654,7 +647,7 @@ You’ve been working in your own branches to create dbt models and configuratio
 
 1. Inspect the `pre-commit` results of your pull request in GitHub.
 1. Address any issues flagged by the results. Remember, the “_Format_”, “_Lint_”, and “_Fix_” buttons in dbt Cloud can help with auto-resolving issues around formatting.
-1. Inspect the dbt Cloud test results in GitHub (or Azure DevOps). Resolve any issues with your models not building or failing data integrity tests.
+1. Inspect the dbt Cloud test results in GitHub. Resolve any issues with your models not building or failing data integrity tests.
 1. Request a review of a teammate. Review another teammate’s PR.
 1. Address any comments or suggestions from your code review.
 1. Repeat the above steps until there are no remaining comments, and you get a green checkmark on the CI checks!
