@@ -343,12 +343,14 @@ Here you’ll write YAML configuration for the Water Quality source tables, and 
 
 ### **Exercise: Write tests for one staging model**
 
-Open your `transform/models/staging/training/_water_quality.yml` and write some data integrity tests for your `stg_water_quality__lab_results` model.
+Open your `transform/models/staging/training/_water_quality.yml` and write some data integrity tests for your `stg_water_quality__stations` model.
 
 1. Add a not null test for STATION_ID
 1. Add a unique test for COUNTY_NAME. This one should fail!
+1. In your dbt Cloud command line, run `dbt test --select stg_water_quality__stations`
 
-The grain at which this data is collected results in duplicate county names so this is not a good test for this column.
+!!! note
+    The grain at which the stations data is collected results in duplicate county names so this is not a good test for this column.
 
 ### Day 2: References
 
