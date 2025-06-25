@@ -32,7 +32,7 @@ Here are instructions for setting up a Python environment using Miniconda:
    conda activate infra
    ```
 
-### 2. Install Python dependencies
+#### 2. Install Python dependencies
 
 Python dependencies are specified using [`poetry`](https://python-poetry.org/).
 
@@ -44,7 +44,7 @@ poetry install --with dev --no-root
 
 Any time the dependencies change, you can re-run the above command to update them.
 
-### 3. Install go dependencies
+#### 3. Install go dependencies
 
 ODI uses [Terraform](https://www.terraform.io/) to manage infrastructure.
 Dependencies for Terraform (mostly in the [go ecosystem](https://go.dev/))
@@ -71,7 +71,7 @@ conda install -c conda-forge terraform go-terraform-docs tflint
 
 TODO: Add option for non Mac OS and non-conda users
 
-## Configure Snowflake
+### Configure Snowflake
 
 In order to use Snowflake (as well as the terraform validators for the Snowflake configuration)
 you should set some default local environment variables in your environment.
@@ -119,7 +119,7 @@ export SNOWFLAKE_AUTHENTICATOR=ExternalBrowser
 This will enable you to perform loading activities which are needed for Airflow or Fivetran.
 Again, open a new terminal and verify that the environment variables are set.
 
-## Configure AWS
+### Configure AWS
 
 In order to create and manage AWS resources programmatically,
 you need to create access keys and configure your local setup to use them:
@@ -128,10 +128,13 @@ you need to create access keys and configure your local setup to use them:
 1. Go to the AWS IAM console and [create an access key for yourself](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey).
 1. In a terminal, enter `aws configure`, and add the access key ID and secret access key when prompted. We use `us-west-2` as our default region.
 
-## Configure dbt
+### Configure dbt
 
-dbt core was installed when you created your `mdsa-infra` environment and ran the poetry command. The connection information for your data warehouses will,
-in general, live outside of this repository.
+dbt core was installed when you created your `mdsa-infra` environment and ran the poetry command.
+If you skipped this step then follow the instructions [here](https://docs.getdbt.com/docs/core/installation-overview) to install dbt locally then come back and follow the remainder of the steps listed below.
+
+
+The connection information for your data warehouses will, in general, live outside of this repository.
 This is because connection information is both user-specific and usually sensitive,
 so it should not be checked into version control.
 
@@ -155,7 +158,7 @@ You can verify that your `profiles.yml` is configured properly by running the fo
 dbt debug
 ```
 
-### Snowflake project
+#### Snowflake project
 
 A minimal version of a `profiles.yml` for dbt development is:
 
@@ -183,13 +186,13 @@ dse_snowflake:
     We recommend naming your local development target `dev`, and only
     include a `prd` target in your profiles under rare circumstances.
 
-### Combined `profiles.yml`
+#### Combined `profiles.yml`
 
 You can include profiles for several databases in the same `profiles.yml`,
 (as well as targets for production), allowing you to develop in several projects
 using the same computer.
 
-### Example VS Code setup
+#### Example VS Code setup
 
 This project can be developed entirely using dbt Cloud.
 That said, many people prefer to use more featureful editors,
@@ -206,7 +209,7 @@ Here is one possible configuration for VS Code:
 1. Associate `.sql` files with the `jinja-sql` language by going to `Code` -> `Preferences` -> `Settings` -> `Files: Associations`, per [these](https://github.com/innoverio/vscode-dbt-power-user#associate-your-sql-files-the-jinja-sql-language) instructions.
 1. Test that the `vscode-dbt-power-user` extension is working by opening one of the project model `.sql` files and pressing the "▶" icon in the upper right corner. You should have query results pane open that shows a preview of the data.
 
-## Installing `pre-commit` hooks
+### Installing `pre-commit` hooks
 
 This project uses [pre-commit](https://pre-commit.com/) to lint, format,
 and generally enforce code quality. These checks are run on every commit,
