@@ -25,7 +25,7 @@ Much of the software in this project is written in Python.
 It is usually worthwhile to install Python packages into a virtual environment,
 which allows them to be isolated from those in other projects which might have different version constraints.
 
-We recommend [`uv`](https://docs.astral.sh/uv/)
+We recommend [`uv`](https://docs.astral.sh/uv/).
 
 For both Windows and MacOS users it can be installed via [Homebrew](https://brew.sh/) with the following command:
 
@@ -140,7 +140,7 @@ TODO: This will only work on posix-y systems. Windows users will have a differen
 Instructions for writing a `profiles.yml` are documented
 [here](https://docs.getdbt.com/docs/get-started/connection-profiles),
 there are specific instructions for Snowflake
-[here](https://docs.getdbt.com/reference/warehouse-setups/snowflake-setup), and you can find examples for ODI and external users below as well.
+[here](https://docs.getdbt.com/reference/warehouse-setups/snowflake-setup), and you can find examples below as well.
 
 You can verify that your `profiles.yml` is configured properly by running the following command in the project root directory (`transform`).
 
