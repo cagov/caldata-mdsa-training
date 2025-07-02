@@ -2,9 +2,22 @@
 
 ## Local repository setup
 
-These are instructions for individual contributors to set up their repository locally.
+Working with dbt Core will involve more than just its installation. We have included additional instructions for individual contributors to set up their local repository to work well with dbt, their data warehouse, and a git-based version control workflow with checks that can be run on the code before opening a PR.
 
-### Install dependencies
+Here's a diagram of the steps you can expect to take:
+
+```mermaid
+flowchart LR
+    a[Install dependencies]
+    b[Data warehouse set up]
+    c[Configure AWS - optional]
+    d[Install dbt]
+    e[Install `pre-commit` hooks]
+    a --> b --> c --> d --> e
+
+```
+
+### 1. Install dependencies
 
 #### 1. Set up a Python virtual environment
 
@@ -12,66 +25,45 @@ Much of the software in this project is written in Python.
 It is usually worthwhile to install Python packages into a virtual environment,
 which allows them to be isolated from those in other projects which might have different version constraints.
 
-We recommend one of the following:
+We recommend [`uv`](https://docs.astral.sh/uv/)
 
-- [Anaconda](https://docs.anaconda.com/anaconda/install/).
-- [Miniconda](https://docs.conda.io/en/latest/miniconda.html) – which is lighter-weight than Anaconda.
-- [`pyenv`](https://github.com/pyenv/pyenv) – which is also lighter-weight, but is Python-only, whereas the first two allows one to install packages from other language ecosystems.
-
-Here are instructions for setting up a Python environment using Miniconda:
-
-1. Follow the installation instructions for installing [Miniconda](https://docs.conda.io/en/latest/miniconda.html#system-requirements).
-2. Create a new environment called `mdsa-infra`:
-   ```bash
-   conda create -n infra -c conda-forge python=3.10 poetry
-   ```
-   The following prompt will appear, "_The following NEW packages will be INSTALLED:_ "
-   You'll have the option to accept or reject by typing _y_ or _n_. Type _y_ to continue.
-3. Activate the `mdsa-infra` environment:
-   ```bash
-   conda activate infra
-   ```
-
-#### 2. Install Python dependencies
-
-Python dependencies are specified using [`poetry`](https://python-poetry.org/).
-
-To install them, open a terminal and ensure you are working in the appropriate project root folder with your `mdsa-infra` environment activated, then enter the following:
+For both Windows and MacOS users it can be installed via [Homebrew](https://brew.sh/) with the following command:
 
 ```bash
-poetry install --with dev --no-root
+brew install uv
 ```
 
-Any time the dependencies change, you can re-run the above command to update them.
-
-#### 3. Install go dependencies
+#### 1. Install go dependencies (Optional)
 
 ODI uses [Terraform](https://www.terraform.io/) to manage infrastructure.
 Dependencies for Terraform (mostly in the [go ecosystem](https://go.dev/))
 can be installed via a number of different package managers.
 
-If you are running Mac OS, you can install these dependencies with [Homebrew](https://brew.sh/).
-First, install Homebrew
+If you are running Mac OS, you can install these dependencies with Homebrew.
+
+Install Homebrew, if you don't already have it, with the following snippet:
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-Then install the go dependencies:
+Install the go dependencies:
 
 ```bash
 brew install terraform terraform-docs tflint go
 ```
 
-If you are a conda user on any architecture, you should be able to install these dependencies with:
+Validate the install with:
 
 ```bash
-conda install -c conda-forge terraform go-terraform-docs tflint
+terraform -v
+
+go version
 ```
 
-TODO: Add option for non Mac OS and non-conda users
+### 1. Data warehouse set up
 
-### Configure Snowflake
+#### 1. Configure Snowflake
 
 In order to use Snowflake (as well as the terraform validators for the Snowflake configuration)
 you should set some default local environment variables in your environment.
@@ -81,7 +73,7 @@ as well as users of Windows subsystem for Linux (WSL) it's often set in
 
 If you use zsh or bash, open your shell configuration file, and add the following lines:
 
-**Default Transformer role**
+##### Transformer role (default)
 
 ```bash
 # Legacy account identifier
@@ -100,7 +92,7 @@ export SNOWFLAKE_AUTHENTICATOR=ExternalBrowser
 This will enable you to perform transforming activities which are needed for dbt.
 Open a new terminal and verify that the environment variables are set.
 
-**Loader role**
+##### Loader role
 
 ```bash
 # Legacy account identifier
@@ -119,7 +111,7 @@ export SNOWFLAKE_AUTHENTICATOR=ExternalBrowser
 This will enable you to perform loading activities which are needed for Airflow or Fivetran.
 Again, open a new terminal and verify that the environment variables are set.
 
-### Configure AWS
+### 1. Configure AWS (optional)
 
 In order to create and manage AWS resources programmatically,
 you need to create access keys and configure your local setup to use them:
@@ -128,11 +120,9 @@ you need to create access keys and configure your local setup to use them:
 1. Go to the AWS IAM console and [create an access key for yourself](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey).
 1. In a terminal, enter `aws configure`, and add the access key ID and secret access key when prompted. We use `us-west-2` as our default region.
 
-### Configure dbt
+### 1. Install dbt
 
-dbt core was installed when you created your `mdsa-infra` environment and ran the poetry command.
-If you skipped this step then follow the instructions [here](https://docs.getdbt.com/docs/core/installation-overview) to install dbt locally then come back and follow the remainder of the steps listed below.
-
+Follow the instructions [here](https://docs.getdbt.com/docs/core/installation-overview) to install dbt locally.
 
 The connection information for your data warehouses will, in general, live outside of this repository.
 This is because connection information is both user-specific and usually sensitive,
@@ -155,10 +145,12 @@ there are specific instructions for Snowflake
 You can verify that your `profiles.yml` is configured properly by running the following command in the project root directory (`transform`).
 
 ```bash
-dbt debug
+uv run dbt debug
 ```
 
-#### Snowflake project
+#### dbt and your data warehouse
+
+##### 1. For Snowflake projects
 
 A minimal version of a `profiles.yml` for dbt development is:
 
@@ -186,18 +178,13 @@ dse_snowflake:
     We recommend naming your local development target `dev`, and only
     include a `prd` target in your profiles under rare circumstances.
 
-#### Combined `profiles.yml`
-
 You can include profiles for several databases in the same `profiles.yml`,
 (as well as targets for production), allowing you to develop in several projects
 using the same computer.
 
-#### Example VS Code setup
+#### 1. VS Code setup (optional)
 
-This project can be developed entirely using dbt Cloud.
-That said, many people prefer to use more featureful editors,
-and the code quality checks that are set up here are easier to run locally.
-By equipping a text editor like VS Code with an appropriate set of extensions and configurations
+Many people prefer to use featureful editors when doing local development so we included an example set up with VS Code. By equipping a text editor like VS Code with an appropriate set of extensions and configurations
 we can largely replicate the dbt Cloud experience locally.
 Here is one possible configuration for VS Code:
 
@@ -209,7 +196,7 @@ Here is one possible configuration for VS Code:
 1. Associate `.sql` files with the `jinja-sql` language by going to `Code` -> `Preferences` -> `Settings` -> `Files: Associations`, per [these](https://github.com/innoverio/vscode-dbt-power-user#associate-your-sql-files-the-jinja-sql-language) instructions.
 1. Test that the `vscode-dbt-power-user` extension is working by opening one of the project model `.sql` files and pressing the "▶" icon in the upper right corner. You should have query results pane open that shows a preview of the data.
 
-### Installing `pre-commit` hooks
+### 1. Install `pre-commit` hooks
 
 This project uses [pre-commit](https://pre-commit.com/) to lint, format,
 and generally enforce code quality. These checks are run on every commit,
@@ -224,12 +211,11 @@ pre-commit install
 The next time you make a commit, the pre-commit hooks will run on the contents of your commit
 (the first time may be a bit slow as there is some additional setup).
 
-You can verify that the pre-commit hooks are working properly by running
+You can verify that the pre-commit hooks are working properly by running the following snippet to test every file in the repository against the checks.
 
 ```bash
 pre-commit run --all-files
 ```
-to test every file in the repository against the checks.
 
 Some of the checks lint our dbt models and Terraform configurations,
 so having the terraform dependencies installed and the dbt project configured
