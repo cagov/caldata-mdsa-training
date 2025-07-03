@@ -45,5 +45,8 @@ nav:
   - Cloud data warehouses:
       - Snowflake: cloud-data-warehouses/snowflake.md
   - Data transformation:
-      - dbt Cloud: data-transformation/dbt-cloud.md
-      - dbt Core: data-transformation/dbt-core.md
+      - dbt: data-transformation/dbt.md
+      - Exercises:
+          - dbt Cloud: data-transformation/dbt-cloud-exercises.md
+          - dbt Core: data-transformation/dbt-core-exercises.md
+      - Local repo setup: data-transformation/local-repo-setup.md
