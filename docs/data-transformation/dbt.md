@@ -1,8 +1,8 @@
-# dbt Cloud
+# dbt (data build tool)
 
 ## **Day 1**
 
-### What is dbt (data build tool)?
+### What is dbt?
 
 dbt is a SQL-first transformation tool that lets teams quickly and collaboratively deploy analytics code while following software engineering best practices like modularity, version control, CI/CD, and documentation. This allows your data team to safely develop and contribute to production-grade data pipelines.
 
@@ -105,9 +105,9 @@ where total_samples > 10
 1. Demonstrate the _Build_/_Run_ functionality
 1. Verify that the models you built/ran are visible in your personal schema within `TRANSFORM_DEV`
 
-### **Exercise**
+### **Exercises**
 
-Links
+Click either link for [<u>dbt Cloud</u>](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt-cloud-exercises/#day-1) or [<u>dbt Core</u>](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt-cloud-exercises/#day-1) exercises.
 
 ### Day 1: References
 
@@ -267,10 +267,6 @@ It can be initially confusing to people that we don’t directly refer to the na
 1. It becomes easier to rename a data source. This can be especially useful if the data source comes to you with unhelpful names.
 1. Source and refs become context aware. For example, in a development context, your personal development schema is templated into the SQL queries, but in a production context the final production schema is templated in. This allows for safer development of new models.
 
-### **Exercises Part 1**
-
-Links
-
 ### Data testing
 
 1. We’ll talk through how to write generic tests for things like “not null” and “unique”.
@@ -278,9 +274,9 @@ Links
     1. In a traditional transactional database like postgres or SQL Server, you can have a uniqueness constraint on a column. Snowflake does not respect uniqueness constraints and most OLAP databases do not. Primary keys and foreign keys are examples of unique columns that are respected in OLTP databases that are not in OLAP databases.
     1. [More reading](https://cagov.github.io/data-infrastructure/learning/cloud-data-warehouses/#primary-keys-and-constraints) on this topic
 
-### **Exercises Part 2**
+### **Exercises**
 
-links
+Click either link for [<u>dbt Cloud</u>](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt-cloud-exercises/#day-2) or [<u>dbt Core</u>](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt-cloud-exercises/#day-2) exercises.
 
 ### Day 2: References
 
@@ -437,7 +433,7 @@ select ...
 
 ### **Exercises**
 
-Links
+Click either link for [<u>dbt Cloud</u>](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt-cloud-exercises/#day-3) or [<u>dbt Core</u>](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt-cloud-exercises/#day-3) exercises.
 
 ### Additional learning
 
@@ -543,7 +539,7 @@ To reiterate, CI/CD checks can help you to improve the quality of your code, red
 
 ### **Exercises**
 
-Links
+Click either link for [<u>dbt Cloud</u>](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt-cloud-exercises/#day-4) or [<u>dbt Core</u>](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt-cloud-exercises/#day-4) exercises.
 
 ### Day 4: References
 
