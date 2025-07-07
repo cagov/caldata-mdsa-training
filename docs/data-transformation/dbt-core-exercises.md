@@ -58,6 +58,7 @@ Any of the above steps may modify your files requiring you to save them again.
 1. Check to see which files need to be added or removed: `git status`
 1. Add or remove any relevant files: `git add filename.ext` or `git rm filename.ext`
 1. Commit your code and leave a concise, yet descriptive commit message: `git commit -m "example message"`
+    1. During this step pre-commit may catch an error you missed. It may auto-fix your file or you may have to do it yourself. Regardless you will have to repeat `git add...` (for each modified file) and `git commit...`.
 1. Push your code: `git push origin <branch-name>`
 1. Create a new pull request and add a teammate as a reviewer
 1. We’ll end the day by reviewing each other’s PRs
@@ -92,10 +93,7 @@ Here you’ll write YAML configuration for the Water Quality source tables, and 
                 …  # etc
     ```
 
-1. _Format_ your file, save any changes made
 1. Open `transform/models/staging/training/stg_water_quality__stations.sql` and change the reference to our source data by using the `source()` macro we just learned about instead of directly referring to the table name
-1. _Lint_ and _Fix_ your file, save any changes made
-1. Commit and sync your code and leave a concise, yet descriptive commit message
 
 ### **Exercise #2: Write tests for one staging model**
 
@@ -107,6 +105,22 @@ Open your `transform/models/staging/training/_water_quality.yml` and write some 
 
 !!! note
     The grain at which the stations data is collected results in duplicate county names so this is not a good test for this column.
+
+**Final instructions**
+
+1._Lint_ and _Format_ your files
+    1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint`
+    1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix`
+        1. For things that could not be auto-fixed you'll have to manually do it.
+    1. Or, to run all the checks, run`pre-commit run --all-files`
+
+Any of the above steps may modify your files requiring you to save them again.
+
+1. Check to see which files need to be added or removed: `git status`
+1. Add or remove any relevant files: `git add filename.ext` or `git rm filename.ext`
+1. Commit your code and leave a concise, yet descriptive commit message: `git commit -m "example message"`
+    1. During this step pre-commit may catch an error you missed. It may auto-fix your file or you may have to do it yourself. Regardless you will have to repeat `git add...` (for each modified file) and `git commit...`.
+1. Push your code to your existing branch: `git push origin <branch-name>`
 
 ## **Day 3**
 
@@ -125,27 +139,51 @@ Now that we’ve gotten some practice creating two staging models and editing ou
     1. Your output table should have two columns
     1. Use Snowflake’s [year()](https://docs.snowflake.com/en/sql-reference/functions/year) function
 1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
-1. _Lint_ and _Fix_ your file, save any changes made
 
 **YAML:**
 
 1. Document your new intermediate model in the `transform/models/intermediate/training/_water_quality.yml` file
 1. Materialize your model as a table
-1. _Format_ your file, save any changes made
 
-**Pull Request:**
+**Final instructions**
 
-1. Commit and sync your code and leave a concise, yet descriptive commit message
-1. In GitHub or Azure DevOps, check that you’ve added a teammate as a reviewer to your PR
-1. Review someone else’s PR
-1. Optional: Check that your PR passes all CI (continuous integration) checks. If not, click “details” and investigate the failure – We’ll spend more time on this in Day 4
+1._Lint_ and _Format_ your files
+    1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint`
+    1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix`
+        1. For things that could not be auto-fixed you'll have to manually do it.
+    1. Or, to run all the checks, run`pre-commit run --all-files`
+
+Any of the above steps may modify your files requiring you to save them again.
+
+1. Check to see which files need to be added or removed: `git status`
+1. Add or remove any relevant files: `git add filename.ext` or `git rm filename.ext`
+1. Commit your code and leave a concise, yet descriptive commit message: `git commit -m "example message"`
+    1. During this step pre-commit may catch an error you missed. It may auto-fix your file or you may have to do it yourself. Regardless you will have to repeat `git add...` (for each modified file) and `git commit...`.
+1. Push your code to your existing branch: `git push origin <branch-name>`
 
 ## **Day 4**
 
 ### **Exercise #1: Custom schemas**
 
-Configure your intermediate model to build in a custom schema called `statistics`. You can do this by creating a new property in the model YAML config block: “`schema: statistics`”. Build your model and find it in Snowflake.
+1. Configure your intermediate model to build in a custom schema called `statistics`. You can do this by creating a new property in the model YAML config block: “`schema: statistics`”.
+1. Build your model and find it in Snowflake.
+
+**Final instructions**
+
+1._Lint_ and _Format_ your files
+    1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint`
+    1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix`
+        1. For things that could not be auto-fixed you'll have to manually do it.
+    1. Or, to run all the checks, run`pre-commit run --all-files`
+
+Any of the above steps may modify your files requiring you to save them again.
+
+1. Check to see which files need to be added or removed: `git status`
+1. Add or remove any relevant files: `git add filename.ext` or `git rm filename.ext`
+1. Commit your code and leave a concise, yet descriptive commit message: `git commit -m "example message"`
+    1. During this step pre-commit may catch an error you missed. It may auto-fix your file or you may have to do it yourself. Regardless you will have to repeat `git add...` (for each modified file) and `git commit...`.
+1. Push your code: `git push origin <branch-name>`
 
 ### **Exercise #2: Get your branch to pass CI checks**
 
-You’ve been working in your own branches to create dbt models and configuration files for PeMS data. Ultimately, our goal is to develop production-grade models, which are documented, configured, and passing CI.
+You’ve been working in your own branches to create dbt models and configuration files. Ultimately, our goal is to develop production-grade models, which are documented, configured, and passing CI.
