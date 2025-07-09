@@ -1,6 +1,8 @@
 # **dbt Core exercises**
 
-## **dbt core command line reference**
+## **Day 1**
+
+### **dbt core command line reference**
 
 1. Build and test all models in the project: `dbt build`
 1. Build and tests a specific model: `dbt build --select path/to/the/model.sql`
@@ -11,13 +13,9 @@
 1. Test a model and its upstream and downstream dependencies: `dbt test --select +path/to/the/model.sql+`
 1. Build, but do not test, all models: `dbt run`
 
-## **Day 1**
-
-### **Practice: Create your first dbt staging models**
+### **Practice A: Create your first dbt staging model for the `stations` data**
 
 Let’s create two staging models! The data in `raw_dev.water_quality.stations` and `raw_dev.water_quality.lab_results` have been loaded from [data.ca.gov/dataset/water-quality-data](https://data.ca.gov/dataset/water-quality-data) without modification except for the exclusion of the `_id` column in each table. There are a few simple transformations we can do to make working with these data more ergonomic. Models that require simple transformations involving things like data type conversion or column renaming are called staging models.
-
-**First staging model instructions for the `stations` data**
 
 1. Create and switch to your branch: `git switch -c <your-first-name>-dbt-training`
 1. In your text editor, open `transform/models/staging/training/stg_water_quality__stations.sql` – you should see a SQL statement that selects all of the data from the raw table
@@ -30,7 +28,7 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
         1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. `YYYY-MM-DD HH24:MI:SS`
     1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
 
-**Second staging model instructions for the `lab_results` data**
+### **Practice B: Create your second staging model for the `lab_results` data**
 
 1. Remain on your current branch: `<your-first-name>-dbt-training`
 1. Open `transform/models/staging/training/stg_water_quality__lab_results.sql` – you should see a SQL statement that selects all of the data from the raw table
@@ -64,7 +62,7 @@ Any of the above steps may modify your files requiring you to save them again.
 
 ## **Day 2**
 
-### **Practice #1: Write YAML for your source data and staging models**
+### **Practice A: Write YAML for your source data and staging models**
 
 Here you’ll write YAML configuration for the Water Quality source tables, and for the two staging models you built. It will build on the branch you created in the previous exercise, so open dbt Cloud, navigate to the developer tab, and make sure that branch is checked out.
 
@@ -94,7 +92,7 @@ Here you’ll write YAML configuration for the Water Quality source tables, and 
 
 1. Open `transform/models/staging/training/stg_water_quality__stations.sql` and change the reference to our source data by using the `source()` macro we just learned about instead of directly referring to the table name
 
-### **Practice #2: Write tests for one staging model**
+### **Practice B: Write tests for the `stg_water_quality__stations` model**
 
 Open your `transform/models/staging/training/_water_quality.yml` and write some data integrity tests for your `stg_water_quality__stations` model.
 
@@ -123,7 +121,7 @@ Any of the above steps may modify your files requiring you to save them again.
 
 ## **Day 3**
 
-### **Practice: Create your second dbt model**
+### **Practice: Create an intermediate dbt model**
 
 Now that we’ve gotten some practice creating two staging models and editing our YAML file to reference our source data and models, let's create an intermediate model and update the relevant YAML file.
 
@@ -162,14 +160,14 @@ Any of the above steps may modify your files requiring you to save them again.
 
 ## **Day 4**
 
-### **Practice #1: Custom schemas**
+### **Practice A: Custom schemas**
 
 1. Configure your intermediate model to build in a custom schema called `statistics`. You can do this by creating a new property in the model YAML config block: “`schema: statistics`”.
 1. Build your model and find it in Snowflake.
 
 **Final instructions**
 
-1._Lint_ and _Format_ your files
+1. _Lint_ and _Format_ your files
     1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint`
     1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix`
         1. For things that could not be auto-fixed you'll have to manually do it.
@@ -183,6 +181,6 @@ Any of the above steps may modify your files requiring you to save them again.
     1. During this step pre-commit may catch an error you missed. It may auto-fix your file or you may have to do it yourself. Regardless you will have to repeat `git add...` (for each modified file) and `git commit...`.
 1. Push your code: `git push origin <branch-name>`
 
-### **Practice #2: Get your branch to pass CI checks**
+### **Practice B: Get your branch to pass CI checks**
 
 You’ve been working in your own branches to create dbt models and configuration files. Ultimately, our goal is to develop production-grade models, which are documented, configured, and passing CI.

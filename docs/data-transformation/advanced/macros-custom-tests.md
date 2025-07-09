@@ -114,14 +114,14 @@ There are two ways of defining custom tests in dbt:
     {% endtest %}
     ```
 
-## Example
+## Practice
 
-We wrote QA test to verify that the `sample_date` column in the `stg_water_quality__lab_results` model matches this regex `\d{4}-\d{2}-\d{2}`.
+We wrote a test to verify that the `sample_date` column in the `stg_water_quality__lab_results` model matches this regex `\d{4}-\d{2}-\d{2}`.
 
 To run the test yourself:
 
-1. Check out the `britt_dbt_training` branch
-2. Navigate to file: `tests/singular/verify_sample_date.sql`. You should see the following code:
+1. Check out the branch: `britt_dbt_training`
+2. Navigate to the file: `tests/singular/verify_sample_date.sql`, you should see the following code:
 
     ```SQL
     with validation as (

@@ -130,12 +130,12 @@ Now that we’ve gotten some practice creating two staging models and editing ou
 
 ## **Day 4**
 
-### **Practice #1: Custom schemas**
+### **Practice A: Custom schemas**
 
 1. Configure your intermediate model to build in a custom schema called `statistics`. You can do this by creating a new property in the model YAML config block: “`schema: statistics`”.
 1. Build your model and find it in Snowflake.
 
-### **Practice #2: Get your branch to pass CI checks**
+### **Practice B: Get your branch to pass CI checks**
 
 You’ve been working in your own branches to create dbt models and configuration files. Ultimately, our goal is to develop production-grade models, which are documented, configured, and passing CI.
 
