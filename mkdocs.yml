@@ -47,7 +47,9 @@ nav:
   - Data transformation:
       - Learn dbt:
           - Foundational dbt training: data-transformation/dbt.md
+          - Advanced dbt training:
+              - Macros and custom tests in dbt: data-transformation/advanced/macros-custom-tests.md
       - Practice dbt:
-          - dbt Cloud exercises: data-transformation/dbt-cloud-exercises.md
-          - dbt Core exercises: data-transformation/dbt-core-exercises.md
+          - dbt Cloud practice: data-transformation/dbt-cloud-practice.md
+          - dbt Core practice: data-transformation/dbt-core-practice.md
       - Local repo setup: data-transformation/local-repo-setup.md

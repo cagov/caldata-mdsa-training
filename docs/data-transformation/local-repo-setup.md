@@ -146,6 +146,12 @@ You can verify that your `profiles.yml` is configured properly by running the fo
 uv run dbt debug
 ```
 
+### Set up dbt deferral
+
+In order to defer to our production tables, dbt has to know what tables are in our production environment (remember, there will, in general, be some differences between production and your dev branches, because you are making changes in your dev branches!)
+
+TODO: How to do this without access to dbt Cloud.
+
 ### dbt and your data warehouse
 
 #### 1. For Snowflake projects
