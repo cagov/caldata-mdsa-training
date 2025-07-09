@@ -66,7 +66,7 @@ Any of the above steps may modify your files requiring you to save them again.
 
 Here you’ll write YAML configuration for the Water Quality source tables, and for the two staging models you built. It will build on the branch you created in the previous exercise, so open dbt Cloud, navigate to the developer tab, and make sure that branch is checked out.
 
-1. Switch to your existing branch: `git switch <your-first-name>-dbt-training`
+1. Switch to your working branch: `git switch <your-first-name>-dbt-training`
 1. In your text editor, open `transform/models/_sources.yml`. You should see mostly empty stubs for models and sources.
 1. First, specify where the Water Quality data exists in the Snowflake database. We’ll do that by adding some keys to the `Water Quality` source:
     1. Add a key for the database: (`database: RAW_DEV`).
@@ -117,7 +117,7 @@ Any of the above steps may modify your files requiring you to save them again.
 1. Add or remove any relevant files: `git add filename.ext` or `git rm filename.ext`
 1. Commit your code and leave a concise, yet descriptive commit message: `git commit -m "example message"`
     1. During this step pre-commit may catch an error you missed. It may auto-fix your file or you may have to do it yourself. Regardless you will have to repeat `git add...` (for each modified file) and `git commit...`.
-1. Push your code to your existing branch: `git push origin <branch-name>`
+1. Push your code to your working branch: `git push origin <your-first-name>-dbt-training`
 
 ## **Day 3**
 
@@ -127,7 +127,7 @@ Now that we’ve gotten some practice creating two staging models and editing ou
 
 **SQL:**
 
-1. Switch to your existing branch: `<your-first-name>-dbt-training`
+1. Switch to your working branch: `<your-first-name>-dbt-training`
 1. Open `transform/models/intermediate/training/int_water_quality__stations_per_county_with_parameter_2023_counted.sql`
 1. Change the reference to the staging model by using the `ref()` macro we learned about
 1. Write a SQL query to return a count of the stations per county that reported a parameter of Dissolved Chloride for the year 2023 sorted from greatest to least.
@@ -144,7 +144,7 @@ Now that we’ve gotten some practice creating two staging models and editing ou
 
 **Final instructions**
 
-1._Lint_ and _Format_ your files
+1. _Lint_ and _Format_ your files
     1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint`
     1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix`
         1. For things that could not be auto-fixed you'll have to manually do it.
@@ -156,7 +156,7 @@ Any of the above steps may modify your files requiring you to save them again.
 1. Add or remove any relevant files: `git add filename.ext` or `git rm filename.ext`
 1. Commit your code and leave a concise, yet descriptive commit message: `git commit -m "example message"`
     1. During this step pre-commit may catch an error you missed. It may auto-fix your file or you may have to do it yourself. Regardless you will have to repeat `git add...` (for each modified file) and `git commit...`.
-1. Push your code to your existing branch: `git push origin <branch-name>`
+1. Push your code to your working branch: `git push origin <your-first-name>-dbt-training`
 
 ## **Day 4**
 
@@ -179,7 +179,7 @@ Any of the above steps may modify your files requiring you to save them again.
 1. Add or remove any relevant files: `git add filename.ext` or `git rm filename.ext`
 1. Commit your code and leave a concise, yet descriptive commit message: `git commit -m "example message"`
     1. During this step pre-commit may catch an error you missed. It may auto-fix your file or you may have to do it yourself. Regardless you will have to repeat `git add...` (for each modified file) and `git commit...`.
-1. Push your code: `git push origin <branch-name>`
+1. Push your code to your working branch: `git push origin <your-first-name>-dbt-training`
 
 ### **Practice B: Get your branch to pass CI checks**
 
