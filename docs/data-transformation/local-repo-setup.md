@@ -85,10 +85,10 @@ go version
 
 In order to use Snowflake (as well as the terraform validators for the Snowflake configuration)
 you should set some default local environment variables in your environment.
-This will depend on your operating system and shell. 
+This will depend on your operating system and shell.
 
-For Windows systems, you can set persistent environment variables by navigating to 
-Control Panel -> System -> Advanced system settings -> Environmental variables. 
+For Windows systems, you can set persistent environment variables by navigating to
+Control Panel -> System -> Advanced system settings -> Environmental variables.
 There, you can add the variables and values as outlined in the bash instructions below.
 
 For Linux and Mac OS systems,
