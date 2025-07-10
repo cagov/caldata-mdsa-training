@@ -45,5 +45,11 @@ nav:
   - Cloud data warehouses:
       - Snowflake: cloud-data-warehouses/snowflake.md
   - Data transformation:
-      - dbt Cloud: data-transformation/dbt-cloud.md
-      - dbt Core: data-transformation/dbt-core.md
+      - Learn dbt:
+          - Foundational dbt training: data-transformation/dbt.md
+          - Advanced dbt training:
+              - Macros and custom tests in dbt: data-transformation/advanced/macros-custom-tests.md
+      - Practice dbt:
+          - dbt Cloud practice: data-transformation/dbt-cloud-practice.md
+          - dbt Core practice: data-transformation/dbt-core-practice.md
+      - Local repo setup: data-transformation/local-repo-setup.md
