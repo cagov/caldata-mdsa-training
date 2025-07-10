@@ -17,7 +17,7 @@
 
 Let’s create two staging models! The data in `raw_dev.water_quality.stations` and `raw_dev.water_quality.lab_results` have been loaded from [data.ca.gov/dataset/water-quality-data](https://data.ca.gov/dataset/water-quality-data) without modification except for the exclusion of the `_id` column in each table. There are a few simple transformations we can do to make working with these data more ergonomic. Models that require simple transformations involving things like data type conversion or column renaming are called staging models.
 
-1. Create and switch to your branch: `git switch -c <your-first-name>-dbt-training`
+1. Switch to your branch: `git switch <your-first-name>-dbt-training` (we created this in advance for you!)
 1. In your text editor, open `transform/models/staging/training/stg_water_quality__stations.sql` – you should see a SQL statement that selects all of the data from the raw table
 1. Update the select statement to do the following:
     1. Explicitly select all columns by name rather than with `*`
