@@ -52,4 +52,5 @@ nav:
       - Practice dbt:
           - dbt Cloud practice: data-transformation/dbt-cloud-practice.md
           - dbt Core practice: data-transformation/dbt-core-practice.md
+          - Answer key: data-transformation/dbt-practice-answers.md
       - Local repo setup: data-transformation/local-repo-setup.md

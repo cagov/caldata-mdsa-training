@@ -196,7 +196,7 @@ A minimal version of a `profiles.yml` for dbt development is:
 !!! note
     The target name (`dev`) in the above example can be anything.
     However, we treat targets named `prd` differently in generating
-    custom dbt schema names (see [here](../dbt/dbt.md#custom-schema-names)).
+    custom dbt schema names (see [here](../dbt/#custom-schema-names)).
     We recommend naming your local development target `dev`, and only
     include a `prd` target in your profiles under rare circumstances.
 
@@ -214,7 +214,7 @@ Here is one possible configuration for VS Code:
     * dbt Power User (query previews, compilation, and auto-completion)
     * Python (Microsoft's bundle of Python linters and formatters)
     * sqlfluff (SQL linter)
-1. Configure the VS Code Python extension to use your virtual environment by choosing `Python: Select Interpreter` from the command palette and selecting your virtual environment (`infra`) from the options.
+1. Configure the VS Code Python extension to use your virtual environment by choosing `Python: Select Interpreter` from the command palette and selecting your virtual environment (`mdsa-infra`) from the options.
 1. Associate `.sql` files with the `jinja-sql` language by going to `Code` -> `Preferences` -> `Settings` -> `Files: Associations`, per [these](https://github.com/innoverio/vscode-dbt-power-user#associate-your-sql-files-the-jinja-sql-language) instructions.
 1. Test that the `vscode-dbt-power-user` extension is working by opening one of the project model `.sql` files and pressing the "▶" icon in the upper right corner. You should have query results pane open that shows a preview of the data.
 

@@ -36,7 +36,7 @@ models:
 
 ## Data tests
 
-Let's revisit [data tests](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt/#data-tests) from our foundational dbt training!
+Let's revisit [data tests](../../dbt/#data-tests) from our foundational dbt training!
 
 ## Custom tests
 
@@ -51,8 +51,7 @@ There are two ways of defining custom tests in dbt:
     **Definition**:
 
     - SQL file with a select-type query
-    - dbt macros are usable (ref)
-    - config options can be specified
+    - Jinja macros are usable, like ref() and source()
 
     **How to execute**:
     Test will automatically run on `dbt test` or `dbt build` if it is in the correct directory
