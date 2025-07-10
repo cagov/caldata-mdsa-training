@@ -46,7 +46,7 @@ Custom tests are stored in the `tests` directory or `test-paths` entry in your `
 
 There are two ways of defining custom tests in dbt:
 
-1. A [**singular**](https://docs.getdbt.com/docs/build/data-tests#singular-data-tests) **data test** is testing in its simplest form: If you can write a SQL query that returns failing rows, you can save that query in a .sql file within your [test directory](https://docs.getdbt.com/reference/project-configs/test-paths). It's now a data test, and it will be executed by the dbt test command.
+1. A [**singular**](https://docs.getdbt.com/docs/build/data-tests#singular-data-tests) **data test** is testing in its simplest form: If you can write a SQL query that returns failing rows, you can save that query in a `.sql` file within your [test directory](https://docs.getdbt.com/reference/project-configs/test-paths). It's now a data test, and it will be executed by the dbt test command.
 
     **Definition**:
 
