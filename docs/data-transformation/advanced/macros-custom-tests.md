@@ -78,7 +78,7 @@ There are two ways of defining custom tests in dbt:
     22:24:58  Done. PASS=1 WARN=0 ERROR=0 SKIP=0 TOTAL=1
     ```
 
-1. A [**generic**](https://docs.getdbt.com/docs/build/data-tests#generic-data-tests) **data test** is a parameterized query that accepts arguments. The test query is defined in a special test block (like a macro). Once defined, you can reference the generic test by name throughout your .yml files—define it on models, columns, sources, seeds, etc.
+1. A [**generic**](https://docs.getdbt.com/docs/build/data-tests#generic-data-tests) **data test** is a parameterized query that accepts arguments. The test query is defined in a special test block (like a macro). Once defined, you can reference the generic test by name throughout your `.yml` files—define it on models, columns, sources, seeds, etc.
 
     **Definition**:
 
