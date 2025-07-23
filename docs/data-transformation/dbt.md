@@ -565,10 +565,6 @@ CI/CD checks in GitHub or Azure DevOps are automated tests that are run against 
 
 There are a number of different types of CI/CD checks, including:
 
-- **Code quality checks:** These look for issues with your code, such as syntax errors, potential security vulnerabilities, and performance issues.
-- **Build checks:** These ensure your code can be successfully built.
-- **Test checks:** These run your unit tests and integration tests to ensure that they pass.
-- **Deployment checks:** These ensure your code can be successfully deployed to production.
 
 CI/CD checks are an important part of the software development process. They can help you:
 
