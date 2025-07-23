@@ -17,44 +17,44 @@ flowchart TD
 
 ## 1. Install dependencies
 
-### 1. Set up a Python virtual environment
-
 Much of the software in this project is written in Python.
-It is usually worthwhile to install Python packages into a virtual environment,
+It is usually a good idea to install Python packages into a virtual environment,
 which allows them to be isolated from those in other projects which might have different version constraints.
 
-Some of ODI's data team uses [Anaconda](https://docs.anaconda.com/anaconda/install/) for managing Python environments.
-Another popular and lighter-weight solution is [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
-A third option is [`pyenv`](https://github.com/pyenv/pyenv). Pyenv is lighter weight, but is Python-only, whereas Conda allows you to install packages from other language ecosystems.
+### 1. Install `uv`
 
-Here are instructions for setting up a Python environment using Miniconda:
-
-1. Follow the installation instructions for installing [Miniconda](https://docs.conda.io/en/latest/miniconda.html#system-requirements).
-2. Create a new environment called `mdsa-infra`:
-
-   ```bash
-   conda create -n mdsa-infra -c conda-forge python=3.10 poetry
-   ```
-
-   The following prompt will appear, "_The following NEW packages will be INSTALLED:_ "
-   You'll have the option to accept or reject by typing _y_ or _n_. Type _y_ to continue.
-3. Activate the `mdsa-infra` environment:
-
-   ```bash
-   conda activate mdsa-infra
-   ```
+We use `uv` to manage our Python virtual environments.
+If you have not yet installed it on your system,
+you can follow the instructions for it [here](https://docs.astral.sh/uv/getting-started/installation/).
+Most of the ODI team uses [Homebrew](https://brew.sh) to install the package.
+We do not recommend installing `uv` using `pip`: as a tool for managing Python environments,
+it makes sense for it to live outside of a particular Python distribution.
 
 ### 2. Install Python dependencies
 
-Python dependencies are specified using [`poetry`](https://python-poetry.org/).
+If you prefix your commands with `uv run` (e.g. `uv run dbt build`),
+then `uv` will automatically make sure that the appropriate dependencies are installed before invoking the command.
 
-To install them, open a terminal and ensure you are working in the MDSA project root folder with your `mdsa-infra` environment activated, then enter the following:
-
+However, if you want to explicitly ensure that all of the dependencies are installed in the virtual environment,
+run
 ```bash
-poetry install --with dev --no-root
+uv sync
 ```
+in the root of the repository.
 
-Any time the dependencies change, you can re-run the above command to update them.
+Once the dependencies are installed, you can also "activate" the virtual environment
+(similar to how conda virtual environments are activated)
+by running
+```bash
+source .venv/bin/activate
+```
+from the repository root.
+With the environment activated, you no longer have to prefix commands with `uv run`.
+
+Which approach to take is largely a matter of personal preference:
+
+- Using the `uv run` prefix is more reliable, as dependencies are *always* resolved before executing.
+- Using `source .venv/bin/activate` involves less typing.
 
 ### 3. Install go dependencies (optional)
 
