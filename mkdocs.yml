@@ -42,6 +42,8 @@ nav:
       - git: code/git.md
       - GitHub: code/github.md
       - Azure DevOps: code/devops.md
+      - Local repo setup: code/local-repo-setup.md
+      - Continuous Integration/Continuous Deployment: code/cicd.md
   - Cloud data warehouses:
       - Snowflake: cloud-data-warehouses/snowflake.md
   - Data transformation:
@@ -53,4 +55,3 @@ nav:
           - dbt Cloud practice: data-transformation/dbt-cloud-practice.md
           - dbt Core practice: data-transformation/dbt-core-practice.md
           - Answer key: data-transformation/dbt-practice-answers.md
-      - Local repo setup: data-transformation/local-repo-setup.md
