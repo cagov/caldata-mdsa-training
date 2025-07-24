@@ -26,7 +26,10 @@ Examples of CI checks include:
 - **Test checks:** These run your unit tests and integration tests to ensure that they pass.
 - **Deployment checks:** These ensure your code can be successfully deployed to a test environment.
 
-ODI's MDSA projects usually include the following CI checks:
+ODI's MDSA projects usually use a combination of
+dbt Cloud (setup instructions [here](https://cagov.github.io/data-infrastructure/setup/dbt-setup/))
+and GitHub actions (setup instructions [here](https://cagov.github.io/data-infrastructure/setup/repo-setup/#set-up-ci-in-github))
+for running CI. We include the following CI checks:
 
 #### pre-commit
 
