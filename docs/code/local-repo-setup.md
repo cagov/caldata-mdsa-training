@@ -135,10 +135,7 @@ you need to create access keys and configure your local setup to use them:
 1. Go to the AWS IAM console and [create an access key for yourself](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey).
 1. In a terminal, enter `aws configure`, and add the access key ID and secret access key when prompted. We use `us-west-2` as our default region.
 
-## 4. Install dbt
-
-Run the comma
-uv sync
+## 4. Configure dbt
 
 The connection information for your data warehouses will, in general, live outside of this repository.
 This is because connection information is both user-specific and usually sensitive,
@@ -224,7 +221,7 @@ This project uses [pre-commit](https://pre-commit.com/) to lint, format,
 and generally enforce code quality. These checks are run on every commit,
 as well as in CI.
 
-To set up your pre-commit environment locally run the following in the `data-infrastructure` repo root folder:
+To set up your pre-commit environment locally run the following in the repository root folder:
 
 ```bash
 pre-commit install
@@ -238,3 +235,21 @@ You can verify that the pre-commit hooks are working properly by running the fol
 ```bash
 pre-commit run --all-files
 ```
+
+## Updating package versions
+
+It's good for project hygiene to periodically update package versions of the project dependencies.
+This brings in security patches, bugfixes, performance enhancements, and new features.
+If a project dependency has a [CVE](https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures) published,
+then we recommend updating it as soon as possible, otherwise a more relaxed update cadence is okay
+(e.g., once every six months to a year).
+
+When you do update, follow these steps:
+
+1. Check your Python version in `.python-version`. If that version has reached (or is near)
+    [end-of-life](https://devguide.python.org/versions/), upgrade to a more recent version.
+1. Check the versions of the packages `dependencies` and the `dev` dependency group against
+    their most recent major version in [PyPI](https://pypi.org/), and update as appropriate.
+    (Note that the [`~` operator](https://peps.python.org/pep-0440/#version-specifiers)
+    can be helpful in allowing some wiggle room in versions).
+1. Run `uv lock` to update the `uv.lock` file, and commit it.

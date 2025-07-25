@@ -561,21 +561,15 @@ We’ll also introduce the concept of a “Job”, which is a command that is ru
 
 #### What is CI/CD and why you shouldn’t ignore it
 
-CI/CD checks in GitHub or Azure DevOps are automated tests that are run against your code every time you push a change. These checks can help you identify errors and potential issues early in the development process, before they can cause problems in production.
-
-There are a number of different types of CI/CD checks, including:
-
-- **Code quality checks:** These look for issues with your code, such as syntax errors, potential security vulnerabilities, and performance issues.
-- **Build checks:** These ensure your code can be successfully built.
-- **Test checks:** These run your unit tests and integration tests to ensure that they pass.
-- **Deployment checks:** These ensure your code can be successfully deployed to production.
-
-CI/CD checks are an important part of the software development process. They can help you:
+CI/CD checks in GitHub or Azure DevOps are automated tests that are run against your code every time you push a change.
+They are an important part of the software development process, and can help you:
 
 - **Catch errors and issues early:** CI/CD checks can identify issues with your code before they can cause problems in production.
 - **Improve code quality:** CI/CD checks can help you to improve the quality of your code by identifying issues such as code smells (e.g. duplicate or dead code) and potential security vulnerabilities.
 
 To reiterate, CI/CD checks can help you to improve the quality of your code, reduce the risk of production issues, and save the whole team time in the long run. We have set up your project repository so that these checks cannot be ignored by preventing a merge of a PR with CI/CD failures. However, CI/CD checks shouldn’t be considered a pain or just a thing we have to do, they are rather intended to be a routine and helpful part of the development process.
+
+For a deeper dive into how CI/CD is configured for this project see [these docs](../code/ci-cd.md)
 
 #### Demo: CI/CD in a development workflow
 
