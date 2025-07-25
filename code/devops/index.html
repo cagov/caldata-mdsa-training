@@ -1,0 +1,1382 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../github/">
+      
+      
+        <link rel="next" href="../local-repo-setup/">
+      
+      
+      <link rel="icon" href="../../images/odi-circle_logomark-blue.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Azure DevOps - CalData's Modern Data Stack Training</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#azure-devops" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="CalData&#39;s Modern Data Stack Training" class="md-header__button md-logo" aria-label="CalData's Modern Data Stack Training" data-md-component="logo">
+      
+  <img src="../../images/odi-square_logomark-blue.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CalData's Modern Data Stack Training
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Azure DevOps
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cagov/caldata-mdsa-training" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    cagov/caldata-mdsa-training
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CalData&#39;s Modern Data Stack Training" class="md-nav__button md-logo" aria-label="CalData's Modern Data Stack Training" data-md-component="logo">
+      
+  <img src="../../images/odi-square_logomark-blue.svg" alt="logo">
+
+    </a>
+    CalData's Modern Data Stack Training
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cagov/caldata-mdsa-training" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    cagov/caldata-mdsa-training
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Code development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Code development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../github/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Azure DevOps
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure DevOps
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-azure-devops" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is Azure DevOps?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-azure-pipelines-repos-and-boards" class="md-nav__link">
+    <span class="md-ellipsis">
+      What are Azure Pipelines, Repos, and Boards?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What are Azure Pipelines, Repos, and Boards?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#azure-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure Pipelines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-repos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure Repos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloning-the-azure-project-repo-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloning the Azure project repo locally
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloning the Azure project repo locally">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-clone-the-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Steps to clone the repo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#working-with-azure-repos-remotely-or-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      Working with Azure Repos remotely or locally
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Working with Azure Repos remotely or locally">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code branches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull requests
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-boards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure Boards
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Azure Boards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#azure-boards-work-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure Boards work items
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../local-repo-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Local repo setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ci-cd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Continuous Integration/Continuous Deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cloud data warehouses
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Cloud data warehouses
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cloud-data-warehouses/snowflake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Snowflake
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Data transformation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Data transformation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Learn dbt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            Learn dbt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-transformation/dbt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Foundational dbt training
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1_2" id="__nav_4_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Advanced dbt training
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced dbt training
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-transformation/advanced/macros-custom-tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Macros and custom tests in dbt
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Practice dbt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Practice dbt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-transformation/dbt-cloud-practice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    dbt Cloud practice
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-transformation/dbt-core-practice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    dbt Core practice
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-transformation/dbt-practice-answers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Answer key
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-azure-devops" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is Azure DevOps?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-azure-pipelines-repos-and-boards" class="md-nav__link">
+    <span class="md-ellipsis">
+      What are Azure Pipelines, Repos, and Boards?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What are Azure Pipelines, Repos, and Boards?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#azure-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure Pipelines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-repos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure Repos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloning-the-azure-project-repo-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloning the Azure project repo locally
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloning the Azure project repo locally">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-clone-the-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Steps to clone the repo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#working-with-azure-repos-remotely-or-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      Working with Azure Repos remotely or locally
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Working with Azure Repos remotely or locally">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code branches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull requests
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-boards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure Boards
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Azure Boards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#azure-boards-work-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure Boards work items
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="azure-devops">Azure DevOps<a class="headerlink" href="#azure-devops" title="Permanent link">&para;</a></h1>
+<h2 id="what-is-azure-devops">What is Azure DevOps?<a class="headerlink" href="#what-is-azure-devops" title="Permanent link">&para;</a></h2>
+<p>Azure DevOps is a suite of developer tool and services provided by Microsoft. Its intention is to streamline the software development lifecycle, enabling teams to collaborate effectively, automate processes, and deliver high-quality products at a faster pace.</p>
+<p>Three key features and services that the ODI CalData team use in their MDSA service are:</p>
+<ul>
+<li>Azure Pipelines</li>
+<li>Azure Repos (what we'll focus most of this training on!)</li>
+<li>Azure Boards (we'll spend a little time here as well!)</li>
+</ul>
+<h2 id="what-are-azure-pipelines-repos-and-boards">What are Azure Pipelines, Repos, and Boards?<a class="headerlink" href="#what-are-azure-pipelines-repos-and-boards" title="Permanent link">&para;</a></h2>
+<h3 id="azure-pipelines">Azure Pipelines<a class="headerlink" href="#azure-pipelines" title="Permanent link">&para;</a></h3>
+<p>A continuous integration and continuous deployment (CI/CD) platform that automates your builds and deployments.</p>
+<h3 id="azure-repos">Azure Repos<a class="headerlink" href="#azure-repos" title="Permanent link">&para;</a></h3>
+<p>Azure Repos is Microsoft's cloud service built on top of git. It provides a centralized place to store your git repositories and collaborate with your team. Here's what it offers:</p>
+<ul>
+<li><strong>All the benefits of git:</strong> Such as branching, merging, and history tracking.</li>
+<li><strong>Seamless Integration:</strong> Azure Repos integrates with other Azure DevOps services, making it easy to manage your entire code development lifecycle in one place.</li>
+<li><strong>Enhanced Security:</strong> Azure DevOps provides robust access control and security features to protect your code.</li>
+<li><strong>Flexibility:</strong> You can use your favorite git client (like GitHub Desktop, your command line, or VS Code) to work with your code.</li>
+</ul>
+<p>In essence, Azure Repos takes the power and flexibility of git and adds features and integrations within the Azure ecosystem, making it a comprehensive solution for managing your source code.</p>
+<h3 id="cloning-the-azure-project-repo-locally">Cloning the Azure project repo locally<a class="headerlink" href="#cloning-the-azure-project-repo-locally" title="Permanent link">&para;</a></h3>
+<p>Before you clone your repository you'll need a to do either of the following options:</p>
+<p>Option 1:</p>
+<ul>
+<li>Install a code editor of your choice (if you do not already have one), we highly recommend <a href="https://code.visualstudio.com/download">VS Code</a>, you can read through <a href="https://cagov.github.io/data-infrastructure/code/local-setup/#example-vs-code-setup">our team's example VS Code set up</a> for inspiration.</li>
+<li>Install <a href="https://github.com/git-ecosystem/git-credential-manager">Git Credential Manager (GCM)</a>, which makes the task of authenticating to Azure DevOps repositories easy and secure. (recommended method)<ul>
+<li>Mac OS: You can install GCM (with <a href="https://brew.sh/">Homebrew</a>)<ul>
+<li>After you install GCM run the following command: <code>brew install git-credential-manager</code></li>
+</ul>
+</li>
+<li>Windows: Install <a href="https://git-scm.com/downloads/win">git for Windows</a> which already comes bundled with GCM</li>
+</ul>
+</li>
+</ul>
+<p>Option 2:</p>
+<ul>
+<li>Install <a href="https://github.com/apps/desktop">Github Desktop</a> which also provides support for working with Azure Repos</li>
+<li>This option may need an installation of GCM though we haven't tested it. If so, follow the steps above depending on your machine.</li>
+</ul>
+<h4 id="steps-to-clone-the-repo">Steps to clone the repo<a class="headerlink" href="#steps-to-clone-the-repo" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Go to your command line</li>
+<li>Type <code>cd ~</code>.</li>
+<li>Type git clone <code>&lt;Azure DevOps repo URL&gt;</code>.</li>
+</ol>
+<h3 id="working-with-azure-repos-remotely-or-locally">Working with Azure Repos remotely or locally<a class="headerlink" href="#working-with-azure-repos-remotely-or-locally" title="Permanent link">&para;</a></h3>
+<h4 id="code-branches">Code branches<a class="headerlink" href="#code-branches" title="Permanent link">&para;</a></h4>
+<p>When you are writing code you often create something called a branch. This allows you to track your work separately from the main branch of the code repository. Below are the steps for how to do this in Azure Repos or locally. Furthermore, all of the subsections underneath "Code branches" refer to working with git via your command line interface (CLI), we recommend bookmarking this <a href="https://education.github.com/git-cheat-sheet-education.pdf">GitHub git cheat sheet</a> for easy reference in addition to what we've provided.</p>
+<p><strong>Creating or switching branches in Azure Repos:</strong></p>
+<ol>
+<li>Go to your Azure DevOps repository.</li>
+<li>Click on the "Branches" tab.</li>
+<li>Click "New branch".</li>
+<li>Enter a descriptive name for your branch (e.g., "feature/new-feature").</li>
+<li>Select the base branch (usually "main").</li>
+<li>Click "Create".</li>
+</ol>
+<p><strong>Creating or switching branches locally:</strong></p>
+<p>If you're working with git locally, you can create and switch branches as well as check your current git branch using the following git commands:</p>
+<ul>
+<li>Create and switch to a branch: <code>git switch -c &lt;branch_name&gt;</code><ul>
+<li>This also works, but is the older way of doing it: <code>git checkout -b &lt;branch_name&gt;</code></li>
+</ul>
+</li>
+<li>Switch to an existing branch: <code>git switch &lt;branch_name&gt;</code><ul>
+<li>If this doesn’t work it’s likely that you created a branch remotely. You have to pull down (or fetch) the remote branch you want to work with using <code>git fetch</code></li>
+<li>Then you can run <code>git switch &lt;branch_name&gt;</code> again</li>
+</ul>
+</li>
+<li>Check which branch you are on: <code>git branch --show-current</code></li>
+</ul>
+<p>Once you are satisfied with the work you've done on your branch you will want to save (stage) it and commit it. Below are the steps for how to do this locally.</p>
+<p><strong>Staging and committing your changes:</strong></p>
+<ol>
+<li>Create or switch your branch<ol>
+<li>Make sure you’re on the branch you want to commit changes to (you almost never want to commit directly to “main”). If you just created a branch you are likely already on the branch you want to make changes to, if not switch to it.</li>
+<li>To create or switch branches, follow the steps above</li>
+</ol>
+</li>
+<li>Navigate to the file you want to modify and make the necessary changes<ol>
+<li>Whether you’re editing a file in dbt Cloud, locally with a code editor like VS Code, or directly in Azure (not recommended) you must click SAVE or use CTRL/COMMAND S. To save the changes to your file BEFORE you commit them.</li>
+</ol>
+</li>
+<li>Stage your changes<ol>
+<li>We’ll skip how to do this in Azure Repos because we don’t recommend editing and committing changes directly in Azure Repos as this doesn’t allow you to run linting tools that can help you catch errors BEFORE you push changes. We will have CI checks set up on the project repo that will help catch database, formatting, SQL errors, etc.</li>
+<li>Locally this is done by:<ol>
+<li>Tying <code>git add &lt;file_name.file_extension&gt;</code></li>
+<li>You can use <code>git add .</code> to add ALL files you’ve edited. This can be a dangerous operation because you may accidentally stage files you made changes to but did not want to be added to the project repo. For instance you could have made changes to a file that may contain sensitive information. Only use <code>git add .</code> if you are sure all files are safe to stage!</li>
+</ol>
+</li>
+<li>In dbt Cloud the git add process is handled under the hood so be sure that every file you edit is actually a file you want to later commit, if not you must revert changes to any files you do not want to commit.</li>
+</ol>
+</li>
+<li>Commit your changes<ol>
+<li>Again we’ll skip how to do this in Azure – we do not recommend it!</li>
+<li>Locally this is done with: <code>git commit -m “&lt;a short message about the changes you made&gt;”</code></li>
+<li>In dbt Cloud this is done by:<ol>
+<li>Clicking the “commit and sync” button</li>
+<li>Then typing a short, yet descriptive message about the changes you made in the text box that appears</li>
+<li>Then clicking “Commit Changes” <img alt="dbt cloud git commit example" src="https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/commit-changes.png?raw=true" /></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p><strong>Pushing your changes:</strong></p>
+<ol>
+<li>Locally this is done with: <code>git push origin &lt;branch_name&gt;</code></li>
+<li>In dbt Cloud this is also done under the hood when you click “Commit Changes”</li>
+</ol>
+<h4 id="pull-requests">Pull requests<a class="headerlink" href="#pull-requests" title="Permanent link">&para;</a></h4>
+<p>To submit the changes you've pushed to the codebase you'll open a pull request (PR). A PR proposes changes to a code repository. It's a formal request to merge your changes into the main branch of the repository.</p>
+<p>Benefits of Using PRs:</p>
+<ul>
+<li>Collaboration: PRs allow developers to collaborate on code and share ideas.</li>
+<li>Code review: PRs allow for feedback on your changes. You can read about how the ODI CalData team approaches code review <a href="https://cagov.github.io/data-infrastructure/code/code-review/">here</a></li>
+<li>Testing: PRs can test changes before merging.</li>
+<li>Documentation: PRs can document changes to the code.</li>
+<li>History: PRs provide a history of changes.</li>
+</ul>
+<p><strong>Opening a PR:</strong></p>
+<p><em>in Azure Repos:</em></p>
+<p>The official Microsoft documentation related to Azure Repos PRs is <a href="https://learn.microsoft.com/en-us/azure/devops/repos/git/pull-requests?view=azure-devops&amp;tabs=browser">here</a> (ignore cherry-pick section). Summarized steps are listed below.</p>
+<ol>
+<li>Go to your Azure DevOps repository.</li>
+<li>Click on the "Pull requests" tab.</li>
+<li>Click "New pull request".</li>
+<li>Select the source branch (your feature branch) and the target branch (usually "main").</li>
+<li>Add a descriptive title and detailed description.</li>
+<li>Add yourself as a reviewer and select other reviewers as needed.</li>
+<li>Click "Create"</li>
+</ol>
+<p><em>in dbt Cloud:</em></p>
+<ol>
+<li>After you commit your changes you’ll see a light green button on the upper left that says “Create a pull request...”. This will only appear if you’ve yet to open a PR. If you have already opened a PR and are simply committing more changes to it you will not see this option.</li>
+</ol>
+<p><strong>Reviewing a PR:</strong></p>
+<ol>
+<li>Go to the "Pull requests" tab in your Azure DevOps repository.</li>
+<li>Find the PR you want to review.</li>
+<li>Review the changes, leave comments, and suggest changes if necessary.</li>
+<li>Approve the PR or request changes.</li>
+</ol>
+<p><strong>Suggesting changes to a PR:</strong></p>
+<ul>
+<li>When reviewing a PR, you can suggest changes directly in the code using the Azure DevOps interface.</li>
+<li>Alternatively you can open your own branch and suggest changes this way</li>
+</ul>
+<p><strong>Resolving a merge conflict:</strong></p>
+<ul>
+<li>Merge conflicts occur when changes are made to the same part of a file in both the source and target branches.</li>
+<li>Resolve merge conflicts manually by editing the file and choosing which changes to keep.</li>
+<li>Stage, commit, and push the resolved changes.</li>
+</ul>
+<p><strong>Merging a PR:</strong></p>
+<ul>
+<li>As a reviewer, you can merge a PR after you approve it and all CI checks pass.</li>
+<li>Click the "Complete" button on the PR page to merge the changes.</li>
+</ul>
+<h3 id="azure-boards">Azure Boards<a class="headerlink" href="#azure-boards" title="Permanent link">&para;</a></h3>
+<p>A work tracking system that supports agile methodologies. Teams can create backlogs, plan sprints, track work items, and visualize progress.</p>
+<h4 id="azure-boards-work-items">Azure Boards work items<a class="headerlink" href="#azure-boards-work-items" title="Permanent link">&para;</a></h4>
+<p>In Azure Boards, <strong>work items</strong> are how we document and track our work, think of is as a task. A well-written work item provides clear information on the what, why, and who, enabling efficient collaboration and quicker problem resolution. They serve as documentation, capturing decisions and discussions valuable for current and future team members. Clear work items also help with task prioritization and progress tracking.</p>
+<p>When writing a work item you can use markdown, this Microsoft <a href="https://learn.microsoft.com/en-us/azure/devops/project/wiki/markdown-guidance?view=azure-devops">reference document</a> is a great starting point.</p>
+<p><strong>Creating a work item:</strong></p>
+<ol>
+<li>Go to the <strong>Boards</strong> hub in your Azure DevOps project.</li>
+<li>Choose the appropriate <strong>Work Item Type</strong> (e.g., User Story, Task, Bug).</li>
+<li>Fill in the work item form. At a minimum, include:</li>
+<li><strong>Title:</strong> A clear, concise, and descriptive title.</li>
+<li><strong>Description:</strong> A detailed description of the work.</li>
+<li><strong>Assigned To:</strong> The team member responsible for the work.</li>
+<li><strong>Area Path:</strong> The area of the project this work belongs to.</li>
+<li><strong>Iteration Path:</strong> The sprint or iteration this work is scheduled for.</li>
+<li><strong>State:</strong> (e.g., To Do, In Progress, Done).</li>
+<li><strong>Priority:</strong> (e.g., Urgent, High, Medium, Low)</li>
+<li><strong>Effort:</strong> (e.g., Story Points, hours)</li>
+</ol>
+<p><strong>Tips for effective work items:</strong></p>
+<ul>
+<li>Use clear and concise language.</li>
+<li>Provide all relevant details.</li>
+<li>Attach relevant files or screenshots.</li>
+<li>Link related work items.</li>
+<li>Use tags to categorize work items.</li>
+</ul>
+<p><strong>Work items magic:</strong></p>
+<ul>
+<li><strong>Linking to Code:</strong> You can link work items to commits, pull requests, and branches. This is great for traceability as it helps track the progress of work and provides context for code changes.</li>
+<li><strong>@Mentioning Teammates:</strong> Type "@" followed by your teammate's name to notify them in comments and descriptions.</li>
+</ul>
+<p><strong>Azure DevOps Documentation:</strong></p>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/azure/devops/repos/?view=azure-devops">Azure Repos | Microsoft Learn</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/devops/?view=azure-devops">Azure DevOps | Microsoft Learn</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>
