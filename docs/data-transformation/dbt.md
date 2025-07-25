@@ -569,7 +569,7 @@ They are an important part of the software development process, and can help you
 
 To reiterate, CI/CD checks can help you to improve the quality of your code, reduce the risk of production issues, and save the whole team time in the long run. We have set up your project repository so that these checks cannot be ignored by preventing a merge of a PR with CI/CD failures. However, CI/CD checks shouldn’t be considered a pain or just a thing we have to do, they are rather intended to be a routine and helpful part of the development process.
 
-For a deeper dive into how CI/CD is configured for this project see [these docs](../code/cicd.md)
+For a deeper dive into how CI/CD is configured for this project see [these docs](../code/ci-cd.md)
 
 #### Demo: CI/CD in a development workflow
 

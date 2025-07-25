@@ -28,7 +28,7 @@ Examples of CI checks include:
 
 ODI's MDSA projects usually use a combination of
 dbt Cloud (setup instructions [here](https://cagov.github.io/data-infrastructure/setup/dbt-setup/))
-and GitHub actions (setup instructions [here](https://cagov.github.io/data-infrastructure/setup/repo-setup/#set-up-ci-in-github))
+and GitHub Actions (setup instructions [here](https://cagov.github.io/data-infrastructure/setup/repo-setup/#set-up-ci-in-github))
 for running CI. We include the following CI checks:
 
 #### pre-commit
@@ -46,7 +46,7 @@ ODI's MDSA projects typically contains (at least) the following pre-commit check
 * Type checking, linting, and formatting Python files using `ruff` and `mypy`
     (for projects that include Python)
 * Linting and formatting SQL files using `sqlfluff`
-* Linting and formatting YAML files using Prettier and `yamllint`.
+* Linting and formatting YAML files using `prettier` and `yamllint`.
 
 These checks run in two different contexts:
 
@@ -84,7 +84,7 @@ The docs build check ensures that the project docs build without issue
 ## Continuous Deployment (CD)
 
 Continuous Deployment (CD) in most MDSA projects is usually pretty simple.
-We do not typically build any applications or deploy any cloud resources.
+We typically do not build any applications or deploy cloud resources.
 Instead, whatever is in the `main` branch is considered "production",
 and our dbt projects and docs are built using that.
 
@@ -97,7 +97,7 @@ and builds the dbt project in the production environment.
 
 The ODI team currently uses two different approaches to running this process:
 
-1. Run using a production environment dbt Cloud
+1. Run using a dbt Cloud production environment
 1. Run using GitHub actions (example [here](https://github.com/cagov/caldata-ddrc-pipelines/blob/main/.github/workflows/pipeline.yml))
 
 #### docs build
