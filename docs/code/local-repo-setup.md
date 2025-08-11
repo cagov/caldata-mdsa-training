@@ -102,7 +102,7 @@ If you use zsh or bash, open your shell configuration file, and add the followin
 ```bash
 export SNOWFLAKE_ACCOUNT=<org_name>-<account_name> # format is organization-account
 export SNOWFLAKE_DATABASE=TRANSFORM_DEV
-export SNOWFLAKE_USER=<your-username> # this should be your email
+export SNOWFLAKE_USER=<your-username>
 export SNOWFLAKE_PASSWORD=<your-password>
 export SNOWFLAKE_ROLE=TRANSFORMER_DEV
 export SNOWFLAKE_WAREHOUSE=TRANSFORMING_XS_DEV
@@ -116,7 +116,7 @@ Open a new terminal and verify that the environment variables are set.
 ```bash
 export SNOWFLAKE_ACCOUNT=<org_name>-<account_name> # format is organization-account
 export SNOWFLAKE_DATABASE=RAW_DEV
-export SNOWFLAKE_USER=<your-username> # this should be your email
+export SNOWFLAKE_USER=<your-username>
 export SNOWFLAKE_PASSWORD=<your-password>
 export SNOWFLAKE_ROLE=LOADER_DEV
 export SNOWFLAKE_WAREHOUSE=LOADING_XS_DEV
