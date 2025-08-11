@@ -102,11 +102,11 @@ If you use zsh or bash, open your shell configuration file, and add the followin
 ```bash
 export SNOWFLAKE_ACCOUNT=<org_name>-<account_name> # format is organization-account
 export SNOWFLAKE_DATABASE=TRANSFORM_DEV
-export SNOWFLAKE_USER=<your-username> # this should be your OKTA email
-export SNOWFLAKE_PASSWORD=<your-password> # this should be your OKTA password
+export SNOWFLAKE_USER=<your-username> # this should be your email
+export SNOWFLAKE_PASSWORD=<your-password>
 export SNOWFLAKE_ROLE=TRANSFORMER_DEV
 export SNOWFLAKE_WAREHOUSE=TRANSFORMING_XS_DEV
-export SNOWFLAKE_AUTHENTICATOR=ExternalBrowser
+export SNOWFLAKE_AUTHENTICATOR=EXTERNALBROWSER or USERNAME_PASSWORD_MFA
 ```
 
 Open a new terminal and verify that the environment variables are set.
@@ -116,11 +116,11 @@ Open a new terminal and verify that the environment variables are set.
 ```bash
 export SNOWFLAKE_ACCOUNT=<org_name>-<account_name> # format is organization-account
 export SNOWFLAKE_DATABASE=RAW_DEV
-export SNOWFLAKE_USER=<your-username> # this should be your OKTA email
-export SNOWFLAKE_PASSWORD=<your-password> # this should be your OKTA password
+export SNOWFLAKE_USER=<your-username> # this should be your email
+export SNOWFLAKE_PASSWORD=<your-password>
 export SNOWFLAKE_ROLE=LOADER_DEV
 export SNOWFLAKE_WAREHOUSE=LOADING_XS_DEV
-export SNOWFLAKE_AUTHENTICATOR=ExternalBrowser
+export SNOWFLAKE_AUTHENTICATOR=EXTERNALBROWSER or USERNAME_PASSWORD_MFA
 ```
 
 This will enable you develop scripts for loading raw data into the development environment.
@@ -148,28 +148,10 @@ in a YAML file. Run the following command to create the necessary folder and fil
 mkdir ~/.dbt && touch ~/.dbt/profiles.yml
 ```
 
-TODO: This will only work on posix-y systems. Windows users will have a different command.
-
 Instructions for writing a `profiles.yml` are documented
 [here](https://docs.getdbt.com/docs/get-started/connection-profiles),
 there are specific instructions for Snowflake
-[here](https://docs.getdbt.com/reference/warehouse-setups/snowflake-setup), and you can find examples below as well.
-
-You can verify that your `profiles.yml` is configured properly by running the following command in the project root directory (`transform`).
-
-```bash
-uv run dbt debug
-```
-
-### Set up dbt deferral
-
-In order to defer to our production tables, dbt has to know what tables are in our production environment (remember, there will, in general, be some differences between production and your dev branches, because you are making changes in your dev branches!)
-
-TODO: How to do this without access to dbt Cloud.
-
-### dbt and your data warehouse
-
-#### 1. For Snowflake projects
+[here](https://docs.getdbt.com/reference/warehouse-setups/snowflake-setup), and you can find an example below as well.
 
 A minimal version of a `profiles.yml` for dbt development is:
 
@@ -182,11 +164,11 @@ A minimal version of a `profiles.yml` for dbt development is:
       account: <account-locator>
       user: <your-username>
       password: <your-password>
-      authenticator: username_password_mfa
+      authenticator: externalbrowser or username_password_mfa
       role: TRANSFORMER_DEV
       database: TRANSFORM_DEV
       warehouse: TRANSFORMING_XS_DEV
-      schema: DBT_<your-name>   # Test schema for development
+      schema: DBT_<first-name-inital-lastname>   # e.g. DBT_JDOE
       threads: 4
 ```
 
@@ -201,19 +183,26 @@ You can include profiles for several databases in the same `profiles.yml`,
 (as well as targets for production), allowing you to develop in several projects
 using the same computer.
 
+You can verify that your `profiles.yml` is configured properly by running the following command in the project root directory (`transform`).
+
+```bash
+uv run dbt debug
+```
+
 ### VS Code setup (optional)
 
 Many people prefer to use featureful editors when doing local development so we included an example set up with VS Code. By equipping a text editor like VS Code with an appropriate set of extensions and configurations
 we can largely replicate the dbt Cloud experience locally.
-Here is one possible configuration for VS Code:
+Below is one possible configuration for VS Code.
 
-1. Install some useful extensions (this list is advisory, and non-exhaustive):
-    * dbt Power User (query previews, compilation, and auto-completion)
-    * Python (Microsoft's bundle of Python linters and formatters)
-    * sqlfluff (SQL linter)
-1. Configure the VS Code Python extension to use your virtual environment by choosing `Python: Select Interpreter` from the command palette and selecting your virtual environment (`mdsa-infra`) from the options.
-1. Associate `.sql` files with the `jinja-sql` language by going to `Code` -> `Preferences` -> `Settings` -> `Files: Associations`, per [these](https://github.com/innoverio/vscode-dbt-power-user#associate-your-sql-files-the-jinja-sql-language) instructions.
-1. Test that the `vscode-dbt-power-user` extension is working by opening one of the project model `.sql` files and pressing the "▶" icon in the upper right corner. You should have query results pane open that shows a preview of the data.
+Install some useful extensions (this list is advisory, and non-exhaustive):
+
+1. dbt's official VS Code extension
+    1. Follow [dbt's docs](https://docs.getdbt.com/docs/install-dbt-extension) for instructions on installation.
+    1. Test that the dbt VS Code extension extension is working by opening one of the project model `.sql` files and building or running the model.
+1. Python (Microsoft's bundle of Python linters and formatters)
+    1. Configure the VS Code Python extension to use your virtual environment by choosing `Python: Select Interpreter` from the command palette and selecting your current virtual environment from the options.
+1. sqlfluff (SQL linter)
 
 ## 5. Install `pre-commit` hooks
 
