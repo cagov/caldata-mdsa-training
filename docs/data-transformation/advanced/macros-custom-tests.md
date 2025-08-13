@@ -119,8 +119,8 @@ We wrote a test to verify that the `sample_date` column in the `stg_water_qualit
 
 To run the test yourself:
 
-1. Check out the branch: `britt_dbt_training`
-2. Navigate to the file: `tests/singular/verify_sample_date.sql`, you should see the following code:
+1. Check out the branch: `britt-dbt-training`
+2. Navigate to the file: `transform/tests/singular/verify_sample_date.sql`, you should see the following code:
 
     ```SQL
     with validation as (
