@@ -44,7 +44,7 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
 
 **Final instructions**
 
-1._Lint_ and _Format_ your files
+1. _Lint_ and _Format_ your files
     1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint`
     1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix`
         1. For things that could not be auto-fixed you'll have to manually do it.
@@ -103,7 +103,7 @@ Open your `transform/models/staging/training/_water_quality.yml` and write some 
 
 **Final instructions**
 
-1._Lint_ and _Format_ your files
+1. _Lint_ and _Format_ your files
     1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint`
     1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix`
         1. For things that could not be auto-fixed you'll have to manually do it.
