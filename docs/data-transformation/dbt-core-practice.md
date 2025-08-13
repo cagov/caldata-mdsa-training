@@ -50,15 +50,13 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
         1. For things that could not be auto-fixed you'll have to manually do it.
     1. Or, to run all the checks, run`pre-commit run --all-files`
 
-Any of the above steps may modify your files requiring you to save them again.
+Any of the above steps may modify your files requiring you to save (`git add`) them again.
 
 1. Check to see which files need to be added or removed: `git status`
 1. Add or remove any relevant files: `git add filename.ext` or `git rm filename.ext`
 1. Commit your code and leave a concise, yet descriptive commit message: `git commit -m "example message"`
     1. During this step pre-commit may catch an error you missed. It may auto-fix your file or you may have to do it yourself. Regardless you will have to repeat `git add...` (for each modified file) and `git commit...`.
-1. Push your code: `git push origin <branch-name>`
-1. Create a new pull request and add a teammate as a reviewer
-1. We’ll end the day by reviewing each other’s PRs
+1. Push your code: `git push origin <your-first-name>-dbt-training`
 
 ## **Day 2**
 
@@ -111,7 +109,7 @@ Open your `transform/models/staging/training/_water_quality.yml` and write some 
         1. For things that could not be auto-fixed you'll have to manually do it.
     1. Or, to run all the checks, run`pre-commit run --all-files`
 
-Any of the above steps may modify your files requiring you to save them again.
+Any of the above steps may modify your files requiring you to save (`git add`) them again.
 
 1. Check to see which files need to be added or removed: `git status`
 1. Add or remove any relevant files: `git add filename.ext` or `git rm filename.ext`
@@ -150,7 +148,7 @@ Now that we’ve gotten some practice creating two staging models and editing ou
         1. For things that could not be auto-fixed you'll have to manually do it.
     1. Or, to run all the checks, run`pre-commit run --all-files`
 
-Any of the above steps may modify your files requiring you to save them again.
+Any of the above steps may modify your files requiring you to save (`git add`) them again.
 
 1. Check to see which files need to be added or removed: `git status`
 1. Add or remove any relevant files: `git add filename.ext` or `git rm filename.ext`
@@ -173,14 +171,16 @@ Any of the above steps may modify your files requiring you to save them again.
         1. For things that could not be auto-fixed you'll have to manually do it.
     1. Or, to run all the checks, run`pre-commit run --all-files`
 
-Any of the above steps may modify your files requiring you to save them again.
+Any of the above steps may modify your files requiring you to save (`git add`) them again.
 
 1. Check to see which files need to be added or removed: `git status`
 1. Add or remove any relevant files: `git add filename.ext` or `git rm filename.ext`
 1. Commit your code and leave a concise, yet descriptive commit message: `git commit -m "example message"`
     1. During this step pre-commit may catch an error you missed. It may auto-fix your file or you may have to do it yourself. Regardless you will have to repeat `git add...` (for each modified file) and `git commit...`.
 1. Push your code to your working branch: `git push origin <your-first-name>-dbt-training`
+1. Create a new pull request with your working branch
+1. Add a teammate as a reviewer
 
 ### **Practice B: Get your branch to pass CI checks**
 
-You’ve been working in your own branches to create dbt models and configuration files. Ultimately, our goal is to develop production-grade models, which are documented, configured, and passing CI.
+You’ve been working in your own branches to create dbt models and configuration files. Ultimately, our goal is to develop production-grade models, which are documented, configured, and passing CI. We’ll end the day by live reviewing a PR.
