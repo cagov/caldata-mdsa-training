@@ -47,8 +47,6 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
 
 1. _Lint_ and _Fix_ your files, save any changes made
 1. Commit and sync your code and leave a concise, yet descriptive commit message
-1. In GitHub (or Azure DevOps), create a new pull request and add a teammate as a reviewer
-1. We’ll end the day by reviewing each other’s PRs
 
 ## **Day 2**
 
@@ -124,9 +122,8 @@ Now that we’ve gotten some practice creating two staging models and editing ou
 **Pull Request:**
 
 1. Commit and sync your code and leave a concise, yet descriptive commit message
-1. In GitHub or Azure DevOps, check that you’ve added a teammate as a reviewer to your PR
-1. Review someone else’s PR
-1. Optional: Check that your PR passes all CI (continuous integration) checks. If not, click “details” and investigate the failure – We’ll spend more time on this in Day 4
+1. In GitHub or Azure DevOps, create a PR
+1. Check that you’ve added a teammate as a reviewer to your PR
 
 ## **Day 4**
 

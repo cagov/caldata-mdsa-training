@@ -92,7 +92,7 @@ Here you’ll write YAML configuration for the Water Quality source tables, and 
 
 ### **Practice B: Write tests for the `stg_water_quality__stations` model**
 
-Open your `transform/models/staging/training/_water_quality.yml` and write some data integrity tests for your `stg_water_quality__stations` model.
+Open your `transform/models/staging/training/_stg_water_quality.yml` and write some data integrity tests for your `stg_water_quality__stations` model.
 
 1. Add a not null test for STATION_ID
 1. Add a unique test for COUNTY_NAME. This one should fail!
@@ -137,7 +137,7 @@ Now that we’ve gotten some practice creating two staging models and editing ou
 
 **YAML:**
 
-1. Document your new intermediate model in the `transform/models/intermediate/training/_water_quality.yml` file
+1. Document your new intermediate model in the `transform/models/intermediate/training/_int_water_quality.yml` file
 1. Materialize your model as a table
 
 **Final instructions**
