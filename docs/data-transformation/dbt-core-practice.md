@@ -44,11 +44,11 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
 
 **Final instructions**
 
-1. _Lint_ and _Format_ your files
-    1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint`
-    1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix`
+1. Save your files and try to run yo
+    1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint [filepath-to-staging-folder]`
+    1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix [[filepath-to-staging-folder]`
         1. For things that could not be auto-fixed you'll have to manually do it.
-    1. Or, to run all the checks, run`pre-commit run --all-files`
+    1. Or, to run all the checks, run`pre-commit run --all-files` Note: we don't recommend running this at this stage, since crucial project set up fixes will be addressed in further exercises.
 
 Any of the above steps may modify your files requiring you to save (`git add`) them again.
 

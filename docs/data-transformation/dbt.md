@@ -273,18 +273,18 @@ models:
   - name: orders
     columns:
       - name: order_id
-        tests:
+        data_tests:
           - unique
           - not_null
       - name: status
-        tests:
+        data_tests:
           - accepted_values:
               values: ['placed', 'shipped', 'completed']
       - name: customer_id
-        tests:
+        data_tests:
           - relationships:
               to: ref('customers')
-    tests:
+    data_tests:
       - unique:
           column_name: "(customer_id || '-' || order_date)"
 ```
@@ -325,11 +325,11 @@ dbt example:
 ```YAML
 columns:
   - name: controller_id
-    tests:
+    data_tests:
       - not_null
 
   - name: controller_type
-    tests:
+    data_tests:
       - not_null:
           config:
             severity: warn
@@ -344,17 +344,17 @@ dbt example:
 ```YAML
 columns:
   - name: controller_id
-    tests:
+    data_tests:
       - not_null
 
   - name: controller_type
-    tests:
+    data_tests:
       - not_null:
           config:
             severity: warn
 
   - name: district
-    tests:
+    data_tests:
       - not_null:
           config:
             error_if: ">10"
