@@ -29,7 +29,7 @@ models:
     description: Staging model for stations.
     config:
       materialized: table
-    tests:
+    data_tests:
       - dbt_utils.equal_rowcount:
         compare_model: source('WATER_QUALITY', 'stations')
 ```
@@ -97,7 +97,7 @@ There are two ways of defining custom tests in dbt:
       - name: city_county_extras
         columns:
           - name: county
-            tests:
+            data_tests:
               - valid_county
     ```
 
