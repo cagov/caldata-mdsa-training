@@ -254,7 +254,7 @@ models:
 
 ### Answer for Practice: Create and document an intermediate dbt model
 
-**SQL**
+SQL
 
 ```SQL
 with stations as (
@@ -294,7 +294,7 @@ order by station_count desc
 
 ```
 
-**YAML**
+YAML
 
 ```YAML
 version: 2
