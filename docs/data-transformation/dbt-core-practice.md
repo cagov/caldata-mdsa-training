@@ -37,9 +37,10 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
         - `station_id`, `status`, `sample_code`, `sample_date`, `sample_depth`, `sample_depth_units`, `parameter`, `result`, `reporting_limit`, `units`, and `method_name`
     1. Change the `station_id` column type to varchar
         1. Use Snowflake’s [TO_VARCHAR()](https://docs.snowflake.com/en/sql-reference/functions/to_char) function which needs one argument – the column to be converted
-    1. Change the `sample_date` column type to timestamp and rename it to SAMPLE_TIMESTAMP
+    1. The `sample_date` column in the source data table is of data type `VARCHAR` and we want to change it to `DATE`. The values for this column are also formatted like timestamps. We want this column to both be of type `DATE` and contain values that look like dates.
+        1. Use Snowflake's [DATE_FROM_PARTS()](https://docs.snowflake.com/en/sql-reference/functions/date_from_parts) function to extract the parts of this column needed to turn it into a date. You'll need to use other string manipulation functions as well e.g. [SUBSTR()](https://docs.snowflake.com/en/sql-reference/functions/substr), [LEFT()](https://docs.snowflake.com/en/sql-reference/functions/left), [RIGHT()](https://docs.snowflake.com/en/sql-reference/functions/right). And [cast](https://docs.snowflake.com/en/sql-reference/functions/cast) the values from those resulting parts as `INT` before feeding them into the date_from_parts function. This column should still be aliased as SAMPLE_DATE.
+    1. Change the `sample_date` column type again, to timestamp and rename it to SAMPLE_TIMESTAMP
         1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. `YYYY-MM-DD HH24:MI:SS`
-    1. Alias and capitalize all of your columns (except for the two timestamp columns since you did this already) e.g. `select “column_name” as COLUMN_NAME`
 1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
 
 **Final instructions**
