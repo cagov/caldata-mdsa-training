@@ -2,7 +2,7 @@
 
 ## Day 1
 
-### Answer for Practice A: Create your first dbt staging model for the `stations` data
+### Answer for Practice A: Create your first dbt staging model for the `STATIONS` data
 
 ```sql
 with stations as (
@@ -21,14 +21,14 @@ with stations as (
         to_timestamp(sample_date_min, 'MM/DD/YYYY HH24:MI') as sample_timestamp_min,
         to_timestamp(sample_date_max, 'MM/DD/YYYY HH24:MI') as sample_timestamp_max
 
-    from {{ source('WATER_QUALITY', 'stations') }}
+    from {{ source('WATER_QUALITY', 'STATIONS') }}
 )
 
 select * from stations
 
 ```
 
-### Answer for Practice B: Create your second staging model for the `lab_results` data
+### Answer for Practice B: Create your second staging model for the `LAB_RESULTS` data
 
 ```sql
 with lab_results as (
@@ -46,15 +46,15 @@ with lab_results as (
             substr("sample_date", 4, 2)::INT
         ) as sample_date,
 
-        "sample_depth" as sample_depth,
-        "sample_depth_units" as sample_depth_units,
-        "parameter" as parameter,
-        "result" as result,
-        "reporting_limit" as reporting_limit,
-        "units" as units,
-        "method_name" as method_name
+        sample_depth,
+        sample_depth_units,
+        parameter,
+        result,
+        reporting_limit,
+        units,
+        method_name
 
-    from {{ source('WATER_QUALITY', 'lab_results') }}
+    from {{ source('WATER_QUALITY', 'LAB_RESULTS') }}
 )
 
 select * from lab_results
@@ -85,7 +85,7 @@ sources:
       and physical parameters found in routine environmental, regulatory compliance
       monitoring, and special studies throughout the state.
     tables:
-      - name: lab_results
+      - name: LAB_RESULTS
         description: The source data for lab results.
         columns:
           - name: station_id
@@ -132,7 +132,7 @@ sources:
             description: Units of measure for the result.
           - name: method_name
             description: The analytical method by which the constituent was measured.
-      - name: stations
+      - name: STATIONS
         description: The source data for stations.
         columns:
           - name: station_id
@@ -182,13 +182,13 @@ models:
     description: Staging model for stations.
     config:
       materialized: table
-    tests:
+    data_tests:
       - dbt_utils.equal_rowcount:
-          compare_model: source('WATER_QUALITY', 'stations')
+          compare_model: source('WATER_QUALITY', 'STATIONS')
     columns:
       - name: station_id
         description: A unique identifier for stations.
-        tests:
+        data_tests:
           - not_null
       - name: full_station_name
         description: |
@@ -208,7 +208,7 @@ models:
         description: Longitude (NAD83).
       - name: county_name
         description: County where sample collected.
-        tests:
+        data_tests:
           - unique
       - name: sample_code
         description: Unique DWR lab and field data sample code.
@@ -252,7 +252,9 @@ models:
 
 ## Day 3
 
-### Answer for Practice: Create an intermediate dbt model
+### Answer for Practice: Create and document an intermediate dbt model
+
+SQL
 
 ```SQL
 with stations as (
@@ -282,13 +284,32 @@ stations_per_county_with_parameter_2023_counted as (
         on s.station_id = l.station_id
 
     where
-        year(l.sample_date) = 2024
+        year(l.sample_date) = 2023
         and l.parameter = 'Dissolved Chloride'
     group by s.county_name
 )
 
 select * from stations_per_county_with_parameter_2023_counted
 order by station_count desc
+
+```
+
+YAML
+
+```YAML
+version: 2
+
+models:
+  - name: int_water_quality__stations_per_county_with_parameter_2023_counted
+    description: |
+      This model returns a count of the stations per county that
+      reported a parameter of Dissolved Chloride for the year
+      2023 sorted from greatest to least.
+    columns:
+      - name: county_name
+        description: County where sample collected.
+      - name: station_count
+        description: Count of stations that reported a parameter of Dissolved Chloride.
 
 ```
 

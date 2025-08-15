@@ -14,7 +14,7 @@
 1. Demonstrate `dbt run --select <model name>` on the command line
 1. Verify that the models you built/ran are visible in your personal schema within `TRANSFORM_DEV`
 
-### **Practice A: Create your first dbt staging model for the `stations` data**
+### **Practice A: Create your first dbt staging model for the `STATIONS` data**
 
 Let’s create two staging models! The data in `raw_dev.water_quality.stations` and `raw_dev.water_quality.lab_results` have been loaded from [data.ca.gov/dataset/water-quality-data](https://data.ca.gov/dataset/water-quality-data) without modification except for the exclusion of the `_id` column in each table. There are a few simple transformations we can do to make working with these data more ergonomic. Models that require simple transformations involving things like data type conversion or column renaming are called staging models.
 
@@ -29,7 +29,7 @@ Let’s create two staging models! The data in `raw_dev.water_quality.stations` 
         1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. `YYYY-MM-DD HH24:MI:SS`
     1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
 
-### **Practice B: Create your second staging model for the `lab_results` data**
+### **Practice B: Create your second staging model for the `LAB_RESULTS` data**
 
 1. Remain on your current branch: `<your-first-name>-dbt-training`
 1. Open `transform/models/staging/training/stg_water_quality__lab_results.sql` – you should see a SQL statement that selects all of the data from the raw table
@@ -97,7 +97,7 @@ Open your `transform/models/staging/training/_water_quality.yml` and write some 
 
 ## **Day 3**
 
-### **Practice: Create an intermediate dbt model**
+### **Practice: Create and document an intermediate dbt model**
 
 Now that we’ve gotten some practice creating two staging models and editing our YAML file to reference our source data and models, let's create an intermediate model and update the relevant YAML file.
 
