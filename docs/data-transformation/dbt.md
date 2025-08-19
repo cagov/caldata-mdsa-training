@@ -133,6 +133,7 @@ It is also absolutely ubiquitous for tool configuration. Tools that are configur
 - dbt
 - GitHub Actions
 - Azure Pipelines
+- BitBucket Pipelines
 - Kubernetes
 - AWS CloudFormation
 - Many more!
@@ -542,32 +543,90 @@ Click either link for [<u>dbt Cloud</u>](https://cagov.github.io/caldata-mdsa-tr
 
 ### dbt Docs
 
-dbt generates HTML documentation from your SQL models and YAML configuration files. This documentation can then be hosted in a number of places, including dbt Cloud, GitHub Pages, or Azure Static Web Apps. We will show you:
+A key feature of dbt is the automated generation of documentation and lineage from your project.
+The framework reads your SQL models and YAML configuration files and produces a static HTML document from them.
+This documentation can then be hosted in a number of places, including dbt Cloud, GitHub Pages, or Azure Static Web Apps.
+Depending on platforms we are using for the project, we will demonstrate dbt docs using one of the following:
 
-1. How to generate docs using dbt Cloud. This can be useful if you are writing docs in a branch and want to visualize how they are rendered.
-1. If we are using GitHub, we’ll demonstrate how the docs are built from the repository and hosted on GitHub Pages. If we are using Azure DevOps, we’ll demonstrate how the docs are built from the repository and hosted using Azure Static Web Apps.
+1. Hosted in dbt Cloud. This can be useful if you are writing docs in a branch and want to visualize how they are rendered.
+1. If we are using GitHub, we’ll demonstrate how the docs can be built from the repository and hosted on GitHub Pages.
+1. If we are using Azure DevOps, we’ll demonstrate how the docs can be built from the repository and hosted using Azure Static Web Apps.
+1. If we are using Bitbucket and are okay with public-facing docs, we'll demonstrate how the docs can be built and hosted using Bitbucket Cloud.
+1. If we are using none of the above, we'll show you how to generate and view the docs locally.
 
-### dbt Cloud deployments and jobs
+### Data environments and jobs
 
-We’ll talk through the concept of an “Environment”, which is a virtual machine in dbt Cloud that has all of the relevant software dependencies and environment variables set. You’ve already encountered one environment, which is your “Develop:  Cloud IDE”. But you can create other environments in dbt Cloud (and in other services) for various purposes. Examples of other environments:
+#### Environments in Snowflake
+
+We often talk about the concept of "environments".
+Broadly speaking, environments are a collection of compute resources, software, and configuration,
+which together represent a functioning context for development.
+Examples of environments include:
 
 1. A “production” environment which is used to run the dbt models that have been merged to `main`. This can be run on an ad-hoc basis, or can be run on a schedule to ensure that models are never more than some amount of time old.
-1. A “continuous integration (CI)" environment, which is used to run tests on branches and pull requests, and can help to catch bugs and regressions before they are deployed to production.
-1. A “docs” environment, used for building docs.
+1. A "development" environment, which is used to run tests on branches and pull requests, and can help to catch bugs and regressions before they are deployed to production.
+1. A "user acceptance testing (UAT)" environment, which can be used as a final testing environment for verifying code before it is deployed to production.
 
-We’ll also introduce the concept of a “Job”, which is a command that is run in an environment, and can either be run on a schedule or can be triggered by some event.
+Unfortunately, that's pretty vague, since there are lots of different ways environments can be set up!
+Depending on your situation, different environments in Snowflake could be represented by:
+
+* entirely different accounts
+* different databases within the same account, or even
+* different schemas within the same database.
+
+In our default MDSA architecture we usually have two environments, "dev" and "prod", which reside in the same Snowflake account.
+Each of these environments consists of a set of databases corresponding to our layered data architecture
+(see our [Snowflake training](../cloud-data-warehouses/snowflake.md#snowflake-architecture) for more detail).
+
+#### Environments in dbt Cloud
+
+dbt Cloud also has a concept of an Environment,
+which is a virtual machine in dbt Cloud that has all of the relevant software dependencies and environment variables set.
+Roughly speaking, an environment in dbt Cloud will correspond to one of your environments in Snowflake.
+
+You’ve already encountered one environment, which is your “Develop:  Cloud IDE”.
+But you can create other environments in dbt Cloud for various purposes.
+Our typical dbt Cloud setup includes the following environments:
+
+* Development, which uses the "dev" Snowflake environment. This is what you use when you work in the cloud IDE.
+* Production, which uses the "prod" Snowflake environment. This is what we use to build production data models.
+* Continuous Integration, which uses the "dev" Snowflake environment. This is what runs the automated CI checks.
+
+#### Jobs
+
+A "job" is a command or series of commands that run in a given environment.
+Examples of jobs we often use in our MDSA projects include:
+
+* Running a nightly build of data models
+* Running continuous integration (CI, see below!) checks
+* Building project docs
+
+Jobs can be configured in a number of ways: they can have different environment variables set,
+they can run on a schedule, or they can be triggered by a specific action like a pull request being opened,
+or a branch being merged.
 
 ### Continuous integration and continuous deployment (CI/CD)
 
-#### What is CI/CD and why you shouldn’t ignore it
+#### What Continuous Integration (CI) is, and why you shouldn’t ignore it
 
-CI/CD checks in GitHub or Azure DevOps are automated tests that are run against your code every time you push a change.
+Continuous Integration checks in GitHub, Azure DevOps, or BitBucket are automated tests that are run against your code every time you push a change.
 They are an important part of the software development process, and can help you:
 
-- **Catch errors and issues early:** CI/CD checks can identify issues with your code before they can cause problems in production.
-- **Improve code quality:** CI/CD checks can help you to improve the quality of your code by identifying issues such as code smells (e.g. duplicate or dead code) and potential security vulnerabilities.
+- **Catch errors and issues early:** CI checks can identify issues with your code before they can cause problems in production.
+- **Improve code quality:** CI checks can help you to improve the quality of your code by identifying issues like duplicate or dead code and potential security vulnerabilities.
+- **Establish a house style:** CI checks can enforce various code formatting rules and conventions that your team has agreed upon.
 
-To reiterate, CI/CD checks can help you to improve the quality of your code, reduce the risk of production issues, and save the whole team time in the long run. We have set up your project repository so that these checks cannot be ignored by preventing a merge of a PR with CI/CD failures. However, CI/CD checks shouldn’t be considered a pain or just a thing we have to do, they are rather intended to be a routine and helpful part of the development process.
+We have set up your project repository so that PRs cannot be merged to `main` unless these checks pass.
+This can sometimes feel annoying! At the end of the day, however, CI/CD checks shouldn’t feel too painful or like a box-checking exercise:
+they are rather intended to be a routine and helpful part of the development process.
+Ultimately, experience has shown that effective use of CI/CD greatly speeds up development.
+
+#### Continuous Deployment (CD)
+
+Continuous Deployment (CD) in most MDSA projects is usually pretty simple.
+We typically do not build any applications or deploy cloud resources.
+Instead, whatever is in the `main` branch is considered "production",
+and our dbt projects and docs are built using that.
 
 For a deeper dive into how CI/CD is configured for this project see [these docs](../code/ci-cd.md)
 

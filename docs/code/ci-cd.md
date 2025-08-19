@@ -54,7 +54,7 @@ These checks run in two different contexts:
 1. Since they are fast and cheap, they can be installed as git
     [pre-commit hooks](https://git-scm.com/book/ms/v2/Customizing-Git-Git-Hooks) (hence the name of the check).
     For instructions on how to install pre-commit hooks locally see
-    [these docs](../local-repo-setup/#5-install-pre-commit-hooks).
+    [these docs](local-repo-setup.md#5-install-pre-commit-hooks).
 
 #### dbt build
 
@@ -70,11 +70,11 @@ Building a dbt project includes the following components:
 The ODI team currently uses two different approaches to running this CI check:
 
 1. Run using [dbt Cloud's continuous integration hooks](https://docs.getdbt.com/docs/deploy/continuous-integration)
-1. Run using GitHub actions (example [here](https://github.com/cagov/caldata-ddrc-pipelines/blob/main/.github/workflows/tests.yml))
+1. Run using GitHub Aactions or Bitbucket Pipelines (example [here](https://github.com/cagov/caldata-ddrc-pipelines/blob/main/.github/workflows/tests.yml))
 
 In both cases, a service account is used to connect to Snowflake when running the check.
-The schemas for models build during CI are prefixed with either
-`DBT_CLOUD_PR_` or `GH_CI_PR_`, depending on whether CI is run through dbt Cloud or GitHub Actions.
+The schemas for models built during CI are given a prefix to indicate the source of the build,
+such as `DBT_CLOUD_PR_` or `GH_CI_PR_`, or `BITBUCKET_CI_`.
 
 #### docs build
 
@@ -98,7 +98,7 @@ and builds the dbt project in the production environment.
 The ODI team currently uses two different approaches to running this process:
 
 1. Run using a dbt Cloud production environment
-1. Run using GitHub actions (example [here](https://github.com/cagov/caldata-ddrc-pipelines/blob/main/.github/workflows/pipeline.yml))
+1. Run using CI systems like GitHub Actions or Bitbucket Pipelines (example [here](https://github.com/cagov/caldata-ddrc-pipelines/blob/main/.github/workflows/pipeline.yml))
 
 #### docs build
 

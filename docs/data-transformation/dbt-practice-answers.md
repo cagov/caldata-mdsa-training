@@ -315,4 +315,12 @@ models:
 
 ## Day 4
 
-No answer key.
+```YAML
+version: 2
+
+models:
+  - name: int_water_quality__stations_per_county_with_parameter_2023_counted
+    config:
+      schema: statistics
+    ...
+```
