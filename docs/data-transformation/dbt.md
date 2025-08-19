@@ -133,6 +133,7 @@ It is also absolutely ubiquitous for tool configuration. Tools that are configur
 - dbt
 - GitHub Actions
 - Azure Pipelines
+- BitBucket Pipelines
 - Kubernetes
 - AWS CloudFormation
 - Many more!
@@ -542,10 +543,15 @@ Click either link for [<u>dbt Cloud</u>](https://cagov.github.io/caldata-mdsa-tr
 
 ### dbt Docs
 
-dbt generates HTML documentation from your SQL models and YAML configuration files. This documentation can then be hosted in a number of places, including dbt Cloud, GitHub Pages, or Azure Static Web Apps. We will show you:
+A key feature of dbt is the automated generation of documentation and lineage from your project.
+The framework reads your SQL models and YAML configuration files and produces a static HTML document from them.
+This documentation can then be hosted in a number of places, including dbt Cloud, GitHub Pages, or Azure Static Web Apps.
+Depending on platforms we are using for the project, we will demonstrate dbt docs using one of the following:
 
-1. How to generate docs using dbt Cloud. This can be useful if you are writing docs in a branch and want to visualize how they are rendered.
-1. If we are using GitHub, we’ll demonstrate how the docs are built from the repository and hosted on GitHub Pages. If we are using Azure DevOps, we’ll demonstrate how the docs are built from the repository and hosted using Azure Static Web Apps.
+1. Hosted in dbt Cloud. This can be useful if you are writing docs in a branch and want to visualize how they are rendered.
+1. If we are using GitHub, we’ll demonstrate how the docs can be built from the repository and hosted on GitHub Pages.
+1. If we are using Azure DevOps, we’ll demonstrate how the docs can be built from the repository and hosted using Azure Static Web Apps.
+1. If we are using none of the above, we'll show you how to generate and view the docs locally.
 
 ### dbt Cloud deployments and jobs
 
@@ -559,15 +565,26 @@ We’ll also introduce the concept of a “Job”, which is a command that is ru
 
 ### Continuous integration and continuous deployment (CI/CD)
 
-#### What is CI/CD and why you shouldn’t ignore it
+#### What Continuous Integration (CI) is, and why you shouldn’t ignore it
 
-CI/CD checks in GitHub or Azure DevOps are automated tests that are run against your code every time you push a change.
+Continuous Integration checks in GitHub, Azure DevOps, or BitBucket are automated tests that are run against your code every time you push a change.
 They are an important part of the software development process, and can help you:
 
-- **Catch errors and issues early:** CI/CD checks can identify issues with your code before they can cause problems in production.
-- **Improve code quality:** CI/CD checks can help you to improve the quality of your code by identifying issues such as code smells (e.g. duplicate or dead code) and potential security vulnerabilities.
+- **Catch errors and issues early:** CI checks can identify issues with your code before they can cause problems in production.
+- **Improve code quality:** CI checks can help you to improve the quality of your code by identifying issues like duplicate or dead code and potential security vulnerabilities.
+- **Establish a house style:** CI checks can enforce various code formatting rules and conventions that your team has agreed upon.
 
-To reiterate, CI/CD checks can help you to improve the quality of your code, reduce the risk of production issues, and save the whole team time in the long run. We have set up your project repository so that these checks cannot be ignored by preventing a merge of a PR with CI/CD failures. However, CI/CD checks shouldn’t be considered a pain or just a thing we have to do, they are rather intended to be a routine and helpful part of the development process.
+We have set up your project repository so that PRs cannot be merged to `main` unless these checks pass.
+This can sometimes feel annoying! At the end of the day, however, CI/CD checks shouldn’t feel painful or like a box-checking exercise:
+they are rather intended to be a routine and helpful part of the development process.
+Ultimately, experience has shown that effective use of CI/CD greatly speeds up the development process.
+
+#### Continuous Deployment (CD)
+
+Continuous Deployment (CD) in most MDSA projects is usually pretty simple.
+We typically do not build any applications or deploy cloud resources.
+Instead, whatever is in the `main` branch is considered "production",
+and our dbt projects and docs are built using that.
 
 For a deeper dive into how CI/CD is configured for this project see [these docs](../code/ci-cd.md)
 
