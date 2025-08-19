@@ -551,17 +551,51 @@ Depending on platforms we are using for the project, we will demonstrate dbt doc
 1. Hosted in dbt Cloud. This can be useful if you are writing docs in a branch and want to visualize how they are rendered.
 1. If we are using GitHub, we’ll demonstrate how the docs can be built from the repository and hosted on GitHub Pages.
 1. If we are using Azure DevOps, we’ll demonstrate how the docs can be built from the repository and hosted using Azure Static Web Apps.
+1. If we are using Bitbucket and are okay with public-facing docs, we'll demonstrate how the docs can be built and hosted using Bitbucket Cloud.
 1. If we are using none of the above, we'll show you how to generate and view the docs locally.
 
-### dbt Cloud deployments and jobs
+### Data environments and jobs
 
-We’ll talk through the concept of an “Environment”, which is a virtual machine in dbt Cloud that has all of the relevant software dependencies and environment variables set. You’ve already encountered one environment, which is your “Develop:  Cloud IDE”. But you can create other environments in dbt Cloud (and in other services) for various purposes. Examples of other environments:
+We often talk about the concept of "environments".
+Broadly speaking, environments are a collection of compute resources, software, and configuration,
+which together represent a functioning context for development.
+Examples of environments include:
 
 1. A “production” environment which is used to run the dbt models that have been merged to `main`. This can be run on an ad-hoc basis, or can be run on a schedule to ensure that models are never more than some amount of time old.
-1. A “continuous integration (CI)" environment, which is used to run tests on branches and pull requests, and can help to catch bugs and regressions before they are deployed to production.
-1. A “docs” environment, used for building docs.
+1. A "development" environment, which is used to run tests on branches and pull requests, and can help to catch bugs and regressions before they are deployed to production.
+1. A "user acceptance testing (UAT)" environment, which can be used as a final testing environment for verifying code before it is deployed to production.
 
-We’ll also introduce the concept of a “Job”, which is a command that is run in an environment, and can either be run on a schedule or can be triggered by some event.
+Unfortunately, that's pretty vague, since there are lots of different ways environments can be set up!
+Depending on your situation, different environments in Snowflake could be represented by:
+
+* entirely different accounts
+* eifferent databases within the same account, or even
+* different schemas within the same database.
+
+In our default MDSA architecture we usually have two environments, "dev" and "prod", which reside in the same Snowflake account.
+Each of these environments consists of a set of databases corresponding to our layered data architecture
+(see our [Snowflake training](../cloud-data-warehouses/snowflake.md#snowflake-architecture) for more detail).
+
+A "job" is a command or series of commands that run in a given environment.
+Examples of jobs we often use in our MDSA projects include:
+
+* Running a nightly build of data models
+* Running continuous integration (CI, see below!) checks
+* Building project docs
+
+#### Environments in dbt Cloud
+
+dbt Cloud also has a concept of an Environment,
+which is a virtual machine in dbt Cloud that has all of the relevant software dependencies and environment variables set.
+Roughly speaking, an environment in dbt Cloud will correspond to one of your environments in Snowflake.
+
+You’ve already encountered one environment, which is your “Develop:  Cloud IDE”.
+But you can create other environments in dbt Cloud for various purposes.
+Our typical dbt Cloud setup includes the following environments:
+
+* Development, which uses the "dev" Snowflake environment. This is what you use when you work in the cloud IDE.
+* Production, which uses the "prod" Snowflake environment. This is what we use to build production data models.
+* Continuous Integration, which uses the "dev" Snowflake environment. This is what runs the automated CI checks.
 
 ### Continuous integration and continuous deployment (CI/CD)
 
@@ -575,9 +609,9 @@ They are an important part of the software development process, and can help you
 - **Establish a house style:** CI checks can enforce various code formatting rules and conventions that your team has agreed upon.
 
 We have set up your project repository so that PRs cannot be merged to `main` unless these checks pass.
-This can sometimes feel annoying! At the end of the day, however, CI/CD checks shouldn’t feel painful or like a box-checking exercise:
+This can sometimes feel annoying! At the end of the day, however, CI/CD checks shouldn’t feel too painful or like a box-checking exercise:
 they are rather intended to be a routine and helpful part of the development process.
-Ultimately, experience has shown that effective use of CI/CD greatly speeds up the development process.
+Ultimately, experience has shown that effective use of CI/CD greatly speeds up development.
 
 #### Continuous Deployment (CD)
 
