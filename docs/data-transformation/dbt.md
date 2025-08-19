@@ -556,7 +556,8 @@ Depending on platforms we are using for the project, we will demonstrate dbt doc
 
 ### Data environments and jobs
 
-#### Environments
+#### Environments in Snowflake
+
 We often talk about the concept of "environments".
 Broadly speaking, environments are a collection of compute resources, software, and configuration,
 which together represent a functioning context for development.
