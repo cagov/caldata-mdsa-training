@@ -54,7 +54,7 @@ These checks run in two different contexts:
 1. Since they are fast and cheap, they can be installed as git
     [pre-commit hooks](https://git-scm.com/book/ms/v2/Customizing-Git-Git-Hooks) (hence the name of the check).
     For instructions on how to install pre-commit hooks locally see
-    [these docs](../local-repo-setup/#5-install-pre-commit-hooks).
+    [these docs](local-repo-setup.md#5-install-pre-commit-hooks).
 
 #### dbt build
 

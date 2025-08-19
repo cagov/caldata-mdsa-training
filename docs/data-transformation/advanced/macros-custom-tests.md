@@ -36,7 +36,7 @@ models:
 
 ## Data tests
 
-Let's revisit [data tests](../../dbt/#data-tests) from our foundational dbt training!
+Let's revisit [data tests](../dbt.md#data-tests) from our foundational dbt training!
 
 ## Custom tests
 
