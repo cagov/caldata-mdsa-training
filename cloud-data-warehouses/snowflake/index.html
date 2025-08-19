@@ -1,0 +1,2159 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../code/ci-cd/">
+      
+      
+        <link rel="next" href="../../data-transformation/dbt/">
+      
+      
+      <link rel="icon" href="../../images/odi-circle_logomark-blue.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Snowflake - CalData's Modern Data Stack Training</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#snowflake-training" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="CalData&#39;s Modern Data Stack Training" class="md-header__button md-logo" aria-label="CalData's Modern Data Stack Training" data-md-component="logo">
+      
+  <img src="../../images/odi-square_logomark-blue.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CalData's Modern Data Stack Training
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Snowflake
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cagov/caldata-mdsa-training" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    cagov/caldata-mdsa-training
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CalData&#39;s Modern Data Stack Training" class="md-nav__button md-logo" aria-label="CalData's Modern Data Stack Training" data-md-component="logo">
+      
+  <img src="../../images/odi-square_logomark-blue.svg" alt="logo">
+
+    </a>
+    CalData's Modern Data Stack Training
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cagov/caldata-mdsa-training" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    cagov/caldata-mdsa-training
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Code development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Code development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code/github/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code/devops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure DevOps
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code/local-repo-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Local repo setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code/ci-cd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Continuous Integration/Continuous Deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cloud data warehouses
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Cloud data warehouses
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Snowflake
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Snowflake
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#training-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Training overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#day-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Day 1
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Day 1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-snowflake" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is Snowflake?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-snowflake-fits-into-our-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Snowflake fits into our project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snowflake-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snowflake architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage-based-pricing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage-based pricing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#note-on-snowflake-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Note on Snowflake SQL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tour-of-snowflake-user-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tour of Snowflake user interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snowflake-account-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snowflake account structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#users-and-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Users and roles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#databases-and-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Databases and schemas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtual-warehouses" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtual warehouses
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#warehouse-sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warehouse sizes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snowflake-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snowflake context
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-set-your-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise: Set your context
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise: Set your context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-your-context-using-the-user-interface-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set your context using the user interface instructions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-your-context-using-sql-commands-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set your context using SQL commands instructions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-is-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Context is key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defaults
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#odi-snowflake-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      ODI Snowflake Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ODI Snowflake Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#six-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Six databases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#six-warehouse-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Six warehouse groups
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#six-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Six roles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#access-roles-vs-functional-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Access Roles vs Functional Roles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualizing-the-odi-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualizing the ODI context
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#day-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Day 2
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Day 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loading-and-querying-data-in-snowflake" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loading and querying data in Snowflake
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-will-i-need-to-load-data-into-snowflake" class="md-nav__link">
+    <span class="md-ellipsis">
+      When will I need to load data into Snowflake?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise: 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#databases-tables-and-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      Databases, tables, and views
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Databases, tables, and views">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#views" class="md-nav__link">
+    <span class="md-ellipsis">
+      Views
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#materialized-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      Materialized Views
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-layout-columnar-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data layout: columnar storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-layout-row-wise-partitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data layout: row-wise partitions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#review-tables-and-roles-from-day-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Review tables and roles from Day 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analyzing-queries-using-the-query-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Analyzing Queries using the Query Profile
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Analyzing Queries using the Query Profile">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#partition-pruning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Partition pruning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-efficient-queries-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing efficient queries: best practices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise: 2
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise: 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-a-query-and-view-its-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run a query and view its performance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Data transformation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Data transformation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Learn dbt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            Learn dbt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-transformation/dbt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Foundational dbt training
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1_2" id="__nav_4_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Advanced dbt training
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced dbt training
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-transformation/advanced/macros-custom-tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Macros and custom tests in dbt
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Practice dbt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Practice dbt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-transformation/dbt-cloud-practice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    dbt Cloud practice
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-transformation/dbt-core-practice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    dbt Core practice
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-transformation/dbt-practice-answers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Answer key
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#training-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Training overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#day-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Day 1
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Day 1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-snowflake" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is Snowflake?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-snowflake-fits-into-our-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Snowflake fits into our project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snowflake-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snowflake architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage-based-pricing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage-based pricing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#note-on-snowflake-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Note on Snowflake SQL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tour-of-snowflake-user-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tour of Snowflake user interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snowflake-account-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snowflake account structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#users-and-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Users and roles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#databases-and-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Databases and schemas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtual-warehouses" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtual warehouses
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#warehouse-sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warehouse sizes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snowflake-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snowflake context
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-set-your-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise: Set your context
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise: Set your context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-your-context-using-the-user-interface-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set your context using the user interface instructions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-your-context-using-sql-commands-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Set your context using SQL commands instructions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-is-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Context is key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defaults
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#odi-snowflake-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      ODI Snowflake Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ODI Snowflake Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#six-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Six databases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#six-warehouse-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Six warehouse groups
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#six-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Six roles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#access-roles-vs-functional-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Access Roles vs Functional Roles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualizing-the-odi-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualizing the ODI context
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#day-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Day 2
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Day 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loading-and-querying-data-in-snowflake" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loading and querying data in Snowflake
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-will-i-need-to-load-data-into-snowflake" class="md-nav__link">
+    <span class="md-ellipsis">
+      When will I need to load data into Snowflake?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise: 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#databases-tables-and-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      Databases, tables, and views
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Databases, tables, and views">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#views" class="md-nav__link">
+    <span class="md-ellipsis">
+      Views
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#materialized-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      Materialized Views
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-layout-columnar-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data layout: columnar storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-layout-row-wise-partitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data layout: row-wise partitions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#review-tables-and-roles-from-day-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Review tables and roles from Day 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analyzing-queries-using-the-query-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Analyzing Queries using the Query Profile
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Analyzing Queries using the Query Profile">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#partition-pruning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Partition pruning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-efficient-queries-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing efficient queries: best practices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise: 2
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise: 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-a-query-and-view-its-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run a query and view its performance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="snowflake-training">Snowflake training<a class="headerlink" href="#snowflake-training" title="Permanent link">&para;</a></h1>
+<h2 id="training-overview">Training overview<a class="headerlink" href="#training-overview" title="Permanent link">&para;</a></h2>
+<p>This training is intended to give a very high overview of how to interact with key functionality in Snowflake. The training is split into two days, each day has approx. 90 minutes of content (a mix of lecture, live demonstration, and interactive exercises)</p>
+<ul>
+<li>
+<p>Day 1 covers an intro to Snowflake, how your team will be using it, some of the underlying architecture of Snowflake in general and specific to how ODI usually sets up data projects, and a tour of the Snowflake user interface</p>
+</li>
+<li>
+<p>Day 2 covers the basics of data loading, storage, and querying in Snowflake</p>
+</li>
+</ul>
+<h2 id="day-1"><strong>Day 1</strong><a class="headerlink" href="#day-1" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-snowflake">What is Snowflake?<a class="headerlink" href="#what-is-snowflake" title="Permanent link">&para;</a></h3>
+<p>Snowflake is a cloud-based data platform that allows organizations to store and analyze large volumes of data. It provides a scalable and flexible solution for data warehousing, enabling users to efficiently manage, share, and query their data using a unique multi-cluster, shared architecture. Snowflake is designed to simplify data management, provide collaboration, and support advanced analytics in a secure and cost-effective manner.</p>
+<h3 id="how-snowflake-fits-into-our-project">How Snowflake fits into our project<a class="headerlink" href="#how-snowflake-fits-into-our-project" title="Permanent link">&para;</a></h3>
+<p>This is how Snowflake fits into the modern data stack we will be building together:</p>
+<ul>
+<li>Snowflake is where your data will be stored. We will be gathering all the data for your project and storing it in the RAW tables in your Snowflake account</li>
+<li>When we get into dbt later on, you’ll see how we use dbt to modify the raw data that is in Snowflake to transform and join data together, to build analyses / dashboards off of</li>
+<li>Both the raw data and the transformed data (from dbt) will be stored here in Snowflake.</li>
+</ul>
+<p>Some examples of how you might be using Snowflake:</p>
+<ul>
+<li>If you are an owner of one of the data sources, you’ll need to know what the raw data coming into Snowflake should look like, and whether it has landed here correctly. You might set up the data connectors that move data into Snowflake, and you might log into Snowflake to examine and explore the data to ensure the data looks accurate and complete.</li>
+<li>If you are a project owner or a systems administrator, you might log into Snowflake to understand storage and query costs, give or revoke access to users, or answer any data security questions about the project.</li>
+<li>If you are an analytics engineer, you will be doing most of your work to transform the data in dbt, but you should understand that whatever data you query and all the queries you build will actually be running in Snowflake.<ul>
+<li>You’ll also want to come into Snowflake to look at query history for query optimization.</li>
+<li>You can explore and take a look at data, column names and types, etc. to better understand how to build the final datasets.</li>
+</ul>
+</li>
+<li>If you are a data engineer, you might use Snowflake's query history to investigate errors in the data pipeline that dbt can not explain.</li>
+<li>If you are an analyst, you can use Snowflake to run adhoc queries of the data and get instant results. You can use SQL and/or Python to examine the data and look for patterns.</li>
+<li>If you are building reports or dashboards, you will be pulling the data for those directly from Snowflake.</li>
+</ul>
+<h3 id="snowflake-architecture">Snowflake architecture<a class="headerlink" href="#snowflake-architecture" title="Permanent link">&para;</a></h3>
+<p>Snowflake's architecture differs from a traditional transactional database in that it separates storage and compute resources. It consists of three layers:</p>
+<p><img alt="Snowflake architecture diagram" src="../../images/snowflake_architecture_overview.png" /> <a href="https://docs.snowflake.com/en/user-guide/intro-key-concepts">Image source</a></p>
+<ol>
+<li>
+<p><strong>Cloud services</strong></p>
+<ul>
+<li>Infrastructure manager: manages the set up, monitoring, and maintenance of the Snowflake environment</li>
+<li>Optimizer: an intelligent query optimizer that decides the most efficient way to execute queries</li>
+<li>Transaction Manager: maintains metadata, schema, and query execution plans</li>
+<li>Security: robust security features including role-based access control, user authentication, and encryption</li>
+</ul>
+</li>
+<li>
+<p><strong>Compute resources (for query processing)</strong></p>
+<ul>
+<li>Executes queries using Massive Parallel Processing, a method that allows big jobs to be split up into smaller ones and processed at the same time, bringing down overall runtime</li>
+<li>Each query runs in independent virtual warehouses, ensuring high performance and isolation of workloads. Note: Snowflake uses the term <em>virtual warehouse</em> to refer to a cluster of compute resources, even though in many other contexts, virtual warehouse refers to the entire database!</li>
+<li>Virtual warehouses can expand or contract based on the complexity and size of queries</li>
+</ul>
+</li>
+<li>
+<p><strong>Storage resources</strong></p>
+<ul>
+<li>Data is stored in a columnar format</li>
+<li>Data is saved in blobs (binary large objects) on cloud storage</li>
+<li>Automatic compression</li>
+</ul>
+</li>
+</ol>
+<p>This architecture is what makes Snowflake more flexible (and arguably more user-friendly) than other solutions, because it separates resources needed for data storage from resources needed for accessing and processing data. This means that scaling your data storage needs up or down can be done independently of scaling the compute power needed for your queries.</p>
+<p>Summary of Advantages:</p>
+<ol>
+<li>Separation of Compute and Storage: Ensures scalability and cost efficiency.</li>
+<li>Ease of Use: Minimal infrastructure management with fully automated features.</li>
+<li>High Performance: Thanks to MPP and the ability to spin up multiple warehouses for concurrent workloads.</li>
+<li>Cloud Agnostic: Works seamlessly across multiple cloud providers.</li>
+<li>Secure and Reliable: Strong security protocols, encryption, and metadata management.</li>
+</ol>
+<h3 id="usage-based-pricing">Usage-based pricing<a class="headerlink" href="#usage-based-pricing" title="Permanent link">&para;</a></h3>
+<p>With most on-premise transactional warehouses, costs scale with the number of server instances you buy and run. These servers usually are always-on and power various applications with high availability. In a traditional transactional warehouse both compute power and storage are associated with the same logical machine.</p>
+<p>Cloud data warehouses typically have a different pricing model: they decouple storage and compute and charge based on your query usage. Snowflake charges based on the amount of compute resources needed to execute your queries. Google BigQuery charges based on the amount of data your queries scan. There are also costs associated with data storage, but those are usually small compared to compute. Though these two models are slightly different, they both lead to a similar take-home lesson: by being careful with how data are laid out and accessed, you can significantly reduce both execution time and cost for your cloud data warehouses.</p>
+<h3 id="note-on-snowflake-sql">Note on Snowflake SQL<a class="headerlink" href="#note-on-snowflake-sql" title="Permanent link">&para;</a></h3>
+<p>The <a href="https://docs.snowflake.com/en/sql-reference-commands">SQL Command Reference</a>. From here, you can view all the SQL commands supported by Snowflake. The “All Commands” entry provides an alphabetical list where you can find specific commands and click on them to be taken to the documentation page for that command.</p>
+<h3 id="tour-of-snowflake-user-interface">Tour of Snowflake user interface<a class="headerlink" href="#tour-of-snowflake-user-interface" title="Permanent link">&para;</a></h3>
+<ol>
+<li>We’ll give you a brief overview of the Snowflake user interface:<ol>
+<li><em>Home</em></li>
+<li><em>User menu</em> Where you will find your username and the role that you currently have set. You will learn more about roles later on. This menu also allows you to switch to other accounts, access Snowflake documentation, and view your user profile.</li>
+<li><em>Data</em> Where you can view all the data, including the raw, transformation, and final analytics layers (we will go over these later!).</li>
+<li><em>Projects</em> Where you can query your data using SQL, Python, or Streamlit. Most of the code we will be writing to transform data will be done in dbt, but Snowflake is a great place to explore your data and build ad hoc analyses.</li>
+<li><em>Monitoring</em> Where you can view query history and other logs, explore various data governance stats, and review security recommendations.</li>
+<li><em>Admin</em> Where you can review resource usage, and where account admins can manage warehouses, users, roles, and security policies.</li>
+</ol>
+</li>
+</ol>
+<h3 id="snowflake-account-structure">Snowflake account structure<a class="headerlink" href="#snowflake-account-structure" title="Permanent link">&para;</a></h3>
+<p>Let's take a look at the hierarchy of all the different objects that make up your Snowflake project:
+<img alt="Snowflake account diagram" src="../../images/snowflake_account_objects.png" /></p>
+<h3 id="users-and-roles">Users and roles<a class="headerlink" href="#users-and-roles" title="Permanent link">&para;</a></h3>
+<p>In Snowflake, every user is assigned one or more roles. Privileges are granted to roles, and this determines:</p>
+<ul>
+<li>What databases the role can see</li>
+<li>What virtual warehouses the role can use</li>
+<li>What permissions the role has on database objects (e.g., read-only, read-write, etc)</li>
+</ul>
+<h3 id="databases-and-schemas">Databases and schemas<a class="headerlink" href="#databases-and-schemas" title="Permanent link">&para;</a></h3>
+<p>An account can have many databases, used to logically organize data.</p>
+<p>A database contains schemas:</p>
+<ul>
+<li>Each database belongs to a single account</li>
+<li>Each schema belongs to a single database</li>
+</ul>
+<p>A schema is a logical grouping of objects:</p>
+<ul>
+<li>Tables, views, stages, file formats, etc</li>
+</ul>
+<h3 id="virtual-warehouses">Virtual warehouses<a class="headerlink" href="#virtual-warehouses" title="Permanent link">&para;</a></h3>
+<p>A virtual warehouse, usually referred to as a "warehouse" in Snowflake is a powerful and scalable computing resource that allows you to execute SQL queries and perform analytical tasks on your data. Unlike traditional data warehouses, Snowflake’s virtual warehouses are “virtual” in the sense that they are not tied to a specific hardware. Instead, they operate in the cloud and can dynamically allocate or deallocate computing resources based on your workload.</p>
+<p>A warehouse provides the required resources, such as CPU, memory, and temporary storage, to perform the following operations in a Snowflake session:</p>
+<ul>
+<li>Executing SQL SELECT statements that require compute resources (e.g. retrieving rows from tables and views)</li>
+<li>Performing DML (Data Manipulation Language) operations, such as:<ul>
+<li>Updating rows in tables (DELETE , INSERT , UPDATE)</li>
+<li>Loading data into tables (COPY INTO <code>table</code>)</li>
+<li>Unloading data from tables (COPY INTO <code>location</code>)</li>
+</ul>
+</li>
+</ul>
+<h3 id="warehouse-sizes">Warehouse sizes<a class="headerlink" href="#warehouse-sizes" title="Permanent link">&para;</a></h3>
+<p>Warehouses are available in a few different sizes, depending upon the needs of the data processing job:</p>
+<ul>
+<li>X-small (denoted by (XS)) Good for small tasks and experimenting.</li>
+<li>Small (denoted by S), Suitable for single-user workloads and development.</li>
+<li>Medium (denoted by M), Handles moderate concurrency and data volumes.</li>
+<li>Large denoted by (L), Manages larger queries and higher concurrency.</li>
+<li>X-Large (denoted by (XL)) Powerful for demanding workloads and data-intensive operations.</li>
+<li>2X-Large (denoted by 2XL)</li>
+<li>3X-Large (denoted by 3XL)</li>
+<li>4X-Large (denoted by 4XL)</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note: Most jobs on small data should use the relevant X-small warehouse. Warehouse size affects the cost of your query, so err on the side of using the smallest warehouse to do your job. <a href="https://docs.snowflake.com/en/user-guide/warehouses">Snowflake documentation on warehouses</a></p>
+</div>
+<h3 id="snowflake-context">Snowflake context<a class="headerlink" href="#snowflake-context" title="Permanent link">&para;</a></h3>
+<p>Setting your context in Snowflake means establishing the specific environment or workspace within the platform where you will be working. It tells the platform where you want to perform your data operations. This includes setting the database, schema, and other parameters that define the scope. Setting your context ensures that you are directing your actions to the appropriate database and schema, preventing unintentional modifications or queries in the wrong location.</p>
+<p><img alt="Snowflake context diagram" src="../../images/snowflake_context_diagram.png" /></p>
+<h3 id="exercise-set-your-context"><strong>Exercise: Set your context</strong><a class="headerlink" href="#exercise-set-your-context" title="Permanent link">&para;</a></h3>
+<h4 id="set-your-context-using-the-user-interface-instructions">Set your context using the user interface instructions<a class="headerlink" href="#set-your-context-using-the-user-interface-instructions" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Change your role to <code>public</code></li>
+<li>Navigate to Data &gt; Databases -- notice that nothing is here!</li>
+<li>Now change your role to <code>TRANSFORMER_DEV</code></li>
+<li>Navigate to <code>RAW_DEV</code> -&gt; <code>WATER_QUALITY</code></li>
+<li>View the Schema Details and Tables on this database</li>
+<li>Now change your role to <code>TRANSFORMER_PRD</code> -- how did this change the databases you can see?</li>
+</ol>
+<h4 id="set-your-context-using-sql-commands-instructions">Set your context using SQL commands instructions<a class="headerlink" href="#set-your-context-using-sql-commands-instructions" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Navigate to Projects</li>
+<li>Click on the + button in the top right corner -- this should open a new Snowflake Worksheet</li>
+<li>Select the <code>RAW_DEV</code> database -- oops! that database is no longer available because we are in the <code>TRANSFORMER_PRD</code> role</li>
+<li>
+<p>Copy the following code into the worksheet, click the arrow next to the blue run button at the top of the screen, and select "Run All"</p>
+<div class="highlight"><pre><span></span><code><span class="n">USE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">transformer_dev</span><span class="p">;</span>
+<span class="n">USE</span><span class="w"> </span><span class="n">WAREHOUSE</span><span class="w"> </span><span class="n">transforming_xs_dev</span><span class="p">;</span>
+<span class="n">USE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">raw_dev</span><span class="p">;</span>
+<span class="n">USE</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">water_quality</span><span class="p">;</span>
+<span class="k">SHOW</span><span class="w"> </span><span class="n">tables</span><span class="p">;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Notice you can also make these changes by selecting the Role and Warehouse at the top of the UI by the run button</p>
+</li>
+</ol>
+<h3 id="context-is-key">Context is key<a class="headerlink" href="#context-is-key" title="Permanent link">&para;</a></h3>
+<p>As you may have noticed from the exercises above, it can be really easy to have the wrong role selected when navigating in Snowflake.</p>
+<p>Pay attention to which role and warehouse you have active, especially if you cannot find a database or table you expect to see or you receive an "object not found" error. You might just need to change your role!</p>
+<h3 id="defaults">Defaults<a class="headerlink" href="#defaults" title="Permanent link">&para;</a></h3>
+<p>Every user will be assigned a default Role and Warehouse.</p>
+<p>Your default ROLE should be:</p>
+<ul>
+<li><strong>TRANSFORMER_DEV</strong>: This is the analytics engineer/dbt role, for transforming raw data into something analysis-ready. It has read/write/control access to both TRANSFORM and ANALYTICS, and read access to RAW.</li>
+</ul>
+<p>Your default WAREHOUSE should be:</p>
+<ul>
+<li><strong>TRANSFORMING_XS_DEV</strong>: This warehouse is for transforming data in TRANSFORM and ANALYTICS. For most small jobs, you want XS. It gets very costly as you scale up to larger warehouses. If your job is large (it takes a while or times out to run in XS?) or it’s a long script, you can scale up, but maybe start in XS.</li>
+</ul>
+<h3 id="odi-snowflake-architecture">ODI Snowflake Architecture<a class="headerlink" href="#odi-snowflake-architecture" title="Permanent link">&para;</a></h3>
+<p>We’ve talked about Snowflake architecture generally. Now we’re going to start talking about ODI-specific architecture. The setup of our account is adapted from the approach described in this dbt blog post, which we summarize <a href="https://www.getdbt.com/blog/how-we-configure-snowflake/">here</a>.</p>
+<p>There are two environments set up for this project, <strong>development</strong> and <strong>production</strong>. Resources in the development environment are suffixed with DEV, and resources in the production environment are suffixed with PRD.</p>
+<p>Most of the time, developers will be working in the <strong>development</strong> environment. Once your branches are merged to <code>main</code>, they will be used in the production environment.</p>
+<p>What follows is a brief description of the most important Snowflake resources in the dev and production environments and how developers are likely to interact with them.</p>
+<p>We'll get into all of this throughout the training (and throughout our engagement with you!) -- so don't feel you need to memorize this just yet.</p>
+<h4 id="six-databases"><strong>Six databases</strong><a class="headerlink" href="#six-databases" title="Permanent link">&para;</a></h4>
+<p>We have six primary databases in our project.</p>
+<p>Where our Source data lives</p>
+<div class="highlight"><pre><span></span><code>RAW_DEV: Development space for loading new source data.
+RAW_PRD: Landing database for production source data.
+</code></pre></div>
+<p>Where data from our Staging and Intermediate models lives</p>
+<div class="highlight"><pre><span></span><code>TRANSFORM_DEV: Dev space for staging/intermediate models. This is where most of your dbt work is!
+TRANSFORM_PRD: Prod space for models. This is what builds in the nightly job.
+</code></pre></div>
+<p>Where data from our Marts models lives</p>
+<div class="highlight"><pre><span></span><code>ANALYTICS_DEV: Dev space for mart models. Use this when developing a model for a new dashboard or report!
+ANALYTICS_PRD: Prod space for mart models. Point production dashboards and reports to this database.
+</code></pre></div>
+<p>We will review the difference between Source, Staging/Intermediate, and Marts models in more depth during the dbt training!</p>
+<h4 id="six-warehouse-groups"><strong>Six warehouse groups</strong><a class="headerlink" href="#six-warehouse-groups" title="Permanent link">&para;</a></h4>
+<p>There are six warehouse groups for processing data in the databases, corresponding to the primary purposes of the above databases. They are available in a few different sizes, depending upon the needs of the the data processing job.</p>
+<div class="highlight"><pre><span></span><code>LOADING_{size}_DEV: This warehouse is for loading data to RAW_DEV. It is used for testing new data loading scripts.
+TRANSFORMING_{size}_DEV: This warehouse is for transforming data in TRANSFORM_DEV and ANALYTICS_DEV. Most dbt developers will use this warehouse for daily work.
+REPORTING_{size}_DEV: This warehouse is for testing dashboards.
+LOADING_{size}_PRD: This warehouse is for loading data to RAW_PRD. It is used for production data loading scripts.
+TRANSFORMING_{size}_PRD: This warehouse is for transforming data in TRANSFORM_PRD and ANALYTICS_PRD. This warehouse is used for the nightly builds.
+REPORTING_{size}_PRD: This warehouse is for production dashboards.
+</code></pre></div>
+<h4 id="six-roles"><strong>Six roles</strong><a class="headerlink" href="#six-roles" title="Permanent link">&para;</a></h4>
+<p>There are six primary functional roles:</p>
+<div class="highlight"><pre><span></span><code>LOADER_DEV: Dev role for loading data to the RAW_DEV database. This is assumed when developing new data loading scripts.
+LOADER_PRD: Prod role for loading data to the RAW_PRD database. This is assumed by data loading scripts.
+
+TRANSFORMER_DEV: Dev role for transforming data. This is you! Models built with this role get written to the TRANSFORM_DEV or ANALYTICS_DEV databases. CI robots also use this role to run checks and tests on PRs before they are merged to main.
+TRANSFORMER_PRD: Prod role for transforming data. This is assumed by the nightly build job and writes data to the TRANSFORM_PRD or ANALYTICS_PRD databases.
+
+REPORTER_DEV: Dev role for reading marts. Use this when developing new dashboards. This role can read models in the ANALYTICS_DEV database.
+REPORTER_PRD: Prod role for reading marts. This is for users and service accounts using production dashboards. This role can read models in the ANALYTICS_PRD database.
+</code></pre></div>
+<h4 id="access-roles-vs-functional-roles">Access Roles vs Functional Roles<a class="headerlink" href="#access-roles-vs-functional-roles" title="Permanent link">&para;</a></h4>
+<p>In Snowflake, roles define which users have access to which data and what they can do with it. We create a two layer role hierarchy according to <a href="https://docs.snowflake.com/en/user-guide/security-access-control-considerations#aligning-object-access-with-business-functions">Snowflake's guidelines</a></p>
+<p>Access Roles are roles giving a specific access type (read, write, or control) to a specific database object, (e.g., "read access on RAW").</p>
+<p>Functional Roles represent specific user personae like "developer" or "analyst" or "administrator". Functional roles are built by being granted a set of Access Roles.</p>
+<h4 id="visualizing-the-odi-context">Visualizing the ODI context<a class="headerlink" href="#visualizing-the-odi-context" title="Permanent link">&para;</a></h4>
+<p>To make the preceding more concrete, let's consider the six databases, RAW, TRANSFORM, and ANALYTICS, for both DEV and PRD:</p>
+<p><img alt="six databases" src="../../images/snowflake_six_databases.png" /></p>
+<p>If you are a developer, you are doing most of your work in TRANSFORM_DEV and ANALYTICS_DEV, assuming the role TRANSFORMER_DEV. However, you also have the ability to select the production data from RAW_PRD for your development. But you do not have access to the production level data of the Transform and Analytics steps. So your data access looks like the following:</p>
+<p><img alt="developer" src="../../images/snowflake_developer.png" /></p>
+<p>Again, some of this will make a lot more sense when we get further into the training. The main takeaway here is that your ability to view, transform, load, and create data in Snowflake is dependent on the exact combination of:</p>
+<ul>
+<li>your account -- determines which roles you have access to</li>
+<li>your role -- determines which databases you have access to</li>
+<li>your database -- determines what actions you can take (read, write)</li>
+</ul>
+<h3 id="exercise"><strong>Exercise: <additional context></strong><a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h3>
+<p>Let's play around with roles and databases a bit more</p>
+<ol>
+<li>In Snowflake, navigate to a new Worksheet</li>
+<li>
+<p>Assume the following context by running this code:</p>
+<div class="highlight"><pre><span></span><code><span class="n">USE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">transformer_dev</span><span class="p">;</span>
+<span class="n">USE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">transform_dev</span><span class="p">;</span>
+<span class="n">USE</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="n">water_quality</span><span class="p">;</span>
+<span class="n">USE</span><span class="w"> </span><span class="n">WAREHOUSE</span><span class="w"> </span><span class="n">transforming_xs_dev</span><span class="p">;</span>
+</code></pre></div>
+</li>
+</ol>
+<p>Using the TRANSFORMER_DEV role, we should have READ access to the TRANSFORM, ANALYTICS and RAW databases</p>
+<ol>
+<li>
+<p>Run the following code to read some data:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">RAW_DEV</span><span class="p">.</span><span class="n">WATER_QUALITY</span><span class="p">.</span><span class="n">LAB_RESULTS</span>
+<span class="k">LIMIT</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</code></pre></div>
+</li>
+</ol>
+<h2 id="day-2"><strong>Day 2</strong><a class="headerlink" href="#day-2" title="Permanent link">&para;</a></h2>
+<h3 id="loading-and-querying-data-in-snowflake">Loading and querying data in Snowflake<a class="headerlink" href="#loading-and-querying-data-in-snowflake" title="Permanent link">&para;</a></h3>
+<p>On Day 1, we learned about cloud data warehouses, how Snowflake is structured, how to navigate the user interface, and ODI's recommended structure for warehouses, databases, and roles in Snowflake.</p>
+<p>Today we will work directly with data and learn about how to load data into Snowflake and how to query it.</p>
+<h3 id="when-will-i-need-to-load-data-into-snowflake">When will I need to load data into Snowflake?<a class="headerlink" href="#when-will-i-need-to-load-data-into-snowflake" title="Permanent link">&para;</a></h3>
+<p>During the set up phase of the MDSA project, ODI will be helping your team build data pipelines that load all your data from their source (whether that be on-prem SQL servers, online tools such as Google Analytics or Esri, cloud storage providers such as AWS S3 buckets, or even spreadsheets) into the RAW_PRD database in Snowflake on an automated schedule.</p>
+<p>This means that most of the data loading for this project will happen during the initial set up phase and this will not be something you need to do on a regular basis. However, it is helpful to understand how data is loaded into Snowflake.</p>
+<p>If you are a part of this initial set up phase, or need to load data in after the set up period (because you have a new datasource, or an old datasource needs to be connected in a new way), then you can find information about how to load data into Snowflake in the <a href="https://docs.snowflake.com/en/guides-overview-loading-data">Snowflake documentation</a> on this topic.</p>
+<h3 id="exercise-1"><strong>Exercise: 1</strong><a class="headerlink" href="#exercise-1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Download the <a href="https://data.ca.gov/dataset/water-quality-data/resource/3532a18a-de6d-4d4c-abcf-285f1a972ea9">Stations data</a> as a CSV</li>
+<li>In Snowflake, navigate to Data &gt; Add Data &gt; Browse and select the csv you downloaded and renamed</li>
+<li>Select the following:
+    Database: RAW_DEV
+    Schema: DATA_LOAD_TRAINING
+    Create new table
+    Name: [your first name]_stations</li>
+<li>Review load settings, then confirm</li>
+<li>
+<p>Press Query Data and explore the data. Use these queries as a starting point:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">RAW_DEV</span><span class="p">.</span><span class="n">DATA_LOAD_TRAINING</span><span class="p">.[</span><span class="n">yourname</span><span class="p">]</span><span class="n">_stations</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">RAW_DEV</span><span class="p">.</span><span class="n">DATA_LOAD_TRAINING</span><span class="p">.[</span><span class="n">yourname</span><span class="p">]</span><span class="n">_stations</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">county_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Yolo&#39;</span><span class="p">;</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">station_type</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">RAW_DEV</span><span class="p">.</span><span class="n">DATA_LOAD_TRAINING</span><span class="p">.[</span><span class="n">yourname</span><span class="p">]</span><span class="n">_stations</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">station_type</span><span class="p">;</span>
+</code></pre></div>
+</li>
+</ol>
+<h3 id="databases-tables-and-views">Databases, tables, and views<a class="headerlink" href="#databases-tables-and-views" title="Permanent link">&para;</a></h3>
+<p>All data in Snowflake is maintained in databases. Each database consists of one or more schemas, which are logical groupings of database objects, such as tables and views. Snowflake does not place any hard limits on the number of databases, schemas (within a database), or objects (within a schema) you can create.</p>
+<p>Much more information, including info on how Snowflake partitions and clusters in <a href="https://docs.snowflake.com/en/guides-overview-db">Snowflake's docs</a>.</p>
+<p>We will dive deeper into the difference between tables and views during dbt training.</p>
+<h4 id="tables">Tables<a class="headerlink" href="#tables" title="Permanent link">&para;</a></h4>
+<p>All data in Snowflake is stored in database tables, logically structured as collections of columns and rows. To best utilize Snowflake tables, particularly large tables, it is helpful to have an understanding of the physical structure behind the logical structure.</p>
+<p>For any Snowflake table, you can open Data » Databases and search for or navigate to the table. Select the table to do any of the following:</p>
+<ul>
+<li>Explore details about the table and the columns defined in the table.</li>
+<li>Preview the data in the table.</li>
+<li>Load data into the table from files.</li>
+<li>Monitor the data loading activity for the table using the table-level Copy History.</li>
+</ul>
+<h4 id="views">Views<a class="headerlink" href="#views" title="Permanent link">&para;</a></h4>
+<p>A view allows the result of a query to be accessed as if it were a table. It is used when you need to query a result but don’t need to contain the data permanently. Instead of storing the actual data, a view stores the query definition, allowing you to access the data dynamically when you query the view.</p>
+<p>It stores the SQL so you don’t have to write it again and again and can reference it. But if the data is not needed all the time, it doesn’t consume any add’l storage. And it can encapsulate very complex queries.</p>
+<p>It can be modified without affecting the underlying tables that they’re querying.</p>
+<h4 id="materialized-views">Materialized Views<a class="headerlink" href="#materialized-views" title="Permanent link">&para;</a></h4>
+<p>A materialized view is a pre-computed data set derived from a query and stored for later use.</p>
+<p>Querying a materialized view is faster than a view. They auto-refresh on a schedule that you define. But it does not refresh based on any changes in the data.</p>
+<h3 id="data-layout-columnar-storage">Data layout: columnar storage<a class="headerlink" href="#data-layout-columnar-storage" title="Permanent link">&para;</a></h3>
+<p>Most cloud data warehouses use columnar storage for their data. This means that data for each column of a table are stored sequentially in object storage (this is in contrast to transactional databases which usually store each row, or record, sequentially in storage). This BigQuery blog post goes into a bit more detail.</p>
+<p>On the left is data laid out in a record-oriented way, where each row's values are contiguous in memory. On the right is data laid out in a columnar way, where each column's values are contiguous in memory.</p>
+<p><img alt="developer" src="../../images/snowflake_columnar_storage.png" /></p>
+<p>There are a number of advantages to using columnar storage for analytical workloads:</p>
+<ul>
+<li>You can read in columns separately from each other. So if your query only needs to look at one column of a several-hundred column table, it can do that without incurring the cost of loading and processing all of the other columns.</li>
+<li>Because the values in a column are located near each other in device storage, it is much faster to read them all at once for analytical queries like aggregations or window functions. In row-based storage, there is much more jumping around to different parts of memory.</li>
+<li>Having values of the same data type stored sequentially allows for much more efficient serialization and compression of the data at rest.</li>
+</ul>
+<h3 id="data-layout-row-wise-partitions">Data layout: row-wise partitions<a class="headerlink" href="#data-layout-row-wise-partitions" title="Permanent link">&para;</a></h3>
+<p>In addition to columnar storage, cloud data warehouses also usually divide tables row-wise into chunks called partitions. Different warehouses choose different sizing strategies for partitions, but they are typically from a few to a few hundred megabytes.</p>
+<p>Having separate logical partitions in a table allows the compute resources to process the partitions independently of each other in parallel. This massively parallel processing capability is a large part of what makes cloud data warehouses like Snowflake scalable.</p>
+<h3 id="review-tables-and-roles-from-day-1">Review tables and roles from Day 1<a class="headerlink" href="#review-tables-and-roles-from-day-1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Explore the user interface again, focusing on Data, Roles, and Warehouses</li>
+</ul>
+<h3 id="analyzing-queries-using-the-query-profile">Analyzing Queries using the Query Profile<a class="headerlink" href="#analyzing-queries-using-the-query-profile" title="Permanent link">&para;</a></h3>
+<p>A Query profile refers to a detailed report or set of metrics generated for an executed query. The query profile provides insights into the query’s performance, resource usage, and other relevant information. It is designed to help you identify potential performance bottlenecks and improvement opportunities.</p>
+<p>We’ll give you a brief overview of how to investigate and debug issues with queries in Snowflake:</p>
+<ol>
+<li><em>Query details</em> By looking at this, you can see if the query succeeded and if it ran within the time frame you were hoping for.<ol>
+<li><em>Query profile</em> Note that there are two panels in the Query Profile that show specific aspects of execution:
+    -<em>Most expensive nodes</em> panel shows the nodes that took the longest to execute.
+    -<em>Profile overview</em> displays the percentage of execution time that went towards processing each stage of the queyr</li>
+<li><em>Statistics</em> These figures tell you whether partition pruning is efficient or not.</li>
+<li><em>Data cache</em> ​​Snowflake caches data from queries you run so it can be accessed later by other queries. This cache is saved to disk in the virtual warehouse.</li>
+</ol>
+</li>
+</ol>
+<h4 id="partition-pruning">Partition pruning<a class="headerlink" href="#partition-pruning" title="Permanent link">&para;</a></h4>
+<p>Partition pruning is a process by which Snowflake eliminates partitions from a table scan based on the query’s WHERE clause and the partition’s metadata. This means fewer partitions are read from the storage layer or are involved in filtering and joining, which gives you better performance.</p>
+<p>Data in Snowflake tables will be organized based on how the data is ingested. For example, if the data in a table has been organized based on a particular column, knowing which column that is and including it in joins or in WHERE clause predicates will result in more partitions being pruned and, thus, better query performance.</p>
+<h3 id="writing-efficient-queries-best-practices">Writing efficient queries: best practices<a class="headerlink" href="#writing-efficient-queries-best-practices" title="Permanent link">&para;</a></h3>
+<p>With the above understanding of how cloud data warehouses store and process data, these are our general recommendations for how to construct efficient queries, which is especially useful when you are querying large tables with lots of data stored in them:</p>
+<ol>
+<li>Only SELECT the columns you need. Columnar storage allows you to ignore the columns you don't need, and avoid the cost of reading it in. SELECT * can get expensive!</li>
+<li>If the table has a natural ordering, consider setting a clustering key. For example, if the data in the table consists of events with an associated timestamp, you might want to cluster according to that timestamp. Then events with similar times would be stored near each other in the same or adjacent partitions, and queries selecting for a particular date range would have to scan fewer partitions.</li>
+<li>If the table has a clustering key already set, try to filter based on that in your queries. This can greatly reduce the amount of data you need to scan. The queries based on these filters should be as simple as you can manage, complex predicates on clustered columns can make it difficult for query optimizers to prune partitions. You can tell if Snowflake has a clustering key set by inspecting the table definition for a cluster by clause.</li>
+<li>Filter early in complex queries, rather than at the end. If you have complex, multi-stage queries, filtering down to the subset of interest at the outset can avoid the need to process unnecessary data and then throw it away later in the query.</li>
+</ol>
+<h3 id="exercise-2"><strong>Exercise: 2</strong><a class="headerlink" href="#exercise-2" title="Permanent link">&para;</a></h3>
+<h4 id="run-a-query-and-view-its-performance">Run a query and view its performance<a class="headerlink" href="#run-a-query-and-view-its-performance" title="Permanent link">&para;</a></h4>
+<ol>
+<li>In Snowflake, make sure your role is set to TRANSFORMER_DEV</li>
+<li>Navigate to PROJECTS &gt; WORKSHEETS</li>
+<li>Create a new worksheet and ensure you have the following context set:
+    Database: RAW_DEV
+    Schema: WATER_QUALITY
+    Warehouse: Smallest</li>
+<li>
+<p>Copy the following code into this cell and press run</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">stations</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">county_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Yolo&#39;</span><span class="p">;</span>
+</code></pre></div>
+</li>
+<li>
+<p>View the Query Details to see how long this took and other details about this query</p>
+</li>
+<li>
+<p>Now copy the following</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">lab_results</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="ss">&quot;county_name&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Yolo&#39;</span><span class="p">;</span>
+</code></pre></div>
+</li>
+<li>
+<p>View the Query Details and compare them to that of the first query (hint: you can go back to the results of the first query by opening the Query History pane)</p>
+</li>
+<li>Next, navigate to MONITORING &gt; QUERY HISTORY and compare the two queries you ran.
+    -Click into each query
+    -Look at Query Profile to see the most expensive nodes</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>
