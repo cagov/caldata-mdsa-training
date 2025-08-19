@@ -73,7 +73,7 @@ The ODI team currently uses two different approaches to running this CI check:
 1. Run using GitHub actions (example [here](https://github.com/cagov/caldata-ddrc-pipelines/blob/main/.github/workflows/tests.yml))
 
 In both cases, a service account is used to connect to Snowflake when running the check.
-The schemas for models build during CI are prefixed with either
+The schemas for models built during CI are prefixed with either
 `DBT_CLOUD_PR_` or `GH_CI_PR_`, depending on whether CI is run through dbt Cloud or GitHub Actions.
 
 #### docs build
