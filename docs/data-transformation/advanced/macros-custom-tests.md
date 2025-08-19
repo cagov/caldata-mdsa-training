@@ -40,7 +40,7 @@ Let's revisit [data tests](../dbt.md#data-tests) from our foundational dbt train
 
 ## Custom tests
 
-dbt allows you to [create custom tests](https://docs.getdbt.com/best-practices/writing-custom-generic-tests) if you cannot find what you’re looking for with the generic tests, the dbt_utils package (see above), or in other packages. Custom tests are assertions you make about your models and other resources in your dbt project (e.g. sources, seeds, etc.). When you run `dbt test`, dbt will tell you if each test in your project passes or fails. You can use open source [dbt packages](https://docs.getdbt.com/docs/build/packages) like *dbt_utils* (mentioned above) or [*dbt_expectations*]( https://hub.getdbt.com/metaplane/dbt_expectations/latest/) rather than reinventing the wheel!
+dbt allows you to [create custom tests](https://docs.getdbt.com/best-practices/writing-custom-generic-tests) if you cannot find what you’re looking for with the generic tests, the dbt_utils package (see above), or in other packages. Custom tests are assertions you make about your models and other resources in your dbt project (e.g. sources, seeds, etc.). When you run `dbt test`, dbt will tell you if each test in your project passes or fails. You can use open source [dbt packages](https://docs.getdbt.com/docs/build/packages) like *dbt_utils* (mentioned above) or [*dbt_expectations*](https://hub.getdbt.com/metaplane/dbt_expectations/latest/) rather than reinventing the wheel!
 
 Custom tests are stored in the `tests` directory or `test-paths` entry in your `dbt_project.yml`
 
