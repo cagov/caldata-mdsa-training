@@ -556,6 +556,7 @@ Depending on platforms we are using for the project, we will demonstrate dbt doc
 
 ### Data environments and jobs
 
+#### Environments
 We often talk about the concept of "environments".
 Broadly speaking, environments are a collection of compute resources, software, and configuration,
 which together represent a functioning context for development.
@@ -576,13 +577,6 @@ In our default MDSA architecture we usually have two environments, "dev" and "pr
 Each of these environments consists of a set of databases corresponding to our layered data architecture
 (see our [Snowflake training](../cloud-data-warehouses/snowflake.md#snowflake-architecture) for more detail).
 
-A "job" is a command or series of commands that run in a given environment.
-Examples of jobs we often use in our MDSA projects include:
-
-* Running a nightly build of data models
-* Running continuous integration (CI, see below!) checks
-* Building project docs
-
 #### Environments in dbt Cloud
 
 dbt Cloud also has a concept of an Environment,
@@ -596,6 +590,19 @@ Our typical dbt Cloud setup includes the following environments:
 * Development, which uses the "dev" Snowflake environment. This is what you use when you work in the cloud IDE.
 * Production, which uses the "prod" Snowflake environment. This is what we use to build production data models.
 * Continuous Integration, which uses the "dev" Snowflake environment. This is what runs the automated CI checks.
+
+#### Jobs
+
+A "job" is a command or series of commands that run in a given environment.
+Examples of jobs we often use in our MDSA projects include:
+
+* Running a nightly build of data models
+* Running continuous integration (CI, see below!) checks
+* Building project docs
+
+Jobs can be configured in a number of ways: they can have different environment variables set,
+they can run on a schedule, or they can be triggered by a specific action like a pull request being opened,
+or a branch being merged.
 
 ### Continuous integration and continuous deployment (CI/CD)
 
