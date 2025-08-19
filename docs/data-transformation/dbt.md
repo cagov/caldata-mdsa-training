@@ -569,7 +569,7 @@ Unfortunately, that's pretty vague, since there are lots of different ways envir
 Depending on your situation, different environments in Snowflake could be represented by:
 
 * entirely different accounts
-* eifferent databases within the same account, or even
+* different databases within the same account, or even
 * different schemas within the same database.
 
 In our default MDSA architecture we usually have two environments, "dev" and "prod", which reside in the same Snowflake account.
