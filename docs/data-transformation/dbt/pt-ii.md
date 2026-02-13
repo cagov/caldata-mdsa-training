@@ -1,6 +1,6 @@
 # dbt (data build tool)
 
-## Part II: Documentation and testing
+## Part II: YAML documentation and testing
 
 ### Why document your data?
 
@@ -48,9 +48,7 @@ It is used for configuration for tools like:
 
 Indentation is meaningful in YAML. Use **2 spaces**, not two tabs, to indent sections per level of nesting.
 
-#### Basic YAML Structure
-
-##### YAML dictionaries/maps
+#### YAML dictionaries/maps
 
 ```yaml
 # In YAML, comments are started with the hashtag # symbol
@@ -255,12 +253,12 @@ For people who are familiar with transactional databases, you might be curious w
 needed (i.e., why don’t we handle it using constraints?). In a traditional transactional database like
 postgres or SQL Server, you can have a uniqueness constraint on a column. Snowflake does not respect
 uniqueness constraints and most OLAP databases do not either. Primary keys and foreign keys are examples of
-unique columns that are respected in OLTP databases that are not in OLAP databases. If you're interested the
+unique columns that are respected in OLTP databases that are not in OLAP databases. If you're interested there
 is [more reading](https://cagov.github.io/data-infrastructure/learning/cloud-data-warehouses/#primary-keys-and-constraints) available on this topic.
 
 ### Referring to sources and models
 
-Instead of directly referring to the database, schema, table/view names, we use macros in dbt called `source` and `ref`.
+Instead of directly referring to the database, schema, and table/view names, we use macros in dbt called `source` and `ref`.
 
 It can be initially confusing to people that we don’t directly refer to the names of the other data models, and instead do it via the `source` and `ref` macros. There are a few reasons for this:
 
@@ -268,7 +266,7 @@ It can be initially confusing to people that we don’t directly refer to the na
 1. It becomes easier to rename a data source. This can be especially useful if the data source comes to you with unhelpful names.
 1. Source and refs become context aware. For example, in a development context, your personal development schema is templated into the SQL queries, but in a production context the final production schema is templated in. This allows for safer development of new models.
 
-The syntax for this is to replace the raw names `database.schema.view/table_name` with a template directive like this: `{{ source('source_name', 'table_name') }}` e.g. `{{ source('WATER_QUALITY', 'STATIONS') }}`.
+The syntax for this is to replace the raw names `database.schema.view_name/table_name` with a template directive like this: `{{ source('source_name', 'table_name') }}`
 
 The curly braces are a syntax for _Jinja_ templating. The expression within the curly braces is a Python (ish) function which gets evaluated and inserted into the SQL file. There are lots of things we can do with Jinja to help generate our SQL queries, including basic math, custom Python functions, loops, and if-else statements. Most of the time, you will just need to be able to use the `source` and `ref` macros.
 
@@ -276,23 +274,23 @@ The curly braces are a syntax for _Jinja_ templating. The expression within the 
 
 This function creates dependencies between source data and the current model (usually staging) referencing it. Your dbt project will depend on raw data stored in your database. Since this data is normally loaded by other tools than dbt, the structure of it can change over time – tables and columns may be added, removed, or renamed. When this happens, it is easier to update models if raw data is only referenced in one place.
 
-**Example:** replace `RAW_DEV.WATER_QUALITY.LAB_RESULTS` with `{{ source('WATER_QUALITY', 'LAB_RESULTS') }}`.
+**Example:** replace `RAW_DEV.WATER_QUALITY.LAB_RESULTS` with `{{ source('WATER_QUALITY', 'LAB_RESULTS') }}`
 
 #### ref()
 
 This function is how you reference a model from another: it allows you to build more complex models by referring to other ones and constructing a data lineage graph. Under the hood this function is actually doing two important things. First, it is interpolating the schema into your model file to allow you to change your deployment schema via configuration. Second, it is using these references between models to automatically build the dependency graph. This will enable dbt to deploy models in the correct order when using dbt run.
 
-**Example:** Replace `stg_water_quality__stations` with `{{ ref(‘stg_water_quality__stations’) }}`.
+**Example:** Replace `stg_water_quality__stations` with `{{ ref(‘stg_water_quality__stations’) }}`
 
-### Part II practice
+### Practice
 
 #### Create and edit YAML files
 
 !!! abstract "Write YAML for your source data and staging models"
 
-    Here you’ll write YAML configuration for the Water Quality source tables, and for the two staging models you built. It will build on the branch you created in the previous exercise, so open dbt Cloud, navigate to the developer tab, and make sure that branch is checked out.
+    Here you’ll write YAML configuration for the Water Quality source tables, and for the two staging models you built. It will build on the branch you created in the previous exercise, so open dbt Platform, navigate to the developer tab, and make sure that branch is checked out.
 
-    1. Switch to your working branch: `git switch <your-first-name>-dbt-training`
+    1. If not already on your working branch, switch to it: `git switch <your-first-name>-dbt-training`
     1. In your text editor, open `transform/models/_sources.yml`. You should see mostly empty stubs for models and sources.
     1. First, specify where the Water Quality data exists in the Snowflake database. We’ll do that by adding some keys to the `Water Quality` source:
         1. Add a key for the database: (`database: RAW_DEV`).
@@ -326,10 +324,11 @@ This function is how you reference a model from another: it allows you to build 
 
     1. Add a not null test for STATION_ID
     1. Add a unique test for COUNTY_NAME. This one should fail!
-    1. In your dbt Cloud command line, run `dbt test --select stg_water_quality__stations`
+    1. In your dbt Platform command line, run `dbt test --select stg_water_quality__stations`
+    1. After observing the test results, remove only the unique test
 
     !!! note
-        The grain at which the stations data is collected results in duplicate county names so this is not a good test for this column.
+        The grain at which the stations data is collected results in duplicate county names so the unique test is not a good test for this column.
 
 === "dbt Core"
 
@@ -346,17 +345,63 @@ This function is how you reference a model from another: it allows you to build 
     1. Commit your code and leave a concise, yet descriptive commit message: `git commit -m "example message"`
         1. During this step pre-commit may catch an error you missed. It may auto-fix your file or you may have to do it yourself. Regardless you will have to repeat `git add...` (for each modified file) and `git commit...`.
     1. Push your code: `git push origin <your-first-name>-dbt-training`
+    1. Don't open a PR just yet, we'll do that later
 
-
-
-=== "dbt Cloud"
+=== "dbt Platform"
 
     1. Click the _Lint_ and _Fix_ buttons to check and edit your files
     1. Save any changes made by clicking "Save" or using a keyboard shortcut
     1. Commit and sync your code
     1. Leave a concise, yet descriptive commit message
 
-### Part II references
+### Knowledge check
+
+#### Question #1
+
+<div class="quiz-container">
+  <div class="quiz-question">What is the purpose of using the <code>source()</code> and <code>ref()</code> macros in dbt?</div>
+  <ul class="quiz-options">
+    <li class="quiz-option" data-correct="false">To make SQL queries run faster</li>
+    <li class="quiz-option" data-correct="true">To build data lineage graphs and enable context-aware deployments</li>
+    <li class="quiz-option" data-correct="false">To automatically generate documentation</li>
+    <li class="quiz-option" data-correct="false">To validate data quality</li>
+  </ul>
+  <div class="quiz-explanation">
+    <strong>Explanation:</strong> The <code>source()</code> and <code>ref()</code> macros help dbt construct a data lineage graph, making it easier to rebuild dependencies and enabling context-aware deployments (e.g., using development schemas in dev environments and production schemas in production).
+  </div>
+</div>
+
+#### Question #2
+
+<div class="quiz-container">
+  <div class="quiz-question">Which of the following is NOT one of dbt's four built-in generic data tests?</div>
+  <ul class="quiz-options">
+    <li class="quiz-option" data-correct="false">not_null</li>
+    <li class="quiz-option" data-correct="false">unique</li>
+    <li class="quiz-option" data-correct="true">greater_than</li>
+    <li class="quiz-option" data-correct="false">relationships</li>
+  </ul>
+  <div class="quiz-explanation">
+    <strong>Explanation:</strong> The four built-in generic tests in dbt are: not_null, unique, relationships, and accepted_values. While you can create custom tests for conditions like greater_than, it is not a built-in test.
+  </div>
+</div>
+
+#### Question #3
+
+<div class="quiz-container">
+  <div class="quiz-question">In YAML, what is the correct way to indent nested elements?</div>
+  <ul class="quiz-options">
+    <li class="quiz-option" data-correct="true">Use 2 spaces per level of nesting</li>
+    <li class="quiz-option" data-correct="false">Use 1 tab per level of nesting</li>
+    <li class="quiz-option" data-correct="false">Use 4 spaces per level of nesting</li>
+    <li class="quiz-option" data-correct="false">Indentation does not matter in YAML</li>
+  </ul>
+  <div class="quiz-explanation">
+    <strong>Explanation:</strong> YAML requires consistent indentation to define structure, and the standard practice in dbt is to use 2 spaces (not tabs) per level of nesting. Indentation is meaningful in YAML and affects how the file is parsed.
+  </div>
+</div>
+
+### References
 
 #### Sources
 
@@ -369,3 +414,9 @@ This function is how you reference a model from another: it allows you to build 
 
 - [What is testing?](https://platform.thinkific.com/videoproxy/v1/play/c71iuqg40bhpn3t11pcg)
 - [Generic tests](https://platform.thinkific.com/videoproxy/v1/play/ce9kjv0r715nknv53nhg)
+
+<!-- code for page navigation -->
+<div class="page-navigation">
+  <a href="../pt-i/" class="nav-button prev">Part I - Foundations and staging models</a>
+  <a href="../pt-iii/" class="nav-button next">Part III - Materializations and intermediate models</a>
+</div>

@@ -68,7 +68,17 @@ Source: [Materializations](https://docs.getdbt.com/docs/build/materializations#e
 
 ### Where to configure materializations
 
-You can configure models in `dbt_project.yml`, the YAML file within the corresponding model’s folder, or within a specific model itself. Confusing thing about dbt configuration: the syntax and format change depend on where you use it!
+You can configure models in 3 places:
+
+1. `dbt_project.yml`
+1. the YAML file within the corresponding model’s folder
+1. within a specific model itself
+
+The confusing thing about dbt configuration is the syntax and format change depend on where you do it!
+
+We recommend option 1, then option 2 as individual models' needs deviate from what is in `dbt_project.yml`.
+
+**Option 1**
 
 ```yaml
 # in the dbt_project.yml file...
@@ -80,7 +90,11 @@ models:
       +materialized: view
     marts:
       +materialized: table
+```
 
+**Option 2**
+
+```yaml
 # the YAML file within the corresponding model’s folder
 version: 2
 
@@ -92,6 +106,8 @@ models:
       - name: name
         description: Name of the entity
 ```
+
+**Option 3**
 
 ```sql
 -- within a specific model itself
@@ -106,29 +122,28 @@ select ...
 
 ### Intermediate models
 
-**Purpose:** Apply more complex transformations
+**Purpose:** The intermediate layer is where more complex transformations are applied to data.
 
 **Key characteristics:**
 
 - Combines data from multiple sources
 - Contains reusable transformations
-- Follows DRY (Don't Repeat Yourself) principles
+- Follows [DRY (Don't Repeat Yourself)](https://docs.getdbt.com/terms/dry#why-write-dry-code) principles
 - Modular building blocks for marts
 
 **Common transformations:**
 
 - Table joins or unions
-- Data aggregations (e.g., `SUM()`, `COUNT()`, `AVG()`)
+- Data aggregations e.g., `SUM()`, `COUNT()`, `AVG()`
 - Data pivots
 - Feature engineering
-- Business logic calculations
+- Data cleansing
 
 **Organization and naming:**
 
 - Saved in an `intermediate/` subdirectory
 - Files prefixed with `int_`
-- Format: `int_<description>`
-- Example: `int_water_quality__stations_per_county_2023`
+- Format: `int_<description>` e.g. `int_water_quality__stations_per_county_2023`
 
 **Materialization:**
 
@@ -142,11 +157,11 @@ select ...
 - A join is used repeatedly
 - You want to keep marts simple and focused
 
-### Part III practice
-
-Let refresh our memory on the value of [common table expressions (CTEs)](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt/#common-table-expressions-ctes).
+### Practice
 
 #### Refresher on CTEs
+
+Let refresh our memory on the value of [common table expressions (CTEs)](pt-i.md/#common-table-expressions-ctes).
 
 Let's go from writing our code like this...
 
@@ -183,41 +198,58 @@ select * from lab_results
 
 Here’s [another example of a more complex, multi-stage CTE](https://github.com/cagov/data-infrastructure/blob/main/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql) query.
 
-#### Advanced model building and YAML documentation practice
+#### Create first intermediate model and YAML docs
 
 !!! abstract "Create and document an intermediate dbt model"
 
-    Now that we’ve gotten some practice creating two staging models and editing our YAML file to reference our source data and models, let's create an intermediate model and update the relevant YAML file.
+    Now that we’ve gotten some practice creating two staging models and editing our YAML file to reference our sources and models, let's create an intermediate model and update the relevant YAML file.
 
     **SQL:**
 
-    1. Switch to your working branch: `<your-first-name>-dbt-training`
-    1. Open `transform/models/intermediate/training/int_water_quality__stations_per_county_with_parameter_2023_counted.sql`
+    1. If not already on your working branch, switch to it: `git switch <your-first-name>-dbt-training`
+    1. Open `transform/models/intermediate/training/int_water_quality__stations_per_county_counted.sql`
     1. Change the reference to the staging model by using the `ref()` macro we learned about
     1. Write a SQL query to return a count of the stations per county that reported a parameter of Dissolved Chloride for the year 2023 sorted from greatest to least.
-    1. _Hints_
-        1. This will make use of a SQL group by, aggregation, and join
-        1. Your output table should have two columns
-        1. Use Snowflake’s [year()](https://docs.snowflake.com/en/sql-reference/functions/year) function
     1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
+
+    **_Hints_**
+
+    1. This will make use of a SQL group by, aggregation, and join (_you can do this without a join, we want you do one anyway_)
+    1. Your output table should have two columns
+    1. Use Snowflake’s [year()](https://docs.snowflake.com/en/sql-reference/functions/year) function
 
     **YAML:**
 
     1. Document your new intermediate model in the `transform/models/intermediate/training/_int_water_quality.yml` file
     1. Materialize your model as a table
 
-#### Write some data tests
+#### Create second intermediate model and YAML docs
 
-!!! abstract "Write tests for the `stg_water_quality__stations` model"
+!!! abstract "Create a parameter diversity model with window functions"
 
-    Open your `transform/models/staging/training/_stg_water_quality.yml` and write some data integrity tests for your `stg_water_quality__stations` model.
+    This exercise builds a more complex intermediate model that identifies stations with diverse parameter testing and calculates parameter-specific statistics.
 
-    1. Add a not null test for STATION_ID
-    1. Add a unique test for COUNTY_NAME. This one should fail!
-    1. In your dbt Cloud command line, run `dbt test --select stg_water_quality__stations`
+    **SQL:**
 
-    !!! note
-        The grain at which the stations data is collected results in duplicate county names so this is not a good test for this column.
+    1. Remain on your working branch: `<your-first-name>-dbt-training`
+    1. Create a new file: `transform/models/intermediate/training/int_water_quality__station_parameter_summary.sql`
+    1. Change references to staging models by using the `ref()` macro
+    1. Write a SQL query that returns each station's most-tested parameters, showing the sample count, average result value, and most recent sample date for each parameter. Include a ranking column that orders parameters by frequency within each station. Only include parameters with at least 10 samples. Sort results by county, then station, then parameter rank.
+    1. Structure your query with multiple CTEs
+
+    **_Hints_**
+
+    1. You'll need to join stations with lab results, then aggregate by station and parameter
+    1. Your output should have these columns: `station_id`, `county_name`, `parameter`, `sample_count`, `avg_result`, `latest_sample_date`, `parameter_rank`
+    1. Use a window function with [ROW_NUMBER()](https://docs.snowflake.com/en/sql-reference/functions/row_number) to rank parameters within each station
+    1. Apply the sample count filter with a HAVING clause
+
+    **YAML:**
+
+    1. Document your model in `transform/models/intermediate/training/_int_water_quality.yml`
+    1. Materialize as a view (this model may be used for exploratory analysis)
+    1. Add a description explaining what this model shows
+    1. Add column descriptions for `parameter_rank` and calculated fields
 
 === "dbt Core"
 
@@ -235,19 +267,70 @@ Here’s [another example of a more complex, multi-stage CTE](https://github.com
         1. During this step pre-commit may catch an error you missed. It may auto-fix your file or you may have to do it yourself. Regardless you will have to repeat `git add...` (for each modified file) and `git commit...`.
     1. Push your code: `git push origin <your-first-name>-dbt-training`
 
-
-
-=== "dbt Cloud"
+=== "dbt Platform"
 
     1. Click the _Lint_ and _Fix_ buttons to check and edit your files
     1. Save any changes made by clicking "Save" or using a keyboard shortcut
     1. Commit and sync your code
     1. Leave a concise, yet descriptive commit message
 
-### Part III references
+### Knowledge check
+
+#### Question #1
+
+<div class="quiz-container">
+  <div class="quiz-question">According to the materializations "golden rule," in what order should you progress through materializations as your model grows?</div>
+  <ul class="quiz-options">
+    <li class="quiz-option" data-correct="false">Table → View → Incremental</li>
+    <li class="quiz-option" data-correct="true">View → Table → Incremental</li>
+    <li class="quiz-option" data-correct="false">Incremental → Table → View</li>
+    <li class="quiz-option" data-correct="false">Ephemeral → View → Table</li>
+  </ul>
+  <div class="quiz-explanation">
+    <strong>Explanation:</strong> Start with a view. When the view gets too long to query for end users, make it a table. When the table gets too long to build in your dbt jobs, build it incrementally.
+  </div>
+</div>
+
+#### Question #2
+
+<div class="quiz-container">
+  <div class="quiz-question">What is the primary purpose of intermediate models in dbt?</div>
+  <ul class="quiz-options">
+    <li class="quiz-option" data-correct="false">Provide a one-to-one representation of source data</li>
+    <li class="quiz-option" data-correct="true">Apply complex transformations and create reusable building blocks for marts</li>
+    <li class="quiz-option" data-correct="false">Serve as the final analytical tables for end users</li>
+    <li class="quiz-option" data-correct="false">Store raw data from external sources</li>
+  </ul>
+  <div class="quiz-explanation">
+    <strong>Explanation:</strong> Intermediate models combine data from multiple sources, contain reusable transformations, and follow DRY principles. They handle complex business logic like joins, aggregations, and feature engineering to serve as modular building blocks for marts.
+  </div>
+</div>
+
+#### Question #3
+
+<div class="quiz-container">
+  <div class="quiz-question">When should you use a table materialization instead of a view?</div>
+  <ul class="quiz-options">
+    <li class="quiz-option" data-correct="false">For staging models that need to stay in sync with source data</li>
+    <li class="quiz-option" data-correct="true">For frequently accessed models with compute-intensive transformations</li>
+    <li class="quiz-option" data-correct="false">For models that need real-time, up-to-date data</li>
+    <li class="quiz-option" data-correct="false">For all models to maximize performance</li>
+  </ul>
+  <div class="quiz-explanation">
+    <strong>Explanation:</strong> Tables are ideal for frequently accessed models with compute-intensive transformations, such as marts that service popular dashboards. They return transformed data when queried with no need for reprocessing. Views are better for models that need to stay fresh and are used as building blocks.
+  </div>
+</div>
+
+### References
 
 #### Materializations, Jinja, and dbt Models
 
 - [dbt materialization and performance considerations](https://cagov.github.io/data-infrastructure/dbt/dbt-performance/#2-model-level-materialization-matters)
 - [Jinja tutorial: Use Jinja to improve your SQL code](https://docs.getdbt.com/guides/using-jinja?step=1)
-- [Re-watch the second and third video from Day 1: Models in dbt](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt-cloud/#models-in-dbt)
+- [Re-watch the second and third video from Part I](pt-i.md/#models-in-dbt)
+
+<!-- code for page navigation -->
+<div class="page-navigation">
+  <a href="../pt-ii/" class="nav-button prev">Part II - YAML documentation and testing</a>
+  <a href="../pt-iv/" class="nav-button next">Part IV - dbt docs and mart models</a>
+</div>

@@ -2,51 +2,49 @@
 
 ## Part IV: dbt docs and mart models
 
-### dbt Docs
+### dbt docs
 
-A key feature of dbt is the automated generation of documentation and lineage from your project.
-The framework reads your SQL models and YAML configuration files and produces a static HTML document from them.
-This documentation can then be hosted in a number of places, including dbt Cloud, GitHub Pages, or Azure Static Web Apps.
-Depending on platforms we are using for the project, we will demonstrate dbt docs using one of the following:
+A key feature of dbt is the automated generation of documentation and lineage from your project. The source and ref functions we taught you about allow us to see the connectedness of our data in a DAG (Directed Acyclic Graph) or lineage graph. We can see from source all the way to a downstream model what models and other sources are dependencies.
 
-1. Hosted in dbt Cloud. This can be useful if you are writing docs in a branch and want to visualize how they are rendered.
-1. If we are using GitHub, we’ll demonstrate how the docs can be built from the repository and hosted on GitHub Pages.
-1. If we are using Azure DevOps, we’ll demonstrate how the docs can be built from the repository and hosted using Azure Static Web Apps.
-1. If we are using Bitbucket and are okay with public-facing docs, we'll demonstrate how the docs can be built and hosted using Bitbucket Cloud.
-1. If we are using none of the above, we'll show you how to generate and view the docs locally.
+Here's an example DAG from our team's [data-infrastructure project](https://github.com/cagov/data-infrastructure).
+
+![A DAG of the ODI Caldata DOE team's data-infrastructure project](../../images/odi-caldata-doe-dbt-dag.png)
+
+#### Rendering your docs as static HTML
+
+dbt reads your SQL models and YAML configuration files and produces a static HTML document from them.
+This documentation can then be hosted in a number of places, including dbt Platform, GitHub Pages, Azure Static Web Apps, etc. Here is an example that demonstrate dbt docs being hosted on [GitHub Pages](https://cagov.github.io/data-infrastructure/dbt_docs_snowflake/#!/overview) and [the code](https://github.com/search?q=repo%3Acagov%2Fdata-infrastructure%20dbt_docs_snowflake&type=code) that makes it happen.
+
+To generate docs locally, run: `dbt docs generate` then `dbt docs serve`
 
 ### Mart models
 
-**Purpose:** Create consumable datasets tailored for specific business or program needs.
+**Purpose:** Create consumable datasets tailored for specific business or program needs. Mart models are also known as an entity layer or business layer.
 
 **Key characteristics:**
+
 - Represent a specific entity or concept at its unique grain
 - Wide and denormalized (fewer joins for end users)
-- Business-friendly naming
+- Program-friendly naming
 - Optimized for querying and reporting
 
-**Also called:**
-- Entity layer
-- Concept layer
-- Business layer
-
 **Examples:**
-- `incidents` (one row per incident)
-- `customers` (one row per customer)
-- `orders` (one row per order)
-- `water_quality_monitoring` (one row per station)
 
-**Naming convention:**
-- Plain English based on the entity/concept
-- No prefixes needed
-- Example: `customers.sql`, not `mart_customers.sql`
+- `stations` (one row per monitoring station)
+- `lab_results` (one row per lab result)
+- `samples` (one row per sample)
+- `parameters` (one row per water quality parameter)
 
-**Organization:**
+**Organization and naming:**
+
 - Saved in a `marts/` subdirectory
-- Often organized by business domain (e.g., `marts/finance/`, `marts/operations/`)
+- Often organized by business domain (e.g., `marts/water_quality/`, `marts/geo/`)
+- Plain English based on the program/entity
+- No prefixes for model files needed e.g. `stations.sql`, not `mart_stations.sql`
 
 **Materialization:**
-- Always tables (marts need to be fast for end users)
+
+- Tables (marts need to be fast for end users)
 - Consider incremental for very large datasets
 
 ### Designing good mart models
@@ -58,13 +56,12 @@ Depending on platforms we are using for the project, we will demonstrate dbt doc
 
 **2. Business-friendly names**
 
-- Avoid abbreviations: `customer_name` not `cust_nm`
-- Avoid technical jargon: `created_date` not `sys_crt_ts`
+- Avoid abbreviations: `station_name` not `stn_nm`
+- Avoid technical jargon: `sample_date` not `sys_crt_ts`
 
 **3. Complete context**
 
-- Include all fields users need
-- Don't make them join to other tables
+- Include all fields users need rather than make them join to other tables
 
 **4. Well tested**
 
@@ -78,21 +75,75 @@ Depending on platforms we are using for the project, we will demonstrate dbt doc
 - Document calculated fields
 - Note any limitations or filters applied
 
-## Summary of the three layers (staging, intermediate, mart)
+### Summary of the three layers (staging, intermediate, mart)
 
-| Layer | Purpose | Transformations | Naming | Materialization |
-|-------|---------|-----------------|--------|-----------------|
-| **Staging** | One-to-one with source | Renaming, type casting | `stg_<source>__<entity>` | View |
-| **Intermediate** | Reusable business logic | Joins, aggregations | `int_<description>` | View or Table |
-| **Mart** | Business-ready datasets | Denormalization, final calcs | Plain English | Table |
+| Layer | Purpose | Transformations | Naming |
+|-------|---------|-----------------|--------|
+| **Staging** | One-to-one with source | Renaming, type casting | `stg_<source>__<entity>`
+| **Intermediate** | Reusable business logic | Joins, aggregations | `int_<description>`
+| **Mart** | Business-ready datasets | Denormalization, final calcs | Plain English
 
-### Part IV: practice
+### Practice
 
-Click either link for [<u>dbt Cloud</u>](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt-cloud-practice/#day-4) or [<u>dbt Core</u>](https://cagov.github.io/caldata-mdsa-training/data-transformation/dbt-core-practice/#day-4) practice.
+<!-- TODO -->
 
-### Part IV: references
+### Knowledge check
+
+#### Question #1
+
+<div class="quiz-container">
+  <div class="quiz-question">What is the primary purpose of mart models in dbt?</div>
+  <ul class="quiz-options">
+    <li class="quiz-option" data-correct="false">Provide a one-to-one representation of source data</li>
+    <li class="quiz-option" data-correct="false">Apply reusable business logic for downstream models</li>
+    <li class="quiz-option" data-correct="true">Create consumable, business-ready datasets tailored for specific needs</li>
+    <li class="quiz-option" data-correct="false">Store raw data from external sources</li>
+  </ul>
+  <div class="quiz-explanation">
+    <strong>Explanation:</strong> Mart models create business-ready datasets that are wide, denormalized, and optimized for querying and reporting. They represent specific entities or concepts at their unique grain and are designed for direct consumption by end users.
+  </div>
+</div>
+
+#### Question #2
+
+<div class="quiz-container">
+  <div class="quiz-question">Why is documentation important in data projects?</div>
+  <ul class="quiz-options">
+    <li class="quiz-option" data-correct="false">It is required by dbt to run models successfully</li>
+    <li class="quiz-option" data-correct="false">It automatically improves query performance</li>
+    <li class="quiz-option" data-correct="true">It helps team members understand data, builds trust, and preserves knowledge</li>
+    <li class="quiz-option" data-correct="false">It replaces the need for data testing</li>
+  </ul>
+  <div class="quiz-explanation">
+    <strong>Explanation:</strong> Documentation helps new team members understand the data, helps future you remember what you built and why, ensures stakeholders know what data means, and builds trust in data quality. Good documentation preserves institutional knowledge and makes data projects maintainable over time.
+  </div>
+</div>
+
+#### Question #3
+
+<div class="quiz-container">
+  <div class="quiz-question">Which of the following is a best practice when designing mart models?</div>
+  <ul class="quiz-options">
+    <li class="quiz-option" data-correct="false">Use technical abbreviations to save space (e.g., <code>cust_nm</code> instead of <code>customer_name</code>)</li>
+    <li class="quiz-option" data-correct="false">Keep tables normalized to minimize data duplication</li>
+    <li class="quiz-option" data-correct="true">Include all fields users need so they don't have to join to other tables</li>
+    <li class="quiz-option" data-correct="false">Prefix all mart models with <code>mart_</code> for clarity</li>
+  </ul>
+  <div class="quiz-explanation">
+    <strong>Explanation:</strong> Mart models should be wide and denormalized with complete context, including all fields users need. This avoids requiring end users to perform joins. Use business-friendly names without abbreviations, and use plain English naming without prefixes like <code>mart_</code>.
+  </div>
+</div>
+
+### References
 
 #### Documentation
 
 - [What is documentation?](https://platform.thinkific.com/videoproxy/v1/play/c71iuqg40bhpn3t11p80)
 - [Writing documentation and doc blocks](https://platform.thinkific.com/videoproxy/v1/play/ce2dchnf17fhkgqdq59g)
+- [Marts: Business-defined entities](https://docs.getdbt.com/best-practices/how-we-structure/4-marts)
+
+<!-- code for page navigation -->
+<div class="page-navigation">
+  <a href="../pt-iii/" class="nav-button prev">Part III - Materializations and intermediate models</a>
+  <a href="../pt-v/" class="nav-button next">Part V - Environments, jobs, CI/CD, and custom schemas</a>
+</div>

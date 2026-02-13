@@ -21,7 +21,7 @@ extra_css:
   - stylesheets/extra.css
 
 extra_javascript:
-  - javascripts/quiz.js
+  - javascript/quiz.js
 
 repo_name: cagov/caldata-mdsa-training
 repo_url: https://github.com/cagov/caldata-mdsa-training
@@ -42,32 +42,24 @@ markdown_extensions:
       alternate_style: true
 
 nav:
-  - Overview: index.md
-  - learning: learning-path.md
+  - Home: index.md
+  - Learning path: learning-path.md
+  - Training overview: overview.md
   - Code development:
       - Git: code/git.md
-      - GitHub: code/github.md
-      - Local repo setup: code/local-repo-setup.md
-      - CI/CD concepts: code/ci-cd.md
-      - CI/CD hands-on: code/ci-cd-hands-on.md
-      - Azure DevOps: code/devops.md
+      - Local repo setup: code/local-dev-setup.md
+      - Code-hosting platforms:
+          - GitHub: code/platforms/github.md
+          - Azure DevOps: code/platforms/devops.md
   - Cloud data warehouses:
       - Snowflake: cloud-data-warehouses/snowflake.md
   - Data transformation:
       - dbt:
-          - quiz: data-transformation/dbt/quiz-example.md
-          - Part I Foundations and staging models: data-transformation/dbt/pt-i.md
-          - Part II Documentation and testing: data-transformation/dbt/pt-ii.md
-          - Part III Materializations and intermediate models: data-transformation/dbt/pt-iii.md
-          - Part IV dbt docs and mart models: data-transformation/dbt/pt-iv.md
-          - Part V Environments, jobs, CI/CD, and custom schemas: data-transformation/dbt/pt-v.md
-      - TEST: data-transformation/TEST.md
-      - dbt Core practice: data-transformation/dbt-core-practice.md
-      - Practice answers: data-transformation/dbt-practice-answers.md
-      - Advanced:
-          - Macros & custom tests: data-transformation/advanced/macros-custom-tests.md
-  - Integration and architecture:
-      - End-to-end workflow: integration/end-to-end-workflow.md
-      - Local to production: integration/local-to-production.md
-      - Schema naming strategy: integration/schema-naming-strategy.md
-  - Troubleshooting: self-assessment/troubleshooting.md
+          - Part I - Foundations and staging models: data-transformation/dbt/pt-i.md
+          - Part II - YAML documentation and testing: data-transformation/dbt/pt-ii.md
+          - Part III - Materializations and intermediate models: data-transformation/dbt/pt-iii.md
+          - Part IV - dbt docs and mart models: data-transformation/dbt/pt-iv.md
+          - Part V - Environments, jobs, CI/CD, and custom schemas: data-transformation/dbt/pt-v.md
+          - Answer key: data-transformation/dbt/answer-key.md
+          - Advanced topics and practice:
+              - Macros & custom tests: data-transformation/dbt/advanced/macros-custom-tests.md

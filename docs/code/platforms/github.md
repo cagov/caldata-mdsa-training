@@ -2,7 +2,7 @@
 
 ## What is Github?
 
-**GitHub** is a web-based hosting service for [git](https://cagov.github.io/caldata-mdsa-training/code/git/) repositories. It provides a graphical user interface (GUI) for managing and reviewing code, as well as social networking features for interacting with other developers.
+**GitHub** is a web-based hosting service for [git](../git.md) repositories. It provides a graphical user interface (GUI) for managing and reviewing code, as well as social networking features for interacting with other developers.
 
 ## Clone a repo locally
 
@@ -99,29 +99,29 @@ Follow these remaining steps regardless of OS
     1. Make sure you’re on the branch you want to commit changes to (you almost never want to commit directly to “main”). If you just created a branch you are likely already on the branch you want to make changes to, if not switch to it.
     1. To create or switch branches, follow the steps above
 1. Navigate to the file you want to modify and make the necessary changes
-    1. Whether you’re editing a file in dbt Cloud, locally with a code editor like VS Code, or directly in GitHub (not recommended) you must click SAVE or use CTRL/COMMAND S. To save the changes to your file BEFORE you commit them.
+    1. Whether you’re editing a file in dbt Platform, locally with a code editor like VS Code, or directly in GitHub (not recommended) you must click SAVE or use CTRL/COMMAND S. To save the changes to your file BEFORE you commit them.
 1. Stage your changes
     1. We’ll skip how to do this in GitHub because we don’t recommend editing and committing changes directly in GitHub as this doesn’t allow you to run linting tools that can help you catch errors BEFORE you push changes. We will have CI checks set up on the project repo that will help catch database, formatting, SQL errors, etc.
     1. Locally this is done by:
         1. Tying `git add <file_name.file_extension>`
         1. You can use `git add .` to add ALL files you’ve edited. This can be a dangerous operation because you may accidentally stage files you made changes to but did not want to be added to the project repo. For instance you could have made changes to a file that may contain sensitive information. Only use `git add .` if you are sure all files are safe to stage!
-    1. In dbt Cloud the git add process is handled under the hood so be sure that every file you edit is actually a file you want to later commit, if not you must revert changes to any files you do not want to commit.
+    1. In dbt Platform the git add process is handled under the hood so be sure that every file you edit is actually a file you want to later commit, if not you must revert changes to any files you do not want to commit.
 1. Commit your changes
     1. Again we’ll skip how to do this in GitHub – we do not recommend it!
     1. Locally this is done with: `git commit -m “<a short message about the changes you made>”`
-    1. In dbt Cloud this is done by:
+    1. In dbt Platform this is done by:
         1. Clicking the “commit and sync” button
         1. Then typing a short, yet descriptive message about the changes you made in the text box that appears
-        1. Then clicking “Commit Changes” ![dbt cloud git commit example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/commit-changes.png?raw=true)
+        1. Then clicking “Commit Changes” ![dbt Platform git commit example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/commit-changes.png?raw=true)
 
 ### Pushing your changes
 
 1. Locally this is done with: `git push origin <branch_name>`
-1. In dbt Cloud this is also done under the hood when you click “Commit Changes”
+1. In dbt Platform this is also done under the hood when you click “Commit Changes”
 
 ### Opening a PR
 
-**Option 1**: This works whether you commit changes locally or via dbt Cloud
+**Option 1**: This works whether you commit changes locally or via dbt Platform
 
 1. Go to the GitHub repository where you just pushed your changes
 1. At the top of the home page you’ll see a message like the one below. It’ll say “<your_branch_name\> had recent pushes X minutes ago” with a green button that says “Compare & pull request”. Click that button.
@@ -151,9 +151,9 @@ Follow these remaining steps regardless of OS
 1. A dropdown will open, from there you can either type or click the name of the branch you want to compare to the “base: main” branch.
 1. After you select the branch follow steps 3 through 5 from Option 1 above
 
-**Option 3**: You have a third option to open a PR in dbt Cloud if you don’t choose to follow either of the two options above.
+**Option 3**: You have a third option to open a PR in dbt Platform if you don’t choose to follow either of the two options above.
 
-1. After you commit your changes you’ll see a light green button on the upper left that says “Create a pull request on GitHub”. This will only appear if you’ve yet to open a PR. If you have already opened a PR and are simply committing more changes to it you will not see this option. ![dbt cloud create a pr example](../images/dbt-cloud-create-pr.png)
+1. After you commit your changes you’ll see a light green button on the upper left that says “Create a pull request on GitHub”. This will only appear if you’ve yet to open a PR. If you have already opened a PR and are simply committing more changes to it you will not see this option. ![dbt Platform create a pr example](../images/dbt-cloud-create-pr.png)
 
 ### Reviewing a PR
 

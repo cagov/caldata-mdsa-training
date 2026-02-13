@@ -1,4 +1,4 @@
-# git
+# Git
 
 ## What is git?
 
@@ -11,9 +11,9 @@ Git is an essential tool for software development as it allows developers to tra
 There are many high-quality resources for learning git online. Here are a few:
 
 - Atlassian has an excellent set of tutorials for learning git, including:
-  - [A conceptual overview for beginners](https://www.atlassian.com/git/tutorials/what-is-version-control)
-  - [How to set up a repository](https://www.atlassian.com/git/tutorials/setting-up-a-repository)
-  - [How to use git to collaborate with others](https://www.atlassian.com/git/tutorials/syncing)
+    - [A conceptual overview for beginners](https://www.atlassian.com/git/tutorials/what-is-version-control)
+    - [How to set up a repository](https://www.atlassian.com/git/tutorials/setting-up-a-repository)
+    - [How to use git to collaborate with others](https://www.atlassian.com/git/tutorials/syncing)
 - GitHub has a nice [cheat-sheet](https://education.github.com/git-cheat-sheet-education.pdf) for common git commands
 - The [official git documentation](https://git-scm.com/doc) is not always the most user-friendly, but it has a depth of information that isn't available elsewhere
 

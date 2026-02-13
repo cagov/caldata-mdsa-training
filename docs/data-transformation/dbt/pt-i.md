@@ -6,23 +6,47 @@
 
 dbt is a SQL-first transformation tool that lets teams quickly and collaboratively deploy analytics code while following software engineering best practices like modularity, version control, CI/CD, and documentation. This allows your data team to safely develop and contribute to production-grade data pipelines.
 
-### Data modeling in the context of dbt
+### Data modeling
 
-In the context of dbt, data modeling refers to the process of organizing data in a structured and efficient manner to facilitate data analysis and decision-making. Data models in dbt serve as blueprints for transforming and organizing your raw data into valuable insights. Data models in their final form are usually a representation of a business or program area and live as tables or views in your data warehouse.
+In the context of dbt, data modeling refers to the process of organizing data in a structured and efficient manner to facilitate data analysis and decision-making. Data models in dbt are `.sql` files that serve as blueprints for transforming and organizing your raw data into valuable insights. Data models in their final form are usually a representation of a business or program area and live as tables or views in your data warehouse.
 
-### The three-layer architecture (staging, intermediate, mart)
+### A layered approach to data models (staging, intermediate, mart)
 
-Data layers represent a systematic approach to data modeling by organizing data into distinct phases:
+These three data layers represent a systematic approach to data modeling by organizing data into distinct phases:
 
 ```
-Raw/Source data → Staging → Intermediate → Mart
+Staging → Intermediate → Mart
 ```
 
 Each layer has a specific purpose and follows specific conventions. We'll cover intermediate and marts later.
 
-dbt does a particularly great job of explaining best practices to structuring your project and data with naming conventions, example code, and reasoning on such practices in [this guide](https://docs.getdbt.com/best-practices/how-we-structure/1-guide-overview). We’ve summarized it below, but still recommend a thorough read of dbt’s guide from which the content below stems.
+dbt does a particularly great job of explaining best practices to structuring your project and data with naming conventions, example code, and reasoning on such practices in [this guide](https://docs.getdbt.com/best-practices/how-we-structure/1-guide-overview). We’ve summarized it below, but still recommend a thorough read.
 
-<!-- TODO: Cover source and seed data here -->
+### Sources and Seeds
+
+**Sources** are how dbt references raw data tables that already exist in your data warehouse – likely data loaded by Extract/Load tools. By defining sources in YAML files (which you'll learn about in the next part), you can:
+
+  - Document where your raw data comes from
+  - Test the quality of raw data before transformation
+  - Track data lineage throughout your project
+  - Monitor source freshness
+
+Source freshness checks let you define expectations for when data should be updated (e.g., daily, hourly) and alert you when source data is stale. This helps catch upstream data pipeline issues before they affect your transformations.
+
+[dbt's documentation about sources and freshness](https://docs.getdbt.com/docs/build/sources) goes more in depth and is worth perusing as needed.
+
+  **Seeds** are CSV files stored in your dbt project repository that get loaded into your
+  data warehouse as tables. They're ideal for:
+
+  - Small, static reference datasets (e.g., State FIPS codes, category mappings)
+  - Data that changes infrequently and is easier to manage in version control
+  - Lookup tables that need to be shared across multiple models
+
+  Seeds should be kept small (under a few hundred rows) since they're version-controlled and
+  loaded on every `dbt seed` command. For larger datasets, use sources or external data
+  loading tools instead.
+
+
 
 ### Staging models
 
@@ -35,7 +59,7 @@ dbt does a particularly great job of explaining best practices to structuring yo
   - Provides a reliable foundation for downstream models
   - Very few data transformations
 
-**Appropriate transformations:**
+**Common transformations:**
 
   - Column renaming (e.g., `PLACEFP` → `place_fips`)
   - Data type casting (e.g., string to numeric)
@@ -70,10 +94,10 @@ In a nutshell, CTEs are reusable within a model and are more readable and mainta
     with total_samples_by_county as (
 
       select
-          "COUNTY_NAME",
+          COUNTY_NAME,
           SUM(SAMPLE_COUNT) as total_samples
       from raw_dev.water_quality.stations
-      group by "COUNTY_NAME"
+      group by COUNTY_NAME
 
     )
 
@@ -90,14 +114,14 @@ In a nutshell, CTEs are reusable within a model and are more readable and mainta
             COUNTY_NAME,
             SUM(SAMPLE_COUNT) as total_samples
         from raw_dev.water_quality.stations
-        group by "COUNTY_NAME"
+        group by COUNTY_NAME
     ) as subquery
     where total_samples > 10
     ```
 
 ### Practice
 
-Before we dive into exercises take a look at our command line reference to understand what dbt commands do. You can run these in your terminal locally or in the command line on dbt Cloud. dbt Cloud also offers a GUI with buttons you can press to run some of these commands as well.
+Before we dive into exercises take a look at our command line reference to understand what dbt commands do. You can run these in your terminal locally or in the command line on dbt Platform. dbt Platform also offers a GUI with buttons you can press to run some of these commands as well.
 
 **dbt command line reference**
 
@@ -110,13 +134,14 @@ Before we dive into exercises take a look at our command line reference to under
 1. `dbt test --select +path/to/the/model.sql+` – Test a model and its upstream and downstream dependencies
 1. `dbt run` – Build, but do not test, all models
 
-#### Create your first dbt staging model
+#### Create your first staging model
 
 !!! abstract "Create a staging model for the `STATIONS` data"
 
     There are a few simple transformations we can do to make working with these data more ergonomic. Models that require simple transformations involving things like data type conversion or column renaming are called staging models.
 
-    1. Switch to your branch: `git switch <your-first-name>-dbt-training` (we created this in advance for you!)
+    1. Download the training repo, we recommend at the root of your computer, but you can download it anywhere you'll remember to access it.
+    1. In your terminal or code editor of choice (e.g. VS Code), create a branch: `git switch -c <your-first-name>-dbt-training`
     1. In your text editor, open `transform/models/staging/training/stg_water_quality__stations.sql` – you should see a SQL statement that selects all of the data from the raw table
     1. Update the select statement to do the following:
         1. Explicitly select all columns by name rather than with `*`
@@ -127,7 +152,7 @@ Before we dive into exercises take a look at our command line reference to under
             1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. `YYYY-MM-DD HH24:MI:SS`
         1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
 
-#### Create your second dbt staging model
+#### Create your second staging model
 
 !!! abstract "Create a staging model for the `LAB_RESULTS` data"
 
@@ -162,25 +187,57 @@ Before we dive into exercises take a look at our command line reference to under
 
 
 
-=== "dbt Cloud"
+=== "dbt Platform"
 
     1. Click the _Lint_ and _Fix_ buttons to check and edit your files
     1. Save any changes made by clicking "Save" or using a keyboard shortcut
     1. Commit and sync your code
     1. Leave a concise, yet descriptive commit message
 
-### Self-assessment
+### Knowledge check
+
+#### Question #1
 
 <div class="quiz-container">
   <div class="quiz-question">What is the purpose of staging models in dbt?</div>
   <ul class="quiz-options">
     <li class="quiz-option" data-correct="false">Apply complex business logic transformations</li>
+    <li class="quiz-option" data-correct="false">Join multiple tables together</li>
     <li class="quiz-option" data-correct="true">Provide a one-to-one representation of source data with light transformations</li>
     <li class="quiz-option" data-correct="false">Create final analytical tables for end users</li>
-    <li class="quiz-option" data-correct="false">Join multiple tables together</li>
   </ul>
   <div class="quiz-explanation">
     <strong>Explanation:</strong> Staging models create a one-to-one relationship with source data and perform only basic transformations like column renaming, type casting, and simple computations. Complex business logic belongs in intermediate or mart models.
+  </div>
+</div>
+
+#### Question #2
+
+<div class="quiz-container">
+  <div class="quiz-question">Which materialization is typically used for staging models?</div>
+  <ul class="quiz-options">
+    <li class="quiz-option" data-correct="false">Table</li>
+    <li class="quiz-option" data-correct="false">Incremental</li>
+    <li class="quiz-option" data-correct="false">Snapshot</li>
+    <li class="quiz-option" data-correct="true">View or ephemeral</li>
+  </ul>
+  <div class="quiz-explanation">
+    <strong>Explanation:</strong> Staging models are typically materialized as views or ephemeral because they're cheap to rebuild and are queried by downstream models rather than end users.
+  </div>
+</div>
+
+#### Question #3
+
+<div class="quiz-container">
+  <div class="quiz-question">Which command builds and tests a specific model?</div>
+  <ul class="quiz-options">
+    <li class="quiz-option" data-correct="false"><code>dbt run --select model_name</code></li>
+    <li class="quiz-option" data-correct="false"><code>dbt test --select model_name</code></li>
+    <li class="quiz-option" data-correct="true"><code>dbt build --select model_name</code></li>
+    <li class="quiz-option" data-correct="false"><code>dbt compile --select model_name</code></li>
+  </ul>
+  <div class="quiz-explanation">
+    <strong>Explanation:</strong> The <i>dbt build</i> command both runs and tests models. In contrast, <i>dbt run</i> builds the model without testing, <i>dbt test</i> tests without building, and <i>dbt compile</i> compiles SQL without executing it. The <i> dbt build</i> command is the most comprehensive option to ensure your model is both created and validated.
   </div>
 </div>
 
@@ -188,10 +245,16 @@ Before we dive into exercises take a look at our command line reference to under
 
 #### dbt Fundamentals
 
-[dbt Fundamentals](https://courses.getdbt.com/courses/fundamentals) is an online self-paced course on how to use dbt and dbt Cloud. It is broadly similar to the content in this training, and you may find some of the videos from the course helpful to review. We’ve linked to some of the videos below.
+[dbt Fundamentals](https://courses.getdbt.com/courses/fundamentals) is an online self-paced course on how to use dbt and dbt Platform. It is broadly similar to the content in this training, and you may find some of the videos from the course helpful to review. We’ve linked to some of the videos below.
 
 #### Models in dbt
 
 - [What are models?](https://platform.thinkific.com/videoproxy/v1/play/c71iuqg02svskgqkn6jg)
 - [Building your first model](https://platform.thinkific.com/videoproxy/v1/play/cecuppiekd0onghk4p20)
 - [What is modularity?](https://platform.thinkific.com/videoproxy/v1/play/c71iuqg02svskgqkn6lg)
+
+<!-- code for page navigation -->
+<div class="page-navigation">
+  <div class="nav-spacer"></div>
+  <a href="../pt-ii/" class="nav-button next">Part II - YAML documentation and testing</a>
+</div>
