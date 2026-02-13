@@ -36,7 +36,7 @@ models:
 
 ## Data tests
 
-Let's revisit [data tests](../fundamentals.md#data-testing) from our foundational training!
+Let's revisit [data tests](../pt-ii.md#data-testing) from our foundational training!
 
 ## Custom tests
 

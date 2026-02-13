@@ -215,7 +215,7 @@ Here’s [another example of a more complex, multi-stage CTE](https://github.com
     **_Hints_**
 
     1. This will make use of a SQL group by, aggregation, and join (_you can do this without a join, we want you do one anyway_)
-    1. Your output table should have two columns
+    1. Your output table should have 2 columns
     1. Use Snowflake’s [year()](https://docs.snowflake.com/en/sql-reference/functions/year) function
 
     **YAML:**
@@ -234,14 +234,14 @@ Here’s [another example of a more complex, multi-stage CTE](https://github.com
     1. Remain on your working branch: `<your-first-name>-dbt-training`
     1. Create a new file: `transform/models/intermediate/training/int_water_quality__station_parameter_summary.sql`
     1. Change references to staging models by using the `ref()` macro
-    1. Write a SQL query that returns each station's most-tested parameters, showing the sample count, average result value, and most recent sample date for each parameter. Include a ranking column that orders parameters by frequency within each station. Only include parameters with at least 10 samples. Sort results by county, then station, then parameter rank.
+    1. Write a SQL query that returns each station's top occurring parameter along with its sample count for the county of Los Angeles. Create a ranking column called `parameter_rank` that orders parameters by frequency within each station to help you get the top occurring parameter. Only include parameters with at least 10 samples. Sort results by station.
     1. Structure your query with multiple CTEs
 
     **_Hints_**
 
     1. You'll need to join stations with lab results, then aggregate by station and parameter
-    1. Your output should have these columns: `station_id`, `county_name`, `parameter`, `sample_count`, `avg_result`, `latest_sample_date`, `parameter_rank`
-    1. Use a window function with [ROW_NUMBER()](https://docs.snowflake.com/en/sql-reference/functions/row_number) to rank parameters within each station
+    1. Your output should have 5 columns
+    1. Use the [ROW_NUMBER()](https://docs.snowflake.com/en/sql-reference/functions/row_number) window function to rank parameters within each station
     1. Apply the sample count filter with a HAVING clause
 
     **YAML:**
