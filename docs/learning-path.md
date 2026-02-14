@@ -1,6 +1,4 @@
-# Learning path
-
-This guide walks you through one complete path for learning modern data stack skills.
+This guide walks you through the complete path you will take to learn data and analytics engineering concepts and skills as well as modern data tooling.
 
 !!! clock "Estimated Time: 16 hours (self-paced)"
 
@@ -10,7 +8,7 @@ This guide walks you through one complete path for learning modern data stack sk
 
 ### Step 1: Learn about concepts and tools (~3 hrs)
 
-1. Read through the [training overview](overview.md) (required)
+1. Read through the [concepts and tools](overview.md) guide (required)
 
 1. Understand [git](code/git.md) fundamentals (optional)
       - Read this if you are new to git and version control or if you need a refresher
@@ -109,7 +107,7 @@ This guide walks you through one complete path for learning modern data stack sk
 
 ## You've completed the training!
 
-You now have skills in...
+You now have skills in
 
 - Version control with git & GitHub ✅
 - Data transformation with dbt ✅
@@ -120,59 +118,34 @@ You now have skills in...
 and your final training pipeline should look like this:
 
 ```mermaid
-flowchart TD
+flowchart LR
     subgraph Raw["RAW_DEV.water_quality"]
         R1[stations]
         R2[lab_results]
-        R3[analytes]
-        R4[sample_methods]
     end
 
     subgraph Staging["TRANSFORM_DEV.DBT_<initials>"]
         S1[stg_water_quality__stations]
         S2[stg_water_quality__lab_results]
-        S3[stg_water_quality__analytes]
-        S4[stg_water_quality__sample_methods]
     end
 
     subgraph Intermediate["TRANSFORM_DEV.DBT_<initials>"]
-        I1[int_water_quality__stations_per_county_2023]
-        I2[int_water_quality__lab_results_enriched]
-        I3[int_water_quality__time_series_anomalies]
-    end
-
-    subgraph Marts["ANALYTICS_DEV.DBT_<initials>"]
-        M1[water_quality_monitoring]
-        M2[county_water_quality_summary]
-        M3[parameter_catalog]
+        I1[int_water_quality__stations_per_county_counted]
+        I2[int_water_quality__station_parameter_summary]
     end
 
     R1 --> S1
     R2 --> S2
-    R3 --> S3
-    R4 --> S4
 
     S1 --> I1
     S2 --> I1
+
     S1 --> I2
     S2 --> I2
-    S3 --> I2
-    S2 --> I3
-
-    S1 --> M1
-    S2 --> M1
-    I2 --> M1
-
-    I1 --> M2
-    S2 --> M2
-
-    S2 --> M3
-    S3 --> M3
 
     style Raw fill:#ffe6e6
     style Staging fill:#e1f5ff
     style Intermediate fill:#fff4e6
-    style Marts fill:#e6ffe6
 ```
 
 ---

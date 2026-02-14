@@ -284,43 +284,27 @@ This function is how you reference a model from another: it allows you to build 
 
 ### Practice
 
-#### Create and edit YAML files
+#### Use the `source()` macro
 
-!!! abstract "Write YAML for your source data and staging models"
+!!! abstract "Write YAML for your staging models"
 
-    Here you’ll write YAML configuration for the Water Quality source tables, and for the two staging models you built. It will build on the branch you created in the previous exercise, so open dbt Platform, navigate to the developer tab, and make sure that branch is checked out.
+    Here you’ll write YAML configuration for the two staging models you built.
 
     1. If not already on your working branch, switch to it: `git switch <your-first-name>-dbt-training`
-    1. In your text editor, open `transform/models/_sources.yml`. You should see mostly empty stubs for models and sources.
-    1. First, specify where the Water Quality data exists in the Snowflake database. We’ll do that by adding some keys to the `Water Quality` source:
-        1. Add a key for the database: (`database: RAW_DEV`).
-        1. Add a key for the schema: (`schema: WATER_QUALITY`).
-    1. Describe the tables that exist in the WATER_QUALITY schema:
-
-        ```yaml
-        sources:
-          - name: WATER_QUALITY
-            database: <database name here>
-            schema: <schema name here>
-            description: <data description here>
-            tables:
-              - name: <table name here>
-                description: <table description here>
-                columns:
-                  - name: <column name here>
-                    description: <column description here>
-                    name: <column name here>
-                    description: <column description here>
-                    …  # etc
-        ```
-
     1. Open `transform/models/staging/training/stg_water_quality__stations.sql` and change the reference to our source data by using the `source()` macro we just learned about instead of directly referring to the table name
 
-#### Write some data tests
+    **Stuck?** Check out [the answer](answer-key.md#answer-for-use-the-source-macro) for this exercise.
 
-!!! abstract "Write tests for the `stg_water_quality__stations` model"
+#### Edit YAML docs and write data tests
 
-    Open your `transform/models/staging/training/_stg_water_quality.yml` and write some data integrity tests for your `stg_water_quality__stations` model.
+!!! abstract "Write YAML for your staging models and add data tests to `stg_water_quality__stations`"
+
+    1. Open and review `transform/models/_sources.yml`. We filled this out as an example of a correct YAML file. Notice the indentation at each level of nesting.
+    1. Next, open `transform/models/staging/training/_stg_water_quality.yml` and write some docs for the fields the model outputs
+        1. Add column names
+        1. Add column descriptions
+
+    In the same file, write some data integrity tests for just your `stg_water_quality__stations` model.
 
     1. Add a not null test for STATION_ID
     1. Add a unique test for COUNTY_NAME. This one should fail!
@@ -329,6 +313,8 @@ This function is how you reference a model from another: it allows you to build 
 
     !!! note
         The grain at which the stations data is collected results in duplicate county names so the unique test is not a good test for this column.
+
+    **Stuck?** Check out [the answer](answer-key.md#answer-for-edit-yaml-docs-and-write-data-tests) for this exercise.
 
 === "dbt Core"
 
@@ -417,6 +403,6 @@ This function is how you reference a model from another: it allows you to build 
 
 <!-- code for page navigation -->
 <div class="page-navigation">
-  <a href="../pt-i/" class="nav-button prev">Part I - Foundations and staging models</a>
-  <a href="../pt-iii/" class="nav-button next">Part III - Materializations and intermediate models</a>
+  <a href="../pt-i/" class="nav-button prev">Part I</a>
+  <a href="../pt-iii/" class="nav-button next">Part III</a>
 </div>

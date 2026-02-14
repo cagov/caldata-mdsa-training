@@ -134,6 +134,8 @@ Before we dive into exercises take a look at our command line reference to under
 1. `dbt test --select +path/to/the/model.sql+` – Test a model and its upstream and downstream dependencies
 1. `dbt run` – Build, but do not test, all models
 
+We recommend attempting these exercises first, but if you get stuck check out our answer key linked under each exercise.
+
 #### Create your first staging model
 
 !!! abstract "Create a staging model for the `STATIONS` data"
@@ -152,6 +154,8 @@ Before we dive into exercises take a look at our command line reference to under
             1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. `YYYY-MM-DD HH24:MI:SS`
         1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
 
+        **Stuck?** Check out [the answer](answer-key.md#answer-for-create-your-first-dbt-staging-model-for-the-stations-data) for this exercise.
+
 #### Create your second staging model
 
 !!! abstract "Create a staging model for the `LAB_RESULTS` data"
@@ -168,6 +172,8 @@ Before we dive into exercises take a look at our command line reference to under
         1. Change the `sample_date` column type again, to timestamp and rename it to SAMPLE_TIMESTAMP
             1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. `YYYY-MM-DD HH24:MI:SS`
     1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
+
+    **Stuck?** Check out [the answer](answer-key.md#answer-for-create-your-second-dbt-staging-model-for-the-lab_results-data) for this exercise.
 
 === "dbt Core"
 
@@ -256,5 +262,5 @@ Before we dive into exercises take a look at our command line reference to under
 <!-- code for page navigation -->
 <div class="page-navigation">
   <div class="nav-spacer"></div>
-  <a href="../pt-ii/" class="nav-button next">Part II - YAML documentation and testing</a>
+  <a href="../pt-ii/" class="nav-button next">Part II</a>
 </div>

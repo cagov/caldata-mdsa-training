@@ -44,10 +44,10 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Learning path: learning-path.md
-  - Training overview: overview.md
+  - Concepts and tools: concepts-tools.md
   - Code development:
       - Git: code/git.md
-      - Local repo setup: code/local-dev-setup.md
+      - Local dev setup: code/local-dev-setup.md
       - Code-hosting platforms:
           - GitHub: code/platforms/github.md
           - Azure DevOps: code/platforms/devops.md

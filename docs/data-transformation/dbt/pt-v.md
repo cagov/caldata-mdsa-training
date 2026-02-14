@@ -134,6 +134,6 @@ For a deeper dive into how CI/CD is configured for this project see [these docs]
 
 <!-- code for page navigation -->
 <div class="page-navigation">
-  <a href="../pt-iv/" class="nav-button prev">Part IV - dbt docs and mart models</a>
+  <a href="../pt-iv/" class="nav-button prev">Part IV</a>
   <div class="nav-spacer"></div>
 </div>

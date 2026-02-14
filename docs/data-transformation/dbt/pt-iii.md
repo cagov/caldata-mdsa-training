@@ -214,7 +214,7 @@ Here’s [another example of a more complex, multi-stage CTE](https://github.com
 
     **_Hints_**
 
-    1. This will make use of a SQL group by, aggregation, and join (_you can do this without a join, we want you do one anyway_)
+    1. This will make use of a SQL group by, aggregation, and join (_it is possible to do this without a join, we want you do one anyway_)
     1. Your output table should have 2 columns
     1. Use Snowflake’s [year()](https://docs.snowflake.com/en/sql-reference/functions/year) function
 
@@ -222,10 +222,12 @@ Here’s [another example of a more complex, multi-stage CTE](https://github.com
 
     1. Document your new intermediate model in the `transform/models/intermediate/training/_int_water_quality.yml` file
     1. Materialize your model as a table
+    1. Add a description explaining this model
+    1. Add column descriptions for the fields the model outputs (you can copy/paste from `_stg_water_quality.yml` where definitions have remain unchanged)
 
 #### Create second intermediate model and YAML docs
 
-!!! abstract "Create a parameter diversity model with window functions"
+!!! abstract "Create and document your second intermediate model"
 
     This exercise builds a more complex intermediate model that identifies stations with diverse parameter testing and calculates parameter-specific statistics.
 
@@ -247,9 +249,8 @@ Here’s [another example of a more complex, multi-stage CTE](https://github.com
     **YAML:**
 
     1. Document your model in `transform/models/intermediate/training/_int_water_quality.yml`
-    1. Materialize as a view (this model may be used for exploratory analysis)
-    1. Add a description explaining what this model shows
-    1. Add column descriptions for `parameter_rank` and calculated fields
+    1. Add a description explaining this model
+    1. Add column descriptions for the fields the model outputs (you can copy/paste from `_stg_water_quality.yml` where definitions have remain unchanged)
 
 === "dbt Core"
 
@@ -331,6 +332,6 @@ Here’s [another example of a more complex, multi-stage CTE](https://github.com
 
 <!-- code for page navigation -->
 <div class="page-navigation">
-  <a href="../pt-ii/" class="nav-button prev">Part II - YAML documentation and testing</a>
-  <a href="../pt-iv/" class="nav-button next">Part IV - dbt docs and mart models</a>
+  <a href="../pt-ii/" class="nav-button prev">Part II</a>
+  <a href="../pt-iv/" class="nav-button next">Part IV</a>
 </div>

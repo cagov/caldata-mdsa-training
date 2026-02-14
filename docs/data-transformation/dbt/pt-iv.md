@@ -144,6 +144,6 @@ To generate docs locally, run: `dbt docs generate` then `dbt docs serve`
 
 <!-- code for page navigation -->
 <div class="page-navigation">
-  <a href="../pt-iii/" class="nav-button prev">Part III - Materializations and intermediate models</a>
-  <a href="../pt-v/" class="nav-button next">Part V - Environments, jobs, CI/CD, and custom schemas</a>
+  <a href="../pt-iii/" class="nav-button prev">Part III</a>
+  <a href="../pt-v/" class="nav-button next">Part V</a>
 </div>

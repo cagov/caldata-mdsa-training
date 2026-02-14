@@ -1,8 +1,8 @@
 # Training answer key
 
-## Day 1
+## Part I
 
-### Answer for Practice A: Create your first dbt staging model for the `STATIONS` data
+### Answer for "Create your first dbt staging model for the `STATIONS` data"
 
 ```sql
 with stations as (
@@ -21,29 +21,29 @@ with stations as (
         to_timestamp(sample_date_min, 'MM/DD/YYYY HH24:MI') as sample_timestamp_min,
         to_timestamp(sample_date_max, 'MM/DD/YYYY HH24:MI') as sample_timestamp_max
 
-    from {{ source('WATER_QUALITY', 'STATIONS') }}
+    from RAW_DEV.WATER_QUALITY.STATIONS -- or {{ source('WATER_QUALITY', 'stations') }}
 )
 
 select * from stations
 
 ```
 
-### Answer for Practice B: Create your second staging model for the `LAB_RESULTS` data
+### Answer for "Create your second dbt staging model for the `LAB_RESULTS` data"
 
 ```sql
 with lab_results as (
 
     select
-        to_varchar("station_id") as station_id,
-        "status" as status,
-        "sample_code" as sample_code,
+        to_varchar(station_id) as station_id,
+        status,
+        sample_code,
 
-        to_timestamp("sample_date", 'MM/DD/YYYY HH24:MI') as sample_timestamp,
+        to_timestamp(sample_date, 'MM/DD/YYYY HH24:MI') as sample_timestamp,
 
         date_from_parts(
-            substr("sample_date", 7, 4)::INT,
-            left("sample_date", 2)::INT,
-            substr("sample_date", 4, 2)::INT
+            substr(sample_date, 7, 4)::INT,
+            left(sample_date, 2)::INT,
+            substr(sample_date, 4, 2)::INT
         ) as sample_date,
 
         sample_depth,
@@ -54,125 +54,20 @@ with lab_results as (
         units,
         method_name
 
-    from {{ source('WATER_QUALITY', 'LAB_RESULTS') }}
+    from RAW_DEV.WATER_QUALITY.LAB_RESULTS -- or {{ source('WATER_QUALITY', 'lab_results') }}
 )
 
 select * from lab_results
 
 ```
 
-## Day 2
+## Part II
 
-### Answers for Practice A and B
+### Answer for use the `source()` macro
 
-Reminder:
+Change `from RAW_DEV.WATER_QUALITY.STATIONS` to `from {{ source('WATER_QUALITY', 'stations') }}`
 
-- Practice A: Write YAML for your source data and staging models
-- Practice B: Write tests for the `stg_water_quality__stations` model
-
-YAML for your source data
-
-```YAML
-version: 2
-
-sources:
-  - name: WATER_QUALITY
-    database: RAW_DEV
-    schema: WATER_QUALITY
-    description: |
-      The California Department of Water Resources (DWR) discrete (vs. continuous)
-      water quality datasets contains DWR-collected, current and historical, chemical
-      and physical parameters found in routine environmental, regulatory compliance
-      monitoring, and special studies throughout the state.
-    tables:
-      - name: LAB_RESULTS
-        description: The source data for lab results.
-        columns:
-          - name: station_id
-            description: A unique identifier for stations.
-          - name: station_name
-            description: |
-              Abbreviated Long Station Name or a unique code
-              assigned to the sampling location. Limit 20 characters.
-          - name: full_station_name
-            description: |
-              The (full) station name describing the sampling location
-              based on DWR station naming conventions.
-          - name: station_number
-            description: |
-              Unique DWR station code based on DWR station numbering
-              conventions.
-          - name: station_type
-            description: |
-              General description of sampling site location,
-              i.e., surface water, groundwater, or other.
-          - name: latitude
-            description: Latitude (NAD83).
-          - name: longitude
-            description: Longitude (NAD83).
-          - name: status
-            description: Data review status.
-          - name: county_name
-            description: County where sample collected.
-          - name: sample_code
-            description: Unique DWR lab and field data sample code.
-          - name: sample_date
-            description: The date and time a sample was collected.
-          - name: sample_depth
-            description: The depth below the water surface at which the sample was collected.
-          - name: sample_depth_units
-            description: The unit of measurement of sample_depth, e.g. feet
-          - name: parameter
-            description: The chemical analyte or physical parameter that was measured.
-          - name: result
-            description: The measured result of the constituent.
-          - name: reporting_limit
-            description: The lowest quantifiable detection limit of measure.
-          - name: units
-            description: Units of measure for the result.
-          - name: method_name
-            description: The analytical method by which the constituent was measured.
-      - name: STATIONS
-        description: The source data for stations.
-        columns:
-          - name: station_id
-            description: A unique identifier for stations.
-          - name: station_name
-            description: |
-              Abbreviated Long Station Name or a unique code
-              assigned to the sampling location. Limit 20 characters.
-          - name: full_station_name
-            description: |
-              The (full) station name describing the sampling location
-              based on DWR station naming conventions.
-          - name: station_number
-            description: |
-              Unique DWR station code based on DWR station numbering
-              conventions.
-          - name: station_type
-            description: |
-              General description of sampling site location,
-              i.e., surface water, groundwater, or other.
-          - name: latitude
-            description: Latitude (NAD83).
-          - name: longitude
-            description: Longitude (NAD83).
-          - name: county_name
-            description: County where sample collected.
-          - name: sample_code
-            description: Unique DWR lab and field data sample code.
-          - name: sample_date_min
-            description: |
-              Date of the first sample collection event on record
-              for a given DWR sampling location.
-          - name: sample_date_max
-            description: |
-              Date of the last sample collection event on record
-              for a given DWR sampling location.
-
-```
-
-YAML for your staging models
+### Answer for edit YAML docs and write data tests
 
 ```YAML
 version: 2
@@ -182,9 +77,6 @@ models:
     description: Staging model for stations.
     config:
       materialized: table
-    data_tests:
-      - dbt_utils.equal_rowcount:
-          compare_model: source('WATER_QUALITY', 'STATIONS')
     columns:
       - name: station_id
         description: A unique identifier for stations.
@@ -209,7 +101,7 @@ models:
       - name: county_name
         description: County where sample collected.
         data_tests:
-          - unique
+          # - unique # we commented this out because we ask you to remove it after you run the test and observe the results
       - name: sample_code
         description: Unique DWR lab and field data sample code.
       - name: sample_date_min
@@ -220,6 +112,7 @@ models:
         description: |
           Date of the last sample collection event on record
           for a given DWR sampling location.
+
   - name: stg_water_quality__lab_results
     description: Statging model for lab results.
     columns:
@@ -250,7 +143,7 @@ models:
 
 ```
 
-## Day 3
+## Part III
 
 ### Answer for Practice: Create and document an intermediate dbt model
 
@@ -313,7 +206,7 @@ models:
 
 ```
 
-## Day 4
+## Part IV
 
 ```YAML
 version: 2
