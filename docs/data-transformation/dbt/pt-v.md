@@ -16,7 +16,7 @@ Unfortunately, that's pretty vague, since there are lots of different ways envir
 - different databases within the same account, or even
 - different schemas within the same database.
 
-In our default MDSA architecture we usually have two environments, "dev" and "prod", which reside in the same Snowflake account. Each of these environments consists of a set of databases corresponding to our layered data architecture (see our [Snowflake training](../cloud-data-warehouses/snowflake.md#snowflake-architecture) for more detail).
+In our default MDSA architecture we usually have two environments, "dev" and "prod", which reside in the same Snowflake account. Each of these environments consists of a set of databases corresponding to our layered data architecture (see our [Snowflake training](../../cloud-data-warehouses/snowflake.md#snowflake-architecture) for more detail).
 
 ### Environments in dbt Platform
 
@@ -63,8 +63,6 @@ Continuous Deployment (CD) in most MDSA projects is usually pretty simple.
 We typically do not build any applications or deploy cloud resources.
 Instead, whatever is in the `main` branch is considered "production",
 and our dbt projects and docs are built using that.
-
-For a deeper dive into how CI/CD is configured for this project see [these docs](../code/ci-cd.md)
 
 #### Demo: CI/CD in a development workflow
 <!-- TODO: ADD a video or diagram or something as a "demo" -->

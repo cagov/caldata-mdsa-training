@@ -153,7 +153,8 @@ Follow these remaining steps regardless of OS
 
 **Option 3**: You have a third option to open a PR in dbt Platform if you don’t choose to follow either of the two options above.
 
-1. After you commit your changes you’ll see a light green button on the upper left that says “Create a pull request on GitHub”. This will only appear if you’ve yet to open a PR. If you have already opened a PR and are simply committing more changes to it you will not see this option. ![dbt Platform create a pr example](../images/dbt-cloud-create-pr.png)
+1. After you commit your changes you’ll see a light green button on the upper left that says “Create a pull request on GitHub”. This will only appear if you’ve yet to open a PR. If you have already opened a PR and are simply committing more changes to it you will not see this option.
+![dbt Platform create a pr example](../../images/dbt-cloud-create-pr.png)
 
 ### Reviewing a PR
 
@@ -166,7 +167,7 @@ The ODI CalData team put together [documentation on reviewing a PR](https://cago
     1. GitHub will take you to the home screen of the PR which starts on the “Conversation” tab. This is where you can read any commits by the PR author, anyone involved in review, and any automated tools. 
     1. The “Commits” tab is where you can check each save to the PR to understand the sequence of changes
     1. The “Checks” tab is where you can see the jobs run by GitHub actions (CI automations). You can see whether or not they pass or fail and the details of each.
-    1. There will be a yellow pane across the top of this page like you see pictured ![GitHub review requested example](../images/github-review-requested.png)
+    1. There will be a yellow pane across the top of this page like you see pictured ![GitHub review requested example](../../images/github-review-requested.png)
     1. Clicking the green “Add your review” button will take you to the “Files changed” tab where you can begin your review.
         1. In the files changed tab you can leave a comment on any line of code by clicking the blue plus sign that appears when you hover. You can leave a single comment that is not part of a review or leave one or many comments as part of your review. You can suggest changes here too which we’ll cover in the next section.
     1. After you’re done with your review, if you scroll back to the top there will be a green button on the upper right that says “Finish your review”. Click that and decide if you just want to do one of the following: 1) Comment, 2) Approve or 3) Request changes. Then click the green button on the lower right that says “Submit review”.

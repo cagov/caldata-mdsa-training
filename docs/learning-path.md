@@ -18,7 +18,7 @@ This guide walks you through the complete path you will take to learn data and a
       - If you only need a refresher keep our [GitHub](code/platforms/github.md) guide handy for easy reference
 
 1. Read about the Snowflake RAW/TRANSFORM/ANALYTICS structure (required)
-      - [Snowflake architecture](cloud-data-warehouses/snowflake.md##odi-snowflake-architecture)
+      - [Snowflake architecture](cloud-data-warehouses/snowflake.md#odi-snowflake-architecture)
       - [Databases and schemas](cloud-data-warehouses/snowflake.md#databases-and-schemas)
 
 ---

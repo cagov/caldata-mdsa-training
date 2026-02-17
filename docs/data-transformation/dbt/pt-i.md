@@ -154,7 +154,7 @@ We recommend attempting these exercises first, but if you get stuck check out ou
             1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. `YYYY-MM-DD HH24:MI:SS`
         1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
 
-        **Stuck?** Check out [the answer](answer-key.md#answer-for-create-your-first-dbt-staging-model-for-the-stations-data) for this exercise.
+        **Stuck?** Check out [the answer](answer-key.md#answer-for-create-your-first-staging-model) for this exercise.
 
 #### Create your second staging model
 
@@ -173,7 +173,7 @@ We recommend attempting these exercises first, but if you get stuck check out ou
             1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. `YYYY-MM-DD HH24:MI:SS`
     1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
 
-    **Stuck?** Check out [the answer](answer-key.md#answer-for-create-your-second-dbt-staging-model-for-the-lab_results-data) for this exercise.
+    **Stuck?** Check out [the answer](answer-key.md#answer-for-create-your-second-staging-model) for this exercise.
 
 === "dbt Core"
 
@@ -190,8 +190,6 @@ We recommend attempting these exercises first, but if you get stuck check out ou
     1. Commit your code and leave a concise, yet descriptive commit message: `git commit -m "example message"`
         1. During this step pre-commit may catch an error you missed. It may auto-fix your file or you may have to do it yourself. Regardless you will have to repeat `git add...` (for each modified file) and `git commit...`.
     1. Push your code: `git push origin <your-first-name>-dbt-training`
-
-
 
 === "dbt Platform"
 
