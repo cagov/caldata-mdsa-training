@@ -200,7 +200,7 @@ Here’s [another example of a more complex, multi-stage CTE](https://github.com
 
 #### Create first intermediate model and YAML docs
 
-!!! abstract "Create and document an intermediate dbt model"
+!!! abstract "Create and document your first intermediate model"
 
     Now that we’ve gotten some practice creating two staging models and editing our YAML file to reference our sources and models, let's create an intermediate model and update the relevant YAML file.
 

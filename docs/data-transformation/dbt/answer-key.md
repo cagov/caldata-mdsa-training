@@ -2,7 +2,7 @@
 
 ## Part I
 
-### Answer for "Create your first dbt staging model for the `STATIONS` data"
+### Answer for create your first staging model
 
 ```sql
 with stations as (
@@ -28,7 +28,7 @@ select * from stations
 
 ```
 
-### Answer for "Create your second dbt staging model for the `LAB_RESULTS` data"
+### Answer for create your second staging model
 
 ```sql
 with lab_results as (
@@ -145,9 +145,9 @@ models:
 
 ## Part III
 
-### Answer for Practice: Create and document an intermediate dbt model
+### Answer for create first intermediate model and YAML docs
 
-SQL
+**SQL**
 
 ```SQL
 with stations as (
@@ -187,7 +187,7 @@ order by station_count desc
 
 ```
 
-YAML
+**YAML**
 
 ```YAML
 version: 2
@@ -205,6 +205,74 @@ models:
         description: Count of stations that reported a parameter of Dissolved Chloride.
 
 ```
+
+### Answer for create second intermediate model and YAML docs
+
+**SQL**
+
+```SQL
+with stations as (
+      select * from RAW_DEV.WATER_QUALITY.STATIONS
+  ),
+
+  lab_results as (
+      select * from RAW_DEV.WATER_QUALITY.LAB_RESULTS
+  ),
+
+  joined_data as (
+      select
+          s.station_id,
+          s.county_name,
+          lr.parameter,
+          lr.result,
+          lr.sample_date
+      from stations as s
+      inner join lab_results as lr
+          on s.station_id = lr.station_id
+      where s.county_name = 'Los Angeles'
+
+  ),
+
+  parameter_stats as (
+      select
+          station_id,
+          county_name,
+          parameter,
+          count(*) as sample_count
+      from joined_data
+      group by station_id, county_name, parameter
+      having count(*) >= 10
+  ),
+
+  -- select * from parameter_stats
+
+  ranked_parameters as (
+      select
+          station_id,
+          parameter,
+          sample_count,
+          row_number() over (
+              partition by station_id
+              order by sample_count desc
+          ) as parameter_rank
+      from parameter_stats
+  ),
+
+  top_parameters_per_station as (
+      select
+          station_id,
+          parameter,
+          sample_count
+      from ranked_parameters
+      where parameter_rank = 1
+  )
+
+select * from top_parameters_per_station
+order by station_id
+```
+
+**YAML**
+
 
 ## Part IV
 

@@ -286,7 +286,7 @@ This function is how you reference a model from another: it allows you to build 
 
 #### Use the `source()` macro
 
-!!! abstract "Write YAML for your staging models"
+!!! abstract "Change source references in your staging models"
 
     Here you’ll write YAML configuration for the two staging models you built.
 

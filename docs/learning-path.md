@@ -8,24 +8,18 @@ This guide walks you through the complete path you will take to learn data and a
 
 ### Step 1: Learn about concepts and tools (~3 hrs)
 
-1. Read through the [concepts and tools](overview.md) guide (required)
+1. Read through the [concepts and tools](concepts-tools.md) guide (required)
 
 1. Understand [git](code/git.md) fundamentals (optional)
       - Read this if you are new to git and version control or if you need a refresher
 
 1. Learn about GitHub (optional)
       - If you are completely new to this go through the [GitHub tutorials we've curated](code/platforms/github-tutorials.md)
-      - If you only need a refresher keep our [GitHub](code/platforms/github.md) guide handy
-
-    !!! Note
-        If you did hands-on sessions with us to set up Snowflake architecture and CI/CD you can skip local repo setup. <br/>
-        If your full team was not present for those sessions they will need to complete this step.
+      - If you only need a refresher keep our [GitHub](code/platforms/github.md) guide handy for easy reference
 
 1. Read about the Snowflake RAW/TRANSFORM/ANALYTICS structure (required)
       - [Snowflake architecture](cloud-data-warehouses/snowflake.md##odi-snowflake-architecture)
       - [Databases and schemas](cloud-data-warehouses/snowflake.md#databases-and-schemas)
-
-**Checkpoint:** Can you run `dbt debug` successfully? You should not move forward until this is successful.
 
 ---
 
@@ -35,15 +29,22 @@ This guide walks you through the complete path you will take to learn data and a
       - Complete the entire setup guide
       - You'll configure: a python environment, dbt, Snowflake connection, pre-commit hooks
 
+    !!! Note
+        If you did hands-on sessions with us to set up Snowflake architecture and CI/CD you may have already done some of this, please go through it anywayd to ensure you have not missed a step. <br/>
+        If your full team was not present for those sessions they will need to complete this step.
+
+**Checkpoint:** Can you run `dbt debug` successfully? You should not move forward until this is successful.
+
 ---
 
 ### Step 3: Create your first staging models (~3 hrs)
 
 1. [Part I: Foundations and staging models](data-transformation/dbt/pt-i.md)
       - Learn about dbt, data modeling, and what staging models are
-      - Complete knowledge check
-          - For any incorrect answers: Review content and research topics to solidy your understanding, don't just plow ahead
-      - Complete hands-on practice
+      - Complete the knowledge check section
+          - For any incorrect answers: Review content and research topics to solidy your understanding before moving forward
+      - Complete the practice section
+          - Review the answer key. For questions you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers, you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
 
 **Checkpoint:** Can you run `dbt run` successfully? You should have 2 staging models that build.
 
@@ -53,9 +54,10 @@ This guide walks you through the complete path you will take to learn data and a
 
 1. [Part II: YAML documentation and testing](data-transformation/dbt/pt-ii.md)
       - Learn about YAML configuration files and their structure, documentation, and dbt tests
-      - Complete knowledge check
-          - For any incorrect answers: Review content and research topics to solidy your understanding, don't just plow ahead
-      - Complete hands-on practice
+      - Complete the knowledge check section
+          - For any incorrect answers: Review content and research topics to solidy your understanding before moving forward
+      - Complete the practice section
+          - Review the answer key. For questions you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers, you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
 
 **Checkpoint:** Can you run `dbt test` and see passing tests?
 
@@ -65,12 +67,12 @@ This guide walks you through the complete path you will take to learn data and a
 
 1. [Part III: Materializations and intermediate models](data-transformation/dbt/pt-iii.md)
       - Learn how to materialize your models and why for each choice and what intermediate models are
-      - Complete knowledge check
-          - For any incorrect answers: Review content and research topics to solidy your understanding, don't just plow ahead
-      - Complete hands-on practice
+      - Complete the knowledge check section
+          - For any incorrect answers: Review content and research topics to solidy your understanding before moving forward
+      - Complete the practice section
+          - Review the answer key. For questions you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers, you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
 
-<!-- TODO: fill in the model select below -->
-**Checkpoint:** Can you run `dbt build --select xx` and see passing models and tests?
+**Checkpoint:** Can you run `dbt build` and see passing models and tests?
 
 ---
 
@@ -78,9 +80,10 @@ This guide walks you through the complete path you will take to learn data and a
 
 1. [Part IV: dbt docs and mart models](data-transformation/dbt/pt-iv.md)
       - Learn how to render your YAML documentation and what mart models are
-      - Complete knowledge check
-          - For any incorrect answers: Review content and research topics to solidy your understanding, don't just plow ahead
-      - Complete hands-on practice
+      - Complete the knowledge check section
+          - For any incorrect answers: Review content and research topics to solidy your understanding before moving forward
+      - Complete the practice section
+          - Review the answer key. For questions you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers, you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
       - Open a PR
           - Push your branch to GitHub
           - Open a pull request with your staging models
