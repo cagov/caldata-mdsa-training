@@ -7,7 +7,7 @@ Here's a diagram of the steps you can expect to take:
 ```mermaid
 flowchart TD
     a[Install dependencies]
-    b[Data warehouse set up - optional]
+    b[Configure Snowflake data warehouse - optional]
     c[Configure AWS - optional]
     d[Install dbt]
     e[Install pre-commit hooks]
@@ -26,7 +26,7 @@ which allows them to be isolated from those in other projects which might have d
 We use `uv` to manage our Python virtual environments. If you have not yet installed it on your system, you can follow the instructions for it [here](https://docs.astral.sh/uv/getting-started/installation/). Most of the ODI team uses [Homebrew](https://brew.sh) to install the package. We do not recommend installing `uv` using `pip`: as a tool for managing Python environments, it makes sense for it to live outside of a particular Python distribution.
 
 !!! Note
-    Your team may already be using a different package to manage Python virtual environments like [`pixi`](https://pixi.prefix.dev/latest/) or [`conda`](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html). Check with your team before you install `uv`. Our docs don't accommodate usage of other packages so you'll have to update commands accordingly. For example, replace instances of `uv run <command>` with `pixi run <command>` or simply activate your conda environment then run `<command>` as is.
+    Your team may already be using a different package to manage Python virtual environments like [`pixi`](https://pixi.prefix.dev/latest/) or [`conda`](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html). Check with your team before you install `uv`. Although this training presumes you are using `uv`, other package managers may work with modifications. For instance, if you are using pixi, replace instances of `uv run <command>` with `pixi run <command>` or simply activate your conda environment then run `<command>` as is.
 
 ### 1b. Install Python dependencies
 
@@ -76,12 +76,9 @@ terraform -v
 go version
 ```
 
-## 2. Data warehouse set up (required)
+## 2. Configure Snowflake data warehouse
 
-### 2a. Configure Snowflake
-
-In order to use Snowflake (as well as the terraform validators for the Snowflake configuration)
-you should set some default local environment variables in your environment.
+In order to use Snowflake for a Python or Terraform workflow you should set some default local environment variables in your environment.
 This will depend on your operating system and shell.
 
 For Windows systems, you can set persistent environment variables by navigating to
@@ -96,7 +93,7 @@ If you use zsh or bash, open your shell configuration file, and add the followin
 
 #### Transformer role (default)
 
-These credentials will connect your local dbt workflow with Snowflake.
+These credentials will enable you to develop scripts for transforming data. Your organization name and account name can be found within the Snowflake UI. Click on your name at the bottom left, hover over your account, and click _View account details_.
 
 ```bash
 export SNOWFLAKE_ACCOUNT=<org_name>-<account_name> # format is organization-account
@@ -108,11 +105,11 @@ export SNOWFLAKE_WAREHOUSE=TRANSFORMING_XS_DEV
 export SNOWFLAKE_AUTHENTICATOR=EXTERNALBROWSER or USERNAME_PASSWORD_MFA
 ```
 
-Open a new terminal and verify that the environment variables are set.
+Open a new terminal and verify that the environment variables are set by running the `env` command and inspecting the output. This works for bash, zsh, powershell, and probably more shells.
 
 #### Loader role (optional)
 
-These credentials will enable you to develop scripts for loading raw data into the development environment. This is not needed for training and is commented out by default.
+These credentials will enable you to develop scripts for loading raw data into the development environment. This is commented out by default as you can only have one role active at a time.
 
 ```bash
 # export SNOWFLAKE_ACCOUNT=<org_name>-<account_name> # format is organization-account
@@ -124,7 +121,7 @@ These credentials will enable you to develop scripts for loading raw data into t
 # export SNOWFLAKE_AUTHENTICATOR=EXTERNALBROWSER or USERNAME_PASSWORD_MFA
 ```
 
-Again, open a new terminal and verify that the environment variables are set.
+Again, open a new terminal and verify that the environment variables are set by running the `env` command and inspecting the output.
 
 ## 3. Configure AWS (optional)
 
@@ -137,7 +134,7 @@ you need to create access keys and configure your local setup to use them:
 
 ## 4. Configure dbt
 
-The connection information for your data warehouses will, in general, live outside of this repository. This is because connection information is both user-specific and usually sensitive, so it should not be checked into version control.
+The connection information for your data warehouses will, in general, live outside of your code repository. This is because connection information is both user-specific and usually sensitive, so it should not be checked into version control.
 
 In order to run this project locally, you will need to provide this information in a YAML file. Run the following command to create the necessary folder and file.
 
@@ -157,7 +154,7 @@ A minimal version of a `profiles.yml` for dbt development is:
       type: snowflake
       account: <account-locator>
       user: <your-username>
-      password: <your-password>
+      password: <your-password> # this line is not needed if authenticator=externalbrowser
       authenticator: externalbrowser or username_password_mfa
       role: TRANSFORMER_DEV
       database: TRANSFORM_DEV
@@ -185,7 +182,7 @@ uv run dbt debug
 
 ### VS Code setup (optional)
 
-Many people prefer to use featureful editors when doing local development so we included an example set up with VS Code. By equipping a text editor like VS Code with an appropriate set of extensions and configurations
+Many people prefer to use featureful editors when doing local development so we included an example setup with VS Code. By equipping a text editor like VS Code with an appropriate set of extensions and configurations
 we can largely replicate the dbt Platform experience locally.
 Below is one possible configuration for VS Code.
 
