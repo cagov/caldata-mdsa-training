@@ -403,6 +403,6 @@ This function is how you reference a model from another: it allows you to build 
 
 <!-- code for page navigation -->
 <div class="page-navigation">
-  <a href="../pt-i/" class="nav-button prev">Part I</a>
-  <a href="../pt-iii/" class="nav-button next">Part III</a>
+  <a href="../pt-i-foundations-and-staging-models/" class="nav-button prev">Part I</a>
+  <a href="../pt-iii-materializations-and-intermediate-models/" class="nav-button next">Part III</a>
 </div>

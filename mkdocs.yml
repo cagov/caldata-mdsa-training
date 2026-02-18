@@ -55,11 +55,11 @@ nav:
       - Snowflake: cloud-data-warehouses/snowflake.md
   - Data transformation:
       - dbt:
-          - Part I - Foundations and staging models: data-transformation/dbt/pt-i.md
-          - Part II - YAML documentation and testing: data-transformation/dbt/pt-ii.md
-          - Part III - Materializations and intermediate models: data-transformation/dbt/pt-iii.md
-          - Part IV - dbt docs and mart models: data-transformation/dbt/pt-iv.md
-          - Part V - Environments, jobs, CI/CD, and custom schemas: data-transformation/dbt/pt-v.md
+          - Part I - Foundations and staging models: data-transformation/dbt/pt-i-foundations-and-staging-models.md
+          - Part II - YAML documentation and testing: data-transformation/dbt/pt-ii-yaml-docs-and-testing.md
+          - Part III - Materializations and intermediate models: data-transformation/dbt/pt-iii-materializations-and-intermediate-models.md
+          - Part IV - dbt docs and mart models: data-transformation/dbt/pt-iv-dbt-docs-and-mart-models.md
+          - Part V - Environments, jobs, CI/CD, and custom schemas: data-transformation/dbt/pt-v-environments-jobs-ci-cd-and-custom-schemas.md
           - Answer key: data-transformation/dbt/answer-key.md
           - Advanced topics and practice:
               - Macros & custom tests: data-transformation/dbt/advanced/macros-custom-tests.md

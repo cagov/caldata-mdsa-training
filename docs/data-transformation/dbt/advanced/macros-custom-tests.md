@@ -36,7 +36,7 @@ models:
 
 ## Data tests
 
-Let's revisit [data tests](../pt-ii.md#data-tests) from our foundational training!
+Let's revisit [data tests](../pt-ii-yaml-docs-and-testing.md#data-tests) from our foundational training!
 
 ## Custom tests
 

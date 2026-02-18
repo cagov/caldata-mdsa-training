@@ -132,6 +132,6 @@ and our dbt projects and docs are built using that.
 
 <!-- code for page navigation -->
 <div class="page-navigation">
-  <a href="../pt-iv/" class="nav-button prev">Part IV</a>
+  <a href="../pt-iv-dbt-docs-and-mart-models/" class="nav-button prev">Part IV</a>
   <div class="nav-spacer"></div>
 </div>

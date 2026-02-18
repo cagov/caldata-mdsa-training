@@ -161,7 +161,7 @@ select ...
 
 #### Refresher on CTEs
 
-Let refresh our memory on the value of [common table expressions (CTEs)](pt-i.md/#common-table-expressions-ctes).
+Let refresh our memory on the value of [common table expressions (CTEs)](pt-i-foundations-and-staging-models.md/#common-table-expressions-ctes).
 
 Let's go from writing our code like this...
 
@@ -328,10 +328,10 @@ Here’s [another example of a more complex, multi-stage CTE](https://github.com
 
 - [dbt materialization and performance considerations](https://cagov.github.io/data-infrastructure/dbt/dbt-performance/#2-model-level-materialization-matters)
 - [Jinja tutorial: Use Jinja to improve your SQL code](https://docs.getdbt.com/guides/using-jinja?step=1)
-- [Re-watch the second and third video from Part I](pt-i.md/#models-in-dbt)
+- [Re-watch the second and third video from Part I](pt-i-foundations-and-staging-models.md/#models-in-dbt)
 
 <!-- code for page navigation -->
 <div class="page-navigation">
-  <a href="../pt-ii/" class="nav-button prev">Part II</a>
-  <a href="../pt-iv/" class="nav-button next">Part IV</a>
+  <a href="../pt-ii-yaml-docs-and-testing/" class="nav-button prev">Part II</a>
+  <a href="../pt-iv-dbt-docs-and-mart-models/" class="nav-button next">Part IV</a>
 </div>

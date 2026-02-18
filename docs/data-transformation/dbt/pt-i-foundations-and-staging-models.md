@@ -260,5 +260,5 @@ We recommend attempting these exercises first, but if you get stuck check out ou
 <!-- code for page navigation -->
 <div class="page-navigation">
   <div class="nav-spacer"></div>
-  <a href="../pt-ii/" class="nav-button next">Part II</a>
+  <a href="../pt-ii-yaml-docs-and-testing/" class="nav-button next">Part II</a>
 </div>

@@ -39,7 +39,7 @@ This guide walks you through the complete path you will take to learn data and a
 
 ### Step 3: Create your first staging models (~3 hrs)
 
-1. [Part I: Foundations and staging models](data-transformation/dbt/pt-i.md)
+1. [Part I: Foundations and staging models](data-transformation/dbt/pt-i-foundations-and-staging-models.md)
       - Learn about dbt, data modeling, and what staging models are
       - Complete the knowledge check section
           - For any incorrect answers: Review content and research topics to solidy your understanding before moving forward
@@ -52,7 +52,7 @@ This guide walks you through the complete path you will take to learn data and a
 
 ### Step 4: Write YAML docs and dbt tests (~2 hrs)
 
-1. [Part II: YAML documentation and testing](data-transformation/dbt/pt-ii.md)
+1. [Part II: YAML documentation and testing](data-transformation/dbt/data-transformation/dbt/pt-ii-yaml-docs-and-testing.md)
       - Learn about YAML configuration files and their structure, documentation, and dbt tests
       - Complete the knowledge check section
           - For any incorrect answers: Review content and research topics to solidy your understanding before moving forward
@@ -65,7 +65,7 @@ This guide walks you through the complete path you will take to learn data and a
 
 ### Step 5: Learn about model materializations and create an intermediate model (~2 hrs)
 
-1. [Part III: Materializations and intermediate models](data-transformation/dbt/pt-iii.md)
+1. [Part III: Materializations and intermediate models](data-transformation/dbt/pt-iii-materializations-and-intermediate-models.md.md)
       - Learn how to materialize your models and why for each choice and what intermediate models are
       - Complete the knowledge check section
           - For any incorrect answers: Review content and research topics to solidy your understanding before moving forward
@@ -78,7 +78,7 @@ This guide walks you through the complete path you will take to learn data and a
 
 ### Step 6: View your YAML docs as HTML and build a mart model (~2 hrs)
 
-1. [Part IV: dbt docs and mart models](data-transformation/dbt/pt-iv.md)
+1. [Part IV: dbt docs and mart models](data-transformation/dbt/pt-iv-dbt-docs-and-mart-models.md)
       - Learn how to render your YAML documentation and what mart models are
       - Complete the knowledge check section
           - For any incorrect answers: Review content and research topics to solidy your understanding before moving forward
@@ -96,7 +96,7 @@ This guide walks you through the complete path you will take to learn data and a
 
 ### Step 7: Learn about environments, jobs, CI/CD, and custom schemas (~2 hrs)
 
-1. [Part V: Environments, jobs, CI/CD, and custom schemas](data-transformation/dbt/pt-v.md)
+1. [Part V: Environments, jobs, CI/CD, and custom schemas](data-transformation/dbt/pt-v-environments-jobs-ci-cd-and-custom-schemas.md)
       - Review your PR
       - If your check marks are red:
           1. Click through to understand the error
