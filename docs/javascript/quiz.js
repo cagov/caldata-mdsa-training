@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   quizOptions.forEach(option => {
     option.addEventListener('click', function() {
+      // If debugging or refactoring this code check the GitHub comment on subtleties regarding behavior of `this`
+      // https://github.com/cagov/caldata-mdsa-training/pull/44/changes#r2818635121
       // Get the parent quiz container
       const quizContainer = this.closest('.quiz-container');
       const allOptions = quizContainer.querySelectorAll('.quiz-option');

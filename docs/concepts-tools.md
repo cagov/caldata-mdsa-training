@@ -16,7 +16,7 @@ Here's a table to illustrate the benefits of analytics engineering:
 | **Quality assurance** | Manual spot checks, errors often found by end users | Standardized automated testing frameworks (data quality tests as code) |
 | **Collaboration** | Copies of files or even dashboards, hard to know who changed what | Code review process, clear ownership and approval, multiple people can work on the same thing at once |
 | **Documentation** | Tribal knowledge, scattered notes, outdated wikis | Documentation lives with code, more likely to stay up to date, tests can alert users when table schemas don't match documentation |
-| **Code reuse** | Logic often duplicated across scripts or data products | Emphasis on modular, reusable components (DRY principle) |
+| **Code reuse** | Logic often duplicated across scripts or data products | Emphasis on modular, reusable components ([DRY](https://docs.getdbt.com/terms/dry#why-write-dry-code) principle) |
 | **Debugging** | Dependencies between data assets not always clear | Clear lineage graphs show data flow, standardized error reporting |
 | **Onboarding** | Weeks of knowledge transfer, undocumented assumptions | Self-service documentation and clear code structure |
 

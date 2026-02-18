@@ -21,6 +21,8 @@ This guide walks you through the complete path you will take to learn data and a
       - [Snowflake architecture](cloud-data-warehouses/snowflake.md#odi-snowflake-architecture)
       - [Databases and schemas](cloud-data-warehouses/snowflake.md#databases-and-schemas)
 
+    !!! Note
+        You only need to read about the two sections we linked to above, not the entirety of the Snowflake page.
 ---
 
 ### Step 2: Set up your local development environment (~2 hrs)
@@ -44,7 +46,7 @@ This guide walks you through the complete path you will take to learn data and a
       - Complete the knowledge check section
           - For any incorrect answers: Review content and research topics to solidy your understanding before moving forward
       - Complete the practice section
-          - Review the answer key. For questions you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers, you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
+          - Review the answer key. For questions you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
 
 **Checkpoint:** Can you run `dbt run` successfully? You should have 2 staging models that build.
 
@@ -57,7 +59,7 @@ This guide walks you through the complete path you will take to learn data and a
       - Complete the knowledge check section
           - For any incorrect answers: Review content and research topics to solidy your understanding before moving forward
       - Complete the practice section
-          - Review the answer key. For questions you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers, you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
+          - Review the answer key. For questions you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
 
 **Checkpoint:** Can you run `dbt test` and see passing tests?
 
@@ -65,12 +67,12 @@ This guide walks you through the complete path you will take to learn data and a
 
 ### Step 5: Learn about model materializations and create an intermediate model (~2 hrs)
 
-1. [Part III: Materializations and intermediate models](data-transformation/dbt/pt-iii-materializations-and-intermediate-models.md.md)
+1. [Part III: Materializations and intermediate models](data-transformation/dbt/pt-iii-materializations-and-intermediate-models.md)
       - Learn how to materialize your models and why for each choice and what intermediate models are
       - Complete the knowledge check section
           - For any incorrect answers: Review content and research topics to solidy your understanding before moving forward
       - Complete the practice section
-          - Review the answer key. For questions you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers, you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
+          - Review the answer key. For questions you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
 
 **Checkpoint:** Can you run `dbt build` and see passing models and tests?
 
@@ -83,7 +85,7 @@ This guide walks you through the complete path you will take to learn data and a
       - Complete the knowledge check section
           - For any incorrect answers: Review content and research topics to solidy your understanding before moving forward
       - Complete the practice section
-          - Review the answer key. For questions you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers, you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
+          - Review the answer key. For questions you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
       - Open a PR
           - Push your branch to GitHub
           - Open a pull request with your staging models

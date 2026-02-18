@@ -303,7 +303,7 @@ Here’s [another example of a more complex, multi-stage CTE](https://github.com
     <li class="quiz-option" data-correct="false">Store raw data from external sources</li>
   </ul>
   <div class="quiz-explanation">
-    <strong>Explanation:</strong> Intermediate models combine data from multiple sources, contain reusable transformations, and follow DRY principles. They handle complex business logic like joins, aggregations, and feature engineering to serve as modular building blocks for marts.
+    <strong>Explanation:</strong> Intermediate models combine data from multiple sources, contain reusable transformations, and follow <a href="https://docs.getdbt.com/terms/dry#why-write-dry-code" target="_blank">DRY</a> principles. They handle complex business logic like joins, aggregations, and feature engineering to serve as modular building blocks for marts.
   </div>
 </div>
 
