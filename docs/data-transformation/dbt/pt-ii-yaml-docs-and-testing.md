@@ -50,10 +50,11 @@ Indentation is meaningful in YAML. Use **2 spaces**, not two tabs, to indent sec
 
 #### YAML dictionaries/maps
 
-```yaml
-# In YAML, comments are started with the hashtag # symbol
+Dictionaries/maps use indentation and colons `:`. In YAML, comments are started with the hashtag `#` symbol (like below).
 
-# Dictionaries/maps use indentation and colons :
+```yaml
+# this is a comment
+
 my_dictionary:
   a_number: 12
   a_string: "hello, world!"
@@ -68,8 +69,9 @@ my_dictionary: {"a_number":12, "a_string": "hello, world!", "a_boolean": true}
 
 #### YAML lists
 
+Lists use indentation and dashes `-`.
+
 ```yaml
-# Lists use indentation and dashes -
 my_list:
   - 1
   - 2
@@ -82,15 +84,19 @@ my_list: [1, 2, 3, 4]
 
 #### YAML strings
 
+YAML strings may be written without quotes `""` as long as there is no ambiguity.
+
 ```yaml
-# YAML strings may be written without quotes "" as long as there is no ambiguity
 my_dictionary:
   a_string: "britt is cool!"
   also_a_string: britt is cool
+```
 
-# But omitting the quotes for a string can get you in trouble when the string is ambiguous!
+Omitting the quotes for a string can get you in trouble when the string is ambiguous!
+
+```yaml
 my_dictionary:
-  # This is interpreted as a number and would pull in python 3.1 instead of 3.10!
+  # This is interpreted as a number and pulls in python 3.1 instead of 3.10!
   python_version: 3.10
   another_python_version: "3.10" # this is what we want!
 
@@ -100,8 +106,9 @@ my_dictionary:
 
 #### YAML multiline strings
 
+Use the pipe `|` or right angle bracket `>` to break up long strings for legibility.
+
 ```yaml
-# Use the pipe | or right angle bracket > to break up long strings for legibility
 long_snippet: |
   cotton candy blues
   juxtaposed with blushing peaks
@@ -116,8 +123,9 @@ another_long_snippet: >
 
 #### Markdown in YAML
 
+dbt renders description strings as Markdown.
+
 ```yaml
-# dbt renders description strings as Markdown
 a_markdown_string: |
   This is rendered as Markdown! So I can use _emphasis_
   or **bold text**. I can also include:

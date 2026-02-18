@@ -26,27 +26,23 @@ dbt does a particularly great job of explaining best practices to structuring yo
 
 **Sources** are how dbt references raw data tables that already exist in your data warehouse – likely data loaded by Extract/Load tools. By defining sources in YAML files (which you'll learn about in the next part), you can:
 
-  - Document where your raw data comes from
-  - Test the quality of raw data before transformation
-  - Track data lineage throughout your project
-  - Monitor source freshness
+- Document where your raw data comes from
+- Test the quality of raw data before transformation
+- Track data lineage throughout your project
+- Monitor source freshness
 
 Source freshness checks let you define expectations for when data should be updated (e.g., daily, hourly) and alert you when source data is stale. This helps catch upstream data pipeline issues before they affect your transformations.
 
 [dbt's documentation about sources and freshness](https://docs.getdbt.com/docs/build/sources) goes more in depth and is worth perusing as needed.
 
-  **Seeds** are CSV files stored in your dbt project repository that get loaded into your
-  data warehouse as tables. They're ideal for:
+**Seeds** are CSV files stored in your dbt project repository that get loaded into your
+data warehouse as tables. They're ideal for:
 
-  - Small, static reference datasets (e.g., State FIPS codes, category mappings)
-  - Data that changes infrequently and is easier to manage in version control
-  - Lookup tables that need to be shared across multiple models
+- Small, static reference datasets (e.g., State FIPS codes, category mappings)
+- Data that changes infrequently and is easier to manage in version control
+- Lookup tables that need to be shared across multiple models
 
-  Seeds should be kept small (under a few hundred rows) since they're version-controlled and
-  loaded on every `dbt seed` command. For larger datasets, use sources or external data
-  loading tools instead.
-
-
+Seeds should be kept small (under a few hundred rows) since they're version-controlled and loaded on every `dbt seed` command. For larger datasets, use sources or external data loading tools instead.
 
 ### Staging models
 

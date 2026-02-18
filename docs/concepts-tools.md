@@ -1,6 +1,6 @@
 ## Modern data stacks
 
-Modern data stacks refer to modular, cloud-native tools that enable the collection, loading, storage, transformation, analysis, and governance of data. These plug-and-play solutions are designed to efficiently handle data pipeline automation and infrastructure costs. Legacy data systems often rely on platforms that house all of these components in one place along with on-prem infrastructure. Traditional systems like these still have their benefits, yet they often are costly and inflexible to say the least.
+Modern data stacks refer to modular, cloud-native tools that enable the collection, loading, storage, transformation, analysis, and governance of data. These plug-and-play solutions are designed to efficiently handle data pipeline automation and infrastructure costs. Legacy data systems often rely on platforms that house all of these components in one place along with on-prem infrastructure. Traditional systems like these still have their benefits, yet they often are costly and inflexible.
 
 ## Analytics engineering
 
@@ -28,6 +28,8 @@ The tools we will be learning in this self-paced training are as follows:
 - dbt
 - GitHub
 
+As you now know, modularity is a big benefit to modern data stacks. Other tools could be used like Databricks for Snowflake, or GitLab for GitHub, etc. The training only uses these three at present.
+
 ### Snowflake
 
 Snowflake is a cloud data warehouse that can automatically scale up/down compute resources. It decouples storage and compute resources making it more easy, efficient, and cost-effective to scale your warehouse to your needs; it's cloud-agnostic so you can use it with AWS, Azure, etc.; and it has a clean user interface along with well maintained documentation. Data Custodians work to load raw source data into the warehouse. Data Engineers build and maintain data pipelines via scripts or other tooling.
@@ -37,7 +39,7 @@ Snowflake is a cloud data warehouse that can automatically scale up/down compute
 dbt is a SQL-first transformation tool that lets teams quickly and collaboratively deploy analytics code while following software engineering best practices. It works well with version control; encourages modular, reusable SQL code; makes it easy to track lineage of data as it flows through your data warehouse; and it has a large user base. Analytics Engineers or Data Analysts can write SQL code to clean and transform their data to get it analysis-ready. Data Stewards can write data documentation and work with Analytics Engineers or Data Analysts to ensure the data is built to meet program needs. This allows your data team to safely develop and contribute to production-grade data pipelines.
 
 !!! Note
-    These roles: Analytics Engineer, Data Analyst, or Data Steward can all be held by one person.
+    The same person can hold multiple roles at once.
 
 ### GitHub
 
