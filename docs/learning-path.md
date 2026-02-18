@@ -6,7 +6,46 @@ This guide walks you through the complete path you will take to learn data and a
 
 ## Your journey
 
-### Step 1: Learn about concepts and tools (~3 hrs)
+### Step 1: Download the training repo
+
+### Step 2: Load the data to Snowflake (one team member)
+
+This is intended for only one person on the team to do. This one person should have the correct permissions to load data into the `RAW_DEV` database and create schemas. After this step is complete the entire team going through this training will be able to use this data.
+
+#### Loading Stations data
+
+1. Click the following links to download the training data as `.csv` files
+    1. [Stations](https://data.ca.gov/dataset/water-quality-data/resource/07ba626a-0bc8-4ce9-b6ac-3f29ce3c8e6f)
+    1. [Lab Results](https://data.ca.gov/dataset/water-quality-data/resource/bf00a754-7be7-4360-a470-bbf151aac62c)
+1. In Snowflake, on the bottom of the left pane beneath your name/initials, switch to the `LOADER_DEV` role
+1. Navigate to _Catalog_ on the left pane and click on the `RAW_DEV` database
+    1. Click the blue _+ Schema_ button at the top right
+    1. Input `WATER_QUALITY` then click _Create_
+1. Next, navigate to the top of the left pane and click the `+` symbol
+    1. Scroll to _Table_ then click _From File_
+![Example of Snowflake's UI to create a table from file](images/snowflake-ui-table-from-file.png)
+1. Select/input the following:
+    Warehouse: `LOADING_XS_DEV`
+    Database: `RAW_DEV`
+    Schema: `WATER_QUALITY`
+    Create new table > Name: `STATIONS`
+1. Review load settings, then click _Next_
+1. On the next screen, make sure _Delimited Files (CSV or TSV)_ is selected for _File format_
+1. Leave everything else unchanged and click _Load_
+
+#### Loading Lab Results data
+
+Please follow the steps for loading stations data first before loading lab results data.
+
+1. In your terminal, run this Python script:
+
+```python
+# TODO: place python command here
+```
+
+**Checkpoint:** Verify that both tables have loaded correctly by navigating to _Catalog_ > `RAW_DEV` database > `WATER_QUALITY` schema. Click _Data Preview_ to review each table. Validate row counts match with what you see on the data.ca.gov links above.
+
+### Step 3: Learn about concepts and tools (~3 hrs)
 
 1. Read through the [concepts and tools](concepts-tools.md) guide (required)
 
@@ -17,15 +56,15 @@ This guide walks you through the complete path you will take to learn data and a
       - If you are completely new to this go through the [GitHub tutorials we've curated](code/platforms/github-tutorials.md)
       - If you only need a refresher keep our [GitHub](code/platforms/github.md) guide handy for easy reference
 
-1. Read about the Snowflake RAW/TRANSFORM/ANALYTICS structure (required)
+1. Read about the Snowflake RAW/TRANSFORM/ANALYTICS structure (optional)
       - [Snowflake architecture](cloud-data-warehouses/snowflake.md#odi-snowflake-architecture)
       - [Databases and schemas](cloud-data-warehouses/snowflake.md#databases-and-schemas)
 
     !!! Note
-        You only need to read about the two sections we linked to above, not the entirety of the Snowflake page.
+        This is geared towards the people on the team who will be managing Snowflake architecture. You only need to read about the two sections we linked to above, not the entirety of the Snowflake page.
 ---
 
-### Step 2: Set up your local development environment (~2 hrs)
+### Step 4: Set up your local development environment (~2 hrs)
 
 1. Complete your [local dev setup](code/local-dev-setup.md)
       - Complete the entire setup guide
@@ -39,7 +78,7 @@ This guide walks you through the complete path you will take to learn data and a
 
 ---
 
-### Step 3: Create your first staging models (~3 hrs)
+### Step 5: Create your first staging models (~3 hrs)
 
 1. [Part I: Foundations and staging models](data-transformation/dbt/pt-i-foundations-and-staging-models.md)
       - Learn about dbt, data modeling, and what staging models are

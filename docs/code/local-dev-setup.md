@@ -6,12 +6,15 @@ Here's a diagram of the steps you can expect to take:
 
 ```mermaid
 flowchart TD
+    b[Configure Snowflake - optional]
     a[Install dependencies]
-    b[Configure Snowflake data warehouse - optional]
-    c[Configure AWS - optional]
     d[Install dbt]
     e[Install pre-commit hooks]
-    a --> b --> c --> d --> e
+    c[Configure AWS - optional]
+
+    a --> d --> e
+    a -.-> b
+    a -.-> c
 
 ```
 
