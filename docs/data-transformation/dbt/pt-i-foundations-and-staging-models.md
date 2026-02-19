@@ -12,7 +12,7 @@ In the context of dbt, data modeling refers to the process of organizing data in
 
 ### A layered approach to data models (staging, intermediate, mart)
 
-These three data layers represent a systematic approach to data modeling by organizing data into distinct phases:
+We use a common convention in data modeling of organizing data into three distinct layers or phases:
 
 ```
 Staging → Intermediate → Mart
@@ -121,7 +121,7 @@ Before we dive into exercises take a look at our command line reference to under
 
 **dbt command line reference**
 
-1. `dbt build` – Build and test all models in the project
+1. `dbt build` – [Build](https://docs.getdbt.com/reference/commands/build) and test all models in the project
 1. `dbt build --select path/to/the/model.sql` – Build and tests a specific model
 1. `dbt build --select +path/to/the/model.sql` – Build a specific model and its upstream dependencies
 1. `dbt build --select path/to/the/model.sql+` – Build a specific model and its downstream dependencies
@@ -139,8 +139,8 @@ We recommend attempting these exercises first, but if you get stuck check out ou
     There are a few simple transformations we can do to make working with these data more ergonomic. Models that require simple transformations involving things like data type conversion or column renaming are called staging models.
 
     1. Download the training repo, we recommend at the root of your computer, but you can download it anywhere you'll remember to access it.
-    1. In your terminal or code editor of choice (e.g. VS Code), create a branch: `git switch -c <your-first-name>-dbt-training`
-    1. In your text editor, open `transform/models/staging/training/stg_water_quality__stations.sql` – you should see a SQL statement that selects all of the data from the raw table
+    1. In your terminal or code editor of choice (e.g. VS Code), navigate to the downloaded repo, then create a branch: `git switch -c <your-first-name>-dbt-training`
+    1. In your code editor, open `transform/models/staging/training/stg_water_quality__stations.sql` – you should see a SQL statement that selects all of the data from the raw table
     1. Update the select statement to do the following:
         1. Explicitly select all columns by name rather than with `*`
         1. Exclude the following column: `STATION_NAME`
@@ -179,7 +179,7 @@ We recommend attempting these exercises first, but if you get stuck check out ou
             1. For things that could not be auto-fixed you'll have to manually do it.
         1. Or, to run all the checks, run`pre-commit run --all-files` Note: we don't recommend running this at this stage, since crucial project set up fixes will be addressed in further exercises.
 
-    Any of the above steps may modify your files requiring you to save (`git add`) them again.
+    Any of the above steps may modify your files requiring you to stage (`git add`) them again.
 
     1. Check to see which files need to be added or removed: `git status`
     1. Add or remove any relevant files: `git add filename.ext` or `git rm filename.ext`

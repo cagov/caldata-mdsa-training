@@ -260,7 +260,7 @@ Here’s [another example of a more complex, multi-stage CTE](https://github.com
             1. For things that could not be auto-fixed you'll have to manually do it.
         1. Or, to run all the checks, run`pre-commit run --all-files` Note: we don't recommend running this at this stage, since crucial project set up fixes will be addressed in further exercises.
 
-    Any of the above steps may modify your files requiring you to save (`git add`) them again.
+    Any of the above steps may modify your files requiring you to stage (`git add`) them again.
 
     1. Check to see which files need to be added or removed: `git status`
     1. Add or remove any relevant files: `git add filename.ext` or `git rm filename.ext`
