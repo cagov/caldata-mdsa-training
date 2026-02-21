@@ -75,7 +75,7 @@ To generate docs locally, run: `dbt docs generate` then `dbt docs serve`
 - Document calculated fields
 - Note any limitations or filters applied
 
-### Summary of the three layers (staging, intermediate, mart)
+### Summary of the layered modeling approach (staging, intermediate, mart)
 
 | Layer | Purpose | Transformations | Naming |
 |-------|---------|-----------------|--------|
@@ -86,6 +86,27 @@ To generate docs locally, run: `dbt docs generate` then `dbt docs serve`
 ### Practice
 
 <!-- TODO -->
+
+=== "dbt Core"
+
+    1. _Lint_ and _Format_ your files
+        1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint models/marts`
+        1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix models/marts`
+
+    Any of the above steps may modify your files requiring you to stage (`git add`) them again.
+
+    1. Check to see which files need to be added or removed: `git status`
+    1. Add or remove any relevant files: `git add filename.ext` or `git rm filename.ext`
+    1. Commit your code and leave a concise, yet descriptive commit message: `git commit -m "example message"`
+        1. During this step pre-commit may catch an error you missed. It may auto-fix your file or you may have to do it yourself. Regardless you will have to repeat `git add...` (for each modified file) and `git commit...`.
+    1. Push your code: `git push origin <your-first-name>-dbt-training`
+
+=== "dbt Platform"
+
+    1. Click the _Lint_ and _Fix_ buttons to check and edit your files
+    1. Save any changes made by clicking "Save" or using a keyboard shortcut
+    1. Commit and sync your code
+    1. Leave a concise, yet descriptive commit message
 
 ### Knowledge check
 

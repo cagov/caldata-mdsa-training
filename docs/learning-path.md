@@ -1,4 +1,4 @@
-This guide walks you through the complete path you will take to learn data and analytics engineering concepts and skills as well as modern data tooling.
+This guide walks you through the complete path you will take to learn data and analytics engineering concepts and skills as well as modern data tooling. If at any point throughout this training you get stuck, feel free to ask questions in our [Team's channel](https://teams.microsoft.com/l/channel/19%3A9UzMH9e4ZArvv3-GA6PeAVj78dpC1PeWheOZQ71cJCA1%40thread.tacv2/Discussion?groupId=d481f5d0-9e47-4dd0-9695-1b70a396c4f4&tenantId=e8c9327a-25cd-469b-ac57-455f3bd12bd1).
 
 !!! clock "Estimated Time: 16 hours (self-paced)"
 
@@ -7,6 +7,19 @@ This guide walks you through the complete path you will take to learn data and a
 ## Your journey
 
 ### Step 1: Download the training repo
+
+Clone the practice repository to your local machine then navigate into the repo:
+
+```bash
+git clone https://github.com/cagov/caldata-mdsa-training-practice.git
+cd caldata-mdsa-training-practice
+```
+
+This repository contains:
+
+- A complete dbt project with staging and intermediate models
+- A Python script for loading data into Snowflake
+- All configuration files needed to run dbt locally
 
 ### Step 2: Load the data to Snowflake (one team member)
 
@@ -37,11 +50,29 @@ This is intended for only one person on the team to do. This one person should h
 
 Please follow the steps for loading stations data first before loading lab results data.
 
-1. In your terminal, run this Python script:
+1. Set up environment variables for Snowflake authentication. Add these to your shell config (`~/.zshrc`, `~/.bashrc`, or `~/.bash_profile`):
 
-```python
-# TODO: place python command here
-```
+   ```bash
+   export SNOWFLAKE_ACCOUNT=<org_name>-<account_name>
+   export SNOWFLAKE_USER=<your-username>
+   export SNOWFLAKE_AUTHENTICATOR=externalbrowser  # or username_password_mfa
+   export SNOWFLAKE_DATABASE=RAW_DEV
+   export SNOWFLAKE_WAREHOUSE=<warehouse-name>
+   export SNOWFLAKE_ROLE=LOADER_DEV
+   ```
+
+   Open a new terminal or run `source ~/.zshrc` (or your shell config file) to apply the changes.
+
+2. In your terminal, run the Python script to load the data:
+
+   ```bash
+   cd caldata-mdsa-training-practice
+   uv sync  # Install dependencies if you haven't already
+   uv run python python/load_water_quality_data.py
+   ```
+
+   !!! note
+       This script downloads lab results data from data.ca.gov and loads it into `RAW_DEV.WATER_QUALITY.LAB_RESULTS_TEST_2026`. The download may take a few minutes for large datasets.
 
 **Checkpoint:** Verify that both tables have loaded correctly by navigating to _Catalog_ > `RAW_DEV` database > `WATER_QUALITY` schema. Click _Data Preview_ to review each table. Validate row counts match with what you see on the data.ca.gov links above.
 
