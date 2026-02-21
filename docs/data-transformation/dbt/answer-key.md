@@ -99,7 +99,7 @@ models:
       - name: longitude
         description: Longitude (NAD83).
       - name: county_name
-        description: County where sample collected.
+        description: County where sample was collected.
         data_tests:
           # - unique # we commented this out because we ask you to remove it after you run the test and observe the results
       - name: sample_code
@@ -221,8 +221,6 @@ with stations as (
       group by station_id, county_name, parameter
   ),
 
-  -- select * from parameter_stats
-
   ranked_parameters as (
       select
           station_id,
@@ -287,7 +285,7 @@ models:
     description: This model returns a count of the stations per county.
     columns:
       - name: county_name
-        description: County where sample collected.
+        description: County where sample was collected.
       - name: station_count
         description: Total count of stations.
 ```

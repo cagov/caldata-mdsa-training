@@ -215,8 +215,10 @@ Here’s [another example of a more complex, multi-stage CTE](https://github.com
     **_Hints_**
 
     1. This will make use of a join (_it is possible to do this without a join, we want you do one anyway_) TODO - check that this is the only true statement
-    1. Your output table should have TODO columns
     1. Use Snowflake’s [year()](https://docs.snowflake.com/en/sql-reference/functions/year) function
+    1. Your output table should have TODO columns
+    1. For references to staging models, use the `ref()` macro
+    1. Structure your query with multiple CTEs and `select *` at the end from your last CTE
 
     **YAML:**
 
@@ -224,6 +226,8 @@ Here’s [another example of a more complex, multi-stage CTE](https://github.com
     1. Materialize your model as a table
     1. Add a description explaining this model
     1. Add column descriptions for the fields the model outputs (you can copy/paste from `_stg_water_quality.yml` where definitions have remain unchanged)
+
+    **Stuck?** Check out [the answer](answer-key.md#answer-for-create-your-first-staging-model) for this exercise. TODO - update link
 
 #### Create second intermediate model and YAML docs
 
@@ -235,21 +239,23 @@ Here’s [another example of a more complex, multi-stage CTE](https://github.com
 
     1. Remain on your working branch: `<your-first-name>-dbt-training`
     1. Open `transform/models/2_intermediate/int_water_quality__top_parameters_per_station.sql`, you should see a basic select statement
-    1. Change references to staging models by using the `ref()` macro
     1. Write a SQL query that returns each station's top occurring parameter along with its county and sample count. Create a ranking column called `parameter_rank` that orders parameters by frequency within each station to help you get the top occurring parameter. Sort results by station.
-    1. Structure your query with multiple CTEs
 
     **_Hints_**
 
     1. You'll need to join stations with lab results, then aggregate by station and parameter
-    1. Your output should have 4 columns
     1. Use the [ROW_NUMBER()](https://docs.snowflake.com/en/sql-reference/functions/row_number) window function to rank parameters within each station
+    1. Your output should have 4 columns
+    1. For references to staging models, use the `ref()` macro
+    1. Structure your query with multiple CTEs and `select *` at the end from your last CTE
 
     **YAML:**
 
     1. Document your model in `transform/models/2_intermediate/_int_water_quality.yml`
     1. Add a description explaining this model
     1. Add column descriptions for the fields the model outputs (you can copy/paste from `_stg_water_quality.yml` where definitions have remain unchanged)
+
+    **Stuck?** Check out [the answer](answer-key.md#answer-for-create-your-first-staging-model) for this exercise. TODO - update link
 
 === "dbt Core"
 

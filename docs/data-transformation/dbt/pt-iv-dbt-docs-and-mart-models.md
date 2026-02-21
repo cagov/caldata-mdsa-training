@@ -85,15 +85,15 @@ To generate docs locally, run: `dbt docs generate` then `dbt docs serve`
 
 ### Practice
 
-#### Create first mart model and YAML docs
+#### Create a mart model and YAML docs
 
-!!! abstract "Create and document your first mart model"
+!!! abstract "Create and document your a mart model"
 
     **SQL:**
 
     1. If not already on your working branch, switch to it: `git switch <your-first-name>-dbt-training`
     1. Open `transform/models/3_marts/stations_per_county.sql`, you should see a basic select statement
-    1. Write a SQL query to return a count of unique stations per county sorted from greatest to least
+    1. Write a SQL query to count the number of unique stations per county sorted from greatest to least
     1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
 
     **_Hints_**
@@ -108,6 +108,8 @@ To generate docs locally, run: `dbt docs generate` then `dbt docs serve`
     1. Materialize your model as a table
     1. Add a description explaining this model
     1. Add column descriptions for the fields the model outputs (you can copy/paste from `_stg_water_quality.yml` where definitions have remain unchanged)
+
+    **Stuck?** Check out [the answer](answer-key.md#answer-for-create-your-first-staging-model) for this exercise. TODO - update link
 
 === "dbt Core"
 
