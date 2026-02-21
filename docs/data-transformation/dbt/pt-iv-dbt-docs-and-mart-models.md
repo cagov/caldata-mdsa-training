@@ -85,13 +85,35 @@ To generate docs locally, run: `dbt docs generate` then `dbt docs serve`
 
 ### Practice
 
-<!-- TODO -->
+#### Create first mart model and YAML docs
+
+!!! abstract "Create and document your first mart model"
+
+    **SQL:**
+
+    1. If not already on your working branch, switch to it: `git switch <your-first-name>-dbt-training`
+    1. Open `transform/models/3_marts/stations_per_county.sql`, you should see a basic select statement
+    1. Write a SQL query to return a count of unique stations per county sorted from greatest to least
+    1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
+
+    **_Hints_**
+
+    1. This will make use of a SQL group by and aggregation
+    1. Your output table should have 2 columns
+    1. Use Snowflake’s [count()](https://docs.snowflake.com/en/sql-reference/functions/count) function
+
+    **YAML:**
+
+    1. Document your new intermediate model in the `transform/models/2_intermediate/_int_water_quality.yml` file
+    1. Materialize your model as a table
+    1. Add a description explaining this model
+    1. Add column descriptions for the fields the model outputs (you can copy/paste from `_stg_water_quality.yml` where definitions have remain unchanged)
 
 === "dbt Core"
 
     1. _Lint_ and _Format_ your files
-        1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint models/marts`
-        1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix models/marts`
+        1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint models/3_marts`
+        1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix models/3_marts`
 
     Any of the above steps may modify your files requiring you to stage (`git add`) them again.
 

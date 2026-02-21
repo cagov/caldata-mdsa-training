@@ -140,7 +140,7 @@ We recommend attempting these exercises first, but if you get stuck check out ou
 
     1. Download the training repo, we recommend at the root of your computer, but you can download it anywhere you'll remember to access it.
     1. In your terminal or code editor of choice (e.g. VS Code), navigate to the downloaded repo, then create a branch: `git switch -c <your-first-name>-dbt-training`
-    1. In your code editor, open `transform/models/staging/training/stg_water_quality__stations.sql` – you should see a SQL statement that selects all of the data from the raw table
+    1. In your code editor, open `transform/models/1_staging/stg_water_quality__stations.sql` – you should see a SQL statement that selects all of the data from the raw table
     1. Update the select statement to do the following:
         1. Explicitly select all columns by name rather than with `*`
         1. Exclude the following column: `STATION_NAME`
@@ -157,7 +157,7 @@ We recommend attempting these exercises first, but if you get stuck check out ou
 !!! abstract "Create a staging model for the `LAB_RESULTS` data"
 
     1. Remain on your current branch: `<your-first-name>-dbt-training`
-    1. Open `transform/models/staging/training/stg_water_quality__lab_results.sql` – you should see a SQL statement that selects all of the data from the raw table
+    1. Open `transform/models/1_staging/stg_water_quality__lab_results.sql` – you should see a SQL statement that selects all of the data from the raw table
     1. Update the select statement to do the following:
         1. Explicitly select the following columns by name rather than with `*`:
             - `station_id`, `status`, `sample_code`, `sample_date`, `sample_depth`, `sample_depth_units`, `parameter`, `result`, `reporting_limit`, `units`, and `method_name`
@@ -174,8 +174,8 @@ We recommend attempting these exercises first, but if you get stuck check out ou
 === "dbt Core"
 
     1. _Lint_ and _Format_ your files
-        1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint models/staging`
-        1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix models/staging`
+        1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint models/1_staging`
+        1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix models/1_staging`
             1. For things that could not be auto-fixed you'll have to manually do it.
         1. Or, to run all the checks, run`pre-commit run --all-files` Note: we don't recommend running this at this stage, since crucial project set up fixes will be addressed in further exercises.
 

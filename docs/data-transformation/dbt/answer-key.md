@@ -21,7 +21,7 @@ with stations as (
         to_timestamp(sample_date_min, 'MM/DD/YYYY HH24:MI') as sample_timestamp_min,
         to_timestamp(sample_date_max, 'MM/DD/YYYY HH24:MI') as sample_timestamp_max
 
-    from RAW_DEV.WATER_QUALITY.STATIONS -- or {{ source('WATER_QUALITY', 'stations') }}
+    from RAW_DEV.WATER_QUALITY.STATIONS
 )
 
 select * from stations
@@ -54,7 +54,7 @@ with lab_results as (
         units,
         method_name
 
-    from RAW_DEV.WATER_QUALITY.LAB_RESULTS -- or {{ source('WATER_QUALITY', 'lab_results') }}
+    from RAW_DEV.WATER_QUALITY.LAB_RESULTS
 )
 
 select * from lab_results
@@ -158,33 +158,16 @@ lab_results as (
     select * from {{ ref('stg_water_quality__lab_results') }}
 ),
 
-stations_per_county as (
+joined_data as (
     select
         station_id,
         county_name
 
     from stations
     group by station_id, county_name
-),
-
-stations_per_county_with_parameter_2023_counted as (
-    select
-        s.county_name,
-        count(distinct l.station_id) as station_count
-
-    from stations_per_county as s
-    inner join lab_results as l
-        on s.station_id = l.station_id
-
-    where
-        year(l.sample_date) = 2023
-        and l.parameter = 'Dissolved Chloride'
-    group by s.county_name
 )
 
-select * from stations_per_county_with_parameter_2023_counted
-order by station_count desc
-
+select * from joined_data
 ```
 
 **YAML**
@@ -193,16 +176,13 @@ order by station_count desc
 version: 2
 
 models:
-  - name: int_water_quality__stations_per_county_with_parameter_2023_counted
-    description: |
-      This model returns a count of the stations per county that
-      reported a parameter of Dissolved Chloride for the year
-      2023 sorted from greatest to least.
+  - name: int_water_quality__model_name
+    description: tk
     columns:
-      - name: county_name
-        description: County where sample collected.
-      - name: station_count
-        description: Count of stations that reported a parameter of Dissolved Chloride.
+      - name: tk
+        description: tk
+      - name: tk
+        description: tk
 
 ```
 
@@ -212,11 +192,11 @@ models:
 
 ```SQL
 with stations as (
-      select * from RAW_DEV.WATER_QUALITY.STATIONS
+      select * from {{ ref('stg_water_quality__stations') }}
   ),
 
   lab_results as (
-      select * from RAW_DEV.WATER_QUALITY.LAB_RESULTS
+      select * from {{ ref('stg_water_quality__lab_results') }}
   ),
 
   joined_data as (
@@ -229,8 +209,6 @@ with stations as (
       from stations as s
       inner join lab_results as lr
           on s.station_id = lr.station_id
-      where s.county_name = 'Los Angeles'
-
   ),
 
   parameter_stats as (
@@ -241,7 +219,6 @@ with stations as (
           count(*) as sample_count
       from joined_data
       group by station_id, county_name, parameter
-      having count(*) >= 10
   ),
 
   -- select * from parameter_stats
@@ -249,6 +226,7 @@ with stations as (
   ranked_parameters as (
       select
           station_id,
+          county_name,
           parameter,
           sample_count,
           row_number() over (
@@ -261,6 +239,7 @@ with stations as (
   top_parameters_per_station as (
       select
           station_id,
+          county_name,
           parameter,
           sample_count
       from ranked_parameters
@@ -273,8 +252,47 @@ order by station_id
 
 **YAML**
 
+<!-- TODO add yaml-->
 
 ## Part IV
+
+**SQL**
+
+```SQL
+with source_data as (
+  select * from {{ ref('TODO') }}
+),
+
+stations_per_county as (
+    select
+        county_name,
+        count(distinct station_id) as station_count
+
+    from source_data
+
+    group by county_name
+)
+
+select * from stations_per_county
+order by station_count desc
+```
+
+**YAML**
+
+```YAML
+version: 2
+
+models:
+  - name: stations_per_county
+    description: This model returns a count of the stations per county.
+    columns:
+      - name: county_name
+        description: County where sample collected.
+      - name: station_count
+        description: Total count of stations.
+```
+
+## Part V
 
 ```YAML
 version: 2

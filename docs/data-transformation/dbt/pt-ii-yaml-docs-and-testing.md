@@ -299,7 +299,7 @@ This function is how you reference a model from another: it allows you to build 
     Here you’ll write YAML configuration for the two staging models you built.
 
     1. If not already on your working branch, switch to it: `git switch <your-first-name>-dbt-training`
-    1. Open `transform/models/staging/training/stg_water_quality__stations.sql` and change the reference to our source data by using the `source()` macro we just learned about instead of directly referring to the table name
+    1. Open `transform/models/1_staging/stg_water_quality__stations.sql` and change the reference to our source data by using the `source()` macro we just learned about instead of directly referring to the table name
 
     **Stuck?** Check out [the answer](answer-key.md#answer-for-use-the-source-macro) for this exercise.
 
@@ -308,7 +308,7 @@ This function is how you reference a model from another: it allows you to build 
 !!! abstract "Write YAML for your staging models and add data tests to `stg_water_quality__stations`"
 
     1. Open and review `transform/models/_sources.yml`. We filled this out as an example of a correct YAML file. Notice the indentation at each level of nesting.
-    1. Next, open `transform/models/staging/training/_stg_water_quality.yml` and write some docs for the fields the model outputs
+    1. Next, open `transform/models/1_staging/_stg_water_quality.yml` and write some docs for the fields the model outputs
         1. Add column names
         1. Add column descriptions
 
@@ -327,8 +327,8 @@ This function is how you reference a model from another: it allows you to build 
 === "dbt Core"
 
     1. _Lint_ and _Format_ your files
-        1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint models/staging`
-        1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix models/staging`
+        1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint models/1_staging`
+        1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix models/1_staging`
             1. For things that could not be auto-fixed you'll have to manually do it.
         1. Or, to run all the checks, run`pre-commit run --all-files` Note: we don't recommend running this at this stage, since crucial project set up fixes will be addressed in further exercises.
 

@@ -207,20 +207,20 @@ Here’s [another example of a more complex, multi-stage CTE](https://github.com
     **SQL:**
 
     1. If not already on your working branch, switch to it: `git switch <your-first-name>-dbt-training`
-    1. Open `transform/models/intermediate/training/int_water_quality__stations_per_county_counted.sql`
+    1. Open `transform/models/2_intermediate/TODO.sql`
     1. Change the reference to the staging model by using the `ref()` macro we learned about
-    1. Write a SQL query to return a count of the stations per county that reported a parameter of Dissolved Chloride for the year 2023 sorted from greatest to least.
+    1. Write a SQL query to TODO (a basic query to join both staging models)
     1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
 
     **_Hints_**
 
-    1. This will make use of a SQL group by, aggregation, and join (_it is possible to do this without a join, we want you do one anyway_)
-    1. Your output table should have 2 columns
+    1. This will make use of a join (_it is possible to do this without a join, we want you do one anyway_) TODO - check that this is the only true statement
+    1. Your output table should have TODO columns
     1. Use Snowflake’s [year()](https://docs.snowflake.com/en/sql-reference/functions/year) function
 
     **YAML:**
 
-    1. Document your new intermediate model in the `transform/models/intermediate/training/_int_water_quality.yml` file
+    1. Document your new intermediate model in the `transform/models/2_intermediate/_int_water_quality.yml` file
     1. Materialize your model as a table
     1. Add a description explaining this model
     1. Add column descriptions for the fields the model outputs (you can copy/paste from `_stg_water_quality.yml` where definitions have remain unchanged)
@@ -234,29 +234,28 @@ Here’s [another example of a more complex, multi-stage CTE](https://github.com
     **SQL:**
 
     1. Remain on your working branch: `<your-first-name>-dbt-training`
-    1. Create a new file: `transform/models/intermediate/training/int_water_quality__station_parameter_summary.sql`
+    1. Open `transform/models/2_intermediate/int_water_quality__top_parameters_per_station.sql`, you should see a basic select statement
     1. Change references to staging models by using the `ref()` macro
-    1. Write a SQL query that returns each station's top occurring parameter along with its sample count for the county of Los Angeles. Create a ranking column called `parameter_rank` that orders parameters by frequency within each station to help you get the top occurring parameter. Only include parameters with at least 10 samples. Sort results by station.
+    1. Write a SQL query that returns each station's top occurring parameter along with its county and sample count. Create a ranking column called `parameter_rank` that orders parameters by frequency within each station to help you get the top occurring parameter. Sort results by station.
     1. Structure your query with multiple CTEs
 
     **_Hints_**
 
     1. You'll need to join stations with lab results, then aggregate by station and parameter
-    1. Your output should have 5 columns
+    1. Your output should have 4 columns
     1. Use the [ROW_NUMBER()](https://docs.snowflake.com/en/sql-reference/functions/row_number) window function to rank parameters within each station
-    1. Apply the sample count filter with a HAVING clause
 
     **YAML:**
 
-    1. Document your model in `transform/models/intermediate/training/_int_water_quality.yml`
+    1. Document your model in `transform/models/2_intermediate/_int_water_quality.yml`
     1. Add a description explaining this model
     1. Add column descriptions for the fields the model outputs (you can copy/paste from `_stg_water_quality.yml` where definitions have remain unchanged)
 
 === "dbt Core"
 
     1. _Lint_ and _Format_ your files
-        1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint models/staging`
-        1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix models/staging`
+        1. You can lint your SQL files by navigating to the transform directory and running: `sqlfluff lint models/2_intermediate`
+        1. You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running `sqlfluff fix models/2_intermediate`
             1. For things that could not be auto-fixed you'll have to manually do it.
         1. Or, to run all the checks, run`pre-commit run --all-files` Note: we don't recommend running this at this stage, since crucial project set up fixes will be addressed in further exercises.
 
