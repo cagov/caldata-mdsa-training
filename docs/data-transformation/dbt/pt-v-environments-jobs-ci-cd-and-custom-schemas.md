@@ -55,7 +55,7 @@ We usually set up git repositories so that PRs cannot be merged to `main` unless
 Continuous Deployment (CD) in most of our MDSA projects is usually simple. We typically do not build any applications or deploy cloud resources. Instead, whatever is in the `main` branch is considered _production_, and our dbt projects and docs are built using that.
 
 <!-- #### Demo: CI/CD in a development workflow -->
-<!-- TODO: ADD a video demo -->
+<!-- TODO: https://app.asana.com/1/1202865175765955/project/1209598911230625/task/1213457268000676?focus=true -->
 
 1. How to read the results of CI checks on a PR.
 1. How merging to `main` results in production dbt builds.
@@ -65,7 +65,7 @@ Continuous Deployment (CD) in most of our MDSA projects is usually simple. We ty
 1. You'll learn about how the database schemas in which dbt models are built are determined. In development, the models get built in a different place (e.g., your `DBT_<first-name-initial+last-name>`schema) than they do in production.
 1. Youll how a custom schema name can be generated using a macro we built `get_custom_schema.sql`. -->
 
-<!-- TODO: ADD a video demo -->
+<!-- TODO: https://app.asana.com/1/1202865175765955/project/1209598911230625/task/1213457270764693?focus=true -->
 
 ### Knowledge check
 
