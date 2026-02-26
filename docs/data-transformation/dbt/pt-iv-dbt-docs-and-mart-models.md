@@ -30,7 +30,7 @@ To generate docs locally, run: `dbt docs generate` then `dbt docs serve`
 
 **Examples:**
 
-- `stations` (one row per monitoring station)
+- `stations` (one row per station)
 - `lab_results` (one row per lab result)
 - `samples` (one row per sample)
 - `parameters` (one row per water quality parameter)
@@ -40,7 +40,7 @@ To generate docs locally, run: `dbt docs generate` then `dbt docs serve`
 - Saved in a `marts/` subdirectory
 - Often organized by business domain (e.g., `marts/water_quality/`, `marts/geo/`)
 - Plain English based on the program/entity
-- No prefixes for model files needed e.g. `stations.sql`, not `mart_stations.sql`
+- No prefixes for model files needed: `stations.sql`, not `mart_stations.sql`
 
 **Materialization:**
 
@@ -56,8 +56,8 @@ To generate docs locally, run: `dbt docs generate` then `dbt docs serve`
 
 **2. Business-friendly names**
 
-- Avoid abbreviations: `station_name` not `stn_nm`
-- Avoid technical jargon: `sample_date` not `sys_crt_ts`
+- Avoid abbreviations: `stn_nm` becomes `station_name`
+- Avoid technical jargon: `sys_crt_ts` becomes `sample_date`
 
 **3. Complete context**
 
@@ -75,7 +75,7 @@ To generate docs locally, run: `dbt docs generate` then `dbt docs serve`
 - Document calculated fields
 - Note any limitations or filters applied
 
-### Summary of the layered modeling approach (staging, intermediate, mart)
+### Summary of the layered modeling approach
 
 | Layer | Purpose | Transformations | Naming |
 |-------|---------|-----------------|--------|
@@ -87,29 +87,48 @@ To generate docs locally, run: `dbt docs generate` then `dbt docs serve`
 
 #### Create a mart model and YAML docs
 
-!!! abstract "Create and document your a mart model"
+!!! abstract "Instructions"
+
+    Now you'll create a business-ready mart model that represents stations with aggregated metrics. This mart will answer key questions like: Where are our stations located? When was each station first sampled?
+
+    For this mart we have woven hints directly into the SQL since it is a bit more complex than models you have built so far.
 
     **SQL:**
 
     1. If not already on your working branch, switch to it: `git switch <your-first-name>-dbt-training`
-    1. Open `transform/models/3_marts/stations_per_county.sql`, you should see a basic select statement
-    1. Write a SQL query to count the number of unique stations per county sorted from greatest to least
-    1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
+    1. Open `transform/models/3_marts/stations.sql`, you should see a basic select statement
+    1. Write a SQL query using `int_water_quality__lab_results_enriched` via the `ref()` macro to:
 
-    **_Hints_**
+      One CTE could do the following:
 
-    1. This will make use of a SQL group by and aggregation
-    1. Your output table should have 2 columns
-    1. Use Snowflake’s [count()](https://docs.snowflake.com/en/sql-reference/functions/count) function
+      1. Return one station per row
+          - Use `group by` to aggregate to the station level
+      1. Keep these metadata columns (`station_id`, `full_station_name`, `station_type`, `county_name`, `latitude`, `longitude`, `first_sample_timestamp`, `last_sample_timestamp`, `days_since_last_sample`)
+          - Use [`ANY_VALUE()`](https://docs.snowflake.com/en/sql-reference/functions/any_value) to pick station metadata columns (they're the same for all rows of a station)
+      1. Count all samples as `total_samples`
+      1. Count distinct parameters as `unique_parameters_tested`
+          - Use [`COUNT()`](https://docs.snowflake.com/en/sql-reference/functions/count) for this and above
+
+      Another CTE or two could do the following:
+
+      1. Identify each station's top occurring parameter as `top_parameter` along with its sample count as `top_parameter_sample_count`
+          - Use the [`RANK()`](https://docs.snowflake.com/en/sql-reference/functions/rank) window function to rank parameters by frequency within each station
+          - order by parameter sample count descending
+          - this will result in ties which normally in real world scenarios we would break, but we just want you to get practice with window functions
+
+      You can then join your logic in a final CTE
+
+    1. `select *` at the end from your last CTE then sort by `total_samples` descending
+    1. Your output should have 13 columns
 
     **YAML:**
 
-    1. Document your new intermediate model in the `transform/models/2_intermediate/_int_water_quality.yml` file
-    1. Materialize your model as a table
-    1. Add a description explaining this model
-    1. Add column descriptions for the fields the model outputs (you can copy/paste from `_stg_water_quality.yml` where definitions have remain unchanged)
+    1. Document your mart model in the `transform/models/3_marts/_water_quality.yml` file
+    1. Add a description explaining this model and its grain
+    1. Add column names
+    1. Add column descriptions for all fields (you can copy/paste from `_int_water_quality.yml` where definitions remain unchanged)
 
-    **Stuck?** Check out [the answer](answer-key.md#answer-for-create-your-first-staging-model) for this exercise. TODO - update link
+    **Stuck?** Check out [the answer](answer-key.md#answer-for-create-a-mart-model-and-yaml-docs) for this exercise.
 
 === "dbt Core"
 

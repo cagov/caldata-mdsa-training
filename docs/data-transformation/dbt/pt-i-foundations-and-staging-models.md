@@ -132,44 +132,48 @@ Before we dive into exercises take a look at our command line reference to under
 
 We recommend attempting these exercises first, but if you get stuck check out our answer key linked under each exercise.
 
-#### Create your first staging model
+#### Create a staging model using the `STATIONS` data
 
-!!! abstract "Create a staging model for the `STATIONS` data"
+!!! abstract "Instructions"
 
     There are a few simple transformations we can do to make working with these data more ergonomic. Models that require simple transformations involving things like data type conversion or column renaming are called staging models.
 
-    1. Download the training repo, we recommend at the root of your computer, but you can download it anywhere you'll remember to access it.
-    1. In your terminal or code editor of choice (e.g. VS Code), navigate to the downloaded repo, then create a branch: `git switch -c <your-first-name>-dbt-training`
-    1. In your code editor, open `transform/models/1_staging/stg_water_quality__stations.sql` – you should see a SQL statement that selects all of the data from the raw table
+    1. Open your code editor of choice (e.g. VS Code)
+    1. In the terminal of your code editor, confirm you are in the practice repo by running `pwd`. Your output should be `caldata-mdsa-training-practice`.
+        1. If this is not your output then run `cd ~/caldata-mdsa-training-practice`. This will navigate you to the practice repo. If you decided not to clone the practice repo at your root then your commands will look a little different.
+    1. Once you are in the practice repo, create a branch: `git switch -c <your-first-name>-dbt-training`
+    1. In your code editor, open `transform/models/1_staging/stg_water_quality__stations.sql` – you should see a SQL statement that selects all of the data from the raw table.
     1. Update the select statement to do the following:
         1. Explicitly select all columns by name rather than with `*`
-        1. Exclude the following column: `STATION_NAME`
+            1. Include only: `station_id`, `full_station_name`, `station_type`, `latitude`, `longitude`, `county_name`, `earliest_sample_timestamp`, `latest_sample_timestamp` – usually staging models are 1:1 with source data, but we know we won't need these for training
         1. Change the `STATION_ID` column type to varchar
             1. Use Snowflake’s [TO_VARCHAR()](https://docs.snowflake.com/en/sql-reference/functions/to_char) function which needs one argument – the column to be converted
-        1. Change the `SAMPLE_DATE_MIN` and `SAMPLE_DATE_MAX` columns to timestamps and rename them to `SAMPLE_TIMESTAMP_MIN` and `SAMPLE_TIMESTAMP_MAX`
+        1. Change the data type of the `SAMPLE_DATE_MIN` and `SAMPLE_DATE_MAX` columns to timestamps and rename them to `earliest_sample_timestamp` and `latest_sample_timestamp`
             1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. `YYYY-MM-DD HH24:MI:SS`
-        1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
+    1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
+    1. Your output should have 8 columns
 
-        **Stuck?** Check out [the answer](answer-key.md#answer-for-create-your-first-staging-model) for this exercise.
+    **Stuck?** Check out [the answer](answer-key.md#answer-for-create-a-staging-model-using-the-stations-data) for this exercise.
 
-#### Create your second staging model
+#### Create a staging model using the `LAB_RESULTS` data
 
-!!! abstract "Create a staging model for the `LAB_RESULTS` data"
+!!! abstract "Instructions"
 
     1. Remain on your current branch: `<your-first-name>-dbt-training`
     1. Open `transform/models/1_staging/stg_water_quality__lab_results.sql` – you should see a SQL statement that selects all of the data from the raw table
     1. Update the select statement to do the following:
-        1. Explicitly select the following columns by name rather than with `*`:
-            - `station_id`, `status`, `sample_code`, `sample_date`, `sample_depth`, `sample_depth_units`, `parameter`, `result`, `reporting_limit`, `units`, and `method_name`
-        1. Change the `station_id` column type to varchar
+        1. Explicitly select all columns by name rather than with `*`
+            1. Include only: `station_id`, `status`, `sample_code`, `sample_timestamp`, `sample_date`, `sample_depth` `sample_depth_units`, `parameter`, `method_name` – usually staging models are 1:1 with source data, but we know we won't need these for training
+        1. Change the `station_id` column type to varchar (like you did in the last exercise)
             1. Use Snowflake’s [TO_VARCHAR()](https://docs.snowflake.com/en/sql-reference/functions/to_char) function which needs one argument – the column to be converted
         1. The `sample_date` column in the source data table is of data type `VARCHAR` and we want to change it to `DATE`. The values for this column are also formatted like timestamps. We want this column to both be of type `DATE` and contain values that look like dates.
-            1. Use Snowflake's [DATE_FROM_PARTS()](https://docs.snowflake.com/en/sql-reference/functions/date_from_parts) function to extract the parts of this column needed to turn it into a date. You'll need to use other string manipulation functions as well e.g. [SUBSTR()](https://docs.snowflake.com/en/sql-reference/functions/substr), [LEFT()](https://docs.snowflake.com/en/sql-reference/functions/left), [RIGHT()](https://docs.snowflake.com/en/sql-reference/functions/right). And [cast](https://docs.snowflake.com/en/sql-reference/functions/cast) the values from those resulting parts as `INT` before feeding them into the date_from_parts function. This column should still be aliased as SAMPLE_DATE.
-        1. Change the `sample_date` column type again, to timestamp and rename it to SAMPLE_TIMESTAMP
+            1. Use Snowflake's [DATE_FROM_PARTS()](https://docs.snowflake.com/en/sql-reference/functions/date_from_parts) function to extract the parts of this column needed to turn it into a date. You'll need to use other string manipulation functions as well e.g. [SUBSTR()](https://docs.snowflake.com/en/sql-reference/functions/substr), [LEFT()](https://docs.snowflake.com/en/sql-reference/functions/left), [RIGHT()](https://docs.snowflake.com/en/sql-reference/functions/right). And [cast](https://docs.snowflake.com/en/sql-reference/functions/cast) the values from those resulting parts as `INT` before feeding them into the `DATE_FROM_PARTS` function. This column should still be aliased as `sample_date`.
+        1. Create a new column by changing the original `sample_date` column type again, to timestamp and rename it to SAMPLE_TIMESTAMP
             1. Use Snowflake’s [TO_TIMESTAMP()](https://docs.snowflake.com/en/sql-reference/functions/to_timestamp) function which needs two arguments – the column to be converted and the output format e.g. `YYYY-MM-DD HH24:MI:SS`
     1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
+    1. Your output should have 9 columns
 
-    **Stuck?** Check out [the answer](answer-key.md#answer-for-create-your-second-staging-model) for this exercise.
+    **Stuck?** Check out [the answer](answer-key.md#answer-for-create-a-staging-model-using-the-lab_results-data) for this exercise.
 
 === "dbt Core"
 

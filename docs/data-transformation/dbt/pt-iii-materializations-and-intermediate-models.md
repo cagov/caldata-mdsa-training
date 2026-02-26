@@ -143,7 +143,7 @@ select ...
 
 - Saved in an `intermediate/` subdirectory
 - Files prefixed with `int_`
-- Format: `int_<description>` e.g. `int_water_quality__stations_per_county_2023`
+- Format: `int_<description>` e.g. `int_water_quality__lab_results_enriched`
 
 **Materialization:**
 
@@ -166,12 +166,11 @@ Let refresh our memory on the value of [common table expressions (CTEs)](pt-i-fo
 Let's go from writing our code like this...
 
 ``` sql
-
 select
-    "station_id",
-    "latitude",
-    "longitude",
-    "county_name"
+    station_id,
+    latitude,
+    longitude,
+    county_name
 
 from {{ source('WATER_QUALITY', 'lab_results') }}
 ```
@@ -185,10 +184,10 @@ with source_data as (
 
 lab_results as (
   select
-    "station_id",
-    "latitude",
-    "longitude",
-    "county_name"
+    station_id,
+    latitude,
+    longitude,
+    county_name
 
   from source_data
 )
@@ -196,66 +195,54 @@ lab_results as (
 select * from lab_results
 ```
 
-Here’s [another example of a more complex, multi-stage CTE](https://github.com/cagov/data-infrastructure/blob/main/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql) query.
+Take a look at [another example of a more complex, multi-stage CTE](https://github.com/cagov/data-infrastructure/blob/main/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql) query.
 
-#### Create first intermediate model and YAML docs
+#### Create an enriched intermediate model and docs
 
-!!! abstract "Create and document your first intermediate model"
+!!! abstract "Instructions"
 
-    Now that we’ve gotten some practice creating two staging models and editing our YAML file to reference our sources and models, let's create an intermediate model and update the relevant YAML file.
+    So far we've gotten practice:
+
+      - Creating two staging models
+      - Editing our staging models to reference our source data with the `source` macro
+      - Writing YAML docs to describe our models and their columns
+      - Testing our data
+
+    Now let's build on this knowledge and create an intermediate model and YAML docs.
 
     **SQL:**
 
     1. If not already on your working branch, switch to it: `git switch <your-first-name>-dbt-training`
-    1. Open `transform/models/2_intermediate/TODO.sql`
-    1. Change the reference to the staging model by using the `ref()` macro we learned about
-    1. Write a SQL query to TODO (a basic query to join both staging models)
-    1. Structure your query so that the main part of it is in a CTE, from which you `select *` at the end
+    1. Open `transform/models/2_intermediate/int_water_quality__lab_results_enriched.sql`
+    1. Write a SQL query that joins both staging models to enrich lab results with metadata from the stations table
+    1. Use the `ref()` macro to reference your staging models
+    1. Structure your query with multiple CTEs and `select *` at the end from your last CTE
+    1. Your output should have 16 columns
+
+    !!! note
+        You will see a model `int_water_quality__counties` and its documentation. You can ignore it as it is used for an advanced training topic.
 
     **_Hints_**
 
-    1. This will make use of a join (_it is possible to do this without a join, we want you do one anyway_) TODO - check that this is the only true statement
-    1. Use Snowflake’s [year()](https://docs.snowflake.com/en/sql-reference/functions/year) function
-    1. Your output table should have TODO columns
-    1. For references to staging models, use the `ref()` macro
-    1. Structure your query with multiple CTEs and `select *` at the end from your last CTE
+    1. This requires a join because `county_name` is only available in the stations staging model
+        - We know that `county_name` was originally available in the `lab_results` source data and we asked you to exclude it. We want you to get practice with joins, so the right answer will be one that uses a join.
+    1. Keep the following 8 columns from lab_results:
+        - station_id, sample_code, sample_timestamp, sample_depth, sample_depth_units, parameter, method_name, status
+    1. Keep the following 7 columns from stations:
+        - full_station_name, station_type, latitude, longitude, county_name, first_sample_timestamp, last_sample_timestamp
+    1. Calculate the days since the last sample as whole numbers
+          - Use the [`DATEDIFF()`](https://docs.snowflake.com/en/sql-reference/functions/datediff) function
+          - Within the `DATEDIFF()` function use Snowflake's [`CURRENT_DATE`](https://docs.snowflake.com/en/sql-reference/functions/current_date) function.
 
     **YAML:**
 
     1. Document your new intermediate model in the `transform/models/2_intermediate/_int_water_quality.yml` file
     1. Materialize your model as a table
     1. Add a description explaining this model
-    1. Add column descriptions for the fields the model outputs (you can copy/paste from `_stg_water_quality.yml` where definitions have remain unchanged)
+    1. Add column names
+    1. Add column descriptions for the fields the model outputs (you can copy/paste from `_stg_water_quality.yml` where definitions remain unchanged)
 
-    **Stuck?** Check out [the answer](answer-key.md#answer-for-create-your-first-staging-model) for this exercise. TODO - update link
-
-#### Create second intermediate model and YAML docs
-
-!!! abstract "Create and document your second intermediate model"
-
-    This exercise builds a more complex intermediate model that identifies stations with diverse parameter testing and calculates parameter-specific statistics.
-
-    **SQL:**
-
-    1. Remain on your working branch: `<your-first-name>-dbt-training`
-    1. Open `transform/models/2_intermediate/int_water_quality__top_parameters_per_station.sql`, you should see a basic select statement
-    1. Write a SQL query that returns each station's top occurring parameter along with its county and sample count. Create a ranking column called `parameter_rank` that orders parameters by frequency within each station to help you get the top occurring parameter. Sort results by station.
-
-    **_Hints_**
-
-    1. You'll need to join stations with lab results, then aggregate by station and parameter
-    1. Use the [ROW_NUMBER()](https://docs.snowflake.com/en/sql-reference/functions/row_number) window function to rank parameters within each station
-    1. Your output should have 4 columns
-    1. For references to staging models, use the `ref()` macro
-    1. Structure your query with multiple CTEs and `select *` at the end from your last CTE
-
-    **YAML:**
-
-    1. Document your model in `transform/models/2_intermediate/_int_water_quality.yml`
-    1. Add a description explaining this model
-    1. Add column descriptions for the fields the model outputs (you can copy/paste from `_stg_water_quality.yml` where definitions have remain unchanged)
-
-    **Stuck?** Check out [the answer](answer-key.md#answer-for-create-your-first-staging-model) for this exercise. TODO - update link
+    **Stuck?** Check out [the answer](answer-key.md#answer-for-create-an-enriched-intermediate-model-and-docs) for this exercise.
 
 === "dbt Core"
 
@@ -324,6 +311,21 @@ Here’s [another example of a more complex, multi-stage CTE](https://github.com
   </ul>
   <div class="quiz-explanation">
     <strong>Explanation:</strong> Tables are ideal for frequently accessed models with compute-intensive transformations, such as marts that service popular dashboards. They return transformed data when queried with no need for reprocessing. Views are better for models that need to stay fresh and are used as building blocks.
+  </div>
+</div>
+
+#### Question #4
+
+<div class="quiz-container">
+  <div class="quiz-question">In the answer key for the enriched intermediate model, we used an inner join. If we used a left join instead, what would be the impact?</div>
+  <ul class="quiz-options">
+    <li class="quiz-option" data-correct="true">The result would be exactly the same because every lab result has a station_id</li>
+    <li class="quiz-option" data-correct="true">Lab results without matching stations would be kept with NULL values for station columns</li>
+    <li class="quiz-option" data-correct="false">We would get duplicate rows for each lab result</li>
+    <li class="quiz-option" data-correct="false">The query would run faster because left joins are more efficient than inner joins</li>
+  </ul>
+  <div class="quiz-explanation">
+    <strong>Explanation:</strong> The first two answers are both correct! In this dataset, every lab result has a matching station, so an inner or left join produces the same results. However, the two joins behave differently: a left join preserves all lab results even when there's no matching station, keeping those rows with NULL values for station columns. An inner join can hide potential data quality issues by filtering out lab results without valid stations.
   </div>
 </div>
 

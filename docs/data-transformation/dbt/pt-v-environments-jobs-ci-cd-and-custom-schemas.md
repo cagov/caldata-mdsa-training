@@ -4,11 +4,11 @@
 
 ### Environments in Snowflake
 
-We often talk about the concept of "environments". Broadly speaking, environments are a collection of compute resources, software, and configuration, which together represent a functioning context for development. Examples of environments include:
+During step 3 of the [learning path](../../learning-path.md#step-3-learn-about-concepts-and-tools-3-hrs) we had you read a bit about Snowflake arhitecture. In that content, we briefly introduced the concept of _environments_. Broadly speaking, environments are a collection of compute resources, software, and configuration, which together represent a functioning context for development. Examples of environments include:
 
-1. A “production” environment which is used to run the dbt models that have been merged to `main`. This can be run on an ad-hoc basis, or can be run on a schedule to ensure that models are never more than some amount of time old.
-1. A "development" environment, which is used to run tests on branches and pull requests, and can help to catch bugs and regressions before they are deployed to production.
-1. A "user acceptance testing (UAT)" environment, which can be used as a final testing environment for verifying code before it is deployed to production.
+1. A **production** environment which is used to run the dbt models that have been merged to `main`. This can be run on an ad-hoc basis, or can be run on a schedule to ensure that models are never more than some amount of time old.
+1. A **development** environment, which is used to run tests on branches and pull requests, and can help to catch bugs and regressions before they are deployed to production.
+1. A **user acceptance testing (UAT)** environment, which can be used as a final testing environment for verifying code before it is deployed to production.
 
 Unfortunately, that's pretty vague, since there are lots of different ways environments can be set up! Depending on your situation, different environments in Snowflake could be represented by:
 
@@ -16,13 +16,13 @@ Unfortunately, that's pretty vague, since there are lots of different ways envir
 - different databases within the same account, or even
 - different schemas within the same database.
 
-In our default MDSA architecture we usually have two environments, "dev" and "prod", which reside in the same Snowflake account. Each of these environments consists of a set of databases corresponding to our layered data architecture (see our [Snowflake training](../../cloud-data-warehouses/snowflake.md#snowflake-architecture) for more detail).
+In our default MDSA architecture we have two environments, _dev_ and _prod_, which reside in the same Snowflake account. Each of these environments consists of a set of databases corresponding to our layered [data architecture](../../cloud-data-warehouses/snowflake.md#snowflake-architecture) you also read about in step 3.
 
 ### Environments in dbt Platform
 
 dbt Platform also has a concept of an Environment, which is a virtual machine in dbt Platform that has all of the relevant software dependencies and environment variables set. Roughly speaking, an environment in dbt Platform will correspond to one of your environments in Snowflake.
 
-You’ve already encountered one environment, which is your “Develop:  Cloud IDE”. But you can create other environments in dbt Platform for various purposes. Our typical dbt Platform setup includes the following environments:
+If using dbt Platform, you’ve already encountered one environment, your _Develop: Cloud IDE_. But you can create other environments in dbt Platform for various purposes. Our typical dbt Platform setup includes the following environments:
 
 - Development, which uses the "dev" Snowflake environment. This is what you use when you work in the cloud IDE.
 - Production, which uses the "prod" Snowflake environment. This is what we use to build production data models.
@@ -30,97 +30,87 @@ You’ve already encountered one environment, which is your “Develop:  Cloud I
 
 ### Jobs
 
-A "job" is a command or series of commands that run in a given environment.
-Examples of jobs we often use in our MDSA projects include:
+A _job_ is a command or series of commands that run in a given environment. Examples of jobs we often use include:
 
 - Running a nightly build of data models
-- Running continuous integration (CI, see below!) checks
+- Running Continuous Integration – CI checks (see below!)
 - Building project docs
 
-Jobs can be configured in a number of ways: they can have different environment variables set,
-they can run on a schedule, or they can be triggered by a specific action like a pull request being opened,
-or a branch being merged.
+Jobs can be configured in a number of ways: they can have different environment variables set, they can run on a schedule, or they can be triggered by a specific action like a pull request being opened, or a branch being merged.
 
-### Continuous integration and continuous deployment (CI/CD)
+### Continuous Integration and Continuous Deployment (CI/CD)
 
 #### Continuous Integration (CI)
 
-Continuous Integration checks in GitHub, Azure DevOps, or BitBucket are automated tests that are run against your code every time you push a change.
-They are an important part of the software development process, and can help you:
+Continuous Integration checks in GitHub, Azure DevOps, BitBucket, or similar are automated tests that are run against your code every time you push a change. They are an important part of the software development process, and can help you:
 
 - **Catch errors and issues early:** CI checks can identify issues with your code before they can cause problems in production.
 - **Improve code quality:** CI checks can help you to improve the quality of your code by identifying issues like duplicate or dead code and potential security vulnerabilities.
 - **Establish a house style:** CI checks can enforce various code formatting rules and conventions that your team has agreed upon.
 
-We have set up your project repository so that PRs cannot be merged to `main` unless these checks pass.
-This can sometimes feel annoying! At the end of the day, however, CI/CD checks shouldn’t feel too painful or like a box-checking exercise:
-they are rather intended to be a routine and helpful part of the development process.
-Ultimately, experience has shown that effective use of CI/CD greatly speeds up development.
+We usually set up git repositories so that PRs cannot be merged to `main` unless these checks pass. This can sometimes feel annoying! However, CI/CD checks shouldn’t feel too painful or like a box-checking exercise. They are intended to be a routine and helpful part of the development process. Ultimately, experience has shown that effective use of CI/CD greatly speeds up development.
 
 #### Continuous Deployment (CD)
 
-Continuous Deployment (CD) in most MDSA projects is usually pretty simple.
-We typically do not build any applications or deploy cloud resources.
-Instead, whatever is in the `main` branch is considered "production",
-and our dbt projects and docs are built using that.
+Continuous Deployment (CD) in most of our MDSA projects is usually simple. We typically do not build any applications or deploy cloud resources. Instead, whatever is in the `main` branch is considered _production_, and our dbt projects and docs are built using that.
 
-#### Demo: CI/CD in a development workflow
-<!-- TODO: ADD a video or diagram or something as a "demo" -->
+<!-- #### Demo: CI/CD in a development workflow -->
+<!-- TODO: ADD a video demo -->
 
 1. How to read the results of CI checks on a PR.
 1. How merging to `main` results in production dbt builds.
 
-### Custom schema names
+<!-- ### Custom schema names
 
-1. We’ll talk about how the database schemas in which dbt models are built are determined. In development, the models get built in a different place (e.g., your `DBT_<first-name-initial+last-name>`schema) than they do in production.
-1. We’ll discuss how this project is configured to use a custom schema name generated using `transform/macros/get_custom_schema.sql`.
+1. You'll learn about how the database schemas in which dbt models are built are determined. In development, the models get built in a different place (e.g., your `DBT_<first-name-initial+last-name>`schema) than they do in production.
+1. Youll how a custom schema name can be generated using a macro we built `get_custom_schema.sql`. -->
 
-<!-- TODO: Add practice -->
+<!-- TODO: ADD a video demo -->
 
 ### Knowledge check
 
 #### Question #1
 
 <div class="quiz-container">
-  <div class="quiz-question">What is the purpose of staging models in dbt?</div>
+  <div class="quiz-question">What does an environment represent in data and software engineering?</div>
   <ul class="quiz-options">
-    <li class="quiz-option" data-correct="false">Apply complex business logic transformations</li>
-    <li class="quiz-option" data-correct="false">Join multiple tables together</li>
-    <li class="quiz-option" data-correct="true">Provide a one-to-one representation of source data with light transformations</li>
-    <li class="quiz-option" data-correct="false">Create final analytical tables for end users</li>
+    <li class="quiz-option" data-correct="false">A specific database table where data is stored</li>
+    <li class="quiz-option" data-correct="true">A collection of compute resources, software, and configuration representing a functioning development context</li>
+    <li class="quiz-option" data-correct="false">A scheduling tool for running data pipelines</li>
+    <li class="quiz-option" data-correct="false">A version control system for tracking code changes</li>
   </ul>
   <div class="quiz-explanation">
-    <strong>Explanation:</strong> Staging models create a one-to-one relationship with source data and perform only basic transformations like column renaming, type casting, and simple computations. Complex business logic belongs in intermediate or mart models.
+    <strong>Explanation:</strong> An environment is a collection of compute resources, software, and configuration which together represent a functioning context for development. Common examples include production environments (for running merged code), development environments (for testing branches and PRs), and UAT environments (for final verification before production deployment).
   </div>
 </div>
 
 #### Question #2
 
 <div class="quiz-container">
-  <div class="quiz-question">Which materialization is typically used for staging models?</div>
+  <div class="quiz-question">Why are repositories typically configured so that pull requests cannot be merged to main unless CI checks pass?</div>
   <ul class="quiz-options">
-    <li class="quiz-option" data-correct="false">Table</li>
-    <li class="quiz-option" data-correct="false">Incremental</li>
-    <li class="quiz-option" data-correct="false">Snapshot</li>
-    <li class="quiz-option" data-correct="true">View or ephemeral</li>
+    <li class="quiz-option" data-correct="false">To slow down the development process and give teams more time to review</li>
+    <li class="quiz-option" data-correct="true">To prevent code with errors, quality issues, or style violations from reaching production</li>
+    <li class="quiz-option" data-correct="false">Because only some people can deploy code to production</li>
+    <li class="quiz-option" data-correct="false">To ensure documentation for the codebase is built first</li>
   </ul>
   <div class="quiz-explanation">
-    <strong>Explanation:</strong> Staging models are typically materialized as views or ephemeral because they're cheap to rebuild and are queried by downstream models rather than end users.
+    <strong>Explanation:</strong> CI checks help catch errors early, improve code quality, and enforce code formatting rules and conventions. Requiring these checks to pass before merging prevents problematic code from reaching production. While this may sometimes feel restrictive, experience has shown that effective use of CI/CD greatly speeds up development by catching issues before they cause problems in production.
   </div>
 </div>
 
 #### Question #3
 
 <div class="quiz-container">
-  <div class="quiz-question">Which command builds and tests a specific model?</div>
+  <div class="quiz-question">What is the primary purpose of Continuous Integration (CI) checks?</div>
   <ul class="quiz-options">
-    <li class="quiz-option" data-correct="false"><code>dbt run --select model_name</code></li>
-    <li class="quiz-option" data-correct="false"><code>dbt test --select model_name</code></li>
-    <li class="quiz-option" data-correct="true"><code>dbt build --select model_name</code></li>
-    <li class="quiz-option" data-correct="false"><code>dbt compile --select model_name</code></li>
+    <li class="quiz-option" data-correct="false">To deploy code to production automatically</li>
+    <li class="quiz-option" data-correct="false">To schedule nightly data builds</li>
+    <li class="quiz-option" data-correct="true">To catch errors and issues early before they reach production</li>
+    <li class="quiz-option" data-correct="false">To create custom schema names</li>
   </ul>
   <div class="quiz-explanation">
-    <strong>Explanation:</strong> The <i>dbt build</i> command both runs and tests models. In contrast, <i>dbt run</i> builds the model without testing, <i>dbt test</i> tests without building, and <i>dbt compile</i> compiles SQL without executing it. The <i> dbt build</i> command is the most comprehensive option to ensure your model is both created and validated.
+    <strong>Explanation:</strong> Continuous Integration (CI) checks are automated tests that run against your code every time you push a change. They help catch errors and issues early, improve code quality, and establish a house style. CI checks run before code is merged to production, helping prevent bugs from reaching production environments.
   </div>
 </div>
 

@@ -8,10 +8,23 @@ This guide walks you through the complete path you will take to learn data and a
 
 ### Step 1: Download the training repo
 
-Clone the practice repository to your local machine then navigate into the repo:
+Clone the practice repository to your local machine, we recommend at the root of your computer, but you can download it anywhere you'll remember to access it. All commands in the rest of this training will assume you have cloned the repo at your computer root. If you did not you'll have to make custom changes to the example commands on your own.
+
+To clone it to your root, first run:
+
+```bash
+cd ~
+```
+
+Next, run:
 
 ```bash
 git clone https://github.com/cagov/caldata-mdsa-training-practice.git
+```
+
+Then navigate into the repo:
+
+``` bash
 cd caldata-mdsa-training-practice
 ```
 
@@ -87,12 +100,13 @@ Please follow the steps for loading stations data first before loading lab resul
       - If you are completely new to this go through the [GitHub tutorials we've curated](code/platforms/github-tutorials.md)
       - If you only need a refresher keep our [GitHub](code/platforms/github.md) guide handy for easy reference
 
-1. Read about the Snowflake RAW/TRANSFORM/ANALYTICS structure (optional)
-      - [Snowflake architecture](cloud-data-warehouses/snowflake.md#odi-snowflake-architecture)
-      - [Databases and schemas](cloud-data-warehouses/snowflake.md#databases-and-schemas)
+1. Read about the Snowflake architecture your data warehouse is similarly modeled of off (required)
+      1. Read this section [Databases and schemas](cloud-data-warehouses/snowflake.md#databases-and-schemas) all the way through _Defaults_
+      1. Read this section, [Snowflake architecture](cloud-data-warehouses/snowflake.md#odi-snowflake-architecture), all the way through _Visualizing the ODI context_
 
     !!! Note
-        This is geared towards the people on the team who will be managing Snowflake architecture. You only need to read about the two sections we linked to above, not the entirety of the Snowflake page.
+        You only need to read about the thrtwoee sections we linked to above, not the entirety of the Snowflake page.
+
 ---
 
 ### Step 4: Set up your local development environment (~2 hrs)
@@ -116,7 +130,7 @@ Please follow the steps for loading stations data first before loading lab resul
       - Complete the knowledge check section
           - For any incorrect answers: Review content and research topics to solidy your understanding before moving forward
       - Complete the practice section
-          - Review the answer key. For questions you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
+          - Review the answer key. For parts you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
 
 **Checkpoint:** Can you run `dbt run` successfully? You should have 2 staging models that build.
 
@@ -129,7 +143,7 @@ Please follow the steps for loading stations data first before loading lab resul
       - Complete the knowledge check section
           - For any incorrect answers: Review content and research topics to solidy your understanding before moving forward
       - Complete the practice section
-          - Review the answer key. For questions you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
+          - Review the answer key. For parts you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
 
 **Checkpoint:** Can you run `dbt test` and see passing tests?
 
@@ -142,9 +156,9 @@ Please follow the steps for loading stations data first before loading lab resul
       - Complete the knowledge check section
           - For any incorrect answers: Review content and research topics to solidy your understanding before moving forward
       - Complete the practice section
-          - Review the answer key. For questions you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
+          - Review the answer key. For parts you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
 
-**Checkpoint:** Can you run `dbt build` and see passing models and tests?
+**Checkpoint:** Can you run `dbt build --select int_water_quality__lab_results_enriched` and see passing models and tests?
 
 ---
 
@@ -155,14 +169,13 @@ Please follow the steps for loading stations data first before loading lab resul
       - Complete the knowledge check section
           - For any incorrect answers: Review content and research topics to solidy your understanding before moving forward
       - Complete the practice section
-          - Review the answer key. For questions you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
+          - Review the answer key. For parts you got wrong, try to understand how your model and the answer key model are different. What is the grain of your model? For answers you got correct, but solved differently, note the distinctions. It's okay to arrive at the right answer with a different method, we only want you to be aware of other solutions. If you think your solution is more readable or performant, let us know!
       - Open a PR
           - Push your branch to GitHub
           - Open a pull request with your staging models
           - Request review (or self-review to understand the process)
 
-<!-- TODO: fill in the model select below -->
-**Checkpoint:** Can you run `dbt build --select xx` and see passing models and tests? Do you have an open PR with your code?
+**Checkpoint:** Can you run `dbt build --select stations` and see passing models and tests? Do you have an open PR with your code?
 
 ---
 
@@ -194,19 +207,22 @@ and your final training pipeline should look like this:
 
 ```mermaid
 flowchart LR
-    subgraph Raw["RAW_DEV.water_quality"]
+    subgraph Raw["RAW_DEV.WATER_QUALITY"]
         R1[stations]
         R2[lab_results]
     end
 
-    subgraph Staging["TRANSFORM_DEV.DBT_<initials>"]
+    subgraph Staging["TRANSFORM_DEV.DBT_JDOE"]
         S1[stg_water_quality__stations]
         S2[stg_water_quality__lab_results]
     end
 
-    subgraph Intermediate["TRANSFORM_DEV.DBT_<initials>"]
-        I1[int_water_quality__stations_per_county_counted]
-        I2[int_water_quality__station_parameter_summary]
+    subgraph Intermediate["TRANSFORM_DEV.DBT_JDOE"]
+        I1[int_water_quality__lab_results_enriched]
+    end
+
+    subgraph Marts["ANALYTICS_DEV.DBT_JDOE"]
+        M1[stations]
     end
 
     R1 --> S1
@@ -215,12 +231,12 @@ flowchart LR
     S1 --> I1
     S2 --> I1
 
-    S1 --> I2
-    S2 --> I2
+    I1 --> M1
 
     style Raw fill:#ffe6e6
     style Staging fill:#e1f5ff
     style Intermediate fill:#fff4e6
+    style Marts fill:#e6f7e6
 ```
 
 ---

@@ -15,7 +15,6 @@ flowchart TD
     a --> d --> e
     a -.-> b
     a -.-> c
-
 ```
 
 ## 1. Install dependencies
@@ -79,7 +78,7 @@ terraform -v
 go version
 ```
 
-## 2. Configure Snowflake data warehouse
+## 2. Configure Snowflake data warehouse (optional)
 
 In order to use Snowflake for a Python or Terraform workflow you should set some default local environment variables in your environment.
 This will depend on your operating system and shell.

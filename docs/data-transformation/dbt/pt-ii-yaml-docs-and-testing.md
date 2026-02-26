@@ -294,35 +294,37 @@ This function is how you reference a model from another: it allows you to build 
 
 #### Use the `source()` macro
 
-!!! abstract "Change source references in your staging models"
+!!! abstract "Instructions"
 
-    Here you’ll write YAML configuration for the two staging models you built.
+    Here you'll replace the source data references in your staging models with the `source` macro.
 
     1. If not already on your working branch, switch to it: `git switch <your-first-name>-dbt-training`
-    1. Open `transform/models/1_staging/stg_water_quality__stations.sql` and change the reference to our source data by using the `source()` macro we just learned about instead of directly referring to the table name
+    1. Open `transform/models/1_staging/stg_water_quality__stations.sql`
+    1. Change the reference to the source data by using the `source()` macro instead of directly referring to the table name
 
     **Stuck?** Check out [the answer](answer-key.md#answer-for-use-the-source-macro) for this exercise.
 
-#### Edit YAML docs and write data tests
+#### Write YAML docs and data tests
 
-!!! abstract "Write YAML for your staging models and add data tests to `stg_water_quality__stations`"
+!!! abstract "Instructions"
 
-    1. Open and review `transform/models/_sources.yml`. We filled this out as an example of a correct YAML file. Notice the indentation at each level of nesting.
+    Here you’ll write YAML configuration for the two staging models you built.
+
+    1. Open and review `transform/models/_sources.yml`. We filled this out for you so you can have an example of a correct YAML file. Notice the indentation at each level of nesting.
     1. Next, open `transform/models/1_staging/_stg_water_quality.yml` and write some docs for the fields the model outputs
+        1. Add model descriptions
         1. Add column names
-        1. Add column descriptions
+        1. Add column descriptions for the fields the model outputs (you can copy/paste from `_sources.yml` where definitions remain unchanged)
 
-    In the same file, write some data integrity tests for just your `stg_water_quality__stations` model.
+    In the same file, write two data integrity tests for just your `stg_water_quality__stations` model.
 
-    1. Add a not null test for STATION_ID
-    1. Add a unique test for COUNTY_NAME. This one should fail!
-    1. In your dbt Platform command line, run `dbt test --select stg_water_quality__stations`
+    1. Add a not null test for `station_id`
+    1. Add a unique test for `county_name`. This one should fail!
+        1. The grain at which the stations data is collected results in duplicate county names so the unique test is not a good test for this column.
+    1. In your command line, run `dbt test --select stg_water_quality__stations`
     1. After observing the test results, remove only the unique test
 
-    !!! note
-        The grain at which the stations data is collected results in duplicate county names so the unique test is not a good test for this column.
-
-    **Stuck?** Check out [the answer](answer-key.md#answer-for-edit-yaml-docs-and-write-data-tests) for this exercise.
+    **Stuck?** Check out [the answer](answer-key.md#answer-for-write-yaml-docs-and-data-tests) for this exercise.
 
 === "dbt Core"
 
