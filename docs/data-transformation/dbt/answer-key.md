@@ -369,15 +369,3 @@ models:
       - name: days_since_last_sample
         description: the number of days that have passed, in whole numbers, since the last sample collection.
 ```
-
-## Part V
-
-```YAML
-version: 2
-
-models:
-  - name: int_water_quality__stations_per_county_with_parameter_2023_counted
-    config:
-      schema: statistics
-    ...
-```
