@@ -34,11 +34,11 @@ This repository contains:
 - A Python script for loading data into Snowflake
 - All configuration files needed to run dbt locally
 
-### Step 1a: Load the data to Snowflake (one team member)
+#### Step 1a: Load the data to Snowflake (one team member)
 
 This is intended for only one person on the team to do. This one person should have the correct permissions to load data into the `RAW_DEV` database and create schemas. After this step is complete the entire team going through this training will be able to use this data.
 
-#### Loading Stations data
+##### Loading Stations data
 
 1. Click the following links to download the training data as `.csv` files
     1. [Stations](https://data.ca.gov/dataset/water-quality-data/resource/07ba626a-0bc8-4ce9-b6ac-3f29ce3c8e6f)
@@ -59,7 +59,7 @@ This is intended for only one person on the team to do. This one person should h
 1. On the next screen, make sure _Delimited Files (CSV or TSV)_ is selected for _File format_
 1. Leave everything else unchanged and click _Load_
 
-#### Loading Lab Results data
+##### Loading Lab Results data
 
 Please follow the steps for loading stations data first before loading lab results data.
 
