@@ -34,7 +34,7 @@ This repository contains:
 - A Python script for loading data into Snowflake
 - All configuration files needed to run dbt locally
 
-### Step 2: Load the data to Snowflake (one team member)
+### Step 1a: Load the data to Snowflake (one team member)
 
 This is intended for only one person on the team to do. This one person should have the correct permissions to load data into the `RAW_DEV` database and create schemas. After this step is complete the entire team going through this training will be able to use this data.
 
@@ -89,7 +89,7 @@ Please follow the steps for loading stations data first before loading lab resul
 
 **Checkpoint:** Verify that both tables have loaded correctly by navigating to _Catalog_ > `RAW_DEV` database > `WATER_QUALITY` schema. Click _Data Preview_ to review each table. Validate row counts match with what you see on the data.ca.gov links above.
 
-### Step 3: Learn about concepts and tools (~3 hrs)
+### Step 2: Learn about concepts and tools (~3 hrs)
 
 1. Read through the [concepts and tools](concepts-tools.md) guide (required)
 
@@ -109,7 +109,7 @@ Please follow the steps for loading stations data first before loading lab resul
 
 ---
 
-### Step 4: Set up your local development environment (~2 hrs)
+### Step 3: Set up your local development environment (~2 hrs)
 
 1. Complete your [local dev setup](code/local-dev-setup.md)
       - Complete the entire setup guide
@@ -123,7 +123,7 @@ Please follow the steps for loading stations data first before loading lab resul
 
 ---
 
-### Step 5: Create your first staging models (~3 hrs)
+### Step 4: Create your first staging models (~3 hrs)
 
 1. [Part I: Foundations and staging models](data-transformation/dbt/pt-i-foundations-and-staging-models.md)
       - Learn about dbt, data modeling, and what staging models are
@@ -136,7 +136,7 @@ Please follow the steps for loading stations data first before loading lab resul
 
 ---
 
-### Step 4: Write YAML docs and dbt tests (~2 hrs)
+### Step 5: Write YAML docs and dbt tests (~2 hrs)
 
 1. [Part II: YAML documentation and testing](data-transformation/dbt/data-transformation/dbt/pt-ii-yaml-docs-and-testing.md)
       - Learn about YAML configuration files and their structure, documentation, and dbt tests
@@ -149,7 +149,7 @@ Please follow the steps for loading stations data first before loading lab resul
 
 ---
 
-### Step 5: Learn about model materializations and create an intermediate model (~2 hrs)
+### Step 6: Learn about model materializations and create an intermediate model (~2 hrs)
 
 1. [Part III: Materializations and intermediate models](data-transformation/dbt/pt-iii-materializations-and-intermediate-models.md)
       - Learn how to materialize your models and why for each choice and what intermediate models are
@@ -162,7 +162,7 @@ Please follow the steps for loading stations data first before loading lab resul
 
 ---
 
-### Step 6: View your YAML docs as HTML and build a mart model (~2 hrs)
+### Step 7: View your YAML docs as HTML and build a mart model (~2 hrs)
 
 1. [Part IV: dbt docs and mart models](data-transformation/dbt/pt-iv-dbt-docs-and-mart-models.md)
       - Learn how to render your YAML documentation and what mart models are
@@ -179,7 +179,7 @@ Please follow the steps for loading stations data first before loading lab resul
 
 ---
 
-### Step 7: Learn about environments, jobs, CI/CD, and custom schemas (~2 hrs)
+### Step 8: Learn about environments, jobs, CI/CD, and custom schemas (~2 hrs)
 
 1. [Part V: Environments, jobs, CI/CD, and custom schemas](data-transformation/dbt/pt-v-environments-jobs-ci-cd-and-custom-schemas.md)
       - Review your PR
