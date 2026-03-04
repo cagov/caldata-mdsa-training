@@ -169,7 +169,7 @@ lab_results_enriched as (
         on lr.station_id = s.station_id
 )
 
-select * from lab_results_with_county
+select * from lab_results_enriched
 ```
 
 **YAML**
