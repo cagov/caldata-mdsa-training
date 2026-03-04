@@ -13,7 +13,7 @@ Here's an example DAG from our team's [data-infrastructure project](https://gith
 #### Rendering your docs as static HTML
 
 dbt reads your SQL models and YAML configuration files and produces a static HTML document from them.
-This documentation can then be hosted in a number of places, including dbt Platform, GitHub Pages, Azure Static Web Apps, etc. Here is an example that demonstrate dbt docs being hosted on [GitHub Pages](https://cagov.github.io/data-infrastructure/dbt_docs_snowflake/#!/overview) and [the code](https://github.com/search?q=repo%3Acagov%2Fdata-infrastructure%20dbt_docs_snowflake&type=code) that makes it happen.
+This documentation can then be hosted in a number of places, including dbt Platform, GitHub Pages, Azure Static Web Apps, etc. Here is an example that demonstrates dbt docs being hosted on [GitHub Pages](https://cagov.github.io/data-infrastructure/dbt_docs_snowflake/#!/overview) and [the code](https://github.com/search?q=repo%3Acagov%2Fdata-infrastructure%20dbt_docs_snowflake&type=code) that makes it happen.
 
 To generate docs locally, run: `dbt docs generate` then `dbt docs serve`
 
