@@ -10,7 +10,7 @@ During step 3 of the [learning path](../../learning-path.md#step-3-learn-about-c
 1. A **development** environment, which is used to run tests on branches and pull requests, and can help to catch bugs and regressions before they are deployed to production.
 1. A **user acceptance testing (UAT)** environment, which can be used as a final testing environment for verifying code before it is deployed to production.
 
-Unfortunately, that's pretty vague, since there are lots of different ways environments can be set up! Depending on your situation, different environments in Snowflake could be represented by:
+These definitions are intentionally broad, since there are lots of different ways environments can be set up! Depending on your situation, different environments in Snowflake could be represented by:
 
 - entirely different accounts
 - different databases within the same account, or even
