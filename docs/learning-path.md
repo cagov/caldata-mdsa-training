@@ -100,7 +100,7 @@ Please follow the steps for loading stations data first before loading lab resul
       - If you are completely new to this go through the [GitHub tutorials we've curated](code/platforms/github-tutorials.md)
       - If you only need a refresher keep our [GitHub](code/platforms/github.md) guide handy for easy reference
 
-1. Read about the Snowflake architecture your data warehouse is similarly modeled of off (required)
+1. Read about the Snowflake architecture after which we model the data warehouse (required)
       1. Read this section [Databases and schemas](cloud-data-warehouses/snowflake.md#databases-and-schemas) all the way through _Defaults_
       1. Read this section, [Snowflake architecture](cloud-data-warehouses/snowflake.md#odi-snowflake-architecture), all the way through _Visualizing the ODI context_
 
