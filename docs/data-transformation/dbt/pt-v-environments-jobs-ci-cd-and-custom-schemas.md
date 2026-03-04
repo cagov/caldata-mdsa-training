@@ -116,7 +116,7 @@ Continuous Deployment (CD) in most of our MDSA projects is usually simple. We ty
 
 ### References
 
-#### Key-pairs for CI
+#### Key pairs for CI
 
 - [Creating encrypted key-pairs for service accounts that run CI and Production jobs](https://docs.snowflake.com/en/user-guide/key-pair-auth#configuring-key-pair-authentication)
 
