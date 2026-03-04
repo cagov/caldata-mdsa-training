@@ -159,8 +159,8 @@ dbt ships with 4 “generic” data tests. We recommend giving their [data test 
 
 Default test outcomes are:
 
-- Pass: 0 rows found
-- Fail: 1+ rows found
+- Pass: 0 failing rows found
+- Fail: 1+ failing rows found
 
 dbt example:
 
