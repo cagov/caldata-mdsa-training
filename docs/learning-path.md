@@ -1,4 +1,4 @@
-This guide walks you through the complete path you will take to learn data and analytics engineering concepts and skills as well as modern data tooling. If at any point throughout this training you get stuck, feel free to ask questions in our [Team's channel](https://teams.microsoft.com/l/channel/19%3A9UzMH9e4ZArvv3-GA6PeAVj78dpC1PeWheOZQ71cJCA1%40thread.tacv2/Discussion?groupId=d481f5d0-9e47-4dd0-9695-1b70a396c4f4&tenantId=e8c9327a-25cd-469b-ac57-455f3bd12bd1).
+This guide walks you through the complete path you will take to learn data and analytics engineering concepts and skills as well as modern data tooling. If at any point throughout this training you get stuck, feel free to ask questions in our [Teams channel](https://teams.microsoft.com/l/channel/19%3A9UzMH9e4ZArvv3-GA6PeAVj78dpC1PeWheOZQ71cJCA1%40thread.tacv2/Discussion?groupId=d481f5d0-9e47-4dd0-9695-1b70a396c4f4&tenantId=e8c9327a-25cd-469b-ac57-455f3bd12bd1).
 
 !!! clock "Estimated Time: 16 hours (self-paced)"
 
