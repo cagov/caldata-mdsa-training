@@ -4,7 +4,7 @@
 
 ### Environments in Snowflake
 
-During step 3 of the [learning path](../../learning-path.md#step-3-learn-about-concepts-and-tools-3-hrs) we had you read a bit about Snowflake arhitecture. In that content, we briefly introduced the concept of _environments_. Broadly speaking, environments are a collection of compute resources, software, and configuration, which together represent a functioning context for development. Examples of environments include:
+During step 3 of the [learning path](../../learning-path.md#step-3-learn-about-concepts-and-tools-3-hrs) we had you read a bit about Snowflake architecture. In that content, we briefly introduced the concept of _environments_. Broadly speaking, environments are a collection of compute resources, software, and configuration, which together represent a functioning context for development. Examples of environments include:
 
 1. A **production** environment which is used to run the dbt models that have been merged to `main`. This can be run on an ad-hoc basis, or can be run on a schedule to ensure that models are never more than some amount of time old.
 1. A **development** environment, which is used to run tests on branches and pull requests, and can help to catch bugs and regressions before they are deployed to production.
