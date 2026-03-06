@@ -7,23 +7,61 @@ Here's a diagram of the steps you can expect to take:
 ```mermaid
 flowchart TD
     b[Configure Snowflake - optional]
-    a[Install dependencies]
-    d[Install dbt]
-    e[Install pre-commit hooks]
+    a[Set up the training repository]
+    d[Install dependencies]
+    e[Install dbt]
+    f[Install pre-commit hooks]
     c[Configure AWS - optional]
 
-    a --> d --> e
+    a --> d --> e --> f
     a -.-> b
     a -.-> c
 ```
 
-## 1. Install dependencies
+## 1. Set up the training repository
+
+- If this will be your main git repo we recommend doing it at the root of your computer, but you can download it anywhere you'll remember to access it.
+- If your team already has a git repo then we recommend you [download the files](https://github.com/cagov/caldata-mdsa-training-practice/archive/refs/heads/main.zip) into your existing git repo.
+
+The following instructions assume this will be your main git repo, if it is not you can skip ahead to #2.
+
+All commands in the rest of this training will assume you have cloned the repo at your computer root. If you did not you'll have to make custom changes to the example commands on your own.
+
+To clone the repository to your root, first run:
+
+```bash
+cd ~
+```
+
+Next, run:
+
+```bash
+git clone https://github.com/cagov/caldata-mdsa-training-practice.git
+```
+
+Then navigate into the repo:
+
+``` bash
+cd caldata-mdsa-training-practice
+```
+
+!!! note
+    The commands above presume a bash or zsh terminal. If you are using Powershell or something else you will need to adapt your commands.
+
+This repository contains:
+
+- A complete dbt project with staging and intermediate models
+- A Python script for loading data into Snowflake
+- All configuration files needed to run dbt locally
+
+
+## 2. Install dependencies
 
 Much of the software in this project is written in Python.
 It is usually a good idea to install Python packages into a virtual environment,
 which allows them to be isolated from those in other projects which might have different version constraints.
 
-### 1a. Install `uv`
+### 2a. Install `uv`
 
 We use `uv` to manage our Python virtual environments. If you have not yet installed it on your system, you can follow the instructions for it [here](https://docs.astral.sh/uv/getting-started/installation/). Most of the ODI team uses [Homebrew](https://brew.sh) to install the package. We do not recommend installing `uv` using `pip`: as a tool for managing Python environments, it makes sense for it to live outside of a particular Python distribution.
 
@@ -166,14 +204,12 @@ A minimal version of a `profiles.yml` for dbt development is:
 ```
 
 !!! note
-    The target name (`dev`) in the above example can be anything.
-    However, we treat targets named `prd` differently in generating
-    custom dbt schema names (see [here](../data-transformation/dbt/pt-v-environments-jobs-ci-cd-and-custom-schemas.md#custom-schema-names)).
-    We recommend naming your local development target `dev`, and only
-    include a `prd` target in your profiles under rare circumstances.
+    The target name (`dev`) in the above example can be anything. However, we treat targets named `prd` differently in generating custom dbt schema names.
+    <!-- uncomment when we add custom schema content -->
+    <!-- (see [here](../data-transformation/dbt/pt-v-environments-jobs-ci-cd-and-custom-schemas.md#custom-schema-names)). -->
+    We recommend naming your local development target `dev`, and only include a `prd` target in your profiles under rare circumstances.
 
-You can include profiles for several databases in the same `profiles.yml`,
-(as well as targets for production), allowing you to develop in several projects
+You can include profiles for several databases in the same `profiles.yml`, (as well as targets for production), allowing you to develop in several projects
 using the same computer.
 
 You can verify that your `profiles.yml` is configured properly by running the following command in the project root directory (`transform`).

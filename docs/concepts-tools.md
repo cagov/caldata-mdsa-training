@@ -28,7 +28,7 @@ The tools we will be learning in this self-paced training are as follows:
 - dbt
 - GitHub
 
-As you now know, modularity is a big benefit to modern data stacks. Other tools could be used like Databricks for Snowflake, or GitLab for GitHub, etc. The training only uses these three at present.
+Modularity is a big benefit to modern data stacks. Other tools could be used like Databricks for Snowflake, or GitLab for GitHub, etc. The training only uses these three at present.
 
 ### Snowflake
 

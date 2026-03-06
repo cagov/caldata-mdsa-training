@@ -58,6 +58,7 @@ Seeds should be kept small (under a few hundred rows) since they're version-cont
 **Common transformations:**
 
   - Column renaming (e.g., `PLACEFP` → `place_fips`)
+  - Avoid technical jargon: `sys_crt_ts` becomes `sample_date`
   - Data type casting (e.g., string to numeric)
   - Basic computations (e.g., cents to dollars)
 

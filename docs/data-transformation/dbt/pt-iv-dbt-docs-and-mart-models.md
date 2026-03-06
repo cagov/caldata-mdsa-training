@@ -39,7 +39,7 @@ To generate docs locally, run: `dbt docs generate` then `dbt docs serve`
 
 - Saved in a `marts/` subdirectory
 - Often organized by business domain (e.g., `marts/water_quality/`, `marts/geo/`)
-- Plain English based on the program/entity
+- Plain English based on the concept/entity
 - No prefixes for model files needed: `stations.sql`, not `mart_stations.sql`
 
 **Materialization:**
@@ -49,37 +49,21 @@ To generate docs locally, run: `dbt docs generate` then `dbt docs serve`
 
 ### Designing good mart models
 
-**1. Clear grain**
+Marts are intended to be the final layer in a modular data modeling approach. You start with staging models that clean your data, then intermediate models (if needed) that apply more complex transformations and joins that can be reused across marts. Marts standardize business or program logic and metrics for a specific entity at its unique grain.
 
-- One row per what?
-- Document the grain explicitly
+We recommend a thorough read of dbt's [article](https://www.getdbt.com/discover/understanding-data-marts) on understanding marts, and we've summarized it for you below.
 
-**2. Business-friendly names**
-
-- Avoid abbreviations: `stn_nm` becomes `station_name`
-- Avoid technical jargon: `sys_crt_ts` becomes `sample_date`
-
-**3. Complete context**
-
-- Include all fields users need rather than make them join to other tables
-
-**4. Well tested**
-
-- Test the grain (uniqueness on primary key)
-- Test relationships to upstream models
-- Test accepted values for categorical fields
-
-**5. Well documented**
-
-- Explain what the mart represents
-- Document calculated fields
-- Note any limitations or filters applied
+1. Clear grain: one row per what?
+1. Business-friendly names: `stn_nm` becomes `station_name`
+1. Complete context: all fields a user needs are included to avoid further joins in their dashboarding tool
+1. Well tested: test the grain (uniqueness on key columns)
+1. Well documented: explain what the mart represents and any calculated fields
 
 ### Summary of the layered modeling approach
 
 | Layer | Purpose | Transformations | Naming |
 |-------|---------|-----------------|--------|
-| **Staging** | One-to-one with source | Renaming, type casting | `stg_<source>__<entity>`
+| **Staging** | One-to-one with source | Cleaning, renaming, type casting | `stg_<source>__<entity>`
 | **Intermediate** | Reusable business logic | Joins, aggregations | `int_<description>`
 | **Mart** | Business-ready datasets | Denormalization, final calcs | Plain English
 

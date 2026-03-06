@@ -358,11 +358,11 @@ models:
         description: The most frequently tested water quality parameter at this station.
       - name: top_parameter_sample_count
         description: Number of samples collected for the most frequently tested parameter at this station.
-      - name: first_sample_date
+      - name: first_sample_timestamp
         description:  |
           Date of the first sample collection event on record
           for a given DWR sampling location.
-      - name: last_sample_date
+      - name: last_sample_timestamp
         description:  |
           Date of the last sample collection event on record
           for a given DWR sampling location.

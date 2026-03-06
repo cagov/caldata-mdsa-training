@@ -48,6 +48,7 @@ nav:
   - Code development:
       - Git: code/git.md
       - Local dev setup: code/local-dev-setup.md
+      - Loading data: code/loading-data.md
       - Code-hosting platforms:
           - GitHub: code/platforms/github.md
           - Azure DevOps: code/platforms/devops.md

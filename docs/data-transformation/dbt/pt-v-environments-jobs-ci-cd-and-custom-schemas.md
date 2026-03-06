@@ -4,7 +4,7 @@
 
 ### Environments in Snowflake
 
-During step 3 of the [learning path](../../learning-path.md#step-3-learn-about-concepts-and-tools-3-hrs) we had you read a bit about Snowflake architecture. In that content, we briefly introduced the concept of _environments_. Broadly speaking, environments are a collection of compute resources, software, and configuration, which together represent a functioning context for development. Examples of environments include:
+During step 2 of the [learning path](../../learning-path.md#step-2-learn-about-concepts-and-tools-3-hrs) we had you read a bit about Snowflake architecture. In that content, we briefly introduced the concept of _environments_. Broadly speaking, environments are a collection of compute resources, software, and configuration, which together represent a functioning context for development. Examples of environments include:
 
 1. A **production** environment which is used to run the dbt models that have been merged to `main`. This can be run on an ad-hoc basis, or can be run on a schedule to ensure that models are never more than some amount of time old.
 1. A **development** environment, which is used to run tests on branches and pull requests, and can help to catch bugs and regressions before they are deployed to production.
@@ -16,7 +16,7 @@ These definitions are intentionally broad, since there are lots of different way
 - different databases within the same account, or even
 - different schemas within the same database.
 
-In our default MDSA architecture we have two environments, _dev_ and _prod_, which reside in the same Snowflake account. Each of these environments consists of a set of databases corresponding to our layered [data architecture](../../cloud-data-warehouses/snowflake.md#snowflake-architecture) you also read about in step 3.
+In our default MDSA architecture we have two environments, _dev_ and _prod_, which reside in the same Snowflake account. Each of these environments consists of a set of databases corresponding to our layered [data architecture](../../cloud-data-warehouses/snowflake.md#snowflake-architecture).
 
 ### Environments in dbt Platform
 
@@ -48,7 +48,7 @@ Continuous Integration checks in GitHub, Azure DevOps, BitBucket, or similar are
 - **Improve code quality:** CI checks can help you to improve the quality of your code by identifying issues like duplicate or dead code and potential security vulnerabilities.
 - **Establish a house style:** CI checks can enforce various code formatting rules and conventions that your team has agreed upon.
 
-We usually set up git repositories so that PRs cannot be merged to `main` unless these checks pass. This can sometimes feel annoying! However, CI/CD checks shouldn’t feel too painful or like a box-checking exercise. They are intended to be a routine and helpful part of the development process. Ultimately, experience has shown that effective use of CI/CD greatly speeds up development.
+We usually set up git repositories so that PRs cannot be merged to `main` unless these checks pass. This can sometimes feel annoying! However, CI checks shouldn’t feel too painful or like a box-checking exercise. They are intended to be a routine and helpful part of the development process. Ultimately, experience has shown that effective use of CI greatly speeds up development.
 
 #### Continuous Deployment (CD)
 
@@ -63,7 +63,7 @@ Continuous Deployment (CD) in most of our MDSA projects is usually simple. We ty
 <!-- ### Custom schema names
 
 1. You'll learn about how the database schemas in which dbt models are built are determined. In development, the models get built in a different place (e.g., your `DBT_<first-name-initial+last-name>`schema) than they do in production.
-1. Youll how a custom schema name can be generated using a macro we built `get_custom_schema.sql`. -->
+1. Youll learn how a custom schema name can be generated using a macro we built `get_custom_schema.sql`. -->
 
 <!-- TODO: https://app.asana.com/1/1202865175765955/project/1209598911230625/task/1213457270764693?focus=true -->
 
