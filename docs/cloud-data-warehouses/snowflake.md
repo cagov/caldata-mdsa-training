@@ -2,13 +2,13 @@
 
 ## Training overview
 
-This training is intended to give a very high overview of how to interact with key functionality in Snowflake. The training is split into two days, each day has approx. 90 minutes of content (a mix of lecture, live demonstration, and interactive exercises)
+This training is intended to give a very high overview of how to interact with key functionality in Snowflake. The training is split into two parts, each part has about 90 minutes of content.
 
-- Day 1 covers an intro to Snowflake, how your team will be using it, some of the underlying architecture of Snowflake in general and specific to how ODI usually sets up data projects, and a tour of the Snowflake user interface
+- Part 1 covers an intro to Snowflake, how your team will be using it, some of the underlying architecture of Snowflake in general and specific to how ODI usually sets up data projects, and a tour of the Snowflake user interface
 
-- Day 2 covers the basics of data loading, storage, and querying in Snowflake
+- Part 2 covers the basics of data loading, storage, and querying in Snowflake
 
-## **Day 1**
+## **Part 1**
 
 ### What is Snowflake?
 
@@ -296,13 +296,13 @@ Using the TRANSFORMER_DEV role, we should have READ access to the TRANSFORM, ANA
     LIMIT(20)
     ```
 
-## **Day 2**
+## **Part 2**
 
 ### Loading and querying data in Snowflake
 
-On Day 1, we learned about cloud data warehouses, how Snowflake is structured, how to navigate the user interface, and ODI's recommended structure for warehouses, databases, and roles in Snowflake.
+In part 1 we learned about cloud data warehouses, how Snowflake is structured, how to navigate the user interface, and ODI's recommended structure for warehouses, databases, and roles in Snowflake.
 
-Today we will work directly with data and learn about how to load data into Snowflake and how to query it.
+Now we will work directly with data and learn about how to load data into Snowflake and how to query it.
 
 ### When will I need to load data into Snowflake?
 
@@ -314,7 +314,7 @@ If you are a part of this initial set up phase, or need to load data in after th
 
 ### **Exercise: 1**
 
-1. Download the [Stations data](https://data.ca.gov/dataset/water-quality-data/resource/3532a18a-de6d-4d4c-abcf-285f1a972ea9) as a CSV
+1. Download the [Stations data](https://data.ca.gov/dataset/water-quality-data/resource/07ba626a-0bc8-4ce9-b6ac-3f29ce3c8e6f) as a CSV
 2. In Snowflake, navigate to Data > Add Data > Browse and select the csv you downloaded and renamed
 3. Select the following:
     Database: RAW_DEV
@@ -385,7 +385,7 @@ In addition to columnar storage, cloud data warehouses also usually divide table
 
 Having separate logical partitions in a table allows the compute resources to process the partitions independently of each other in parallel. This massively parallel processing capability is a large part of what makes cloud data warehouses like Snowflake scalable.
 
-### Review tables and roles from Day 1
+### Review tables and roles from Part 1
 
 - Explore the user interface again, focusing on Data, Roles, and Warehouses
 

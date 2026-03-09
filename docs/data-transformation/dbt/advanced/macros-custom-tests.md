@@ -2,13 +2,13 @@
 
 ## Macros
 
-[Macros](https://docs.getdbt.com/docs/build/jinja-macros#macros) in [Jinja](https://docs.getdbt.com/docs/build/jinja-macros) are pieces of code that can be reused multiple times – they are analogous to "functions" in other programming languages, and are extremely useful if you find yourself repeating code across multiple models. Remember (DRY). Macros are defined in .sql files, typically in your macros directory (e.g.`transform/macros`).
+[Macros](https://docs.getdbt.com/docs/build/jinja-macros#macros) in [Jinja](https://docs.getdbt.com/docs/build/jinja-macros) are pieces of code that can be reused multiple times – they are analogous to "functions" in other programming languages, and are extremely useful if you find yourself repeating code across multiple models. Remember [DRY](https://docs.getdbt.com/terms/dry#why-write-dry-code). Macros are defined in .sql files, typically in your macros directory (e.g.`transform/macros`).
 
 Take a look at our macro example on the `stations` data.
 
 1. Switch to the `britt-dbt-training` branch
 1. Open and review `transform/macros/map_county_name_to_county_fips.sql`
-    1. Then open `transform/models/intermediate/training/int_water_quality__counties.sql` and review line 9
+    1. Then open `transform/models/2_intermediate/int_water_quality__counties.sql` and review line 9
 1. Review this second [macro example](https://github.com/cagov/data-infrastructure/blob/main/transform/macros/map_class_fp.sql) that is called by [this code](https://github.com/cagov/data-infrastructure/blob/65a4a5c47f0326d50161bc4a1a3e81c20cb19a3e/transform/models/marts/geo_reference/geo_reference__global_ml_building_footprints_with_tiger.sql#L34)
 
 ## dbt_utils package
@@ -17,7 +17,7 @@ The [dbt_utils package](https://hub.getdbt.com/dbt-labs/dbt_utils/latest/) conta
 
 1. Example that uses the _dbt_utils_ test [_equal_rowcount_](https://github.com/dbt-labs/dbt-utils/tree/1.1.1/?tab=readme-ov-file#equal_rowcount-source)
     1. Switch to the `britt-dbt-training` branch
-    1. Open `transform/models/staging/training/_water_quality.yml` and review lines 6-10
+    1. Open `transform/models/1_staging/_stg_water_quality.yml` and review lines 6-10
     1. Run`dbt test --select stg_water_quality__stations`
         1. Note this test fails if trying to compare a table to a view
 
@@ -36,7 +36,7 @@ models:
 
 ## Data tests
 
-Let's revisit [data tests](../dbt.md#data-tests) from our foundational dbt training!
+Let's revisit [data tests](../pt-ii-yaml-docs-and-testing.md#data-tests) from our foundational training!
 
 ## Custom tests
 

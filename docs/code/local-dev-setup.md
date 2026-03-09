@@ -6,49 +6,89 @@ Here's a diagram of the steps you can expect to take:
 
 ```mermaid
 flowchart TD
-    a[Install dependencies]
-    b[Data warehouse set up - optional]
+    b[Configure Snowflake - optional]
+    a[Set up the training repository]
+    d[Install dependencies]
+    e[Install dbt]
+    f[Install pre-commit hooks]
     c[Configure AWS - optional]
-    d[Install dbt]
-    e[Install pre-commit hooks]
-    a --> b --> c --> d --> e
 
+    a --> d --> e --> f
+    a -.-> b
+    a -.-> c
 ```
 
-## 1. Install dependencies
+## 1. Set up the training repository
+
+- If this will be your main git repo we recommend doing it at your home directory (`~`), but you can download it anywhere you'll remember to access it.
+- If your team already has a git repo then we recommend you [download the files](https://github.com/cagov/caldata-mdsa-training-practice/archive/refs/heads/main.zip) into your existing git repo.
+
+The following instructions assume this will be your main git repo, if it is not you can skip ahead to #2.
+
+All commands in the rest of this training will assume you have cloned the repo to your home directory. If you did not you'll have to make custom changes to the example commands on your own.
+
+To clone the repository, first run:
+
+```bash
+cd ~
+```
+
+Next, run:
+
+```bash
+git clone https://github.com/cagov/caldata-mdsa-training-practice.git
+```
+
+Then navigate into the repo:
+
+``` bash
+cd caldata-mdsa-training-practice
+```
+
+!!! note
+    The commands above presume a bash or zsh terminal. If you are using Powershell or something else you will need to adapt your commands.
+
+This repository contains:
+
+- A complete dbt project with staging and intermediate models
+- A Python script for loading data into Snowflake
+- All configuration files needed to run dbt locally
+
+
+## 2. Install dependencies
 
 Much of the software in this project is written in Python.
 It is usually a good idea to install Python packages into a virtual environment,
 which allows them to be isolated from those in other projects which might have different version constraints.
 
-### 1. Install `uv`
+### 2a. Install `uv`
 
-We use `uv` to manage our Python virtual environments.
-If you have not yet installed it on your system,
-you can follow the instructions for it [here](https://docs.astral.sh/uv/getting-started/installation/).
-Most of the ODI team uses [Homebrew](https://brew.sh) to install the package.
-We do not recommend installing `uv` using `pip`: as a tool for managing Python environments,
-it makes sense for it to live outside of a particular Python distribution.
+We use `uv` to manage our Python virtual environments. If you have not yet installed it on your system, you can follow the instructions for it [here](https://docs.astral.sh/uv/getting-started/installation/). Most of the ODI team uses [Homebrew](https://brew.sh) to install the package. We do not recommend installing `uv` using `pip`: as a tool for managing Python environments, it makes sense for it to live outside of a particular Python distribution.
 
-### 2. Install Python dependencies
+!!! Note
+    Your team may already be using a different package to manage Python virtual environments like [`pixi`](https://pixi.prefix.dev/latest/) or [`conda`](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html). Check with your team before you install `uv`. Although this training presumes you are using `uv`, other package managers may work with modifications. For instance, if you are using pixi, replace instances of `uv run <command>` with `pixi run <command>` or simply activate your conda environment then run `<command>` as is.
 
-If you prefix your commands with `uv run` (e.g. `uv run dbt build`),
-then `uv` will automatically make sure that the appropriate dependencies are installed before invoking the command.
+### 1b. Install Python dependencies
 
-However, if you want to explicitly ensure that all of the dependencies are installed in the virtual environment,
-run
+If you prefix your commands with `uv run` (e.g. `uv run dbt build`), then `uv` will automatically make sure that the appropriate dependencies are installed before invoking the command.
+
+However, if you want to explicitly ensure that all of the dependencies are installed in the virtual environment, run:
+
 ```bash
 uv sync
 ```
+
 in the root of the repository.
 
-Once the dependencies are installed, you can also "activate" the virtual environment
-(similar to how conda virtual environments are activated)
-by running
+Once the dependencies are installed, you can also "activate" the virtual environment (similar to how conda virtual environments are activated)
+by running:
+
 ```bash
 source .venv/bin/activate
 ```
+
 from the repository root.
+
 With the environment activated, you no longer have to prefix commands with `uv run`.
 
 Which approach to take is largely a matter of personal preference:
@@ -56,7 +96,7 @@ Which approach to take is largely a matter of personal preference:
 - Using the `uv run` prefix is more reliable, as dependencies are *always* resolved before executing.
 - Using `source .venv/bin/activate` involves less typing.
 
-### 3. Install go dependencies (optional)
+### 1c. Install go dependencies (optional)
 
 This step is optional, you only need to do it if you intend to work with [Terraform](https://www.terraform.io/). ODI uses Terraform to manage infrastructure. Dependencies for Terraform (mostly in the [go ecosystem](https://go.dev/))
 can be installed via a number of different package managers.
@@ -79,12 +119,9 @@ terraform -v
 go version
 ```
 
-## 2. Data warehouse set up (optional)
+## 2. Configure Snowflake data warehouse (optional)
 
-### 1. Configure Snowflake
-
-In order to use Snowflake (as well as the terraform validators for the Snowflake configuration)
-you should set some default local environment variables in your environment.
+In order to use Snowflake for a Python or Terraform workflow you should set some default local environment variables in your environment.
 This will depend on your operating system and shell.
 
 For Windows systems, you can set persistent environment variables by navigating to
@@ -99,32 +136,35 @@ If you use zsh or bash, open your shell configuration file, and add the followin
 
 #### Transformer role (default)
 
+These credentials will enable you to develop scripts for transforming data. Your organization name and account name can be found within the Snowflake UI. Click on your name at the bottom left, hover over your account, and click _View account details_.
+
 ```bash
 export SNOWFLAKE_ACCOUNT=<org_name>-<account_name> # format is organization-account
 export SNOWFLAKE_DATABASE=TRANSFORM_DEV
 export SNOWFLAKE_USER=<your-username>
-export SNOWFLAKE_PASSWORD=<your-password>
+export SNOWFLAKE_PASSWORD=<your-password> # this line is not needed if SNOWFLAKE_AUTHENTICATOR=EXTERNALBROWSER
 export SNOWFLAKE_ROLE=TRANSFORMER_DEV
 export SNOWFLAKE_WAREHOUSE=TRANSFORMING_XS_DEV
 export SNOWFLAKE_AUTHENTICATOR=EXTERNALBROWSER or USERNAME_PASSWORD_MFA
 ```
 
-Open a new terminal and verify that the environment variables are set.
+Open a new terminal and verify that the environment variables are set by running the `env` command and inspecting the output. This works for bash, zsh, powershell, and probably more shells.
 
-#### Loader role
+#### Loader role (optional)
+
+These credentials will enable you to develop scripts for loading raw data into the development environment. This is commented out by default as you can only have one role active at a time.
 
 ```bash
-export SNOWFLAKE_ACCOUNT=<org_name>-<account_name> # format is organization-account
-export SNOWFLAKE_DATABASE=RAW_DEV
-export SNOWFLAKE_USER=<your-username>
-export SNOWFLAKE_PASSWORD=<your-password>
-export SNOWFLAKE_ROLE=LOADER_DEV
-export SNOWFLAKE_WAREHOUSE=LOADING_XS_DEV
-export SNOWFLAKE_AUTHENTICATOR=EXTERNALBROWSER or USERNAME_PASSWORD_MFA
+# export SNOWFLAKE_ACCOUNT=<org_name>-<account_name> # format is organization-account
+# export SNOWFLAKE_DATABASE=RAW_DEV
+# export SNOWFLAKE_USER=<your-username>
+# export SNOWFLAKE_PASSWORD=<your-password> # this line is not needed if SNOWFLAKE_AUTHENTICATOR=EXTERNALBROWSER
+# export SNOWFLAKE_ROLE=LOADER_DEV
+# export SNOWFLAKE_WAREHOUSE=LOADING_XS_DEV
+# export SNOWFLAKE_AUTHENTICATOR=EXTERNALBROWSER or USERNAME_PASSWORD_MFA
 ```
 
-This will enable you develop scripts for loading raw data into the development environment.
-Again, open a new terminal and verify that the environment variables are set.
+Again, open a new terminal and verify that the environment variables are set by running the `env` command and inspecting the output.
 
 ## 3. Configure AWS (optional)
 
@@ -137,21 +177,15 @@ you need to create access keys and configure your local setup to use them:
 
 ## 4. Configure dbt
 
-The connection information for your data warehouses will, in general, live outside of this repository.
-This is because connection information is both user-specific and usually sensitive,
-so it should not be checked into version control.
+The connection information for your data warehouses will, in general, live outside of your code repository. This is because connection information is both user-specific and usually sensitive, so it should not be checked into version control.
 
-In order to run this project locally, you will need to provide this information
-in a YAML file. Run the following command to create the necessary folder and file.
+In order to run this project locally, you will need to provide this information in a YAML file. Run the following command to create the necessary folder and file.
 
 ```bash
 mkdir ~/.dbt && touch ~/.dbt/profiles.yml
 ```
 
-Instructions for writing a `profiles.yml` are documented
-[here](https://docs.getdbt.com/docs/get-started/connection-profiles),
-there are specific instructions for Snowflake
-[here](https://docs.getdbt.com/reference/warehouse-setups/snowflake-setup), and you can find an example below as well.
+Instructions for writing a `profiles.yml` are documented [here](https://docs.getdbt.com/docs/get-started/connection-profiles), there are specific instructions for Snowflake [here](https://docs.getdbt.com/reference/warehouse-setups/snowflake-setup), and you can find an example below as well.
 
 A minimal version of a `profiles.yml` for dbt development is:
 
@@ -163,7 +197,7 @@ A minimal version of a `profiles.yml` for dbt development is:
       type: snowflake
       account: <account-locator>
       user: <your-username>
-      password: <your-password>
+      password: <your-password> # this line is not needed if authenticator=externalbrowser
       authenticator: externalbrowser or username_password_mfa
       role: TRANSFORMER_DEV
       database: TRANSFORM_DEV
@@ -173,17 +207,15 @@ A minimal version of a `profiles.yml` for dbt development is:
 ```
 
 !!! note
-    The target name (`dev`) in the above example can be anything.
-    However, we treat targets named `prd` differently in generating
-    custom dbt schema names (see [here](../data-transformation/dbt.md#custom-schema-names)).
-    We recommend naming your local development target `dev`, and only
-    include a `prd` target in your profiles under rare circumstances.
+    The target name (`dev`) in the above example can be anything. However, we treat targets named `prd` differently in generating custom dbt schema names.
+    <!-- uncomment when we add custom schema content -->
+    <!-- (see [here](../data-transformation/dbt/pt-v-environments-jobs-ci-cd-and-custom-schemas.md#custom-schema-names)). -->
+    We recommend naming your local development target `dev`, and only include a `prd` target in your profiles under rare circumstances.
 
-You can include profiles for several databases in the same `profiles.yml`,
-(as well as targets for production), allowing you to develop in several projects
+You can include profiles for several databases in the same `profiles.yml`, (as well as targets for production), allowing you to develop in several projects
 using the same computer.
 
-You can verify that your `profiles.yml` is configured properly by running the following command in the project root directory (`transform`).
+You can verify that your `profiles.yml` is configured properly by running the following command in the `transform` directory.
 
 ```bash
 uv run dbt debug
@@ -191,8 +223,8 @@ uv run dbt debug
 
 ### VS Code setup (optional)
 
-Many people prefer to use featureful editors when doing local development so we included an example set up with VS Code. By equipping a text editor like VS Code with an appropriate set of extensions and configurations
-we can largely replicate the dbt Cloud experience locally.
+Many people prefer to use featureful editors when doing local development so we included an example setup with VS Code. By equipping a text editor like VS Code with an appropriate set of extensions and configurations
+we can largely replicate the dbt Platform experience locally.
 Below is one possible configuration for VS Code.
 
 Install some useful extensions (this list is advisory, and non-exhaustive):
