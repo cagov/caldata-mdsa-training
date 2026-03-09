@@ -141,7 +141,7 @@ We recommend attempting these exercises first, but if you get stuck check out ou
 
     1. Open your code editor of choice (e.g. VS Code)
     1. In the terminal of your code editor, confirm you are in the practice repo by running `pwd`. Your output should be `caldata-mdsa-training-practice`.
-        1. If this is not your output then run `cd ~/caldata-mdsa-training-practice`. This will navigate you to the practice repo. If you decided not to clone the practice repo at your root then your commands will look a little different.
+        1. If this is not your output then run `cd ~/caldata-mdsa-training-practice`. This will navigate you to the practice repo. If you decided not to clone the practice repo in your home directory then your command will look a little different.
     1. Once you are in the practice repo, create a branch: `git switch -c <your-first-name>-dbt-training`
     1. In your code editor, open `transform/models/1_staging/stg_water_quality__stations.sql` – you should see a SQL statement that selects all of the data from the raw table.
     1. Update the select statement to do the following:

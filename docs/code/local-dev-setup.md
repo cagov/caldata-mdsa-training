@@ -20,14 +20,14 @@ flowchart TD
 
 ## 1. Set up the training repository
 
-- If this will be your main git repo we recommend doing it at the root of your computer, but you can download it anywhere you'll remember to access it.
+- If this will be your main git repo we recommend doing it at your home directory (`~`), but you can download it anywhere you'll remember to access it.
 - If your team already has a git repo then we recommend you [download the files](https://github.com/cagov/caldata-mdsa-training-practice/archive/refs/heads/main.zip) into your existing git repo.
 
 The following instructions assume this will be your main git repo, if it is not you can skip ahead to #2.
 
-All commands in the rest of this training will assume you have cloned the repo at your computer root. If you did not you'll have to make custom changes to the example commands on your own.
+All commands in the rest of this training will assume you have cloned the repo to your home directory. If you did not you'll have to make custom changes to the example commands on your own.
 
-To clone the repository to your root, first run:
+To clone the repository, first run:
 
 ```bash
 cd ~
@@ -72,20 +72,23 @@ We use `uv` to manage our Python virtual environments. If you have not yet insta
 
 If you prefix your commands with `uv run` (e.g. `uv run dbt build`), then `uv` will automatically make sure that the appropriate dependencies are installed before invoking the command.
 
-However, if you want to explicitly ensure that all of the dependencies are installed in the virtual environment,
-run
+However, if you want to explicitly ensure that all of the dependencies are installed in the virtual environment, run:
+
 ```bash
 uv sync
 ```
+
 in the root of the repository.
 
-Once the dependencies are installed, you can also "activate" the virtual environment
-(similar to how conda virtual environments are activated)
-by running
+Once the dependencies are installed, you can also "activate" the virtual environment (similar to how conda virtual environments are activated)
+by running:
+
 ```bash
 source .venv/bin/activate
 ```
+
 from the repository root.
+
 With the environment activated, you no longer have to prefix commands with `uv run`.
 
 Which approach to take is largely a matter of personal preference:
@@ -212,7 +215,7 @@ A minimal version of a `profiles.yml` for dbt development is:
 You can include profiles for several databases in the same `profiles.yml`, (as well as targets for production), allowing you to develop in several projects
 using the same computer.
 
-You can verify that your `profiles.yml` is configured properly by running the following command in the project root directory (`transform`).
+You can verify that your `profiles.yml` is configured properly by running the following command in the `transform` directory.
 
 ```bash
 uv run dbt debug

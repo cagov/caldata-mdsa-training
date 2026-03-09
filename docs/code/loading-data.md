@@ -1,6 +1,6 @@
 # Loading your training data
 
-To reiterate, these instructions are intended for just one person on the team. This one person should have the correct permissions to load data into the `RAW_DEV` database and create schemas. After this step is complete the entire team going through this training will be able to use this data.
+These instructions are intended for just one person on the team. This one person should have the correct permissions to load data into the `RAW_DEV` database and create schemas. After this step is complete the entire team going through this training will be able to use this data.
 
 Below we walk you through two ways to load the training data. The first is through the Snowflake UI so you can get familiar with the UI and that capability. The second is with a python script so you can learn this pythonic process. The Lab Results csv is also too large to be loaded using the Snowflake UI.
 
