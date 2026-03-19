@@ -1,0 +1,1890 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../pt-i-foundations-and-staging-models/">
+      
+      
+        <link rel="next" href="../pt-iii-materializations-and-intermediate-models/">
+      
+      
+      <link rel="icon" href="../../../images/odi-circle_logomark-blue.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Part II - YAML documentation and testing - CalData's Modern Data Stack Training</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dbt-data-build-tool" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="CalData&#39;s Modern Data Stack Training" class="md-header__button md-logo" aria-label="CalData's Modern Data Stack Training" data-md-component="logo">
+      
+  <img src="../../../images/odi-square_logomark-blue.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CalData's Modern Data Stack Training
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Part II - YAML documentation and testing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cagov/caldata-mdsa-training" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    cagov/caldata-mdsa-training
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="CalData&#39;s Modern Data Stack Training" class="md-nav__button md-logo" aria-label="CalData's Modern Data Stack Training" data-md-component="logo">
+      
+  <img src="../../../images/odi-square_logomark-blue.svg" alt="logo">
+
+    </a>
+    CalData's Modern Data Stack Training
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cagov/caldata-mdsa-training" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    cagov/caldata-mdsa-training
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../learning-path/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Learning path
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../concepts-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Concepts and tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Code development
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Code development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/local-dev-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Local dev setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/loading-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Loading data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Code-hosting platforms
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Code-hosting platforms
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/platforms/github/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code/platforms/devops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure DevOps
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cloud data warehouses
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Cloud data warehouses
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cloud-data-warehouses/snowflake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Snowflake
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Data transformation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Data transformation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    dbt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            dbt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pt-i-foundations-and-staging-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part I - Foundations and staging models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Part II - YAML documentation and testing
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part II - YAML documentation and testing
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-ii-yaml-documentation-and-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part II: YAML documentation and testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part II: YAML documentation and testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-document-your-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why document your data?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is YAML?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What is YAML?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#yaml-dictionariesmaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      YAML dictionaries/maps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yaml-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      YAML lists
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yaml-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      YAML strings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yaml-multiline-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      YAML multiline strings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#markdown-in-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Markdown in YAML
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-test-your-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why test your data?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#referring-to-sources-and-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Referring to sources and models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Referring to sources and models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source" class="md-nav__link">
+    <span class="md-ellipsis">
+      source()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ref" class="md-nav__link">
+    <span class="md-ellipsis">
+      ref()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practice
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-the-source-macro" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use the source() macro
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write-yaml-docs-and-data-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Write YAML docs and data tests
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#knowledge-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      Knowledge check
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Knowledge check">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#question-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question #1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question #2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question #3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sources
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pt-iii-materializations-and-intermediate-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part III - Materializations and intermediate models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pt-iv-dbt-docs-and-mart-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part IV - dbt docs and mart models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pt-v-environments-jobs-ci-cd-and-custom-schemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Part V - Environments, jobs, CI/CD, and custom schemas
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../answer-key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Answer key
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_1_7" id="__nav_6_1_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Advanced topics and practice
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_1_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced topics and practice
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/macros-custom-tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Macros & custom tests
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-ii-yaml-documentation-and-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part II: YAML documentation and testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part II: YAML documentation and testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-document-your-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why document your data?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is YAML?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What is YAML?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#yaml-dictionariesmaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      YAML dictionaries/maps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yaml-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      YAML lists
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yaml-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      YAML strings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yaml-multiline-strings" class="md-nav__link">
+    <span class="md-ellipsis">
+      YAML multiline strings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#markdown-in-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Markdown in YAML
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-test-your-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why test your data?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#referring-to-sources-and-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Referring to sources and models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Referring to sources and models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source" class="md-nav__link">
+    <span class="md-ellipsis">
+      source()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ref" class="md-nav__link">
+    <span class="md-ellipsis">
+      ref()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practice
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-the-source-macro" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use the source() macro
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write-yaml-docs-and-data-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Write YAML docs and data tests
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#knowledge-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      Knowledge check
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Knowledge check">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#question-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question #1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question #2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Question #3
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sources
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="dbt-data-build-tool">dbt (data build tool)<a class="headerlink" href="#dbt-data-build-tool" title="Permanent link">&para;</a></h1>
+<h2 id="part-ii-yaml-documentation-and-testing">Part II: YAML documentation and testing<a class="headerlink" href="#part-ii-yaml-documentation-and-testing" title="Permanent link">&para;</a></h2>
+<h3 id="why-document-your-data">Why document your data?<a class="headerlink" href="#why-document-your-data" title="Permanent link">&para;</a></h3>
+<p>Documentation helps:</p>
+<ul>
+<li>New team members understand the data</li>
+<li>Future you remember what you built and why</li>
+<li>Stakeholders know what data means</li>
+<li>Build trust in data quality</li>
+</ul>
+<p>What to document:</p>
+<ul>
+<li>Source tables and their purpose</li>
+<li>Model descriptions (what does this represent?)</li>
+<li>Column descriptions</li>
+<li>Business logic and assumptions</li>
+</ul>
+<h3 id="what-is-yaml">What is YAML?<a class="headerlink" href="#what-is-yaml" title="Permanent link">&para;</a></h3>
+<p>YAML (Yet Another Markup Language) is a human-readable format for configuration files. In dbt it is used both for documentation and configuration purposes.</p>
+<p>Broadly speaking, there are two kinds of relations in a dbt project: “models” and “sources”. “Sources” are your raw, untransformed data sets. “Models” are the tables and views that you create when transforming your data into something. Both of these are described using YAML files.</p>
+<p>The YAML files in a dbt project contain the metadata for your relations, both sources and models. They include:</p>
+<ul>
+<li>Documentation</li>
+<li>Configuration</li>
+<li>Data tests</li>
+</ul>
+<p>YAML is a superset of JSON (JavaScript Object Notation) and intended to be a more human readable version, but JSON is still perfectly valid! For example, <code>{“my-key”: 4}</code> is YAML. YAML has support for:</p>
+<ul>
+<li>Key-value pairs (i.e., dictionaries/maps)</li>
+<li>Lists</li>
+<li>Strings, numbers, booleans</li>
+</ul>
+<p>It is used for configuration for tools like:</p>
+<ul>
+<li>dbt</li>
+<li>GitHub Actions</li>
+<li>Azure Pipelines</li>
+<li>BitBucket Pipelines</li>
+<li>Kubernetes</li>
+<li>AWS CloudFormation</li>
+<li>Many other tools!</li>
+</ul>
+<p>Indentation is meaningful in YAML. Use <strong>2 spaces</strong>, not two tabs, to indent sections per level of nesting.</p>
+<h4 id="yaml-dictionariesmaps">YAML dictionaries/maps<a class="headerlink" href="#yaml-dictionariesmaps" title="Permanent link">&para;</a></h4>
+<p>Dictionaries/maps use indentation and colons <code>:</code>. In YAML, comments are started with the hashtag <code>#</code> symbol (like below).</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># this is a comment</span>
+
+<span class="nt">my_dictionary</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">a_number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
+<span class="w">  </span><span class="nt">a_string</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;hello,</span><span class="nv"> </span><span class="s">world!&quot;</span>
+<span class="w">  </span><span class="nt">a_boolean</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">a_nested_dictionary</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span>
+<span class="w">    </span><span class="nt">another_key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;another</span><span class="nv"> </span><span class="s">value&quot;</span>
+
+<span class="c1"># Because YAML is a superset of JSON, we can equivalently write:</span>
+<span class="nt">my_dictionary</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;a_number&quot;</span><span class="p p-Indicator">:</span><span class="nv">12</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;a_string&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;hello,</span><span class="nv"> </span><span class="s">world!&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;a_boolean&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">}</span>
+</code></pre></div>
+<h4 id="yaml-lists">YAML lists<a class="headerlink" href="#yaml-lists" title="Permanent link">&para;</a></h4>
+<p>Lists use indentation and dashes <code>-</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">my_list</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+
+<span class="c1"># Because YAML is a superset of JSON, we can equivalently write:</span>
+<span class="nt">my_list</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h4 id="yaml-strings">YAML strings<a class="headerlink" href="#yaml-strings" title="Permanent link">&para;</a></h4>
+<p>YAML strings may be written without quotes <code>""</code> as long as there is no ambiguity.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">my_dictionary</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">a_string</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;britt</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">cool!&quot;</span>
+<span class="w">  </span><span class="nt">also_a_string</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">britt is cool</span>
+</code></pre></div>
+<p>Omitting the quotes for a string can get you in trouble when the string is ambiguous!</p>
+<div class="highlight"><pre><span></span><code><span class="nt">my_dictionary</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># This is interpreted as a number and pulls in python 3.1 instead of 3.10!</span>
+<span class="w">  </span><span class="nt">python_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.10</span>
+<span class="w">  </span><span class="nt">another_python_version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3.10&quot;</span><span class="w"> </span><span class="c1"># this is what we want!</span>
+
+<span class="w">  </span><span class="c1"># This gets interpreted as a boolean instead of a string!</span>
+<span class="w">  </span><span class="nt">should_i_eat_lunch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yes</span>
+</code></pre></div>
+<h4 id="yaml-multiline-strings">YAML multiline strings<a class="headerlink" href="#yaml-multiline-strings" title="Permanent link">&para;</a></h4>
+<p>Use the pipe <code>|</code> or right angle bracket <code>&gt;</code> to break up long strings for legibility.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">long_snippet</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">  </span><span class="no">cotton candy blues</span>
+<span class="w">  </span><span class="no">juxtaposed with blushing peaks</span>
+<span class="w">  </span><span class="no">postcard-worthy views</span>
+
+<span class="nt">another_long_snippet</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">  </span><span class="no">Call me Ishmael. Some years ago - never mind how long precisely -</span>
+<span class="w">  </span><span class="no">having little or no money in my purse, and nothing particular to</span>
+<span class="w">  </span><span class="no">interest me on shore, I thought I would sail about a little and see</span>
+<span class="w">  </span><span class="no">the watery part of the world.</span>
+</code></pre></div>
+<h4 id="markdown-in-yaml">Markdown in YAML<a class="headerlink" href="#markdown-in-yaml" title="Permanent link">&para;</a></h4>
+<p>dbt renders description strings as Markdown.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">a_markdown_string</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">  </span><span class="no">This is rendered as Markdown! So I can use _emphasis_</span>
+<span class="w">  </span><span class="no">or **bold text**. I can also include:</span>
+
+<span class="w">  </span><span class="no">- Lists</span>
+<span class="w">  </span><span class="no">- of</span>
+<span class="w">  </span><span class="no">- items</span>
+
+<span class="w">  </span><span class="no">as well as [URLs](https://github.github.com/gfm/)</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Code blocks are designed to display text literally, so Markdown formatting like bolding, italicizing, or headings won't be applied. Hence why you do not see the affect above. However, in dbt which does allow
+for richer text formatting, applying markdown to your YAML, like we've done above, will work.</p>
+</div>
+<h3 id="why-test-your-data">Why test your data?<a class="headerlink" href="#why-test-your-data" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Catch data quality issues early</li>
+<li>Prevent bad data from reaching production</li>
+<li>Document assumptions about your data</li>
+<li>Build confidence in your models</li>
+</ul>
+<h3 id="data-tests">Data tests<a class="headerlink" href="#data-tests" title="Permanent link">&para;</a></h3>
+<p>dbt ships with 4 “generic” data tests. We recommend giving their <a href="https://docs.getdbt.com/docs/build/data-tests">data test documentation</a> a thorough read as we only pulled high-level content from it.:</p>
+<ol>
+<li>Not null</li>
+<li>Unique</li>
+<li>Relationships</li>
+<li>Accepted Values</li>
+</ol>
+<p>Default test outcomes are:</p>
+<ul>
+<li>Pass: 0 failing rows found</li>
+<li>Fail: 1+ failing rows found</li>
+</ul>
+<p>dbt example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">models</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">orders</span>
+<span class="w">    </span><span class="nt">columns</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">order_id</span>
+<span class="w">        </span><span class="nt">data_tests</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unique</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">not_null</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">status</span>
+<span class="w">        </span><span class="nt">data_tests</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">accepted_values</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;placed&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;shipped&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;completed&#39;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">customer_id</span>
+<span class="w">        </span><span class="nt">data_tests</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">relationships</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ref(&#39;customers&#39;)</span>
+<span class="w">    </span><span class="nt">data_tests</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">unique</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">column_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;(customer_id</span><span class="nv"> </span><span class="s">||</span><span class="nv"> </span><span class="s">&#39;-&#39;</span><span class="nv"> </span><span class="s">||</span><span class="nv"> </span><span class="s">order_date)&quot;</span>
+</code></pre></div>
+<p>In dbt you execute tests with either of the following:</p>
+<ul>
+<li>dbt test (tests models only)</li>
+<li>dbt build (builds and tests models)</li>
+</ul>
+<p>Sample results from the YAML config above</p>
+<div class="highlight"><pre><span></span><code><span class="m">23</span><span class="o">:</span><span class="m">52</span><span class="o">:</span><span class="m">21</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">START</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="n">unique_orders__order_id_</span><span class="w"> </span><span class="n">...........</span><span class="w"> </span><span class="p">[</span><span class="n">RUN</span><span class="p">]</span>
+<span class="m">23</span><span class="o">:</span><span class="m">52</span><span class="o">:</span><span class="m">21</span><span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">START</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="n">not_null_orders__order_id_</span><span class="w"> </span><span class="n">.........</span><span class="w"> </span><span class="p">[</span><span class="n">RUN</span><span class="p">]</span>
+<span class="m">23</span><span class="o">:</span><span class="m">52</span><span class="o">:</span><span class="m">21</span><span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">START</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="n">accepted_values_orders__status_</span><span class="w"> </span><span class="n">....</span><span class="w"> </span><span class="p">[</span><span class="n">RUN</span><span class="p">]</span>
+<span class="m">23</span><span class="o">:</span><span class="m">52</span><span class="o">:</span><span class="m">21</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">PASS</span><span class="w"> </span><span class="n">unique_orders__order_id_</span><span class="w"> </span><span class="n">.................</span><span class="w"> </span><span class="p">[</span><span class="n">PASS</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="m">0.69</span><span class="n">s</span><span class="p">]</span>
+<span class="m">23</span><span class="o">:</span><span class="m">52</span><span class="o">:</span><span class="m">21</span><span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">START</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="n">relationships_orders__customer_id_</span><span class="w"> </span><span class="n">.</span><span class="w"> </span><span class="p">[</span><span class="n">RUN</span><span class="p">]</span>
+<span class="m">23</span><span class="o">:</span><span class="m">52</span><span class="o">:</span><span class="m">22</span><span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">PASS</span><span class="w"> </span><span class="n">not_null_orders__order_id_</span><span class="w"> </span><span class="n">...............</span><span class="w"> </span><span class="p">[</span><span class="n">PASS</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="m">0.78</span><span class="n">s</span><span class="p">]</span>
+<span class="m">23</span><span class="o">:</span><span class="m">52</span><span class="o">:</span><span class="m">22</span><span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">PASS</span><span class="w"> </span><span class="n">accepted_values_orders__status_</span><span class="w"> </span><span class="n">..........</span><span class="w"> </span><span class="p">[</span><span class="n">PASS</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="m">0.74</span><span class="n">s</span><span class="p">]</span>
+<span class="m">23</span><span class="o">:</span><span class="m">52</span><span class="o">:</span><span class="m">22</span><span class="w">  </span><span class="m">4</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">PASS</span><span class="w"> </span><span class="n">relationships_orders__customer_id_</span><span class="w"> </span><span class="n">.......</span><span class="w"> </span><span class="p">[</span><span class="n">PASS</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="m">0.57</span><span class="n">s</span><span class="p">]</span>
+<span class="m">23</span><span class="o">:</span><span class="m">52</span><span class="o">:</span><span class="m">22</span>
+<span class="m">23</span><span class="o">:</span><span class="m">52</span><span class="o">:</span><span class="m">22</span><span class="w">  </span><span class="n">Finished</span><span class="w"> </span><span class="n">running</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">tests</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">hours</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">minutes</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="m">2.81</span><span class="w"> </span><span class="nf">seconds </span><span class="p">(</span><span class="m">2.81</span><span class="n">s</span><span class="p">)</span><span class="n">.</span>
+<span class="m">23</span><span class="o">:</span><span class="m">52</span><span class="o">:</span><span class="m">22</span>
+<span class="m">23</span><span class="o">:</span><span class="m">52</span><span class="o">:</span><span class="m">22</span><span class="w">  </span><span class="n">Completed</span><span class="w"> </span><span class="n">successfully</span>
+<span class="m">23</span><span class="o">:</span><span class="m">52</span><span class="o">:</span><span class="m">22</span>
+<span class="m">23</span><span class="o">:</span><span class="m">52</span><span class="o">:</span><span class="m">22</span><span class="w">  </span><span class="n">Done.</span><span class="w"> </span><span class="n">PASS</span><span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="n">WARN</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="n">ERROR</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="n">SKIP</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="n">TOTAL</span><span class="o">=</span><span class="m">4</span>
+</code></pre></div>
+<p><a href="https://docs.getdbt.com/reference/resource-configs/severity">Test severity</a> can be configured like so:</p>
+<ul>
+<li>error: test will pass or fail (default)</li>
+<li>warn: test will pass or warn</li>
+</ul>
+<p>Tests with a severity of “error” can also have warnings configured.</p>
+<p>dbt example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">columns</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">controller_id</span>
+<span class="w">    </span><span class="nt">data_tests</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">not_null</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">controller_type</span>
+<span class="w">    </span><span class="nt">data_tests</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">not_null</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">warn</span>
+</code></pre></div>
+<p>Thresholds can be configured with <em>error_if</em> and <em>warn_if</em> options. The default is <em>error_if</em>:  <code>&gt; 0</code>
+When working with Snowflake you can use any supported comparison syntax like so: <code>= 0</code>, <code>&lt;&gt; 15</code>, or <code>between 10 and 20</code>.
+Also, note that <em>error_if</em> will be ignored if severity is warn!</p>
+<p>dbt example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">columns</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">controller_id</span>
+<span class="w">    </span><span class="nt">data_tests</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">not_null</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">controller_type</span>
+<span class="w">    </span><span class="nt">data_tests</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">not_null</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">warn</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">district</span>
+<span class="w">    </span><span class="nt">data_tests</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">not_null</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">error_if</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&gt;10&quot;</span>
+<span class="w">            </span><span class="nt">warn_if</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&gt;5&quot;</span>
+</code></pre></div>
+<p>For people who are familiar with transactional databases, you might be curious why tests like this are ever
+needed (i.e., why don’t we handle it using constraints?). In a traditional transactional database like
+postgres or SQL Server, you can have a uniqueness constraint on a column. Snowflake does not respect
+uniqueness constraints and most OLAP databases do not either. Primary keys and foreign keys are examples of
+unique columns that are respected in OLTP databases that are not in OLAP databases. If you're interested there
+is <a href="https://cagov.github.io/data-infrastructure/learning/cloud-data-warehouses/#primary-keys-and-constraints">more reading</a> available on this topic.</p>
+<h3 id="referring-to-sources-and-models">Referring to sources and models<a class="headerlink" href="#referring-to-sources-and-models" title="Permanent link">&para;</a></h3>
+<p>Instead of directly referring to the database, schema, and table/view names, we use macros in dbt called <code>source</code> and <code>ref</code>.</p>
+<p>It can be initially confusing to people that we don’t directly refer to the names of the other data models, and instead do it via the <code>source</code> and <code>ref</code> macros. There are a few reasons for this:</p>
+<ol>
+<li>By explicitly linking your sources and models using the <code>source</code> and <code>ref</code> macros, you help dbt in constructing a data lineage graph (i.e., which tables depend on which others). This allows you to do things like “rebuild a model and all of its upstream dependencies”, or “test a model and all of its downstream dependents”.</li>
+<li>It becomes easier to rename a data source. This can be especially useful if the data source comes to you with unhelpful names.</li>
+<li>Source and refs become context aware. For example, in a development context, your personal development schema is templated into the SQL queries, but in a production context the final production schema is templated in. This allows for safer development of new models.</li>
+</ol>
+<p>The syntax for this is to replace the raw names <code>database.schema.view_name/table_name</code> with a template directive like this: <code>{{ source('source_name', 'table_name') }}</code></p>
+<p>The curly braces are a syntax for <em>Jinja</em> templating. The expression within the curly braces is a Python (ish) function which gets evaluated and inserted into the SQL file. There are lots of things we can do with Jinja to help generate our SQL queries, including basic math, custom Python functions, loops, and if-else statements. Most of the time, you will just need to be able to use the <code>source</code> and <code>ref</code> macros.</p>
+<h4 id="source">source()<a class="headerlink" href="#source" title="Permanent link">&para;</a></h4>
+<p>This function creates dependencies between source data and the current model (usually staging) referencing it. Your dbt project will depend on raw data stored in your database. Since this data is normally loaded by other tools than dbt, the structure of it can change over time – tables and columns may be added, removed, or renamed. When this happens, it is easier to update models if raw data is only referenced in one place.</p>
+<p><strong>Example:</strong> replace <code>RAW_DEV.WATER_QUALITY.LAB_RESULTS</code> with <code>{{ source('WATER_QUALITY', 'LAB_RESULTS') }}</code></p>
+<h4 id="ref">ref()<a class="headerlink" href="#ref" title="Permanent link">&para;</a></h4>
+<p>This function is how you reference a model from another: it allows you to build more complex models by referring to other ones and constructing a data lineage graph. Under the hood this function is actually doing two important things. First, it is interpolating the schema into your model file to allow you to change your deployment schema via configuration. Second, it is using these references between models to automatically build the dependency graph. This will enable dbt to deploy models in the correct order when using dbt run.</p>
+<p><strong>Example:</strong> Replace <code>stg_water_quality__stations</code> with <code>{{ ref(‘stg_water_quality__stations’) }}</code></p>
+<h3 id="practice">Practice<a class="headerlink" href="#practice" title="Permanent link">&para;</a></h3>
+<h4 id="use-the-source-macro">Use the <code>source()</code> macro<a class="headerlink" href="#use-the-source-macro" title="Permanent link">&para;</a></h4>
+<div class="admonition abstract">
+<p class="admonition-title">Instructions</p>
+<p>Here you'll replace the source data references in your staging models with the <code>source</code> macro.</p>
+<ol>
+<li>If not already on your working branch, switch to it: <code>git switch &lt;your-first-name&gt;-dbt-training</code></li>
+<li>Open <code>transform/models/1_staging/stg_water_quality__stations.sql</code></li>
+<li>Change the reference to the source data by using the <code>source()</code> macro instead of directly referring to the table name</li>
+</ol>
+<p><strong>Stuck?</strong> Check out <a href="../answer-key/#answer-for-use-the-source-macro">the answer</a> for this exercise.</p>
+</div>
+<h4 id="write-yaml-docs-and-data-tests">Write YAML docs and data tests<a class="headerlink" href="#write-yaml-docs-and-data-tests" title="Permanent link">&para;</a></h4>
+<div class="admonition abstract">
+<p class="admonition-title">Instructions</p>
+<p>Here you’ll write YAML configuration for the two staging models you built.</p>
+<ol>
+<li>Open and review <code>transform/models/_sources.yml</code>. We filled this out for you so you can have an example of a correct YAML file. Notice the indentation at each level of nesting.</li>
+<li>Next, open <code>transform/models/1_staging/_stg_water_quality.yml</code> and write some docs for the fields the model outputs<ol>
+<li>Add model descriptions</li>
+<li>Add column names</li>
+<li>Add column descriptions for the fields the model outputs (you can copy/paste from <code>_sources.yml</code> where definitions remain unchanged)</li>
+</ol>
+</li>
+</ol>
+<p>In the same file, write two data integrity tests for just your <code>stg_water_quality__stations</code> model.</p>
+<ol>
+<li>Add a not null test for <code>station_id</code></li>
+<li>Add a unique test for <code>county_name</code>. This one should fail!<ol>
+<li>The grain at which the stations data is collected results in duplicate county names so the unique test is not a good test for this column.</li>
+</ol>
+</li>
+<li>In your command line, run <code>dbt test --select stg_water_quality__stations</code></li>
+<li>After observing the test results, remove only the unique test</li>
+</ol>
+<p><strong>Stuck?</strong> Check out <a href="../answer-key/#answer-for-write-yaml-docs-and-data-tests">the answer</a> for this exercise.</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">dbt Core</label><label for="__tabbed_1_2">dbt Platform</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ol>
+<li><em>Lint</em> and <em>Format</em> your files<ol>
+<li>You can lint your SQL files by navigating to the transform directory and running: <code>sqlfluff lint models/1_staging</code></li>
+<li>You can fix your SQL files (at least the things that are easy to fix) by remaining in the transform directory and running <code>sqlfluff fix models/1_staging</code><ol>
+<li>For things that could not be auto-fixed you'll have to manually do it.</li>
+</ol>
+</li>
+<li>Or, to run all the checks, run<code>pre-commit run --all-files</code> Note: we don't recommend running this at this stage, since crucial project set up fixes will be addressed in further exercises.</li>
+</ol>
+</li>
+</ol>
+<p>Any of the above steps may modify your files requiring you to stage (<code>git add</code>) them again.</p>
+<ol>
+<li>Check to see which files need to be added or removed: <code>git status</code></li>
+<li>Add or remove any relevant files: <code>git add filename.ext</code> or <code>git rm filename.ext</code></li>
+<li>Commit your code and leave a concise, yet descriptive commit message: <code>git commit -m "example message"</code><ol>
+<li>During this step pre-commit may catch an error you missed. It may auto-fix your file or you may have to do it yourself. Regardless you will have to repeat <code>git add...</code> (for each modified file) and <code>git commit...</code>.</li>
+</ol>
+</li>
+<li>Push your code: <code>git push origin &lt;your-first-name&gt;-dbt-training</code></li>
+<li>Don't open a PR just yet, we'll do that later</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<ol>
+<li>Click the <em>Lint</em> and <em>Fix</em> buttons to check and edit your files</li>
+<li>Save any changes made by clicking "Save" or using a keyboard shortcut</li>
+<li>Commit and sync your code</li>
+<li>Leave a concise, yet descriptive commit message</li>
+</ol>
+</div>
+</div>
+</div>
+<h3 id="knowledge-check">Knowledge check<a class="headerlink" href="#knowledge-check" title="Permanent link">&para;</a></h3>
+<h4 id="question-1">Question #1<a class="headerlink" href="#question-1" title="Permanent link">&para;</a></h4>
+<div class="quiz-container">
+  <div class="quiz-question">What is the purpose of using the <code>source()</code> and <code>ref()</code> macros in dbt?</div>
+  <ul class="quiz-options">
+    <li class="quiz-option" data-correct="false">To make SQL queries run faster</li>
+    <li class="quiz-option" data-correct="true">To build data lineage graphs and enable context-aware deployments</li>
+    <li class="quiz-option" data-correct="false">To automatically generate documentation</li>
+    <li class="quiz-option" data-correct="false">To validate data quality</li>
+  </ul>
+  <div class="quiz-explanation">
+    <strong>Explanation:</strong> The <code>source()</code> and <code>ref()</code> macros help dbt construct a data lineage graph, making it easier to rebuild dependencies and enabling context-aware deployments (e.g., using development schemas in dev environments and production schemas in production).
+  </div>
+</div>
+
+<h4 id="question-2">Question #2<a class="headerlink" href="#question-2" title="Permanent link">&para;</a></h4>
+<div class="quiz-container">
+  <div class="quiz-question">Which of the following is NOT one of dbt's four built-in generic data tests?</div>
+  <ul class="quiz-options">
+    <li class="quiz-option" data-correct="false">not_null</li>
+    <li class="quiz-option" data-correct="false">unique</li>
+    <li class="quiz-option" data-correct="true">greater_than</li>
+    <li class="quiz-option" data-correct="false">relationships</li>
+  </ul>
+  <div class="quiz-explanation">
+    <strong>Explanation:</strong> The four built-in generic tests in dbt are: not_null, unique, relationships, and accepted_values. While you can create custom tests for conditions like greater_than, it is not a built-in test.
+  </div>
+</div>
+
+<h4 id="question-3">Question #3<a class="headerlink" href="#question-3" title="Permanent link">&para;</a></h4>
+<div class="quiz-container">
+  <div class="quiz-question">In YAML, what is the correct way to indent nested elements?</div>
+  <ul class="quiz-options">
+    <li class="quiz-option" data-correct="true">Use 2 spaces per level of nesting</li>
+    <li class="quiz-option" data-correct="false">Use 1 tab per level of nesting</li>
+    <li class="quiz-option" data-correct="false">Use 4 spaces per level of nesting</li>
+    <li class="quiz-option" data-correct="false">Indentation does not matter in YAML</li>
+  </ul>
+  <div class="quiz-explanation">
+    <strong>Explanation:</strong> YAML requires consistent indentation to define structure, and the standard practice in dbt is to use 2 spaces (not tabs) per level of nesting. Indentation is meaningful in YAML and affects how the file is parsed.
+  </div>
+</div>
+
+<h3 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h3>
+<h4 id="sources">Sources<a class="headerlink" href="#sources" title="Permanent link">&para;</a></h4>
+<ul>
+<li><a href="https://platform.thinkific.com/videoproxy/v1/play/cefo4lqgv9ite187s6pg">Modularity and ref functions</a></li>
+<li><a href="https://platform.thinkific.com/videoproxy/v1/play/c6mfkh840bhpn3t0c730">What are sources?</a></li>
+<li><a href="https://platform.thinkific.com/videoproxy/v1/play/ce4cj9s69iu53jbdif6g">Configure and select from sources</a></li>
+<li><a href="https://platform.thinkific.com/videoproxy/v1/play/ce2dbtnf17fhkgqdq580">Documenting sources</a></li>
+</ul>
+<h4 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h4>
+<ul>
+<li><a href="https://platform.thinkific.com/videoproxy/v1/play/c71iuqg40bhpn3t11pcg">What is testing?</a></li>
+<li><a href="https://platform.thinkific.com/videoproxy/v1/play/ce9kjv0r715nknv53nhg">Generic tests</a></li>
+</ul>
+<!-- code for page navigation -->
+<div class="page-navigation">
+  <a href="../pt-i-foundations-and-staging-models/" class="nav-button prev">Part I</a>
+  <a href="../pt-iii-materializations-and-intermediate-models/" class="nav-button next">Part III</a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+        <script src="../../../javascript/quiz.js"></script>
+      
+    
+  </body>
+</html>
