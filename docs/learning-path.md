@@ -19,7 +19,7 @@ This guide walks you through the complete path you will take to learn data and a
 
 ### Step 1a: Load the data to Snowflake (one team member)
 
-This is intended for only one person on the team to do. Follow the instructions on the [data loading page](/docs/code/loading-data.md).
+This is intended for only one person on the team to do. Follow the instructions on the [data loading page](code/loading-data.md).
 
 ---
 

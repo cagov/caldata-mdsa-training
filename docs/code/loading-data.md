@@ -14,7 +14,7 @@ Below we walk you through two ways to load the training data. The first is throu
     1. Input `WATER_QUALITY` then click _Create_
 1. Next, navigate to the top of the left pane and click the `+` symbol
     1. Scroll to _Table_ then click _From File_
-![Example of Snowflake's UI to create a table from file](images/snowflake-ui-table-from-file.png)
+![Example of Snowflake's UI to create a table from file](../images/snowflake-ui-table-from-file.png)
 1. Select/input the following:
     Warehouse: `LOADING_XS_DEV`
     Database: `RAW_DEV`
