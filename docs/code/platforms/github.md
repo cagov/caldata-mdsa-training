@@ -91,7 +91,7 @@ Follow these remaining steps regardless of OS
 - Save your file and close it
 - Open a new terminal window
 - Type `cd ~/caldata-mdsa-<project-name>`
-- You’ll now see something like this: ![git command line example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/page4.png?raw=true)
+- You’ll now see something like this: ![git command line example](https://github.com/cagov/data-infrastructure/blob/main/docs/media/github/page4.png?raw=true)
 
 ### Staging and committing changes
 
@@ -112,7 +112,7 @@ Follow these remaining steps regardless of OS
     1. In dbt Platform this is done by:
         1. Clicking the “commit and sync” button
         1. Then typing a short, yet descriptive message about the changes you made in the text box that appears
-        1. Then clicking “Commit Changes” ![dbt Platform git commit example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/commit-changes.png?raw=true)
+        1. Then clicking “Commit Changes” ![dbt Platform git commit example](https://github.com/cagov/data-infrastructure/blob/main/docs/media/github/commit-changes.png?raw=true)
 
 ### Pushing your changes
 
@@ -126,10 +126,10 @@ Follow these remaining steps regardless of OS
 1. Go to the GitHub repository where you just pushed your changes
 1. At the top of the home page you’ll see a message like the one below. It’ll say “<your_branch_name\> had recent pushes X minutes ago” with a green button that says “Compare & pull request”. Click that button.
 
-    ![Compare and pull request GitHub example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/open-a-pr.png?raw=true)
+    ![Compare and pull request GitHub example](https://github.com/cagov/data-infrastructure/blob/main/docs/media/github/open-a-pr.png?raw=true)
 
 1. Next you’ll be taken to a new screen like the one shown below.
-![pull request description example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/pr-description.png?raw=true)
+![pull request description example](https://github.com/cagov/data-infrastructure/blob/main/docs/media/github/pr-description.png?raw=true)
 1. From here you’ll:
     1. Check that your branch is “Able to merge” (as seen in the upper center of the screen with a preceding green checkmark)
         1. If you see “Can’t automatically merge.” that means you have a merge conflict. We cover how to resolve merge conflicts [below](#resolving-a-merge-conflict).
@@ -144,7 +144,7 @@ Follow these remaining steps regardless of OS
 
 **Option 2**: This is the option to use if you cannot follow step 2 in Option 1.
 
-1. Go to the Pull Requests page on GitHub directly [(example)](https://github.com/cagov/data-infrastructure/pulls) or go to your repo's homepage and click on the “Pull requests” tab near the top as pictured ![pull request view](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/issues-pr-actions.png?raw=true)
+1. Go to the Pull Requests page on GitHub directly [(example)](https://github.com/cagov/data-infrastructure/pulls) or go to your repo's homepage and click on the “Pull requests” tab near the top as pictured ![pull request view](https://github.com/cagov/data-infrastructure/blob/main/docs/media/github/issues-pr-actions.png?raw=true)
 1. Click the green “New pull request” button in the upper right corner
 1. You’ll be taken to a new window
 1. Click the button that says “compare: main”
@@ -154,7 +154,7 @@ Follow these remaining steps regardless of OS
 **Option 3**: You have a third option to open a PR in dbt Platform if you don’t choose to follow either of the two options above.
 
 1. After you commit your changes you’ll see a light green button on the upper left that says “Create a pull request on GitHub”. This will only appear if you’ve yet to open a PR. If you have already opened a PR and are simply committing more changes to it you will not see this option.
-![dbt Platform create a pr example](../../images/dbt-cloud-create-pr.png)
+![dbt Platform create a pr example](../../media/dbt-cloud-create-pr.png)
 
 ### Reviewing a PR
 
@@ -167,7 +167,7 @@ The ODI CalData team put together [documentation on reviewing a PR](https://cago
     1. GitHub will take you to the home screen of the PR which starts on the “Conversation” tab. This is where you can read any commits by the PR author, anyone involved in review, and any automated tools. 
     1. The “Commits” tab is where you can check each save to the PR to understand the sequence of changes
     1. The “Checks” tab is where you can see the jobs run by GitHub actions (CI automations). You can see whether or not they pass or fail and the details of each.
-    1. There will be a yellow pane across the top of this page like you see pictured ![GitHub review requested example](../../images/github-review-requested.png)
+    1. There will be a yellow pane across the top of this page like you see pictured ![GitHub review requested example](../../media/github-review-requested.png)
     1. Clicking the green “Add your review” button will take you to the “Files changed” tab where you can begin your review.
         1. In the files changed tab you can leave a comment on any line of code by clicking the blue plus sign that appears when you hover. You can leave a single comment that is not part of a review or leave one or many comments as part of your review. You can suggest changes here too which we’ll cover in the next section.
     1. After you’re done with your review, if you scroll back to the top there will be a green button on the upper right that says “Finish your review”. Click that and decide if you just want to do one of the following: 1) Comment, 2) Approve or 3) Request changes. Then click the green button on the lower right that says “Submit review”.
@@ -177,7 +177,7 @@ The ODI CalData team put together [documentation on reviewing a PR](https://cago
 When you’re reviewing a PR instead of just commenting on a line of code you may want to suggest changes directly to the code. You can do this by clicking the blue plus sign button next to the line of code you want to suggest changes to.
 
 In the window that opens click the button that has a + and - sign as pictured below.
-![GitHub suggest a change example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/suggest-a-change.png?raw=true)
+![GitHub suggest a change example](https://github.com/cagov/data-infrastructure/blob/main/docs/media/github/suggest-a-change.png?raw=true)
 
 In this example, “test” is misspelled so the PR reviewer is adding a suggestion and fixing the code with the correct spelling. If the PR author agrees they can seamlessly accept this suggestion and integrate it into their code.
 
@@ -198,15 +198,15 @@ Below we’ll step through a more detailed explanation of how a merge conflict h
 1. Conflict markers
     1. If attempting to merge from your command line you’ll see the following
 
-    ![command line merge conflict markers example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/conflict-markers.png?raw=true)
+    ![command line merge conflict markers example](https://github.com/cagov/data-infrastructure/blob/main/docs/media/github/conflict-markers.png?raw=true)
 
     1. Git will also mark the conflicting sections of the file with special markers. The conflicting changes from both branches are placed between these markers. Like you see below
 
-    ![command line merge conflict sections example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/conflict-sections.png?raw=true)
+    ![command line merge conflict sections example](https://github.com/cagov/data-infrastructure/blob/main/docs/media/github/conflict-sections.png?raw=true)
 
     1. If you navigate to GitHub to create a pull request you’ll see the following
 
-    ![GitHub merge conflict compare changes example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/comparing-changes.png?raw=true)
+    ![GitHub merge conflict compare changes example](https://github.com/cagov/data-infrastructure/blob/main/docs/media/github/comparing-changes.png?raw=true)
 
 1. Resolution
 
@@ -222,7 +222,7 @@ In VS Code
 
 1. You’ll see the following along with a UI to actually help you decide which changes to keep
 
-    ![VS Code merge conflict example ](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/merging-in-vs-code.png?raw=true)
+    ![VS Code merge conflict example ](https://github.com/cagov/data-infrastructure/blob/main/docs/media/github/merging-in-vs-code.png?raw=true)
 
 2. In the lower right corner of your screen you’ll see a blue button that says “Resolve in Merge Editor”. Click this button.
 
@@ -231,7 +231,7 @@ In VS Code
 4. Select the appropriate option, this may require discussion with your team.
 
 5. After you decide which changes to keep, click the blue “Complete Merge” button in the lower right corner of  your screen
-![VS Code complete merge conflict example](https://github.com/cagov/data-infrastructure/raw/main/docs/images/github/merging-in-vs-code2.png?raw=true)
+![VS Code complete merge conflict example](https://github.com/cagov/data-infrastructure/raw/main/docs/media/github/merging-in-vs-code2.png?raw=true)
 
 To avoid or reduce the occurrence of merge conflicts, it’s a good practice to regularly pull changes from the main branch into your feature branch. Open communication with your team about changes will also help prevent conflicts.
 

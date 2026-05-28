@@ -97,7 +97,7 @@ Once you are satisfied with the work you've done on your branch you will want to
     1. In dbt Platform this is done by:
         1. Clicking the “commit and sync” button
         1. Then typing a short, yet descriptive message about the changes you made in the text box that appears
-        1. Then clicking “Commit Changes” ![dbt Platform git commit example](https://github.com/cagov/data-infrastructure/blob/main/docs/images/github/commit-changes.png?raw=true)
+        1. Then clicking “Commit Changes” ![dbt Platform git commit example](https://github.com/cagov/data-infrastructure/blob/main/docs/media/github/commit-changes.png?raw=true)
 
 **Pushing your changes:**
 

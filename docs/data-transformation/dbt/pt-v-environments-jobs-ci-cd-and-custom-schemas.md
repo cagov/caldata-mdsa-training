@@ -48,17 +48,26 @@ Continuous Integration checks in GitHub, Azure DevOps, BitBucket, or similar are
 - **Improve code quality:** CI checks can help you to improve the quality of your code by identifying issues like duplicate or dead code and potential security vulnerabilities.
 - **Establish a house style:** CI checks can enforce various code formatting rules and conventions that your team has agreed upon.
 
-We usually set up git repositories so that PRs cannot be merged to `main` unless these checks pass. This can sometimes feel annoying! However, CI checks shouldn’t feel too painful or like a box-checking exercise. They are intended to be a routine and helpful part of the development process. Ultimately, experience has shown that effective use of CI greatly speeds up development.
+We usually set up git repositories so that PRs cannot be merged to `main` unless these checks pass. This can sometimes feel annoying! However, CI checks shouldn’t feel too painful or like a box-checking exercise. They are intended to be a routine and helpful part of the development process.
+
+When interpreting CI results, namely failures, you want to take an investigative approach. In GitHub, you can click on the "Details" for a failing check. Those details should tell you which check failed and even where.
+
+![The results of CI checks on Github](../../media/ci_check_results.png)
+
+Ultimately, experience has shown that effective use of CI greatly speeds up development.
 
 #### Continuous Deployment (CD)
 
 Continuous Deployment (CD) in most of our MDSA projects is usually simple. We typically do not build any applications or deploy cloud resources. Instead, whatever is in the `main` branch is considered _production_, and our dbt projects and docs are built using that.
 
-<!-- #### Demo: CI/CD in a development workflow -->
-<!-- TODO: https://app.asana.com/1/1202865175765955/project/1209598911230625/task/1213457268000676?focus=true -->
+Here is a 4 minute video that goes a bit deeper into the CI/CD process with accompanying visuals.
 
-1. How to read the results of CI checks on a PR.
-1. How merging to `main` results in production dbt builds.
+<video width="100%" controls>
+<source src="../../../media/ci_cd_slides_1.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+
+
 
 <!-- ### Custom schema names
 

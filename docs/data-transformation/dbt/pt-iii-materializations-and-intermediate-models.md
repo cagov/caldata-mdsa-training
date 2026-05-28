@@ -43,7 +43,7 @@ Sources: [Incremental models in-depth](https://docs.getdbt.com/best-practices/ma
 
 #### A comparison table
 
-![dbt materializations comparison table](../../images/dbt_materializations_comparison_table.png)
+![dbt materializations comparison table](../../media/dbt_materializations_comparison_table.png)
 
 Source: [Available materializations](https://docs.getdbt.com/best-practices/materializations/2-available-materializations)
 
