@@ -49,7 +49,7 @@ Github is a code hosting platform for version control and collaboration. GitHub 
 
 These three tools form an integrated workflow for modern analytics engineering:
 
-![diagram of the tools](images/tools-diagram.png)
+![diagram of the tools](media/tools-diagram.png)
 
 **The workflow:**
 

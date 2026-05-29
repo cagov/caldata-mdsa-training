@@ -37,7 +37,7 @@ Some examples of how you might be using Snowflake:
 
 Snowflake's architecture differs from a traditional transactional database in that it separates storage and compute resources. It consists of three layers:
 
-![Snowflake architecture diagram](../images/snowflake_architecture_overview.png) [Image source](https://docs.snowflake.com/en/user-guide/intro-key-concepts)
+![Snowflake architecture diagram](../media/snowflake_architecture_overview.png) [Image source](https://docs.snowflake.com/en/user-guide/intro-key-concepts)
 
 1. **Cloud services**
     - Infrastructure manager: manages the set up, monitoring, and maintenance of the Snowflake environment
@@ -88,7 +88,7 @@ The [SQL Command Reference](https://docs.snowflake.com/en/sql-reference-commands
 ### Snowflake account structure
 
 Let's take a look at the hierarchy of all the different objects that make up your Snowflake project:
-![Snowflake account diagram](../images/snowflake_account_objects.png)
+![Snowflake account diagram](../media/snowflake_account_objects.png)
 
 ### Users and roles
 
@@ -143,7 +143,7 @@ Warehouses are available in a few different sizes, depending upon the needs of t
 
 Setting your context in Snowflake means establishing the specific environment or workspace within the platform where you will be working. It tells the platform where you want to perform your data operations. This includes setting the database, schema, and other parameters that define the scope. Setting your context ensures that you are directing your actions to the appropriate database and schema, preventing unintentional modifications or queries in the wrong location.
 
-![Snowflake context diagram](../images/snowflake_context_diagram.png)
+![Snowflake context diagram](../media/snowflake_context_diagram.png)
 
 ### **Exercise: Set your context**
 
@@ -260,11 +260,11 @@ Functional Roles represent specific user personae like "developer" or "analyst" 
 
 To make the preceding more concrete, let's consider the six databases, RAW, TRANSFORM, and ANALYTICS, for both DEV and PRD:
 
-![six databases](../images/snowflake_six_databases.png)
+![six databases](../media/snowflake_six_databases.png)
 
 If you are a developer, you are doing most of your work in TRANSFORM_DEV and ANALYTICS_DEV, assuming the role TRANSFORMER_DEV. However, you also have the ability to select the production data from RAW_PRD for your development. But you do not have access to the production level data of the Transform and Analytics steps. So your data access looks like the following:
 
-![developer](../images/snowflake_developer.png)
+![developer](../media/snowflake_developer.png)
 
 Again, some of this will make a lot more sense when we get further into the training. The main takeaway here is that your ability to view, transform, load, and create data in Snowflake is dependent on the exact combination of:
 
@@ -371,7 +371,7 @@ Most cloud data warehouses use columnar storage for their data. This means that 
 
 On the left is data laid out in a record-oriented way, where each row's values are contiguous in memory. On the right is data laid out in a columnar way, where each column's values are contiguous in memory.
 
-![developer](../images/snowflake_columnar_storage.png)
+![developer](../media/snowflake_columnar_storage.png)
 
 There are a number of advantages to using columnar storage for analytical workloads:
 

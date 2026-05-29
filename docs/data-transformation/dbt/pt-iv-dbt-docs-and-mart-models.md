@@ -8,7 +8,7 @@ A key feature of dbt is the automated generation of documentation and lineage fr
 
 Here's an example DAG from our team's [data-infrastructure project](https://github.com/cagov/data-infrastructure).
 
-![A DAG of the ODI Caldata DOE team's data-infrastructure project](../../images/odi-caldata-doe-dbt-dag.png)
+![A DAG of the ODI Caldata DOE team's data-infrastructure project](../../media/odi-caldata-doe-dbt-dag.png)
 
 #### Rendering your docs as static HTML
 
