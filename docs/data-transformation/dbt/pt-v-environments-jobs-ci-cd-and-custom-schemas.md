@@ -50,7 +50,7 @@ Continuous Integration checks in GitHub, Azure DevOps, BitBucket, or similar are
 
 We usually set up git repositories so that PRs cannot be merged to `main` unless these checks pass. This can sometimes feel annoying! However, CI checks shouldn’t feel too painful or like a box-checking exercise. They are intended to be a routine and helpful part of the development process.
 
-When interpreting CI results, namely failures, you want to take an investigative approach. In GitHub, you can click on the "Details" for a failing check. Those details should tell you which check failed and even where.
+When interpreting CI failures, you want to take an investigative approach. In GitHub, you can click on the "Details" for a failing check. Those details should tell you which check failed and the logs should contain any error messages.
 
 ![The results of CI checks on Github](../../media/ci_check_results.png)
 
