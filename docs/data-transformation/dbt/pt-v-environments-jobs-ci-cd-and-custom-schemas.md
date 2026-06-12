@@ -75,12 +75,12 @@ Database **schemas** are the primary way of organizing database objects (e.g., t
 You can think of them like folders in your database.
 Different teams choose different schema structures for their data warehouses:
 they might be broken down by data source type, by line of business, or by phase of a data pipeline.
-In many CalData project we choose schema names corresponding to data sources in the earlier phases of the pipeline,
+In many CalData projects we choose schema names corresponding to data sources in the earlier phases of the pipeline,
 and schema names corresponding to lines of business in the later phases.
 
 !!! note
-    The word "schema" unfortunately has two different meanings in data warehousing.
-    One refers to to the folder-like unit of organization,
+    Unfortunately, the word "schema" has two different meanings in data warehousing.
+    One refers to the folder-like unit of organization,
     the other refers to the column names and data types of a given table or view.
     In this section we are only referring to the first definition.
 
@@ -90,7 +90,7 @@ dbt allows you to choose the schema that a model is built in using the model con
 This configuration can be set in the same places as other config values,
 such as [materialization](pt-iii-materializations-and-intermediate-models.md#where-to-configure-materializations).
 
-We usually choose to configure the schema name per-folder in the `dbt_project.yml`,
+We usually choose to configure the schema name per-folder in the `dbt_project.yml`:
 
 ```yaml
 # in the dbt_project.yml file...
@@ -118,8 +118,7 @@ where individual analytics engineers can create new data models and change exist
 without stepping on each others' toes or breaking production models.
 The name of your individual development schema is configured in your [dbt profile](../../code/local-dev-setup.md/#4-configure-dbt).
 By convention, this individual development schema is called `DBT_YOURNAME`.
-When you as an individual developer builds a dbt project,
-you will see your models under a schema with that name.
+When you build a dbt project, you will see your models under a schema with that name (e.g., `DBT_JDOE`).
 
 But wait! How does your development schema name interact with the custom schema name configuration from the previous section?
 By [default](https://docs.getdbt.com/docs/build/custom-schemas?version=2.0&name=Fusion)
