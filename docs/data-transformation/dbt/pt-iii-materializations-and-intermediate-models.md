@@ -15,7 +15,7 @@ Understanding the options for materializations will allow you to choose the best
 - Staging models are rarely accessed directly by our end users.
 - Staging models need to be always up-to-date and in sync with our source data as building blocks for later models so we’ll want to materialize our staging models as views.
 - Since views are the default materialization in dbt, we don’t have to do any specific configuration for this.
-- Still, for clarity, it’s a good idea to go ahead and specify the configuration to be explicit. We’ll want to make sure our dbt_project.yml looks like this:
+- Still, for clarity, it’s a good idea to go ahead and specify the configuration to be explicit. We’ll want to make sure our `dbt_project.yml` looks like this:
 
 ```yaml
 models:
