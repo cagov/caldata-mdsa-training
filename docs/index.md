@@ -1,6 +1,6 @@
 ## About
 
-ODI CalData's Modern Data Stack training was born from our team's hands-on version of the service called the [Modern Data Stack Accelerator (MDSA)](https://innovation.ca.gov/work-with-us/#modern-data-stack-accelerator). The MDSA is a hands-on and practical approach to help departments rapidly adopt modern cloud-based data tools while working on a real business problem. It empowers teams to use these tools effectively by demystifying what building a modern data stack means, including:
+ODI CalData's Modern Data Stack training was born from our team's hands-on version of the service called the [Modern Data Stack Accelerator (MDSA)](https://innovation.ca.gov/work-with-us/modern-data-stack-accelerator/). The MDSA is a hands-on and practical approach to help departments rapidly adopt modern cloud-based data tools while working on a real business problem. It empowers teams to use these tools effectively by demystifying what building a modern data stack means, including:
 
 - architecting and procuring data stack components
 - creating a culture of data operations across a team
