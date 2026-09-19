@@ -161,10 +161,25 @@ flowchart LR
 
 ---
 
+### Optional: Provision your own training environment (~1 hr)
+
+Want a real Snowflake + dbt environment to practice in? The
+[self-service training infrastructure](self-service-infrastructure/index.md) lets
+your team provision one with a single Terraform template and only a few
+administrator prerequisites.
+
+1. Read the [overview](self-service-infrastructure/index.md) and confirm the
+   [administrator prerequisites](self-service-infrastructure/manual-vs-automated.md#administrator-prerequisites-pre-provisioned-done-once-before-learners-begin) are met.
+1. Follow the [setup guide](self-service-infrastructure/setup-guide.md) to provision
+   and validate the environment.
+
+---
+
 ## Next steps
 
 - Apply these skills to your organization's data
 - Explore [advanced dbt topics](data-transformation/dbt/advanced/macros-custom-tests.md)
+- Stand up your own environment with the [self-service training infrastructure](self-service-infrastructure/index.md)
 
 ---
 

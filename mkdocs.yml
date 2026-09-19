@@ -64,3 +64,8 @@ nav:
           - Answer key: data-transformation/dbt/answer-key.md
           - Advanced topics and practice:
               - Macros & custom tests: data-transformation/dbt/advanced/macros-custom-tests.md
+  - Self-service infrastructure:
+      - Overview: self-service-infrastructure/index.md
+      - Manual vs. automated: self-service-infrastructure/manual-vs-automated.md
+      - Infrastructure design: self-service-infrastructure/design.md
+      - Setup guide: self-service-infrastructure/setup-guide.md
