@@ -1,0 +1,16 @@
+# Copy this file to terraform.tfvars and fill in your values.
+# terraform.tfvars is git-ignored so your account details are never committed.
+
+# From your Snowflake account URL / locator (Admin > Accounts in Snowsight).
+account_name      = "ABC12345"
+organization_name = "MYORG"
+
+# Suffix applied to every object name. On a shared training account, set this to a
+# unique per-learner value (e.g. your initials) so objects don't collide.
+name_suffix = "DEV"
+
+# RSA public key for the dbt service user, as a single line with the PEM
+# header/trailer and line breaks removed. Leave commented out for the first
+# `terraform apply`, then uncomment and re-apply after generating a key pair
+# with scripts/generate_key_pair.sh.
+# dbt_service_account_public_key = "MIIBIjANBgkqhkiG9w0BAQEFA..."

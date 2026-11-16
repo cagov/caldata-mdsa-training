@@ -1,5 +1,10 @@
 # Local repository setup
 
+!!! tip "Want your own Snowflake + dbt environment to practice in?"
+    See the [self-service training infrastructure](../self-service-infrastructure/index.md),
+    which provisions a minimal Snowflake environment (1 database, 3 warehouses, 3
+    roles, and a dbt service account) from a Terraform template.
+
 Working with dbt Core will involve more than just its installation. We have included additional instructions for individual contributors to set up their local repository to work well with dbt, their data warehouse, and a git-based version control workflow with checks that can be run on the code before opening a PR.
 
 Here's a diagram of the steps you can expect to take:

@@ -1,0 +1,43 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# These environment variables wire dbt to Snowflake using the dbt service user
+# and key-pair authentication. Set the secrets/vars in your repository settings:
+#   secrets.SNOWFLAKE_PRIVATE_KEY           - contents of the dbt service .p8 key
+#   secrets.SNOWFLAKE_PRIVATE_KEY_PASSPHRASE - passphrase for that key (if any)
+#   vars.SNOWFLAKE_ACCOUNT                  - e.g. MYORG-ABC12345
+#   vars.NAME_SUFFIX                        - the Terraform name_suffix used to
+#                                             provision this environment. Leave
+#                                             unset to default to DEV. On a shared
+#                                             account, set it to your per-learner
+#                                             suffix so CI targets your objects.
+env:
+  DBT_PROFILES_DIR: infra-template/transform
+  SNOWFLAKE_ACCOUNT: ${{ vars.SNOWFLAKE_ACCOUNT }}
+  SNOWFLAKE_USER: DBT_SVC_USER_${{ vars.NAME_SUFFIX || 'DEV' }}
+  SNOWFLAKE_PRIVATE_KEY: ${{ secrets.SNOWFLAKE_PRIVATE_KEY }}
+  SNOWFLAKE_PRIVATE_KEY_PASSPHRASE: ${{ secrets.SNOWFLAKE_PRIVATE_KEY_PASSPHRASE }}
+  SNOWFLAKE_ROLE: TRANSFORMER_${{ vars.NAME_SUFFIX || 'DEV' }}
+  SNOWFLAKE_WAREHOUSE: TRANSFORMING_XS_${{ vars.NAME_SUFFIX || 'DEV' }}
+  DBT_TRAINING_DB: TRAINING_${{ vars.NAME_SUFFIX || 'DEV' }}
+
+jobs:
+  dbt-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: dbt deps
+        run: uv run --with dbt-snowflake dbt deps --project-dir infra-template/transform
+
+      - name: dbt build
+        run: uv run --with dbt-snowflake dbt build --project-dir infra-template/transform
